@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/localization/localization_bindings.dart';
 import 'package:physical_note/app/ui/page/localization/localization_page.dart';
+import 'package:physical_note/app/ui/page/login/login_bindings.dart';
+import 'package:physical_note/app/ui/page/login/login_page.dart';
 import 'package:physical_note/app/ui/page/splash/splash_bingding.dart';
 import 'package:physical_note/app/ui/page/splash/splash_page.dart';
 
@@ -18,5 +20,10 @@ class AppPages {
       page: () => const LocalizationPage(),
       binding: LocalizationBindings(),
     ),
+    GetPage(
+      name: Routes.LOGIN,
+      page: () => LoginPage(),
+      binding: LoginBindings(),
+    )
   ];
 }

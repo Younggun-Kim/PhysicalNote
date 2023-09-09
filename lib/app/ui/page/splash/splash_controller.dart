@@ -20,16 +20,11 @@ class SplashController extends BaseController {
   /// 다음 페이지로 이동.
   Future<void> nextPage() async {
     await 3.delay();
-    _moveLocalization();
-  }
-
-  /// 현지화 화면 이동.
-  void _moveLocalization() async {
-    await Get.offAllNamed(Routes.LOCALIZATION);
+    _moveLogin();
   }
 
   /// 로그인 화면 이동.
   void _moveLogin() async {
-    await Get.offAllNamed(Routes.SPLASH);
+    await Get.offAllNamed(Routes.LOGIN);
   }
 }
