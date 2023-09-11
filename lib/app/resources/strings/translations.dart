@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/resources/strings/en_us.dart';
 import 'package:uuid/uuid.dart';
 
 part 'string_res.dart';
 part 'ko_kr.dart';
+part 'en_us.dart';
 
 class AppTranslations extends Translations {
   @override

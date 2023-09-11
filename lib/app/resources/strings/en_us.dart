@@ -1,4 +1,4 @@
-import 'package:physical_note/app/resources/strings/translations.dart';
+part of 'translations.dart';
 
 final enUs = {
   StringRes.appName: "Physical Note",

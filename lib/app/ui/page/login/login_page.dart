@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/login/login_controller.dart';
@@ -33,18 +35,9 @@ class LoginPage extends GetView<LoginController> {
             const _PasswordField(),
             const SizedBox(height: 40),
             const _SignUpAndFindField(),
-            RoundButton(
-              text: StringRes.login.tr,
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              textStyle: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-              onPressed: controller.onPressedLogin,
-            ),
-
+            const LoginButton(),
+            const SizedBox(height: 40),
+            _SnsField(),
             const SizedBox(height: 40),
           ],
         ),
@@ -94,7 +87,7 @@ class _PasswordField extends GetView<LoginController> {
           Obx(
             () => _ErrorText(
                 message: StringRes.passwordError.tr,
-                visible: controller.isValidEmail.value),
+                visible: controller.isValidPassword.value),
           ),
         ],
       );
@@ -175,4 +168,62 @@ class _SignUpAndFindField extends GetView<LoginController> {
       ],
     ).paddingSymmetric(horizontal: 20);
   }
+}
+
+/// 로그인 버튼.
+class LoginButton extends GetView<LoginController> {
+  const LoginButton({super.key});
+
+  @override
+  Widget build(BuildContext context) => Obx(() => RoundButton(
+        text: StringRes.login.tr,
+        width: double.infinity,
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        textStyle: const TextStyle(
+          fontSize: 16,
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+        ),
+        isEnabled: controller.isEnabledLogin.value,
+        onPressed: controller.onPressedLogin,
+      ));
+}
+
+class _SnsField extends GetView<LoginController> {
+  @override
+  Widget build(BuildContext context) => Container(
+        width: double.infinity,
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            Text(
+              StringRes.startWithSns.tr,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  color: Colors.green,
+                  iconSize: 48.0,
+                  onPressed: controller.onPressedNaver,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  color: Colors.yellow,
+                  iconSize: 48.0,
+                  onPressed: controller.onPressedKakao,
+                ),
+                if (Platform.isIOS)
+                  IconButton(
+                    icon: const Icon(Icons.add),
+                    color: Colors.black,
+                    iconSize: 36.0,
+                    onPressed: controller.onPressedApple,
+                  ),
+              ],
+            ),
+          ],
+        ),
+      );
 }
