@@ -10,7 +10,7 @@ void main() {
     initialRoute: Routes.SPLASH,
     defaultTransition: Transition.fade,
     getPages: AppPages.pages,
-    translations: Languages(),
+    translations: AppTranslations(),
     locale: Get.deviceLocale,
     fallbackLocale: const Locale('ko', 'KR'), // Default Locale
   ));

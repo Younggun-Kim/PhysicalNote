@@ -5,10 +5,9 @@ import 'package:uuid/uuid.dart';
 part 'string_res.dart';
 part 'ko_kr.dart';
 
-class Languages extends Translations {
+class AppTranslations extends Translations {
   @override
-  Map<String, Map<String, String>> get keys =>
-      {
+  Map<String, Map<String, String>> get keys => {
         'ko_KR': koKr,
         'en_US': enUs,
       };
