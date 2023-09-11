@@ -5,51 +5,124 @@ class ColorRes {
   /// 앱 테마 컬러.
   static final primarySwatch = _createMaterialColor(primary);
 
+  /// 클릭 오버레이 컬러.
+  static final clickOverlayColor = Colors.black.withOpacity(0.1);
+
+  /// 0xffa5ed2e.
   static const primary = Color(0xffa5ed2e);
+
+  /// 0xffc1c1c1.
   static const disable = Color(0xffc1c1c1);
+
+  /// 0xffdff5bc.
   static const background = Color(0xffdff5bc);
 
+  /// 0xff8dbe3d.
   static const border = Color(0xff8dbe3d);
+
+  /// 0xff9f9f9f.
   static const borderDeselect = Color(0xff9f9f9f);
+
+  /// disabl.
   static const borderWhite = disable;
 
+  /// 0xff000000.
   static const fontBlack = Color(0xff000000);
+
+  /// 0xffff0000.
   static const fontError = Color(0xffff0000);
+
+  /// disabl.
   static const fontDisable = disable;
 
+  /// 0xff6e4ca0.
   static const wellness1 = Color(0xff6e4ca0);
+
+  /// 0xff4d73ba.
   static const wellness2 = Color(0xff4d73ba);
+
+  /// 0xff40b049.
   static const wellness3 = Color(0xff40b049);
+
+  /// 0xfff0ea0d.
   static const wellness4 = Color(0xfff0ea0d);
+
+  /// 0xffffc808.
   static const wellness5 = Color(0xffffc808);
+
+  /// 0xfff27c21.
   static const wellness6 = Color(0xfff27c21);
+
+  /// 0xffe82e25.
   static const wellness7 = Color(0xffe82e25);
 
+  /// 0xfffffef9.
   static const urine1 = Color(0xfffffef9);
+
+  /// 0xffe9efcd.
   static const urine2 = Color(0xffe9efcd);
+
+  /// 0xffe6e68c.
   static const urine3 = Color(0xffe6e68c);
+
+  /// 0xffe0dc56.
   static const urine4 = Color(0xffe0dc56);
+
+  /// 0xffe2da15.
   static const urine5 = Color(0xffe2da15);
+
+  /// 0xffd2a121.
   static const urine6 = Color(0xffd2a121);
+
+  /// 0xffc18d27.
   static const urine7 = Color(0xffc18d27);
 
+  /// 0xff8dbe3d.
   static const intensity0 = Color(0xff8dbe3d);
+
+  /// 0xffb7d487.
   static const intensity1 = Color(0xffb7d487);
+
+  /// 0xfffbdd73.
   static const intensity2 = Color(0xfffbdd73);
+
+  /// 0xffffc808.
   static const intensity3 = Color(0xffffc808);
+
+  /// 0xfff27c21.
   static const intensity4 = Color(0xfff27c21);
+
+  /// 0xffff0000.
   static const intensity5 = Color(0xffff0000);
 
+  /// 0xff7c9f42.
   static const intensityLine0 = Color(0xff7c9f42);
+
+  /// 0xff8dbe3d.
   static const intensityLine1 = Color(0xff8dbe3d);
+
+  /// 0xffffc808.
   static const intensityLine2 = Color(0xffffc808);
+
+  /// 0xffe2b000.
   static const intensityLine3 = Color(0xffe2b000);
+
+  /// 0xffca6415.
   static const intensityLine4 = Color(0xffca6415);
+
+  /// 0xffbb0404.
   static const intensityLine5 = Color(0xffbb0404);
 
+  /// 0xfff7e0e2.
   static const risk0 = Color(0xfff7e0e2);
+
+  /// 0xfff3aeb3.
   static const risk1 = Color(0xfff3aeb3);
+
+  /// 0xffed636e.
   static const risk2 = Color(0xffed636e);
+
+  /// 0xffe60012.
   static const risk3 = Color(0xffe60012);
 
   static MaterialColor _createMaterialColor(Color color) {

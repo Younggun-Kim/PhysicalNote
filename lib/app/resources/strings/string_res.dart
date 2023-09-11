@@ -9,4 +9,16 @@ class StringRes {
   static String _generateId() => _uuid.v1();
 
   static final appName = _generateId();
+
+  static final email = _generateId();
+  static final emailHint = _generateId();
+  static final emailError = _generateId();
+  static final password = _generateId();
+  static final passwordHint = _generateId();
+  static final passwordError = _generateId();
+  static final simpleSignUp = _generateId();
+  static final findId = _generateId();
+  static final findPw = _generateId();
+  static final login = _generateId();
+  static final startWithSns = _generateId();
 }
