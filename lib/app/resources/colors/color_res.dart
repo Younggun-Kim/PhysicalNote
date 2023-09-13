@@ -8,6 +8,9 @@ class ColorRes {
   /// 클릭 오버레이 컬러.
   static final clickOverlayColor = Colors.black.withOpacity(0.1);
 
+  /// 0xffffffff
+  static const white = Color(0xffffffff);
+
   /// 0xffa5ed2e.
   static const primary = Color(0xffa5ed2e);
 

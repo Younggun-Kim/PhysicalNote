@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up_controller.dart';
-import 'package:physical_note/app/utils/base/widget/page_root.dart';
+
+import '../../widgets/widgets.dart';
 
 
 /// 회원가입 화면.

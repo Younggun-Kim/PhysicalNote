@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/splash/splash_controller.dart';
-import 'package:physical_note/app/utils/base/widget/page_root.dart';
+
+import '../../widgets/widgets.dart';
 
 class SplashPage extends GetView<SplashController> {
   const SplashPage({super.key});

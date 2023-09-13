@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/localization/localization_controller.dart';
-import 'package:physical_note/app/utils/base/widget/page_root.dart';
+
+import '../../widgets/widgets.dart';
 
 class LocalizationPage extends GetView<LocalizationController> {
   const LocalizationPage({super.key});

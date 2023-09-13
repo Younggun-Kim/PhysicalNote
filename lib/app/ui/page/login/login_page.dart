@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/login/login_controller.dart';
 import 'package:physical_note/app/ui/widgets/buttons/round_button.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/base/widget/page_root.dart';
 
 import '../../../resources/resources.dart';
 

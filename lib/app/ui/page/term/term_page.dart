@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/term/term_controller.dart';
-import 'package:physical_note/app/utils/base/widget/page_root.dart';
+
+import '../../widgets/widgets.dart';
 
 class TermPage extends GetView<TermController> {
   const TermPage({Key? key}) : super(key: key);
@@ -10,7 +11,20 @@ class TermPage extends GetView<TermController> {
   Widget build(BuildContext context) {
     return PageRoot(
       controller: controller,
-      child: Text("서비스 이용약관 동의"),
+      child: Column(
+        children: [
+          _Header(),
+        ],
+      ),
     );
   }
+}
+
+class _Header extends GetView<TermController> {
+  @override
+  Widget build(BuildContext context) => Header(
+        title: "",
+        showBack: true,
+        onPressed: controller.onPressedNavigationBackButton,
+      );
 }

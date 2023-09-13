@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/find_pw/find_pw_controller.dart';
-import 'package:physical_note/app/utils/base/widget/page_root.dart';
+
+import '../../widgets/widgets.dart';
 
 class FindPwPage extends GetView<FindPwController> {
   const FindPwPage({super.key});

@@ -3,8 +3,9 @@ import 'package:physical_note/app/ui/page/find_id/find_id.dart';
 import 'package:physical_note/app/ui/page/find_pw/find_pw.dart';
 import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
+import 'package:physical_note/app/ui/page/sign_up/sign_up.dart';
 import 'package:physical_note/app/ui/page/splash/splash.dart';
-
+import 'package:physical_note/app/ui/page/term/term.dart';
 
 part './route_type.dart';
 
@@ -35,5 +36,13 @@ class Routes {
       page: () => const FindPwPage(),
       binding: FindPwBindings(),
     ),
+    GetPage(
+        name: RouteType.SIGN_UP,
+        page: () => const SignUpPage(),
+        binding: SignUpBindings()),
+    GetPage(
+        name: RouteType.TERM,
+        page: () => const TermPage(),
+        binding: TermBindings()),
   ];
 }
