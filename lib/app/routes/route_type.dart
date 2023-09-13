@@ -1,0 +1,13 @@
+// ignore_for_file: constant_identifier_names
+
+part of './routes.dart';
+
+abstract class RouteType {
+  static const SPLASH = '/splash';
+  static const LOCALIZATION = "/localization";
+  static const LOGIN = "/login";
+  static const FIND_ID = "/find_id";
+  static const FIND_PW = "/find_pw";
+  static const SIGN_UP = "/sign_up";
+  static const TERM = "/term";
+}

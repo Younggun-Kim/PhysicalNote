@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/routes/routes.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -27,17 +28,17 @@ class LoginController extends BaseController {
 
   /// 간편 회원가입 클릭.
   void onPressedSimpleSignUp() {
-    showToast("간편 회원가입 클릭");
+    Get.toNamed(RouteType.TERM);
   }
 
   /// 아이디 찾기 클릭.
   void onPressedFindId() {
-    showToast("아이디 찾기 클릭");
+    Get.toNamed(RouteType.FIND_ID);
   }
 
   /// 비밀번호 찾기 클릭.
   void onPressedFindPw() {
-    showToast("비밀번호 찾기 클릭");
+    Get.toNamed(RouteType.FIND_PW);
   }
 
   /// 로그인 버튼 클릭.

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/routes/app_pages.dart';
+import 'package:physical_note/app/routes/routes.dart';
 
 import 'app/resources/resources.dart';
 
 void main() {
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: Routes.SPLASH,
+    initialRoute: RouteType.SPLASH,
     defaultTransition: Transition.fade,
-    getPages: AppPages.pages,
+    getPages: Routes.pages,
     translations: AppTranslations(),
     locale: Get.deviceLocale,
     fallbackLocale: const Locale('ko', 'KR'), // Default Locale

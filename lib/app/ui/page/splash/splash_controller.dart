@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/routes/app_pages.dart';
+import 'package:physical_note/app/routes/routes.dart';
 import 'package:physical_note/app/utils/base/getx/base_controller.dart';
 
 class SplashController extends BaseController {
@@ -25,6 +25,6 @@ class SplashController extends BaseController {
 
   /// 로그인 화면 이동.
   void _moveLogin() async {
-    await Get.offAllNamed(Routes.LOGIN);
+    await Get.offAllNamed(RouteType.LOGIN);
   }
 }
