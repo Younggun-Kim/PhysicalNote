@@ -1,8 +1,6 @@
 
 // getx
-export 'base/getx/base_controller.dart';
-export 'base/getx/getx_text_editing_controller.dart';
-export 'base/getx/rx_extensions.dart';
+export 'base/getx/utils_getx.dart';
 
 // widget
 export 'base/widget/page_root.dart';

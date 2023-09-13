@@ -147,7 +147,7 @@ class _SignUpAndFindField extends GetView<LoginController> {
             fontSize: 12,
             fontWeight: FontWeight.w400,
           ),
-          onPressed: controller.onPressedSimpleSignUp,
+          onPressed: controller.onPressedFindId,
         ),
         const SizedBox(width: 4),
         Container(
@@ -163,7 +163,7 @@ class _SignUpAndFindField extends GetView<LoginController> {
             fontSize: 12,
             fontWeight: FontWeight.w400,
           ),
-          onPressed: controller.onPressedSimpleSignUp,
+          onPressed: controller.onPressedFindPw,
         ),
       ],
     ).paddingSymmetric(horizontal: 20);
