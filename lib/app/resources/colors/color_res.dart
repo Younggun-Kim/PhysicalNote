@@ -23,6 +23,9 @@ class ColorRes {
   /// 0xff8dbe3d.
   static const border = Color(0xff8dbe3d);
 
+  /// 0xffDD3E4D
+  static const error = Color(0xffDD3E4D);
+
   /// 0xff9f9f9f.
   static const borderDeselect = Color(0xff9f9f9f);
 

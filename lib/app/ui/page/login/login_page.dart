@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/login/login_controller.dart';
 import 'package:physical_note/app/ui/widgets/buttons/round_button.dart';
@@ -20,7 +21,7 @@ class LoginPage extends GetView<LoginController> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            const SizedBox(height: 100),
+            const SizedBox(height: 150),
             Text(
               StringRes.appName.tr,
               style: const TextStyle(
@@ -34,8 +35,9 @@ class LoginPage extends GetView<LoginController> {
             const _PasswordField(),
             const SizedBox(height: 40),
             const _SignUpAndFindField(),
+            const SizedBox(height: 7),
             const LoginButton(),
-            const SizedBox(height: 40),
+            const SizedBox(height: 30),
             _SnsField(),
             const SizedBox(height: 40),
           ],
@@ -57,7 +59,7 @@ class _EmailField extends GetView<LoginController> {
           controller: controller.email.controller,
           hint: StringRes.emailHint.tr,
           keyboardType: TextInputType.emailAddress,
-        ).paddingSymmetric(horizontal: 20),
+        ).paddingSymmetric(horizontal: 30),
         const SizedBox(height: 10),
         Obx(
           () => _ErrorText(
@@ -81,7 +83,7 @@ class _PasswordField extends GetView<LoginController> {
             hint: StringRes.passwordHint.tr,
             keyboardType: TextInputType.visiblePassword,
             obscureText: true,
-          ).paddingSymmetric(horizontal: 20),
+          ).paddingSymmetric(horizontal: 30),
           const SizedBox(height: 10),
           Obx(
             () => _ErrorText(
@@ -107,12 +109,12 @@ class _ErrorText extends StatelessWidget {
     return Visibility(
       visible: visible,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 36),
+        padding: const EdgeInsets.symmetric(horizontal: 46),
         alignment: Alignment.centerLeft,
         child: Text(
           message,
           style: const TextStyle(
-            color: ColorRes.fontError,
+            color: ColorRes.error,
             fontSize: 14,
           ),
         ),
@@ -178,6 +180,7 @@ class LoginButton extends GetView<LoginController> {
         text: StringRes.login.tr,
         width: double.infinity,
         margin: const EdgeInsets.symmetric(horizontal: 20),
+        padding: null,
         textStyle: const TextStyle(
           fontSize: 16,
           color: Colors.white,
@@ -197,29 +200,44 @@ class _SnsField extends GetView<LoginController> {
           children: [
             Text(
               StringRes.startWithSns.tr,
+              style: const TextStyle(
+                fontSize: 12,
+                color: ColorRes.fontBlack,
+              ),
             ),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: const Icon(Icons.add),
-                  color: Colors.green,
-                  iconSize: 48.0,
-                  onPressed: controller.onPressedNaver,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add),
-                  color: Colors.yellow,
-                  iconSize: 48.0,
-                  onPressed: controller.onPressedKakao,
-                ),
-                if (Platform.isIOS)
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    color: Colors.black,
-                    iconSize: 36.0,
-                    onPressed: controller.onPressedApple,
+                InkWellOver(
+                  onTap: controller.onPressedNaver,
+                  child: SvgPicture.asset(
+                    Assets.imagesImgNaver,
+                    width: 44,
+                    height: 44,
+                    fit: BoxFit.contain,
                   ),
+                ),
+                const SizedBox(width: 24),
+                InkWellOver(
+                  onTap: controller.onPressedKakao,
+                  child: SvgPicture.asset(
+                    Assets.imagesImgKakao,
+                    width: 44,
+                    height: 44,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                if (Platform.isIOS) const SizedBox(width: 24),
+                InkWellOver(
+                  onTap: controller.onPressedApple,
+                  child: SvgPicture.asset(
+                    Assets.imagesImgApple,
+                    width: 44,
+                    height: 44,
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ],
             ),
           ],

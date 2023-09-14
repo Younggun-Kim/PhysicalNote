@@ -1,31 +1,41 @@
 import 'package:flutter/material.dart';
-
-import '../../../resources/resources.dart';
+import 'package:physical_note/app/resources/resources.dart';
 
 class OutlineTextField extends StatelessWidget {
-  /// 컨트롤러.
+  // Container
+  final double? height;
+
+  // TextField
   final TextEditingController controller;
 
-  /// 힌트.
+  // - Decoration
   final String hint;
 
-  /// 키보드 입력 타입.
   final TextInputType keyboardType;
 
-  /// 암호화 여부.
-  final bool obscureText;
+  final bool obscureText; // 암호화 여부.
 
-  /// Inner Content Padding.
-  /// Default - EdgeInsets.all(16)
   final EdgeInsets contentPadding;
 
+  // - Font
+  final double fontSize;
+
+  final Color? textColor;
+
+  final FontWeight? fontWeight;
+
+  /// 생성자.
   const OutlineTextField({
-    key,
+    Key? key,
+    this.height = 56,
     required this.controller,
     this.hint = "",
     this.keyboardType = TextInputType.emailAddress,
     this.obscureText = false,
     this.contentPadding = const EdgeInsets.all(16),
+    this.fontSize = 16,
+    this.textColor = ColorRes.fontBlack,
+    this.fontWeight = FontWeight.w400,
   }) : super(key: key);
 
   @override
@@ -33,25 +43,20 @@ class OutlineTextField extends StatelessWidget {
     BorderRadius borderRadius =
         BorderRadius.circular(MediaQuery.of(context).size.height * 0.5);
 
-    OutlineInputBorder border = OutlineInputBorder(
-      borderRadius: borderRadius,
-      borderSide: const BorderSide(
-        width: 1,
-        style: BorderStyle.solid,
-        color: ColorRes.borderWhite,
-      ),
-    );
-
     return Container(
+      width: double.infinity,
+      height: 56,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.white,
+        border: Border.all(color: ColorRes.borderWhite),
         borderRadius: borderRadius,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 0,
-            blurRadius: 7,
-            offset: const Offset(0, 3), // changes position of shadow
+            color: Colors.grey.withOpacity(0.25),
+            spreadRadius: 3,
+            blurRadius: 5,
+            offset: const Offset(0, 2), // changes position of shadow
           ),
         ],
       ),
@@ -59,10 +64,20 @@ class OutlineTextField extends StatelessWidget {
         controller: controller,
         keyboardType: keyboardType,
         obscureText: obscureText,
+        style: TextStyle(
+          fontSize: fontSize,
+          color: textColor,
+          fontWeight: fontWeight,
+        ),
         decoration: InputDecoration(
           hintText: hint,
-          focusedBorder: border,
-          border: border,
+          hintStyle: TextStyle(
+            fontSize: fontSize,
+            color: ColorRes.fontDisable,
+            fontWeight: fontWeight,
+          ),
+          focusedBorder: InputBorder.none,
+          border: InputBorder.none,
           isDense: true,
           contentPadding: contentPadding,
         ),

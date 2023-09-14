@@ -35,12 +35,24 @@ class RoundButton extends StatelessWidget {
         width: width,
         height: height,
         margin: margin,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.25),
+              spreadRadius: 3,
+              blurRadius: 5,
+              offset: const Offset(0, 2), // changes position of shadow
+            ),
+          ],
+        ),
         child: ElevatedButton(
           onPressed: isEnabled ? onPressed : null,
           style: ButtonStyle(
               backgroundColor:
                   MaterialStateProperty.all(buttonBackgroundColor(isEnabled)),
-              overlayColor: MaterialStateProperty.all(ColorRes.clickOverlayColor),
+              overlayColor:
+                  MaterialStateProperty.all(ColorRes.clickOverlayColor),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(radius),
               ))),

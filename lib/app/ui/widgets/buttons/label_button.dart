@@ -20,6 +20,7 @@ class BaseTextButton extends StatelessWidget {
           overlayColor: MaterialStateProperty.all(ColorRes.clickOverlayColor),
           minimumSize: MaterialStateProperty.all(Size.zero),
           padding: MaterialStateProperty.all(const EdgeInsets.all(4)),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Fit 하게 만들어 줌
         ),
         child: Text(
           text,
