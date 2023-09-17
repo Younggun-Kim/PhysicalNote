@@ -2,8 +2,11 @@
 class Assets {
   Assets._();
 
-  static const String imagesImgApple = 'assets/images/img_apple.svg';
-  static const String imagesImgKakao = 'assets/images/img_kakao.svg';
-  static const String imagesImgNaver = 'assets/images/img_naver.svg';
+  static const String checkOff = 'assets/images/check_off.svg';
+  static const String checkOn = 'assets/images/check_on.svg';
+  static const String icChevronright = 'assets/images/ic_chevronright.svg';
+  static const String imgApple = 'assets/images/img_apple.svg';
+  static const String imgKakao = 'assets/images/img_kakao.svg';
+  static const String imgNaver = 'assets/images/img_naver.svg';
 
 }

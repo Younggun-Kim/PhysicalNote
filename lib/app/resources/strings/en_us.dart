@@ -13,4 +13,9 @@ final enUs = {
   StringRes.findPw: "비밀번호 찾기",
   StringRes.login: "로그인",
   StringRes.startWithSns: "SNS 계정으로 시작하기",
+  StringRes.acceptTerms: "서비스 이용을 위해/n약관에 동의해주세요.",
+  StringRes.allAgree: "전체 동의",
+  StringRes.requiredTermService: "[필수] 서비스 이용약관",
+  StringRes.requiredTermPrivacy: "[필수] 개인정보 수집 및 이용 동의",
+  StringRes.next: "다음",
 };

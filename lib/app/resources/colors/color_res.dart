@@ -17,6 +17,9 @@ class ColorRes {
   /// 0xffc1c1c1.
   static const disable = Color(0xffc1c1c1);
 
+  /// 구분선.
+  static const divider = Color(0xffe5e6e6);
+
   /// 0xffdff5bc.
   static const background = Color(0xffdff5bc);
 

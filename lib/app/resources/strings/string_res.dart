@@ -21,4 +21,9 @@ class StringRes {
   static final findPw = _generateId();
   static final login = _generateId();
   static final startWithSns = _generateId();
+  static final acceptTerms = _generateId();
+  static final allAgree = _generateId();
+  static final requiredTermService = _generateId();
+  static final requiredTermPrivacy = _generateId();
+  static final next = _generateId();
 }

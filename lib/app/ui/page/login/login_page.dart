@@ -191,6 +191,7 @@ class LoginButton extends GetView<LoginController> {
       ));
 }
 
+/// Sns로 시작하기 뷰.
 class _SnsField extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) => Container(
@@ -212,7 +213,7 @@ class _SnsField extends GetView<LoginController> {
                 InkWellOver(
                   onTap: controller.onPressedNaver,
                   child: SvgPicture.asset(
-                    Assets.imagesImgNaver,
+                    Assets.imgNaver,
                     width: 44,
                     height: 44,
                     fit: BoxFit.contain,
@@ -222,25 +223,33 @@ class _SnsField extends GetView<LoginController> {
                 InkWellOver(
                   onTap: controller.onPressedKakao,
                   child: SvgPicture.asset(
-                    Assets.imagesImgKakao,
+                    Assets.imgKakao,
                     width: 44,
                     height: 44,
                     fit: BoxFit.contain,
                   ),
                 ),
-                if (Platform.isIOS) const SizedBox(width: 24),
-                InkWellOver(
-                  onTap: controller.onPressedApple,
-                  child: SvgPicture.asset(
-                    Assets.imagesImgApple,
-                    width: 44,
-                    height: 44,
-                    fit: BoxFit.contain,
-                  ),
-                ),
+                const SizedBox(width: 24),
+                Visibility(visible: Platform.isIOS, child: _apple())
               ],
             ),
           ],
         ),
+      );
+
+  /// Apple 로그인 뷰.
+  Widget _apple() => Row(
+        children: [
+          const SizedBox(width: 24),
+          InkWellOver(
+            onTap: controller.onPressedApple,
+            child: SvgPicture.asset(
+              Assets.imgApple,
+              width: 44,
+              height: 44,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ],
       );
 }
