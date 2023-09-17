@@ -26,7 +26,7 @@ class TermPage extends GetView<TermController> {
               fontWeight: FontWeight.w400,
               height: 1.5,
             ),
-          ),
+          ).paddingSymmetric(horizontal: 20),
           const SizedBox(height: 90),
           Obx(
             () => AppCheckbox(
@@ -38,9 +38,9 @@ class TermPage extends GetView<TermController> {
                 ),
                 isChecked: controller.checkAll.value,
                 onToggle: controller.onToggleAll),
-          ),
+          ).paddingSymmetric(horizontal: 20),
           const SizedBox(height: 20),
-          const LineDivider(),
+          const LineDivider().paddingSymmetric(horizontal: 20),
           const SizedBox(height: 20),
           SizedBox(
             width: double.infinity,
@@ -53,10 +53,13 @@ class TermPage extends GetView<TermController> {
                     color: ColorRes.fontBlack,
                   ),
                   isChecked: controller.checkService.value,
-                  menu: _ArrowRight(),
+                  menu: InkWellOver(
+                    onTap: controller.onPressedService,
+                    child: SvgPicture.asset(Assets.icChevronright),
+                  ),
                   onToggle: controller.onToggleService),
             ),
-          ),
+          ).paddingSymmetric(horizontal: 20),
           const SizedBox(height: 20),
           Obx(
             () => AppCheckbox(
@@ -67,9 +70,12 @@ class TermPage extends GetView<TermController> {
                   color: ColorRes.fontBlack,
                 ),
                 isChecked: controller.checkPrivacy.value,
-                menu: _ArrowRight(),
+                menu: InkWellOver(
+                  onTap: controller.onPressedPrivacy,
+                  child: SvgPicture.asset(Assets.icChevronright),
+                ),
                 onToggle: controller.onTogglePrivacy),
-          ),
+          ).paddingSymmetric(horizontal: 20),
           const Spacer(),
           SizedBox(
             width: double.infinity,
@@ -80,10 +86,10 @@ class TermPage extends GetView<TermController> {
                 onPressed: controller.onPressedNextButton,
               ),
             ),
-          ),
+          ).paddingSymmetric(horizontal: 20),
           const SizedBox(height: 40),
         ],
-      ).paddingSymmetric(horizontal: 20),
+      ),
     );
   }
 }
@@ -96,17 +102,4 @@ class _Header extends GetView<TermController> {
         showBack: true,
         onPressed: controller.onPressedNavigationBackButton,
       );
-}
-
-/// Arrow Right 이미지.
-class _ArrowRight extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      Assets.icChevronright,
-      width: 18,
-      height: 18,
-      fit: BoxFit.contain,
-    );
-  }
 }

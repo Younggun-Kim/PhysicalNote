@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/routes/routes.dart';
 import 'package:physical_note/app/utils/base/getx/base_controller.dart';
+import 'package:physical_note/app/utils/link/link.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -31,10 +32,20 @@ class TermController extends BaseController {
     checkService.toggle();
   }
 
+  /// 서비스 이용약관 웹 페이지 이동.
+  void onPressedService() {
+    Get.find<OutLink>().moveServiceTerm();
+  }
+
   /// 개인정보 클릭.
   void onTogglePrivacy() {
     checkPrivacy.toggle();
   }
+  /// 서비스 이용약관 웹 페이지 이동.
+  void onPressedPrivacy() {
+    Get.find<OutLink>().movePrivacyTerm();
+  }
+
 
   /// 다음 버튼 클릭.
   void onPressedNextButton() {

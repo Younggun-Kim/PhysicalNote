@@ -8,3 +8,6 @@ export 'logger/logger.dart';
 
 // Rex
 export 'regex/regex.dart';
+
+// Link
+export 'link/link.dart';
