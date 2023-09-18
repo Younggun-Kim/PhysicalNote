@@ -9,6 +9,8 @@ final koKr = {
   StringRes.password: "비밀번호",
   StringRes.passwordHint: "영문+특수문자+숫자를 포함한 8자 이상",
   StringRes.passwordError: "영문+특수문자+숫자를 포함한 8자 이상",
+  StringRes.passwordConfirm: "비밀번호 확인",
+  StringRes.passwordNotMatched: "비밀번호가 일치하지 않습니다.",
   StringRes.simpleSignUp: "간편 회원가입",
   StringRes.findId: "아이디 찾기",
   StringRes.findPw: "비밀번호 찾기",
@@ -19,4 +21,11 @@ final koKr = {
   StringRes.requiredTermService: "[필수] 서비스 이용약관",
   StringRes.requiredTermPrivacy: "[필수] 개인정보 수집 및 이용 동의",
   StringRes.next: "다음",
+  StringRes.signUp: "회원가입",
+  StringRes.phoneNumber: "휴대폰 번호",
+  StringRes.phoneHint: "( - )없이 11자리를 입력하세요.",
+  StringRes.phoneNumberError: "올바른 전화번호를 입력해주세요.",
+  StringRes.name: "이름",
+  StringRes.nameError: "2자리 이상 이름을 입력해주세요.",
+  StringRes.nameHint: "이름을 입력하세요."
 };

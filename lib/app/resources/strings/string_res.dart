@@ -16,6 +16,8 @@ class StringRes {
   static final password = _generateId();
   static final passwordHint = _generateId();
   static final passwordError = _generateId();
+  static final passwordConfirm = _generateId();
+  static final passwordNotMatched = _generateId();
   static final simpleSignUp = _generateId();
   static final findId = _generateId();
   static final findPw = _generateId();
@@ -26,4 +28,11 @@ class StringRes {
   static final requiredTermService = _generateId();
   static final requiredTermPrivacy = _generateId();
   static final next = _generateId();
+  static final signUp = _generateId();
+  static final phoneNumber = _generateId();
+  static final phoneNumberError = _generateId();
+  static final phoneHint = _generateId();
+  static final name = _generateId();
+  static final nameError = _generateId();
+  static final nameHint = _generateId();
 }
