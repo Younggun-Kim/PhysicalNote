@@ -65,6 +65,12 @@ extension StreamExt<T> on Stream<T> {
   Rx<T> toObs(T initialValue) => Rx<T>(initialValue)..bindStream(this);
 }
 
+extension StreamBoolExt on Stream<bool> {
+
+  /// !bool 반환.
+  Stream<bool> not() => map((event) => !event);
+}
+
 extension GetxControllerExt<T extends List> on RxObjectMixin<T> {
   /// 리스트의 값이 서로 다른 경우에만 업데이트.
   set values(T val) {

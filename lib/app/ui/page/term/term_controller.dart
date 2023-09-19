@@ -41,19 +41,14 @@ class TermController extends BaseController {
   void onTogglePrivacy() {
     checkPrivacy.toggle();
   }
+
   /// 서비스 이용약관 웹 페이지 이동.
   void onPressedPrivacy() {
     Get.find<OutLink>().movePrivacyTerm();
   }
 
-
   /// 다음 버튼 클릭.
   void onPressedNextButton() {
     Get.toNamed(RouteType.SIGN_UP);
-  }
-
-  /// 네비게이션 뒤로가기 클릭.
-  void onPressedNavigationBackButton() {
-    Get.back();
   }
 }

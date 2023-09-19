@@ -100,6 +100,6 @@ class _Header extends GetView<TermController> {
   Widget build(BuildContext context) => Header(
         title: "",
         showBack: true,
-        onPressed: controller.onPressedNavigationBackButton,
+        onPressed: controller.close,
       );
 }

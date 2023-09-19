@@ -8,12 +8,14 @@ class OutlineTextField extends StatelessWidget {
   // TextField
   final TextEditingController controller;
 
-  // - Decoration
-  final String hint;
+  final int? maxLength;
 
   final TextInputType keyboardType;
 
   final bool obscureText; // 암호화 여부.
+
+  // - Decoration
+  final String hint;
 
   final EdgeInsets contentPadding;
 
@@ -29,9 +31,10 @@ class OutlineTextField extends StatelessWidget {
     Key? key,
     this.height = 56,
     required this.controller,
-    this.hint = "",
+    this.maxLength,
     this.keyboardType = TextInputType.emailAddress,
     this.obscureText = false,
+    this.hint = "",
     this.contentPadding = const EdgeInsets.all(16),
     this.fontSize = 16,
     this.textColor = ColorRes.fontBlack,
@@ -62,6 +65,7 @@ class OutlineTextField extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
+        maxLength: maxLength,
         keyboardType: keyboardType,
         obscureText: obscureText,
         style: TextStyle(
@@ -80,6 +84,7 @@ class OutlineTextField extends StatelessWidget {
           border: InputBorder.none,
           isDense: true,
           contentPadding: contentPadding,
+          counterText: '',
         ),
       ),
     );

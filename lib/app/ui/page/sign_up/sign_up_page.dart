@@ -27,13 +27,13 @@ class SignUpPage extends GetView<SignUpController> {
                   const PhoneNumberField(),
                   const PasswordField(),
                   const SizedBox(height: 40),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: RoundButton(
-                      text: StringRes.login.tr,
-                    ),
-                  ),
+                  Obx(() => RoundButton(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        isEnabled: controller.isEnabledLoginButton.value,
+                        text: StringRes.login.tr,
+                        onPressed: controller.onPressedLoginButton,
+                      )),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -111,9 +111,14 @@ class NameField extends GetView<SignUpController> {
             hint: StringRes.nameHint.tr,
           ),
           const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ErrorText(text: StringRes.nameError.tr),
+          Obx(
+            () => Visibility(
+              visible: controller.isValidName.value,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ErrorText(text: StringRes.nameError.tr),
+              ),
+            ),
           ),
         ],
       ).paddingSymmetric(horizontal: 30);
@@ -135,11 +140,17 @@ class EmailField extends GetView<SignUpController> {
             fontSize: 16,
             fontWeight: FontWeight.w400,
             hint: StringRes.emailHint.tr,
+            keyboardType: TextInputType.emailAddress,
           ),
           const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ErrorText(text: StringRes.emailError.tr),
+          Obx(
+            () => Visibility(
+              visible: controller.isValidEmail.value,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ErrorText(text: StringRes.emailError.tr),
+              ),
+            ),
           ),
         ],
       ).paddingSymmetric(horizontal: 30);
@@ -161,11 +172,18 @@ class PhoneNumberField extends GetView<SignUpController> {
             fontSize: 16,
             fontWeight: FontWeight.w400,
             hint: StringRes.phoneHint.tr,
+            keyboardType: TextInputType.phone,
+            maxLength: 11,
           ),
           const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ErrorText(text: StringRes.phoneNumberError.tr),
+          Obx(
+            () => Visibility(
+              visible: controller.isValidPhoneNumber.value,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ErrorText(text: StringRes.phoneNumberError.tr),
+              ),
+            ),
           ),
         ],
       ).paddingSymmetric(horizontal: 30);
@@ -187,6 +205,8 @@ class PasswordField extends GetView<SignUpController> {
             fontSize: 16,
             fontWeight: FontWeight.w400,
             hint: StringRes.passwordHint.tr,
+            keyboardType: TextInputType.visiblePassword,
+            obscureText: true,
           ),
           const SizedBox(height: 8),
           OutlineTextField(
@@ -194,11 +214,18 @@ class PasswordField extends GetView<SignUpController> {
             fontSize: 16,
             fontWeight: FontWeight.w400,
             hint: StringRes.passwordConfirm.tr,
+            keyboardType: TextInputType.visiblePassword,
+            obscureText: true,
           ),
           const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: ErrorText(text: StringRes.passwordNotMatched.tr),
+          Obx(
+            () => Visibility(
+              visible: controller.isValidPassword.value,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ErrorText(text: StringRes.passwordNotMatched.tr),
+              ),
+            ),
           ),
         ],
       ).paddingSymmetric(horizontal: 30);

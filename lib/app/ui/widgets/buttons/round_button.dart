@@ -35,6 +35,7 @@ class RoundButton extends StatelessWidget {
         width: width,
         height: height,
         margin: margin,
+        padding: padding,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
           boxShadow: [

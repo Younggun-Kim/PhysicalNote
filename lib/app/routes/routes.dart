@@ -37,12 +37,16 @@ class Routes {
       binding: FindPwBindings(),
     ),
     GetPage(
-        name: RouteType.SIGN_UP,
-        page: () => const SignUpPage(),
-        binding: SignUpBindings()),
+      name: RouteType.SIGN_UP,
+      page: () => const SignUpPage(),
+      binding: SignUpBindings(),
+      maintainState: false,
+    ),
     GetPage(
-        name: RouteType.TERM,
-        page: () => const TermPage(),
-        binding: TermBindings()),
+      name: RouteType.TERM,
+      page: () => const TermPage(),
+      binding: TermBindings(),
+      maintainState: false,
+    ),
   ];
 }
