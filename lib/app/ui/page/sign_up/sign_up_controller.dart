@@ -53,10 +53,9 @@ class SignUpController extends BaseController {
       isValidPassword.behaviorStream,
     ],
         (values) {
-      logger.i(values);
-      return values.every((element) => element == true);
+      return values.every((element) => element == false);
     },
-  ).not().toObs(false);
+  ).toObs(false);
 
   /// 뒤로가기 클릭.
   void onPressedBackButton() {

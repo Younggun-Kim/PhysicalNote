@@ -27,5 +27,6 @@ final koKr = {
   StringRes.phoneNumberError: "올바른 전화번호를 입력해주세요.",
   StringRes.name: "이름",
   StringRes.nameError: "2자리 이상 이름을 입력해주세요.",
-  StringRes.nameHint: "이름을 입력하세요."
+  StringRes.nameHint: "이름을 입력하세요.",
+  StringRes.findIdResult: "@name님의 아이디는\n@email 입니다.",
 };

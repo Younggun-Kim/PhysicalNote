@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/routes/routes.dart';
-import 'package:physical_note/app/utils/base/getx/base_controller.dart';
+import 'package:physical_note/app/utils/getx/base_controller.dart';
 import 'package:physical_note/app/utils/link/link.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';

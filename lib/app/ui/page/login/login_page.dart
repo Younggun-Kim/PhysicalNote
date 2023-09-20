@@ -131,7 +131,7 @@ class _SignUpAndFindField extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        BaseTextButton(
+        LabelButton(
           text: StringRes.simpleSignUp.tr,
           textStyle: const TextStyle(
             color: ColorRes.fontBlack,
@@ -141,7 +141,7 @@ class _SignUpAndFindField extends GetView<LoginController> {
           onPressed: controller.onPressedSimpleSignUp,
         ),
         const Spacer(),
-        BaseTextButton(
+        LabelButton(
           text: StringRes.findId.tr,
           textStyle: const TextStyle(
             color: ColorRes.fontDisable,
@@ -157,7 +157,7 @@ class _SignUpAndFindField extends GetView<LoginController> {
           color: ColorRes.borderWhite,
         ),
         const SizedBox(width: 4),
-        BaseTextButton(
+        LabelButton(
           text: StringRes.findPw.tr,
           textStyle: const TextStyle(
             color: ColorRes.fontDisable,

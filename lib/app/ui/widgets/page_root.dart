@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
-
-import 'package:physical_note/app/utils/base/getx/base_controller.dart';
+import 'package:physical_note/app/utils/getx/base_controller.dart';
 
 class PageRoot extends StatelessWidget {
   /// 컨트롤러.

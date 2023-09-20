@@ -1,6 +1,6 @@
 
 // getx
-export 'base/getx/utils_getx.dart';
+export 'getx/utils_getx.dart';
 
 
 // Logger

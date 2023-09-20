@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:physical_note/app/resources/resources.dart';
 
-class BaseTextButton extends StatelessWidget {
+class LabelButton extends StatelessWidget {
   final String text;
   final TextStyle? textStyle;
   final VoidCallback? onPressed;
 
-  const BaseTextButton({
+  const LabelButton({
     Key? key,
     required this.text,
     this.textStyle,

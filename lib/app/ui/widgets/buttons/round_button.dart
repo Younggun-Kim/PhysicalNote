@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:physical_note/app/resources/resources.dart';
 
 class RoundButton extends StatelessWidget {
+  // Container Attribute.
   final double? width;
   final double height;
   final double radius;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
 
+  // Button Attribute.
+  final bool isEnabled;
+
+  // Text Style.
   final String text;
   final TextStyle? textStyle;
   final Color? backgroundColor;
-
-  final bool isEnabled;
 
   final VoidCallback? onPressed;
 
@@ -59,7 +62,11 @@ class RoundButton extends StatelessWidget {
               ))),
           child: Text(
             text,
-            style: textStyle,
+            style: textStyle ?? const TextStyle(
+                    color: ColorRes.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
           ),
         ),
       );

@@ -35,4 +35,5 @@ class StringRes {
   static final name = _generateId();
   static final nameError = _generateId();
   static final nameHint = _generateId();
+  static final findIdResult = _generateId();
 }

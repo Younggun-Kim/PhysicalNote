@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id.dart';
+import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/page/find_pw/find_pw.dart';
 import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
@@ -30,6 +31,11 @@ class Routes {
       name: RouteType.FIND_ID,
       page: () => const FindIdPage(),
       binding: FindIdBindings(),
+    ),
+    GetPage(
+      name: RouteType.FIND_ID_COMPLETE,
+      page: () => const FindIdCompletePage(),
+      binding: FindIdCompleteBindings(),
     ),
     GetPage(
       name: RouteType.FIND_PW,

@@ -11,7 +11,7 @@ class LocalizationPage extends GetView<LocalizationController> {
   Widget build(BuildContext context) {
     return PageRoot(
       controller: controller,
-      child: Text("한국어"),
+      child: const Text("한국어"),
     );
   }
 }
