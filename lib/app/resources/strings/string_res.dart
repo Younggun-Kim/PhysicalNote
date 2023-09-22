@@ -36,4 +36,5 @@ class StringRes {
   static final nameError = _generateId();
   static final nameHint = _generateId();
   static final findIdResult = _generateId();
+  static final changePassword = _generateId();
 }
