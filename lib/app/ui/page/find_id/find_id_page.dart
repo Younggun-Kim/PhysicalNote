@@ -13,8 +13,8 @@ class FindIdPage extends GetView<FindIdController> {
   @override
   Widget build(BuildContext context) {
     return PageRoot(
-        controller: controller,
-        resize: false,
+      controller: controller,
+      child: FlexibleScrollView(
         child: Column(
           children: [
             _Header(),
@@ -39,7 +39,9 @@ class FindIdPage extends GetView<FindIdController> {
             ),
             const SizedBox(height: 40),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
 

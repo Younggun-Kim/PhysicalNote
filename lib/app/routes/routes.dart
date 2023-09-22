@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/ui/page/change_password/change_password.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/page/find_password/find_password.dart';
@@ -41,6 +42,11 @@ class Routes {
       name: RouteType.FIND_PASSWORD,
       page: () => const FindPasswordPage(),
       binding: FindPasswordBindings(),
+    ),
+    GetPage(
+      name: RouteType.CHANGE_PASSWORD,
+      page: () => const ChangePasswordPage(),
+      binding: ChangePasswordBindings(),
     ),
     GetPage(
       name: RouteType.SIGN_UP,

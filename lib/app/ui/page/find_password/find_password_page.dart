@@ -10,39 +10,42 @@ class FindPasswordPage extends GetView<FindPasswordController> {
 
   @override
   Widget build(BuildContext context) => PageRoot(
-      controller: controller,
-      child: Column(
-        children: [
-          _Header(),
-          const SizedBox(height: 20),
-          const NameField(),
-          const SizedBox(height: 36),
-          const EmailField(),
-          const Spacer(),
-          Obx(
-            () => RoundButton(
-              width: double.infinity,
-              text: StringRes.next.tr,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              isEnabled: controller.isEnabledNext.value,
-              onPressed: controller.onPressedNext,
-              textStyle: const TextStyle(
-                color: ColorRes.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+        controller: controller,
+        child: FlexibleScrollView(
+          child: Column(
+            children: [
+              _Header(),
+              const SizedBox(height: 20),
+              const NameField(),
+              const SizedBox(height: 36),
+              const EmailField(),
+              const Spacer(),
+              Obx(
+                () => RoundButton(
+                  width: double.infinity,
+                  text: StringRes.next.tr,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  isEnabled: controller.isEnabledNext.value,
+                  onPressed: controller.onPressedNext,
+                  textStyle: const TextStyle(
+                    color: ColorRes.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(height: 40),
+            ],
           ),
-          const SizedBox(height: 40),
-        ],
-      ));
+        ),
+      );
 }
 
 /// 헤더.
 class _Header extends GetView<FindPasswordController> {
   @override
   Widget build(BuildContext context) => Header(
-        title: "",
+        title: StringRes.findPw.tr,
         showBack: true,
         onPressed: controller.close,
       );
@@ -102,7 +105,6 @@ class EmailField extends GetView<FindPasswordController> {
             fontWeight: FontWeight.w400,
             hint: StringRes.emailHint.tr,
             keyboardType: TextInputType.emailAddress,
-            maxLength: 11,
           ),
         ],
       ).paddingSymmetric(horizontal: 30);

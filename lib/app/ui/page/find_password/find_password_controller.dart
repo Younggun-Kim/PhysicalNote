@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/routes/routes.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -30,6 +31,6 @@ class FindPasswordController extends BaseController {
 
   /// 다음 버튼 클릭.
   void onPressedNext() {
-
+    Get.toNamed(RouteType.CHANGE_PASSWORD);
   }
 }
