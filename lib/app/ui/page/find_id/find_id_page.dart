@@ -14,6 +14,7 @@ class FindIdPage extends GetView<FindIdController> {
   Widget build(BuildContext context) {
     return PageRoot(
         controller: controller,
+        resize: false,
         child: Column(
           children: [
             _Header(),

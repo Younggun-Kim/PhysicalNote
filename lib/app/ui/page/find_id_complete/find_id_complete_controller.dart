@@ -19,7 +19,9 @@ class FindIdCompleteController extends BaseController {
   }
 
   /// 로그인 버튼 클릭.
-  void onPressedLogin() {
-    Get.until((route) => Get.currentRoute == RouteType.LOGIN);
+  void onPressedLogin() async {
+    Get.until((route) {
+      return Get.currentRoute == RouteType.LOGIN;
+    });
   }
 }

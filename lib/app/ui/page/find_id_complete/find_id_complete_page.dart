@@ -6,10 +6,8 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/widgets/buttons/round_button.dart';
-import 'package:physical_note/app/ui/widgets/page_root.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
-import '../../../utils/utils.dart';
 
 class FindIdCompletePage extends GetView<FindIdCompleteController> {
   const FindIdCompletePage({super.key});
@@ -56,18 +54,14 @@ class FindIdCompletePage extends GetView<FindIdCompleteController> {
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                 ),
-                onPressed: () {
-                  logger.i("heelo");
-                },
+                onPressed: controller.onPressedFindPassword,
               ),
               const SizedBox(height: 12),
               RoundButton(
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 text: StringRes.login.tr,
-                onPressed: () {
-                  logger.i("로그인 버튼 클릭");
-                },
+                onPressed: controller.onPressedLogin,
               ),
               const SizedBox(height: 40),
             ],
