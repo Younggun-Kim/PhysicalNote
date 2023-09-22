@@ -2,14 +2,14 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/routes/routes.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:uuid/uuid.dart';
 
 class LoginController extends BaseController {
   /// 이메일 컨트롤러.
   final email = "".obsWithController;
 
   /// 이메일 유효성 검사.
-  late final _isValidEmail =
-      email.behaviorStream.map((event) => event.isEmail);
+  late final _isValidEmail = email.behaviorStream.map((event) => event.isEmail);
   late final isValidEmail = _isValidEmail.map((event) => !event).toObs(false);
 
   /// 패스워드 컨트롤러.
@@ -18,7 +18,8 @@ class LoginController extends BaseController {
   /// 비밀번호 유효성 검사.'
   late final _isValidPassword =
       password.behaviorStream.map((event) => Regex.isPassword(event));
-  late final isValidPassword = _isValidPassword.map((event) => !event).toObs(false);
+  late final isValidPassword =
+      _isValidPassword.map((event) => !event).toObs(false);
 
   /// 로그인 버튼 클릭.
   late final _isEnabledLogin = CombineLatestStream(
@@ -28,7 +29,10 @@ class LoginController extends BaseController {
 
   /// 간편 회원가입 클릭.
   void onPressedSimpleSignUp() {
-    Get.toNamed(RouteType.TERM);
+    Get.toNamed(
+      RouteType.TERM,
+      parameters: {"page_id": const Uuid().v1()},
+    );
   }
 
   /// 아이디 찾기 클릭.
@@ -38,7 +42,7 @@ class LoginController extends BaseController {
 
   /// 비밀번호 찾기 클릭.
   void onPressedFindPw() {
-    Get.toNamed(RouteType.FIND_PW);
+    Get.toNamed(RouteType.FIND_PASSWORD);
   }
 
   /// 로그인 버튼 클릭.

@@ -9,7 +9,7 @@ class SignUpController extends BaseController {
 
   /// 이름 유효성 검사.
   late final _isValidName =
-  name.behaviorStream.map((event) => event.length > 2);
+      name.behaviorStream.map((event) => event.length > 2);
   late final isValidName = _isValidName.not().toObs(false);
 
   /// 이메일.
@@ -24,7 +24,7 @@ class SignUpController extends BaseController {
 
   /// 전화번호 유효성 검사.
   late final _isValidPhoneNumber =
-  phoneNumber.behaviorStream.map((event) => Regex.isPhoneNumber(event));
+      phoneNumber.behaviorStream.map((event) => Regex.isPhoneNumber(event));
   late final isValidPhoneNumber = _isValidPhoneNumber.not().toObs(false);
 
   /// 비밀번호.
@@ -39,7 +39,7 @@ class SignUpController extends BaseController {
       password.behaviorStream,
       passwordConfirm.behaviorStream,
     ],
-        (values) => Regex.isPassword(values[0]) && (values[0] == values[1]),
+    (values) => Regex.isPassword(values[0]) && (values[0] == values[1]),
   );
 
   late final isValidPassword = _isValidPassword.not().toObs(false);
@@ -52,7 +52,7 @@ class SignUpController extends BaseController {
       isValidPhoneNumber.behaviorStream,
       isValidPassword.behaviorStream,
     ],
-        (values) {
+    (values) {
       return values.every((element) => element == false);
     },
   ).toObs(false);
@@ -71,6 +71,7 @@ class SignUpController extends BaseController {
   final onTapLoginButton = PublishSubject<void>()
     ..doOnData((event) {
       unFocus();
-    })
-  .listen((event) => Get.until((route) => Get.currentRoute == RouteType.LOGIN));
+    }).listen(
+      (event) => Get.until((route) => Get.currentRoute == RouteType.LOGIN),
+    );
 }

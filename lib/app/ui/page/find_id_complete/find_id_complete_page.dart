@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
-import 'package:physical_note/app/ui/widgets/buttons/round_button.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
 

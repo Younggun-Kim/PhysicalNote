@@ -1,5 +1,6 @@
 export 'buttons/outline_text_field.dart';
 export 'buttons/label_button.dart';
+export 'buttons/round_button.dart';
 
 export 'app_check_box.dart';
 export 'line_divider.dart';

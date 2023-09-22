@@ -8,7 +8,7 @@ abstract class RouteType {
   static const LOGIN = "/login";
   static const FIND_ID = "/find_id";
   static const FIND_ID_COMPLETE = "/find_id_complete";
-  static const FIND_PW = "/find_pw";
+  static const FIND_PASSWORD = "/find_password";
   static const SIGN_UP = "/sign_up";
   static const TERM = "/term";
 }

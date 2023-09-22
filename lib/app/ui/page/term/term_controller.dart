@@ -1,11 +1,9 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/routes/routes.dart';
-import 'package:physical_note/app/utils/getx/base_controller.dart';
-import 'package:physical_note/app/utils/link/link.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
-class TermController extends BaseController {
+class TermController extends LifecycleController {
   /// 서비스 이용 약관.
   var checkService = false.obs;
 
@@ -50,5 +48,13 @@ class TermController extends BaseController {
   /// 다음 버튼 클릭.
   void onPressedNextButton() {
     Get.toNamed(RouteType.SIGN_UP);
+  }
+
+  @override
+  void onDetached() {
+    super.onDetached();
+
+    // Get.until 버그로 명시적 해제해주기
+    Get.delete();
   }
 }

@@ -12,10 +12,9 @@ class FindIdCompleteController extends BaseController {
 
   /// 이메일.
   late final email = argument.email.obs;
-  
+
   /// 비밀번호 찾기 클릭.
   void onPressedFindPassword() {
-    // Get.offUntil(page, (route) => false)
   }
 
   /// 로그인 버튼 클릭.
