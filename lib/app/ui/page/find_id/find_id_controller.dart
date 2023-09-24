@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/routes/routes.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
+
+import '../../../config/routes/routes.dart';
 
 class FindIdController extends BaseController {
   /// 이름.

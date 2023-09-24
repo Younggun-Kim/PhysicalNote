@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/routes/routes.dart';
+import 'package:physical_note/app/data/user/user_storage.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 
 class SplashController extends BaseController {
   /// 컨트롤러 초기화.
   @override
   void onInit() {
-    print("onInit");
     super.onInit();
   }
 
@@ -20,7 +20,21 @@ class SplashController extends BaseController {
   /// 다음 페이지로 이동.
   Future<void> nextPage() async {
     await 3.delay();
-    _moveLogin();
+
+    final userStorage = UserStorage();
+
+    if (userStorage.isLogin) {
+      /// 홈으로 이동
+      /// 홈에서 정보등록 여부 판단해서 팝업으로 열자
+      _moveHome();
+    } else {
+      _moveLogin();
+    }
+  }
+
+  /// 홈 이동.
+  void _moveHome() async {
+    await Get.offAllNamed(RouteType.HOME);
   }
 
   /// 로그인 화면 이동.

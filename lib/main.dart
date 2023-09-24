@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/initializer/app_initializer.dart';
-import 'package:physical_note/app/routes/routes.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
 
 import 'app/resources/resources.dart';
 

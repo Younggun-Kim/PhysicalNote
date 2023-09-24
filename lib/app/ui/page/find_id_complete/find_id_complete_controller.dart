@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/routes/routes.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete_argument.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
+
 
 class FindIdCompleteController extends BaseController {
   /// Arguments.

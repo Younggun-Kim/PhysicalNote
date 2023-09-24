@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-part of './routes.dart';
+part of 'routes.dart';
 
 abstract class RouteType {
   static const SPLASH = '/splash';
@@ -12,4 +12,5 @@ abstract class RouteType {
   static const CHANGE_PASSWORD = "/change_password";
   static const SIGN_UP = "/sign_up";
   static const TERM = "/term";
+  static const HOME = "/home";
 }

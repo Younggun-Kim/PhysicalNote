@@ -3,13 +3,14 @@ import 'package:physical_note/app/ui/page/change_password/change_password.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/page/find_password/find_password.dart';
+import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up.dart';
 import 'package:physical_note/app/ui/page/splash/splash.dart';
 import 'package:physical_note/app/ui/page/term/term.dart';
 
-part './route_type.dart';
+part 'route_type.dart';
 
 class Routes {
   static final pages = [
@@ -58,6 +59,12 @@ class Routes {
       name: RouteType.TERM,
       page: () => const TermPage(),
       binding: TermBindings(),
+      maintainState: false,
+    ),
+    GetPage(
+      name: RouteType.HOME,
+      page: () => const HomePage(),
+      binding: HomeBindings(),
       maintainState: false,
     ),
   ];

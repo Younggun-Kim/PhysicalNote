@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/routes/routes.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
