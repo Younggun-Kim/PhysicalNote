@@ -19,6 +19,7 @@ class FindPasswordPage extends GetView<FindPasswordController> {
               const NameField(),
               const SizedBox(height: 36),
               const EmailField(),
+              const SizedBox(height: 20),
               const Spacer(),
               Obx(
                 () => RoundButton(

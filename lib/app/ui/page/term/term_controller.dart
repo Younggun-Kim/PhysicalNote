@@ -49,12 +49,4 @@ class TermController extends LifecycleController {
   void onPressedNextButton() {
     Get.toNamed(RouteType.SIGN_UP);
   }
-
-  @override
-  void onDetached() {
-    super.onDetached();
-
-    // Get.until 버그로 명시적 해제해주기
-    Get.delete();
-  }
 }

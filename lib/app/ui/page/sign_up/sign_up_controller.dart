@@ -63,15 +63,9 @@ class SignUpController extends BaseController {
   }
 
   /// 로그인 버튼 클릭.
-  void onPressedLoginButton() {
+  void onPressedLoginButton() async {
     unFocus();
-    Get.offAndToNamed(RouteType.LOGIN);
+    await Future.delayed(const Duration(milliseconds: 300));
+    Get.until((route) => Get.currentRoute == RouteType.LOGIN);
   }
-
-  final onTapLoginButton = PublishSubject<void>()
-    ..doOnData((event) {
-      unFocus();
-    }).listen(
-      (event) => Get.until((route) => Get.currentRoute == RouteType.LOGIN),
-    );
 }

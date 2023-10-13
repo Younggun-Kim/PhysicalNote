@@ -29,7 +29,7 @@ class SignUpPage extends GetView<SignUpController> {
                   const SizedBox(height: 40),
                   Obx(() => RoundButton(
                         width: double.infinity,
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
                         isEnabled: controller.isEnabledLoginButton.value,
                         text: StringRes.login.tr,
                         onPressed: controller.onPressedLoginButton,

@@ -22,6 +22,7 @@ class FindIdPage extends GetView<FindIdController> {
             const NameField(),
             const SizedBox(height: 36),
             const PhoneNumberField(),
+            const SizedBox(height: 20),
             const Spacer(),
             Obx(
               () => RoundButton(

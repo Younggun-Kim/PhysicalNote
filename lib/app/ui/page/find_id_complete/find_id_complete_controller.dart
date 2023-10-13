@@ -16,12 +16,12 @@ class FindIdCompleteController extends BaseController {
 
   /// 비밀번호 찾기 클릭.
   void onPressedFindPassword() {
+    Get.until((route) => Get.currentRoute == RouteType.LOGIN);
+    Get.toNamed(RouteType.FIND_PASSWORD);
   }
 
   /// 로그인 버튼 클릭.
-  void onPressedLogin() async {
-    Get.until((route) {
-      return Get.currentRoute == RouteType.LOGIN;
-    });
+  void onPressedLogin() {
+    Get.until((route) => Get.currentRoute == RouteType.LOGIN);
   }
 }

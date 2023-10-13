@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:uuid/uuid.dart';
 
 class LoginController extends BaseController {
   /// 이메일 컨트롤러.
@@ -29,10 +28,7 @@ class LoginController extends BaseController {
 
   /// 간편 회원가입 클릭.
   void onPressedSimpleSignUp() {
-    Get.toNamed(
-      RouteType.TERM,
-      parameters: {"page_id": const Uuid().v1()},
-    );
+    Get.toNamed(RouteType.TERM);
   }
 
   /// 아이디 찾기 클릭.
@@ -47,7 +43,7 @@ class LoginController extends BaseController {
 
   /// 로그인 버튼 클릭.
   void onPressedLogin() {
-    showToast("이메일 로그인 클릭");
+    Get.offAllNamed(RouteType.HOME);
   }
 
   /// 네이버 클릭.

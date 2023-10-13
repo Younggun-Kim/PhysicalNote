@@ -26,7 +26,7 @@ class UserStorage extends BaseStorage {
   late final isRegisteredInformation = false.val(_Key.isRegisteredInformation.name, getBox: getBox);
 
   /// 로그인 여부.
-  bool get isLogin => true;
+  bool get isLogin => apiKey.val.isNotEmpty;
 
   UserStorage() : super(name: storageName);
 }
