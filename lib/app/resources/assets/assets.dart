@@ -9,5 +9,6 @@ class Assets {
   static const String imgApple = 'assets/images/img_apple.svg';
   static const String imgKakao = 'assets/images/img_kakao.svg';
   static const String imgNaver = 'assets/images/img_naver.svg';
+  static const String searchRefraction = 'assets/images/search-refraction.svg';
 
 }

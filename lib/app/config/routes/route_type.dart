@@ -13,4 +13,5 @@ abstract class RouteType {
   static const SIGN_UP = "/sign_up";
   static const TERM = "/term";
   static const HOME = "/home";
+  static const INFORMATION_REGISTRATION = "/information_registration";
 }

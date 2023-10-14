@@ -37,4 +37,9 @@ class StringRes {
   static final nameHint = _generateId();
   static final findIdResult = _generateId();
   static final changePassword = _generateId();
+  static final category = _generateId();
+  static final sports = _generateId();
+  static final clickToSelect = _generateId();
+  static final amateur = _generateId();
+  static final elite = _generateId();
 }

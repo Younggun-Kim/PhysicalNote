@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/utils/logger/logger.dart';
 
 import 'base_controller.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ class LifecycleController extends BaseController with WidgetsBindingObserver {
 
   void onResumed() {
     // resumed..
+    logger.d("onResumed : ${toString()}");
   }
 
   void onPaused() {

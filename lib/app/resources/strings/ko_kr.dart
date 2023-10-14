@@ -30,4 +30,11 @@ final koKr = {
   StringRes.nameHint: "이름을 입력하세요.",
   StringRes.findIdResult: "@name님의 아이디는\n@email 입니다.",
   StringRes.changePassword: "비밀번호 재설정",
+  StringRes.category: "종목",
+  StringRes.sports: "스포츠",
+  StringRes.clickToSelect: "눌러 선택하세요.",
+  StringRes.amateur: "아마추어",
+  StringRes.elite: "엘리트",
+
+
 };
