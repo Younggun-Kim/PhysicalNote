@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/information_registration/information_registration.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 
 /// 정보등록 뷰.
 class InformationRegistrationPage
@@ -19,11 +18,13 @@ class InformationRegistrationPage
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
+              _Header(),
               const Spacer(),
               _FieldName(text: StringRes.category.tr),
               const SizedBox(height: 10),
               _ListSearchButton(
                 text: "",
+                onTap: controller.onPressedCategory,
               ),
               const SizedBox(height: 36),
               _FieldName(text: StringRes.sports.tr),
@@ -91,6 +92,17 @@ class InformationRegistrationPage
       );
 }
 
+/// 헤더.
+class _Header extends GetView<InformationRegistrationController> {
+  @override
+  Widget build(BuildContext context) => Header(
+    title: "",
+    showBack: true,
+    onPressed: controller.close,
+    padding: const EdgeInsets.symmetric(horizontal: 4),
+  );
+}
+
 /// 필드명.
 class _FieldName extends StatelessWidget {
   final String text;
@@ -114,16 +126,19 @@ class _FieldName extends StatelessWidget {
 class _ListSearchButton extends GetView<InformationRegistrationController> {
   final String text;
 
-  const _ListSearchButton({required this.text});
+  final VoidCallback? onTap;
+
+  const _ListSearchButton({
+    required this.text,
+    this.onTap,
+  });
 
   bool get hasText => text.isNotEmpty;
 
   @override
   Widget build(BuildContext context) => InkWellOver(
         borderRadius: BorderRadius.circular(28),
-        onTap: () => {
-          logger.d("cli"),
-        },
+        onTap: onTap,
         child: Container(
           height: 56,
           alignment: Alignment.centerLeft,

@@ -4,15 +4,16 @@ import 'package:physical_note/app/resources/resources.dart';
 class Header extends StatelessWidget {
   final String title;
   final bool showBack;
+  final EdgeInsets padding;
   final VoidCallback? onPressed;
   final Widget? menu;
-
   get hasMenu => menu != null;
 
   const Header({
     Key? key,
     required this.title,
     this.showBack = true,
+    this.padding = const EdgeInsets.symmetric(horizontal: 24),
     this.onPressed,
     this.menu,
   }) : super(key: key);
@@ -22,7 +23,7 @@ class Header extends StatelessWidget {
     width: double.infinity,
     height: 60,
     color: ColorRes.white,
-    padding: const EdgeInsets.symmetric(horizontal: 24),
+    padding: padding,
     child: Stack(
       children: [
         Center(

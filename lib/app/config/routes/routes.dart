@@ -7,6 +7,7 @@ import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/ui/page/information_registration/information_registration.dart';
 import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
+import 'package:physical_note/app/ui/page/search_category/search_category.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up.dart';
 import 'package:physical_note/app/ui/page/splash/splash.dart';
 import 'package:physical_note/app/ui/page/term/term.dart';
@@ -72,6 +73,12 @@ class Routes {
       name: RouteType.INFORMATION_REGISTRATION,
       page: () => const InformationRegistrationPage(),
       binding: InformationRegistrationBindings(),
+      maintainState: false,
+    ),
+    GetPage(
+      name: RouteType.SEARCH_CATEGORY,
+      page: () => const SearchCategoryPage(),
+      binding: SearchCategoryBindings(),
       maintainState: false,
     ),
   ];

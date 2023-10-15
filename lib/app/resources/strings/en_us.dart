@@ -34,4 +34,7 @@ final enUs = {
   StringRes.clickToSelect: "눌러 선택하세요.",
   StringRes.amateur: "아마추어",
   StringRes.elite: "엘리트",
+  StringRes.selectCategory: "종목 선택",
+  StringRes.search: "검색",
+  StringRes.select: "선택",
 };

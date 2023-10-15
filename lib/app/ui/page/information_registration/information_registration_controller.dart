@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 
 /// 정보등록 컨트롤러.
 class InformationRegistrationController extends BaseController {
@@ -11,16 +11,19 @@ class InformationRegistrationController extends BaseController {
   /// 엘리트 선택 여부.
   var isElite = false.obs;
 
+  /// 종목 클릭.
+  void onPressedCategory() {
+    Get.toNamed(RouteType.SEARCH_CATEGORY);
+  }
+
   /// 아마추어 클릭.
   void onPressedAmateur() {
-    logger.i("아마추어 클릭");
     isAmateur.value = true;
     isElite.value = false;
   }
 
   /// 엘리트 클릭.
   void onPressedElite() {
-    logger.i("엘리트 클릭");
     isAmateur.value = false;
     isElite.value = true;
   }

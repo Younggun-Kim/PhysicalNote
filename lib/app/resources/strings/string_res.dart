@@ -42,4 +42,7 @@ class StringRes {
   static final clickToSelect = _generateId();
   static final amateur = _generateId();
   static final elite = _generateId();
+  static final selectCategory = _generateId();
+  static final search = _generateId();
+  static final select = _generateId();
 }

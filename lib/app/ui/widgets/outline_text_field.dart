@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:physical_note/app/resources/resources.dart';
 
 class OutlineTextField extends StatelessWidget {
@@ -26,6 +27,9 @@ class OutlineTextField extends StatelessWidget {
 
   final FontWeight? fontWeight;
 
+  // Right Widget
+  final bool isShowSearch;
+
   /// 생성자.
   const OutlineTextField({
     Key? key,
@@ -39,6 +43,7 @@ class OutlineTextField extends StatelessWidget {
     this.fontSize = 16,
     this.textColor = ColorRes.fontBlack,
     this.fontWeight = FontWeight.w400,
+    this.isShowSearch = false,
   }) : super(key: key);
 
   @override
@@ -47,46 +52,57 @@ class OutlineTextField extends StatelessWidget {
         BorderRadius.circular(MediaQuery.of(context).size.height * 0.5);
 
     return Container(
-      width: double.infinity,
-      height: 56,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: ColorRes.borderWhite),
-        borderRadius: borderRadius,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.25),
-            spreadRadius: 3,
-            blurRadius: 5,
-            offset: const Offset(0, 2), // changes position of shadow
-          ),
-        ],
-      ),
-      child: TextField(
-        controller: controller,
-        maxLength: maxLength,
-        keyboardType: keyboardType,
-        obscureText: obscureText,
-        style: TextStyle(
-          fontSize: fontSize,
-          color: textColor,
-          fontWeight: fontWeight,
+        width: double.infinity,
+        height: 56,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: ColorRes.borderWhite),
+          borderRadius: borderRadius,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.25),
+              spreadRadius: 3,
+              blurRadius: 5,
+              offset: const Offset(0, 2), // changes position of shadow
+            ),
+          ],
         ),
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: TextStyle(
-            fontSize: fontSize,
-            color: ColorRes.fontDisable,
-            fontWeight: fontWeight,
-          ),
-          focusedBorder: InputBorder.none,
-          border: InputBorder.none,
-          isDense: true,
-          contentPadding: contentPadding,
-          counterText: '',
-        ),
-      ),
-    );
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: controller,
+                maxLength: maxLength,
+                keyboardType: keyboardType,
+                obscureText: obscureText,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  color: textColor,
+                  fontWeight: fontWeight,
+                ),
+                decoration: InputDecoration(
+                  hintText: hint,
+                  hintStyle: TextStyle(
+                    fontSize: fontSize,
+                    color: ColorRes.fontDisable,
+                    fontWeight: fontWeight,
+                  ),
+                  focusedBorder: InputBorder.none,
+                  border: InputBorder.none,
+                  isDense: true,
+                  contentPadding: contentPadding,
+                  counterText: '',
+                ),
+              ),
+            ),
+            Visibility(
+              visible: isShowSearch,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                child: SvgPicture.asset(Assets.searchRefraction),),
+            )
+          ],
+        ));
   }
 }
