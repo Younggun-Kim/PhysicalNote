@@ -35,16 +35,45 @@ class InformationRegistrationPage
               Row(
                 children: [
                   Expanded(
-                    child: RoundButton(
-                      text: StringRes.amateur.tr,
-                      isEnabled: false,
+                    child: Obx(
+                      () => RoundButton(
+                        text: StringRes.amateur.tr,
+                        isSelected: controller.isAmateur.value,
+                        backgroundColor: ColorRes.white,
+                        selectedColor: ColorRes.primary,
+                        textStyle: const TextStyle(
+                          color: ColorRes.fontBlack,
+                          fontSize: 16,
+                        ),
+                        selectedTextStyle: const TextStyle(
+                          color: ColorRes.fontBlack,
+                          fontSize: 16,
+                        ),
+                        border: Border.all(color: ColorRes.borderDeselect),
+                        onPressed: controller.onPressedAmateur,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 20),
                   Expanded(
-                    child: RoundButton(
-                      text: StringRes.elite.tr,
-                      isEnabled: false,
+                    child: Obx(
+                      () => RoundButton(
+                        text: StringRes.elite.tr,
+                        isEnabled: true,
+                        isSelected: controller.isElite.value,
+                        backgroundColor: ColorRes.white,
+                        selectedColor: ColorRes.primary,
+                        textStyle: const TextStyle(
+                          color: ColorRes.fontBlack,
+                          fontSize: 16,
+                        ),
+                        selectedTextStyle: const TextStyle(
+                          color: ColorRes.fontBlack,
+                          fontSize: 16,
+                        ),
+                        border: Border.all(color: ColorRes.borderDeselect),
+                        onPressed: controller.onPressedElite,
+                      ),
                     ),
                   ),
                 ],
@@ -91,31 +120,42 @@ class _ListSearchButton extends GetView<InformationRegistrationController> {
 
   @override
   Widget build(BuildContext context) => InkWellOver(
-    borderRadius: BorderRadius.circular(28),
-    onTap: () => {logger.d("cli")},
-    child: Container(
-      height: 56,
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-      decoration: BoxDecoration(
-        border: Border.all(color: ColorRes.borderDeselect),
         borderRadius: BorderRadius.circular(28),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              hasText ? text : StringRes.clickToSelect.tr,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: hasText ? ColorRes.fontBlack : ColorRes.fontDisable,
+        onTap: () => {
+          logger.d("cli"),
+        },
+        child: Container(
+          height: 56,
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+          decoration: BoxDecoration(
+            color: ColorRes.white,
+            border: Border.all(color: ColorRes.borderDeselect),
+            borderRadius: BorderRadius.circular(28),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.25),
+                spreadRadius: 3,
+                blurRadius: 5,
+                offset: const Offset(0, 2), // changes position of shadow
               ),
-            ),
+            ],
           ),
-          SvgPicture.asset(Assets.searchRefraction),
-        ],
-      ),
-    ),
-  );
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  hasText ? text : StringRes.clickToSelect.tr,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: hasText ? ColorRes.fontBlack : ColorRes.fontDisable,
+                  ),
+                ),
+              ),
+              SvgPicture.asset(Assets.searchRefraction),
+            ],
+          ),
+        ),
+      );
 }

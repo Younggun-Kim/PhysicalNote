@@ -8,14 +8,20 @@ class RoundButton extends StatelessWidget {
   final double radius;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
+  final Border? border;
 
   // Button Attribute.
   final bool isEnabled;
+  final bool isSelected;
+  final Color? backgroundColor;
+  final Color? selectedColor;
+  final Color? disabledColor;
 
   // Text Style.
   final String text;
   final TextStyle? textStyle;
-  final Color? backgroundColor;
+  final TextStyle? selectedTextStyle;
+  final TextStyle? disabledTextStyle;
 
   final VoidCallback? onPressed;
 
@@ -26,10 +32,20 @@ class RoundButton extends StatelessWidget {
     this.radius = 28,
     this.margin,
     this.padding,
+    this.border,
+    this.isEnabled = true,
+    this.isSelected = false,
+    this.backgroundColor = ColorRes.primary,
+    this.selectedColor,
+    this.disabledColor = ColorRes.disable,
     required this.text,
     this.textStyle,
-    this.backgroundColor = ColorRes.primary,
-    this.isEnabled = true,
+    this.selectedTextStyle,
+    this.disabledTextStyle = const TextStyle(
+      color: ColorRes.white,
+      fontWeight: FontWeight.w500,
+      fontSize: 16,
+    ),
     this.onPressed,
   }) : super(key: key);
 
@@ -40,6 +56,7 @@ class RoundButton extends StatelessWidget {
         margin: margin,
         padding: padding,
         decoration: BoxDecoration(
+          border: border,
           borderRadius: BorderRadius.circular(radius),
           boxShadow: [
             BoxShadow(
@@ -53,8 +70,7 @@ class RoundButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: isEnabled ? onPressed : null,
           style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(buttonBackgroundColor(isEnabled)),
+              backgroundColor: MaterialStateProperty.all(buttonBackgroundColor),
               overlayColor:
                   MaterialStateProperty.all(ColorRes.clickOverlayColor),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -62,17 +78,22 @@ class RoundButton extends StatelessWidget {
               ))),
           child: Text(
             text,
-            style: textStyle ?? const TextStyle(
-                    color: ColorRes.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
+            style: buttonTextStyle,
           ),
         ),
       );
 
   /// 버튼 배경색.
-  Color? buttonBackgroundColor(bool isEnabled) {
-    return isEnabled ? backgroundColor : ColorRes.disable;
-  }
+  Color? get buttonBackgroundColor => isEnabled
+      ? isSelected
+          ? selectedColor
+          : backgroundColor
+      : disabledColor;
+
+  /// 텍스트 스타일.
+  TextStyle? get buttonTextStyle => isEnabled
+      ? isSelected
+          ? selectedTextStyle
+          : textStyle
+      : disabledTextStyle;
 }
