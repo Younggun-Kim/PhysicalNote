@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/information_registration/information_registration.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
@@ -22,15 +23,18 @@ class InformationRegistrationPage
               const Spacer(),
               _FieldName(text: StringRes.category.tr),
               const SizedBox(height: 10),
-              _ListSearchButton(
-                text: "",
-                onTap: controller.onPressedCategory,
-              ),
+              Obx(() => _ListSearchButton(
+                    text: controller.category.value,
+                    onTap: controller.onPressedCategory,
+                  )),
               const SizedBox(height: 36),
               _FieldName(text: StringRes.sports.tr),
               const SizedBox(height: 10),
-              _ListSearchButton(
-                text: "",
+              Obx(
+                () => _ListSearchButton(
+                  text: controller.sports.value,
+                  onTap: controller.onPressedSports,
+                ),
               ),
               const SizedBox(height: 52),
               Row(
@@ -80,10 +84,13 @@ class InformationRegistrationPage
                 ],
               ),
               const Spacer(),
-              RoundButton(
-                width: double.infinity,
-                text: StringRes.next.tr,
-                isEnabled: false,
+              Obx(
+                () => RoundButton(
+                  width: double.infinity,
+                  text: StringRes.next.tr,
+                  isEnabled: controller.isEnabledNext.value,
+                  onPressed: controller.onPressedNext,
+                ),
               ),
               const SizedBox(height: 40),
             ],
@@ -96,11 +103,11 @@ class InformationRegistrationPage
 class _Header extends GetView<InformationRegistrationController> {
   @override
   Widget build(BuildContext context) => Header(
-    title: "",
-    showBack: true,
-    onPressed: controller.close,
-    padding: const EdgeInsets.symmetric(horizontal: 4),
-  );
+        title: "",
+        showBack: true,
+        onPressed: controller.close,
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+      );
 }
 
 /// 필드명.

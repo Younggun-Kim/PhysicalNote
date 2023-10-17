@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 
 class OutlineTextField extends StatelessWidget {
   // Container
@@ -30,6 +31,8 @@ class OutlineTextField extends StatelessWidget {
   // Right Widget
   final bool isShowSearch;
 
+  final VoidCallback? onPressedSearch;
+
   /// 생성자.
   const OutlineTextField({
     Key? key,
@@ -44,6 +47,7 @@ class OutlineTextField extends StatelessWidget {
     this.textColor = ColorRes.fontBlack,
     this.fontWeight = FontWeight.w400,
     this.isShowSearch = false,
+    this.onPressedSearch,
   }) : super(key: key);
 
   @override
@@ -98,9 +102,13 @@ class OutlineTextField extends StatelessWidget {
             ),
             Visibility(
               visible: isShowSearch,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
-                child: SvgPicture.asset(Assets.searchRefraction),),
+              child: InkWellOver(
+                onTap: onPressedSearch,
+                splashColor: null,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                  child: SvgPicture.asset(Assets.searchRefraction),),
+              ),
             )
           ],
         ));

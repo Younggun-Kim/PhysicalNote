@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item.dart';
 import 'package:physical_note/app/ui/page/search_category/search_category.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
+import 'package:physical_note/app/utils/logger/logger.dart';
 
 /// 종목 검색 뷰.
 class SearchCategoryPage extends GetView<SearchCategoryController> {
@@ -22,22 +25,29 @@ class SearchCategoryPage extends GetView<SearchCategoryController> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Obx(() => ListView.builder(
-                  itemBuilder: (context, index) {
-                    final uiState = controller.items[index];
-                    return Text(uiState.name);
-                  },
-                  itemCount: controller.items.length,
-                )),
+                      itemBuilder: (context, index) {
+                        final uiState = controller.items[index];
+                        return SearchCategoryListItem(
+                          uiState: uiState,
+                          onTap: controller.onPressedListItem,
+                        );
+                      },
+                      itemCount: controller.items.length,
+                    )),
               ),
             ),
             const SizedBox(height: 40),
-            RoundButton(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 30),
-              text: StringRes.next.tr,
-              textStyle: const TextStyle(
-                fontSize: 16,
-                color: ColorRes.white,
+            Obx(
+              () => RoundButton(
+                width: double.infinity,
+                isEnabled: controller.isSelectedListItem.value,
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+                text: StringRes.next.tr,
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  color: ColorRes.white,
+                ),
+                onPressed: controller.onPressedNextButton,
               ),
             ),
             const SizedBox(height: 40),
@@ -63,5 +73,6 @@ class _SearchTextField extends GetView<SearchCategoryController> {
         controller: controller.keyword.controller,
         hint: StringRes.search.tr,
         isShowSearch: true,
+        onPressedSearch: controller.onPressedSearchButton,
       ).paddingSymmetric(horizontal: 30);
 }

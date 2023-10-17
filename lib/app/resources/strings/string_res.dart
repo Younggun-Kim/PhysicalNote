@@ -45,4 +45,18 @@ class StringRes {
   static final selectCategory = _generateId();
   static final search = _generateId();
   static final select = _generateId();
+  static final myInformation = _generateId();
+  static final teamName = _generateId();
+  static final selectTeam = _generateId();
+  static final height = _generateId();
+  static final weight = _generateId();
+  static final cm = _generateId();
+  static final kg = _generateId();
+  static final birth = _generateId();
+  static final gender = _generateId();
+  static final eightDigits = _generateId();
+  static final positionMultipleSelectionPossible = _generateId();
+  static final mainFoot = _generateId();
+  static final leftFoot = _generateId();
+  static final rightFoot = _generateId();
 }
