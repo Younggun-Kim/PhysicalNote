@@ -35,6 +35,7 @@ final enUs = {
   StringRes.amateur: "아마추어",
   StringRes.elite: "엘리트",
   StringRes.selectCategory: "종목 선택",
+  StringRes.selectSports: "스포츠 선택",
   StringRes.search: "검색",
   StringRes.select: "선택",
   StringRes.myInformation: "내정보",
@@ -51,4 +52,5 @@ final enUs = {
   StringRes.mainFoot: "주 발",
   StringRes.leftFoot: "왼쪽 발",
   StringRes.rightFoot: "오른쪽 발",
+  StringRes.registration: "등록",
 };

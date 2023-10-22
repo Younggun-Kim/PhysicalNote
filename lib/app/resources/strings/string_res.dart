@@ -43,6 +43,7 @@ class StringRes {
   static final amateur = _generateId();
   static final elite = _generateId();
   static final selectCategory = _generateId();
+  static final selectSports = _generateId();
   static final search = _generateId();
   static final select = _generateId();
   static final myInformation = _generateId();
@@ -59,4 +60,5 @@ class StringRes {
   static final mainFoot = _generateId();
   static final leftFoot = _generateId();
   static final rightFoot = _generateId();
+  static final registration = _generateId();
 }

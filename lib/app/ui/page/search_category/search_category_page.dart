@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item.dart';
 import 'package:physical_note/app/ui/page/search_category/search_category.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 
 /// 종목 검색 뷰.
 class SearchCategoryPage extends GetView<SearchCategoryController> {
@@ -60,7 +58,9 @@ class SearchCategoryPage extends GetView<SearchCategoryController> {
 class _Header extends GetView<SearchCategoryController> {
   @override
   Widget build(BuildContext context) => Header(
-        title: StringRes.selectCategory.tr,
+        title: controller.isSports
+            ? StringRes.selectSports.tr
+            : StringRes.selectCategory.tr,
         showBack: true,
         onPressed: controller.close,
       );

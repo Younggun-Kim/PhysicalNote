@@ -33,6 +33,8 @@ class OutlineTextField extends StatelessWidget {
 
   final VoidCallback? onPressedSearch;
 
+  final Widget rightWidget;
+
   /// 생성자.
   const OutlineTextField({
     Key? key,
@@ -48,6 +50,7 @@ class OutlineTextField extends StatelessWidget {
     this.fontWeight = FontWeight.w400,
     this.isShowSearch = false,
     this.onPressedSearch,
+    this.rightWidget = const SizedBox(),
   }) : super(key: key);
 
   @override
@@ -59,6 +62,7 @@ class OutlineTextField extends StatelessWidget {
         width: double.infinity,
         height: 56,
         alignment: Alignment.center,
+        padding: contentPadding,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: ColorRes.borderWhite),
@@ -95,7 +99,7 @@ class OutlineTextField extends StatelessWidget {
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                   isDense: true,
-                  contentPadding: contentPadding,
+                  contentPadding: EdgeInsets.zero,
                   counterText: '',
                 ),
               ),
@@ -107,9 +111,11 @@ class OutlineTextField extends StatelessWidget {
                 splashColor: null,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
-                  child: SvgPicture.asset(Assets.searchRefraction),),
+                  child: SvgPicture.asset(Assets.searchRefraction),
+                ),
               ),
-            )
+            ),
+            rightWidget
           ],
         ));
   }

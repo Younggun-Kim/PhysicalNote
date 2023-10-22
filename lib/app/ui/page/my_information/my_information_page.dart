@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
+import 'package:physical_note/app/ui/page/my_information/position/position_list_item.dart';
 import 'package:physical_note/app/ui/widgets/buttons/hint_button.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
@@ -10,16 +11,31 @@ class MyInformationPage extends GetView<MyInformationController> {
   const MyInformationPage({super.key});
 
   @override
-  Widget build(BuildContext context) => PageRoot(
+  Widget build(BuildContext context) =>
+      PageRoot(
         controller: controller,
-        child: Column(
-          children: [
-            _Header(),
-            _Name(),
-            const SizedBox(height: 20),
-            _Team(),
-            const SizedBox(height: 20),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _Header(),
+              _Name(),
+              const SizedBox(height: 20),
+              _Team(),
+              const SizedBox(height: 20),
+              _HeightWeight(),
+              const SizedBox(height: 20),
+              _BirthAndGender(),
+              const SizedBox(height: 20),
+              _Position(),
+              const SizedBox(height: 20),
+              RoundButton(
+                width: double.infinity,
+                text: StringRes.registration.tr,
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+              ),
+              const SizedBox(height: 40),
+            ],
+          ),
         ),
       );
 }
@@ -27,7 +43,8 @@ class MyInformationPage extends GetView<MyInformationController> {
 /// 헤더.
 class _Header extends GetView<MyInformationController> {
   @override
-  Widget build(BuildContext context) => Header(
+  Widget build(BuildContext context) =>
+      Header(
         title: StringRes.myInformation.tr,
         showBack: true,
         onPressed: controller.close,
@@ -41,7 +58,8 @@ class FieldName extends StatelessWidget {
   const FieldName({super.key, required this.name});
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) =>
+      Container(
         alignment: Alignment.centerLeft,
         child: Text(
           name,
@@ -56,7 +74,8 @@ class FieldName extends StatelessWidget {
 /// 이름.
 class _Name extends GetView<MyInformationController> {
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) =>
+      Column(
         children: [
           FieldName(name: StringRes.name.tr),
           const SizedBox(height: 10),
@@ -73,13 +92,147 @@ class _Name extends GetView<MyInformationController> {
 /// 팀명.
 class _Team extends GetView<MyInformationController> {
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) =>
+      Column(
         children: [
           FieldName(name: StringRes.teamName.tr),
           const SizedBox(height: 10),
           HintButton(
             text: "",
             hint: StringRes.selectTeam.tr,
+          ),
+        ],
+      ).paddingSymmetric(horizontal: 30);
+}
+
+/// 키.
+class _Height extends GetView<MyInformationController> {
+  @override
+  Widget build(BuildContext context) =>
+      Column(
+        children: [
+          FieldName(name: StringRes.height.tr),
+          const SizedBox(height: 10),
+          OutlineTextField(
+            controller: controller.height.controller,
+            rightWidget: Text(
+              StringRes.cm.tr,
+              style: const TextStyle(
+                fontSize: 16,
+                color: ColorRes.disable,
+              ),
+            ),
+          ),
+        ],
+      );
+}
+
+/// 몸무게.
+class _Weight extends GetView<MyInformationController> {
+  @override
+  Widget build(BuildContext context) =>
+      Column(
+        children: [
+          FieldName(name: StringRes.weight.tr),
+          const SizedBox(height: 10),
+          OutlineTextField(
+            controller: controller.weight.controller,
+            rightWidget: Text(
+              StringRes.kg.tr,
+              style: const TextStyle(
+                fontSize: 16,
+                color: ColorRes.disable,
+              ),
+            ),
+          ),
+        ],
+      );
+}
+
+/// 키와 몸무게.
+class _HeightWeight extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) =>
+      Row(
+        children: [
+          Expanded(child: _Height()),
+          const SizedBox(width: 20),
+          Expanded(child: _Weight()),
+        ],
+      ).paddingSymmetric(horizontal: 30);
+}
+
+/// 생년월일.
+class _Birth extends GetView<MyInformationController> {
+  @override
+  Widget build(BuildContext context) =>
+      Column(
+        children: [
+          FieldName(name: StringRes.birth.tr),
+          const SizedBox(height: 10),
+          OutlineTextField(
+            controller: controller.birth.controller,
+            hint: StringRes.eightDigits.tr,
+          ),
+        ],
+      );
+}
+
+/// 성별.
+class _Gender extends GetView<MyInformationController> {
+  @override
+  Widget build(BuildContext context) =>
+      Column(
+        children: [
+          FieldName(name: StringRes.gender.tr),
+          const SizedBox(height: 10),
+          OutlineTextField(
+            controller: controller.gender.controller,
+          ),
+        ],
+      );
+}
+
+/// 생년월일, 성별.
+class _BirthAndGender extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) =>
+      Row(
+        children: [
+          Expanded(child: _Birth()),
+          const SizedBox(width: 20),
+          Expanded(child: _Gender()),
+        ],
+      ).paddingSymmetric(horizontal: 30);
+}
+
+/// 포지션.
+class _Position extends GetView<MyInformationController> {
+  @override
+  Widget build(BuildContext context) =>
+      Column(
+        children: [
+          FieldName(name: StringRes.positionMultipleSelectionPossible.tr),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 40,
+            child: Obx(
+                  () =>
+                  ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.positionItems.length,
+                    itemBuilder: (context, index) {
+                      var uiState = controller.positionItems[index];
+                      return PositionListItem(
+                        uiState: uiState,
+                        onTap: controller.onTapPositionItem,
+                      );
+                    },
+                    separatorBuilder: (context, itemIndex) {
+                      return const SizedBox(width: 5);
+                    },
+                  ),
+            ),
           ),
         ],
       ).paddingSymmetric(horizontal: 30);
