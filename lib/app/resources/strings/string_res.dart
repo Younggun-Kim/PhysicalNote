@@ -61,4 +61,5 @@ class StringRes {
   static final leftFoot = _generateId();
   static final rightFoot = _generateId();
   static final registration = _generateId();
+  static final confirm = _generateId();
 }

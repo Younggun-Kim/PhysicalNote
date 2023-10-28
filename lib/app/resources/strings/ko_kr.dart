@@ -54,4 +54,5 @@ final koKr = {
   StringRes.leftFoot: "왼쪽 발",
   StringRes.rightFoot: "오른쪽 발",
   StringRes.registration: "등록",
+  StringRes.confirm: "확인",
 };

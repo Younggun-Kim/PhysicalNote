@@ -32,6 +32,13 @@ class MyInformationController extends BaseController {
     PositionListItemUiState(id: 10, name: "축구10", isSelected: false),
   ].obs;
 
+
+  /// 왼쪽 발.
+  var leftFoot = 0.0.obs;
+
+  /// 왼쪽 발.
+  var rightFoot = 0.0.obs;
+
   /// 포지션 선택.
   void onTapPositionItem(PositionListItemUiState uiState) {
     var newItems = positionItems.map((element) {
@@ -39,5 +46,15 @@ class MyInformationController extends BaseController {
       return element;
     });
     positionItems.value = newItems.toList();
+  }
+
+  /// 왼쪽 발 변경.
+  void onChangeLeftFoot(newValue) {
+    leftFoot.value = newValue;
+  }
+
+  /// 오른쪽 발 변경.
+  void onChangeRightFoot(newValue) {
+    rightFoot.value = newValue;
   }
 }
