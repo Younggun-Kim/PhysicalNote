@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item.dart';
 import 'package:physical_note/app/ui/widgets/buttons/hint_button.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
+import 'package:physical_note/app/utils/logger/logger.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 /// 내정보 뷰.
@@ -169,11 +171,15 @@ class _Birth extends GetView<MyInformationController> {
           const SizedBox(height: 10),
           OutlineRoundButton(
             width: double.infinity,
-            text: "",
+            text: controller.birth?.value.toString() ?? "",
             hint: StringRes.eightDigits.tr,
             fontSize: 16,
             onPressed: () {
-              bottomSheetDatePicker(context);
+              bottomSheetDatePicker(
+                context,
+                controller.onDateTimeChanged,
+                controller.onPressedDateTimeChangeButton,
+              );
             },
           ),
         ],

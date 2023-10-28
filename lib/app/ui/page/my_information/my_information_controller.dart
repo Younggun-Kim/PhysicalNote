@@ -13,7 +13,10 @@ class MyInformationController extends BaseController {
   var weight = "".obsWithController;
 
   /// 생년월일.
-  var birth = "".obsWithController;
+  Rx<DateTime>? birth;
+
+  /// 임시 생년월일.
+  var tempBirth = DateTime.now().obs;
 
   /// 성별.
   var gender = "".obsWithController;
@@ -38,6 +41,16 @@ class MyInformationController extends BaseController {
 
   /// 왼쪽 발.
   var rightFoot = 0.0.obs;
+
+  /// 날짜 변경.
+  void onDateTimeChanged(DateTime dateTime) {
+    tempBirth.value = dateTime;
+  }
+
+  /// 날짜 변경 확인 버튼 클릭.
+  void onPressedDateTimeChangeButton() {
+    birth = tempBirth;
+  }
 
   /// 포지션 선택.
   void onTapPositionItem(PositionListItemUiState uiState) {
