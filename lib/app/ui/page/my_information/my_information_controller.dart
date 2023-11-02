@@ -12,8 +12,11 @@ class MyInformationController extends BaseController {
   /// 몸무게.
   var weight = "".obsWithController;
 
+  /// 생년월일 선택 여부.
+  var isSelectedBirth = false.obs;
+
   /// 생년월일.
-  Rx<DateTime>? birth;
+  var birth = DateTime.now().obs;
 
   /// 임시 생년월일.
   var tempBirth = DateTime.now().obs;
@@ -49,7 +52,13 @@ class MyInformationController extends BaseController {
 
   /// 날짜 변경 확인 버튼 클릭.
   void onPressedDateTimeChangeButton() {
-    birth = tempBirth;
+    birth.value = tempBirth.value;
+    isSelectedBirth.value = true;
+  }
+
+  /// 임시 생년월일 초기화.
+  void resetTempBirth() {
+    tempBirth.value = birth.value;
   }
 
   /// 포지션 선택.

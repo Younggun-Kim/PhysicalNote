@@ -8,7 +8,6 @@ import 'package:physical_note/app/ui/page/information_registration/information_r
 import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
-import 'package:physical_note/app/ui/page/my_information/my_information_page.dart';
 import 'package:physical_note/app/ui/page/search_category/search_category.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up.dart';
 import 'package:physical_note/app/ui/page/splash/splash.dart';

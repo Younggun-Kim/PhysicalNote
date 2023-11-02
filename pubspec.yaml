@@ -47,6 +47,7 @@ dependencies:
   url_launcher: ^6.1.14
   easy_rich_text: ^2.0.0
   syncfusion_flutter_sliders: ^23.1.41
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
