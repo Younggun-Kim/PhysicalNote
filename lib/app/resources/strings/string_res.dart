@@ -62,4 +62,8 @@ class StringRes {
   static final rightFoot = _generateId();
   static final registration = _generateId();
   static final confirm = _generateId();
+  static final searchTeams = _generateId();
+  static final logo = _generateId();
+  static final clubName = _generateId();
+  static final dedicatedCoach = _generateId();
 }

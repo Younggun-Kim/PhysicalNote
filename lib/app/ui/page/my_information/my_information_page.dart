@@ -99,6 +99,9 @@ class _Team extends GetView<MyInformationController> {
           HintButton(
             text: "",
             hint: StringRes.selectTeam.tr,
+            onTap: () async {
+              controller.onPressedTeamName();
+            },
           ),
         ],
       ).paddingSymmetric(horizontal: 30);

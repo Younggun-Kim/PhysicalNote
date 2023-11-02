@@ -9,6 +9,7 @@ import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
 import 'package:physical_note/app/ui/page/search_category/search_category.dart';
+import 'package:physical_note/app/ui/page/search_teams/search_teams.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up.dart';
 import 'package:physical_note/app/ui/page/splash/splash.dart';
 import 'package:physical_note/app/ui/page/term/term.dart';
@@ -88,5 +89,10 @@ class Routes {
       binding: MyInformationBindings(),
       maintainState: false,
     ),
+    GetPage(
+      name: RouteType.SEARCH_TEAMS,
+      page: () => const SearchTeamsPage(),
+      binding: SearchTeamsBindings(),
+    )
   ];
 }

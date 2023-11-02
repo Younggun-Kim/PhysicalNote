@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
@@ -78,5 +79,10 @@ class MyInformationController extends BaseController {
   /// 오른쪽 발 변경.
   void onChangeRightFoot(newValue) {
     rightFoot.value = newValue;
+  }
+
+  /// 팀명 클릭.
+  Future<void> onPressedTeamName() async {
+    await Get.toNamed(RouteType.SEARCH_TEAMS);
   }
 }

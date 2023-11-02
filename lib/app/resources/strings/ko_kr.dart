@@ -55,4 +55,8 @@ final koKr = {
   StringRes.rightFoot: "오른쪽 발",
   StringRes.registration: "등록",
   StringRes.confirm: "확인",
+  StringRes.searchTeams: "팀 검색",
+  StringRes.logo: "로고",
+  StringRes.clubName: "구단이름",
+  StringRes.dedicatedCoach: "전담코치",
 };

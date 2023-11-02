@@ -16,4 +16,5 @@ abstract class RouteType {
   static const INFORMATION_REGISTRATION = "/information_registration";
   static const SEARCH_CATEGORY = "/search_category";
   static const MY_INFORMATION = "/my_information";
+  static const SEARCH_TEAMS = "/search_teams";
 }
