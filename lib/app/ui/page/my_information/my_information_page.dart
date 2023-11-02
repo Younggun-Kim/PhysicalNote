@@ -7,7 +7,6 @@ import 'package:physical_note/app/ui/page/my_information/position/position_list_
 import 'package:physical_note/app/ui/widgets/buttons/hint_button.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 /// 내정보 뷰.
 class MyInformationPage extends GetView<MyInformationController> {
@@ -171,7 +170,9 @@ class _Birth extends GetView<MyInformationController> {
           Obx(
             () => OutlineRoundButton(
               width: double.infinity,
-              text: controller.isSelectedBirth.value ? controller.birth.value.toFormattedString('yyyy-MM-dd') : "",
+              text: controller.isSelectedBirth.value
+                  ? controller.birth.value.toFormattedString('yyyy-MM-dd')
+                  : "",
               hint: StringRes.eightDigits.tr,
               fontSize: 16,
               onPressed: () async {
@@ -281,50 +282,53 @@ class _MainFooted extends GetView<MyInformationController> {
           const SizedBox(height: 10),
           Row(
             children: [
-              Text(
-                StringRes.leftFoot.tr,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: ColorRes.fontDisable,
+              SizedBox(
+                width: 80,
+                child: Text(
+                  StringRes.leftFoot.tr,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: ColorRes.fontDisable,
+                  ),
                 ),
               ),
-              Obx(
-                () => Slider(
-                  value: controller.leftFoot.value,
-                  min: 0.0,
-                  max: 100.0,
-                  divisions: 10,
-                  label: '${controller.leftFoot.round()}',
-                  onChanged: (double newValue) {
-                    controller.onChangeLeftFoot(newValue);
-                  },
+              Expanded(
+                child: Obx(
+                  () => Slider(
+                    value: controller.leftFoot.value,
+                    min: 0.0,
+                    max: 100.0,
+                    divisions: 10,
+                    label: '${controller.leftFoot.round()}',
+                    onChanged: (double newValue) {
+                      controller.onChangeLeftFoot(newValue);
+                    },
+                  ),
                 ),
               ),
             ],
           ),
           Row(
             children: [
-              Text(
-                StringRes.rightFoot.tr,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: ColorRes.fontDisable,
+              SizedBox(
+                width: 80,
+                child: Text(
+                  StringRes.rightFoot.tr,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: ColorRes.fontDisable,
+                  ),
                 ),
               ),
               Expanded(
                 child: Obx(
-                  () => SfSlider(
-                    min: 0.0,
-                    max: 10.0,
-                    interval: 1,
-                    showTicks: false,
-                    showLabels: false,
-                    enableTooltip: false,
-                    minorTicksPerInterval: 1,
-                    thumbIcon: const Icon(Icons.arrow_forward_ios,
-                        color: Colors.greenAccent, size: 20.0),
+                  () => Slider(
                     value: controller.rightFoot.value,
-                    onChanged: (dynamic newValue) {
+                    min: 0.0,
+                    max: 100.0,
+                    divisions: 10,
+                    label: '${controller.rightFoot.round()}',
+                    onChanged: (double newValue) {
                       controller.onChangeRightFoot(newValue);
                     },
                   ),
