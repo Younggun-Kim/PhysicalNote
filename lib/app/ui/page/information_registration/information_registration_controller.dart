@@ -58,7 +58,7 @@ class InformationRegistrationController extends BaseController {
   }
 
   /// 다음 클릭.
-  void onPressedNext() {
-    Get.toNamed(RouteType.MY_INFORMATION);
+  Future<void> onPressedNext() async {
+    await Get.toNamed(RouteType.MY_INFORMATION);
   }
 }

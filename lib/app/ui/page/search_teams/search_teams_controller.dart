@@ -30,5 +30,8 @@ class SearchTeamsController extends BaseController {
       return element;
     });
     items.value = newItems.toList();
+
+    var selectedItems = items.firstWhere((element) => element.isSelected);
+    close(result: selectedItems);
   }
 }

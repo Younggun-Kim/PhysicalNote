@@ -19,6 +19,7 @@ class SearchTeamsPage extends GetView<SearchTeamsController> {
             _SearchTextField(),
             const SizedBox(height: 40),
             _FieldNames(),
+            const SizedBox(height: 20),
             _CoachList(),
             const SizedBox(height: 20),
           ],
@@ -94,16 +95,20 @@ class _CoachList extends GetView<SearchTeamsController> {
   Widget build(BuildContext context) => Expanded(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Obx(() => ListView.builder(
-                itemBuilder: (context, index) {
-                  final uiState = controller.items[index];
-                  return SearchTeamsListItem(
-                    uiState: uiState,
-                    onTap: controller.onPressedListItem,
-                  );
-                },
-                itemCount: controller.items.length,
-              )),
+          child: Obx(
+            () => ListView.separated(
+              itemBuilder: (context, index) {
+                final uiState = controller.items[index];
+                return SearchTeamsListItem(
+                  uiState: uiState,
+                  onTap: controller.onPressedListItem,
+                );
+              },
+              itemCount: controller.items.length,
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox(height: 10),
+            ),
+          ),
         ),
       );
 }

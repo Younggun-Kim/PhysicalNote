@@ -10,7 +10,10 @@ class SearchTeamsListItemUiState {
   /// 코치명.
   String coachName;
 
+  /// 선택여부.
   bool isSelected;
+
+  get clubAndCoach => "$clubName / $coachName";
 
   SearchTeamsListItemUiState({
     required this.id,

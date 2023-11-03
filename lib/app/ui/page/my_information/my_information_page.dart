@@ -31,10 +31,18 @@ class MyInformationPage extends GetView<MyInformationController> {
               const SizedBox(height: 20),
               _MainFooted(),
               const SizedBox(height: 20),
-              RoundButton(
-                width: double.infinity,
-                text: StringRes.registration.tr,
-                margin: const EdgeInsets.symmetric(horizontal: 30),
+              Obx(
+                () => RoundButton(
+                  width: double.infinity,
+                  text: StringRes.registration.tr,
+                  isEnabled: controller.isEnabledRegistrationButton.value,
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    color: ColorRes.white,
+                  ),
+                  margin: const EdgeInsets.symmetric(horizontal: 30),
+                  onPressed: controller.onPressedRegistration,
+                ),
               ),
               const SizedBox(height: 40),
             ],
@@ -96,12 +104,14 @@ class _Team extends GetView<MyInformationController> {
         children: [
           FieldName(name: StringRes.teamName.tr),
           const SizedBox(height: 10),
-          HintButton(
-            text: "",
-            hint: StringRes.selectTeam.tr,
-            onTap: () async {
-              controller.onPressedTeamName();
-            },
+          Obx(
+            () => HintButton(
+              text: controller.team.value,
+              hint: StringRes.selectTeam.tr,
+              onTap: () async {
+                controller.onPressedTeamName();
+              },
+            ),
           ),
         ],
       ).paddingSymmetric(horizontal: 30);

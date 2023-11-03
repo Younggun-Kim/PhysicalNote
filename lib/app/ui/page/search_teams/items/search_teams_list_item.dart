@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
@@ -27,10 +26,14 @@ class SearchTeamsListItem extends StatelessWidget {
           Expanded(
             child: Align(
               alignment: Alignment.center,
-              child: Image.network(
-                'https://picsum.photos/250?image=9',
-                width: 40,
-                height: 40,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  'https://picsum.photos/250?image=9',
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
           ),
