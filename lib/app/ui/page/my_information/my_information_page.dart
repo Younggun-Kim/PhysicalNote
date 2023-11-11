@@ -307,20 +307,42 @@ class _MainFooted extends GetView<MyInformationController> {
               ),
               Expanded(
                 child: Obx(
-                  () => Slider(
-                    value: controller.leftFoot.value,
-                    min: 0.0,
-                    max: 100.0,
-                    divisions: 10,
-                    label: '${controller.leftFoot.round()}',
-                    onChanged: (double newValue) {
-                      controller.onChangeLeftFoot(newValue);
-                    },
+                  () => SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: ColorRes.primary,
+                      inactiveTrackColor: ColorRes.disable,
+                      trackShape: const RoundedRectSliderTrackShape(),
+                      trackHeight: 6.0,
+                      thumbShape: const RoundSliderThumbShape(),
+                      thumbColor: ColorRes.primary,
+                      overlayColor: ColorRes.primary.withAlpha(32),
+                      overlayShape: SliderComponentShape.noOverlay,
+                      tickMarkShape: const RoundSliderTickMarkShape(),
+                      activeTickMarkColor: Colors.transparent,
+                      inactiveTickMarkColor: Colors.transparent,
+                      valueIndicatorShape:
+                          const PaddleSliderValueIndicatorShape(),
+                      valueIndicatorColor: ColorRes.primary,
+                      valueIndicatorTextStyle: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: Slider(
+                      value: controller.leftFoot.value,
+                      min: 0.0,
+                      max: 10.0,
+                      divisions: 10,
+                      label: '${controller.leftFoot.round()}',
+                      onChanged: (double newValue) {
+                        controller.onChangeLeftFoot(newValue);
+                      },
+                    ),
                   ),
                 ),
               ),
             ],
           ),
+          const SizedBox(height: 10),
           Row(
             children: [
               SizedBox(
@@ -335,15 +357,36 @@ class _MainFooted extends GetView<MyInformationController> {
               ),
               Expanded(
                 child: Obx(
-                  () => Slider(
-                    value: controller.rightFoot.value,
-                    min: 0.0,
-                    max: 100.0,
-                    divisions: 10,
-                    label: '${controller.rightFoot.round()}',
-                    onChanged: (double newValue) {
-                      controller.onChangeRightFoot(newValue);
-                    },
+                  () => SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: ColorRes.primary,
+                      inactiveTrackColor: ColorRes.disable,
+                      trackShape: const RoundedRectSliderTrackShape(),
+                      trackHeight: 6.0,
+                      thumbShape: const RoundSliderThumbShape(),
+                      thumbColor: ColorRes.primary,
+                      overlayColor: ColorRes.primary.withAlpha(32),
+                      overlayShape: SliderComponentShape.noOverlay,
+                      tickMarkShape: const RoundSliderTickMarkShape(),
+                      activeTickMarkColor: Colors.transparent,
+                      inactiveTickMarkColor: Colors.transparent,
+                      valueIndicatorShape:
+                          const PaddleSliderValueIndicatorShape(),
+                      valueIndicatorColor: ColorRes.primary,
+                      valueIndicatorTextStyle: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: Slider(
+                      value: controller.rightFoot.value,
+                      min: 0.0,
+                      max: 10.0,
+                      divisions: 10,
+                      label: '${controller.rightFoot.round()}',
+                      onChanged: (double newValue) {
+                        controller.onChangeRightFoot(newValue);
+                      },
+                    ),
                   ),
                 ),
               ),

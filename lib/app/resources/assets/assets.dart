@@ -5,6 +5,9 @@ class Assets {
   static const String check = 'assets/images/check.svg';
   static const String checkOff = 'assets/images/check_off.svg';
   static const String checkOn = 'assets/images/check_on.svg';
+  static const String foot = 'assets/images/foot.svg';
+  static const String hand = 'assets/images/hand.svg';
+  static const String hand2 = 'assets/images/hand2.png';
   static const String icChevronright = 'assets/images/ic_chevronright.svg';
   static const String imgApple = 'assets/images/img_apple.svg';
   static const String imgKakao = 'assets/images/img_kakao.svg';
