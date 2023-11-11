@@ -59,4 +59,6 @@ final koKr = {
   StringRes.logo: "로고",
   StringRes.clubName: "구단이름",
   StringRes.dedicatedCoach: "전담코치",
+  StringRes.sir: "님",
+  StringRes.myState: "나의 상태",
 };

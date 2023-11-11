@@ -66,4 +66,6 @@ class StringRes {
   static final logo = _generateId();
   static final clubName = _generateId();
   static final dedicatedCoach = _generateId();
+  static final sir = _generateId();
+  static final myState = _generateId();
 }

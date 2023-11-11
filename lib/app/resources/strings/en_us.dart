@@ -54,4 +54,6 @@ final enUs = {
   StringRes.rightFoot: "오른쪽 발",
   StringRes.registration: "등록",
   StringRes.confirm: "확인",
+  StringRes.sir: "님",
+  StringRes.myState: "나의 상태",
 };

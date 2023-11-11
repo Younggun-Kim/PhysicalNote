@@ -5,6 +5,8 @@ class Assets {
   static const String check = 'assets/images/check.svg';
   static const String checkOff = 'assets/images/check_off.svg';
   static const String checkOn = 'assets/images/check_on.svg';
+  static const String codeBrowser = 'assets/images/code_browser.svg';
+  static const String edit03 = 'assets/images/edit03.svg';
   static const String foot = 'assets/images/foot.svg';
   static const String hand = 'assets/images/hand.svg';
   static const String hand2 = 'assets/images/hand2.png';
@@ -13,5 +15,6 @@ class Assets {
   static const String imgKakao = 'assets/images/img_kakao.svg';
   static const String imgNaver = 'assets/images/img_naver.svg';
   static const String searchRefraction = 'assets/images/search-refraction.svg';
+  static const String userDefault = 'assets/images/user_default.svg';
 
 }
