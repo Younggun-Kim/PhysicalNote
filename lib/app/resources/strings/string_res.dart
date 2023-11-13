@@ -68,4 +68,11 @@ class StringRes {
   static final dedicatedCoach = _generateId();
   static final sir = _generateId();
   static final myState = _generateId();
+  static final noData = _generateId();
+  static final hooperIndex = _generateId();
+  static final urinalysis = _generateId();
+  static final injuryRisk = _generateId();
+  static final workoutIntensity = _generateId();
+  static final noRecordAndRecordYourStatusToday = _generateId();
+
 }

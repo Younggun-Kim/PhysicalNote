@@ -61,4 +61,10 @@ final koKr = {
   StringRes.dedicatedCoach: "전담코치",
   StringRes.sir: "님",
   StringRes.myState: "나의 상태",
+  StringRes.noData: "데이터\n없음",
+  StringRes.hooperIndex: "후퍼인덱스",
+  StringRes.urinalysis: "소변검사",
+  StringRes.injuryRisk: "부상위험도",
+  StringRes.workoutIntensity: "운동강도",
+  StringRes.noRecordAndRecordYourStatusToday: "기록가 없습니다. 오늘 상태를 기록하세요!",
 };

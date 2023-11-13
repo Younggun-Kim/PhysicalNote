@@ -6,6 +6,8 @@ import 'package:physical_note/app/ui/widgets/buttons/round_button.dart';
 class OutlineRoundButton extends StatelessWidget {
   final double? width;
 
+  final double height;
+
   final String hint;
 
   final String text;
@@ -17,6 +19,7 @@ class OutlineRoundButton extends StatelessWidget {
   const OutlineRoundButton({
     super.key,
     this.width,
+    this.height = 56,
     required this.hint,
     required this.text,
     this.fontSize,
@@ -28,6 +31,7 @@ class OutlineRoundButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => RoundButton(
         width: width,
+        height: height,
         backgroundColor: ColorRes.white,
         alignment: Alignment.centerLeft,
         border: Border.all(
