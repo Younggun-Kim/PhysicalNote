@@ -67,4 +67,7 @@ final koKr = {
   StringRes.injuryRisk: "부상위험도",
   StringRes.workoutIntensity: "운동강도",
   StringRes.noRecordAndRecordYourStatusToday: "기록가 없습니다. 오늘 상태를 기록하세요!",
+  StringRes.emptyWeightParams: "공복 몸무게 : @weightkg",
+  StringRes.emptyWeightWarning: "✔ 수분 섭취 상태와 함께 식단 조절에 신경쓰세요.",
+  StringRes.emptyWeightGood: "✔ 식단조절에 신경쓰세요.",
 };

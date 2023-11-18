@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/ui/widgets/buttons/outline_round_button.dart';
+import 'package:physical_note/app/data/hooper_index.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
 import '../../../resources/resources.dart';
 import 'home_controller.dart';
@@ -15,13 +14,23 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
-        child: const Column(
-          children: [
-            SizedBox(height: 40),
-            _UserInformation(),
-            SizedBox(height: 48),
-            _MyState(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 40),
+              const _UserInformation(),
+              const SizedBox(height: 48),
+              Obx(
+                () => _MyStateContainer(
+                  hooperIndexData: controller.hooperIndexData.value,
+                  emptyWeight: controller.emptyWeight.value,
+                  weightPercent: controller.weightPercent.value,
+                ),
+              ),
+              const SizedBox(height: 20),
+              _Statistics(),
+            ],
+          ),
         ),
       );
 }
@@ -91,87 +100,24 @@ class _UserInformation extends GetView<HomeController> {
       ).paddingSymmetric(horizontal: 20);
 }
 
-/// 나의 상태.
-class _MyState extends GetView<HomeController> {
-  const _MyState();
+/// 나의 상태 컨테이너.
+class _MyStateContainer extends StatelessWidget {
+  final HooperIndexData? hooperIndexData;
 
-  @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            StringRes.myState.tr,
-            style: const TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w500,
-              color: ColorRes.fontBlack,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                DateTime.now().toFormattedString("yyyy년 M월 dd일"),
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: ColorRes.fontBlack,
-                ),
-              ),
-              const SizedBox(width: 5),
-              InkWellOver(
-                child: SvgPicture.asset(
-                  Assets.codeBrowser,
-                ),
-              ),
-              const Spacer(),
-              OutlineRoundButton(
-                height: 24,
-                onPressed: () {},
-                text: StringRes.next.tr,
-                hint: '',
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          _MyStateDisplay(),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              const Spacer(),
-              SvgPicture.asset(Assets.checkRed),
-              const SizedBox(width: 4),
-              Text(
-                StringRes.noRecordAndRecordYourStatusToday.tr,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: ColorRes.error,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ).paddingSymmetric(horizontal: 20);
-}
+  final String emptyWeight;
 
-class _MyStateDisplay extends GetView<HomeController> {
-  Widget emptyText() => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Text(
-          StringRes.noData.tr,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: ColorRes.fontBlack,
-          ),
-        ),
-      );
+  final int weightPercent;
+
+  const _MyStateContainer({
+    required this.hooperIndexData,
+    required this.emptyWeight,
+    required this.weightPercent,
+  });
 
   @override
   Widget build(BuildContext context) => Container(
-        width: double.infinity,
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           color: ColorRes.white,
           borderRadius: BorderRadius.circular(20),
@@ -185,60 +131,73 @@ class _MyStateDisplay extends GetView<HomeController> {
             ),
           ],
         ),
-        child: IntrinsicHeight(
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    MyStateTitle(
-                        title: StringRes.hooperIndex.tr, onPressed: () {}),
-                    const SizedBox(height: 10),
-                    emptyText(),
-                    const SizedBox(height: 16),
-                    MyStateTitle(
-                        title: StringRes.injuryRisk.tr, onPressed: () {}),
-                    const SizedBox(height: 10),
-                    emptyText(),
-                  ],
-                ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  _MyStateTitle(
+                      title: StringRes.hooperIndex.tr, onPressed: () {}),
+                  const SizedBox(height: 10),
+                  if (hooperIndexData == null)
+                    _EmptyDataText()
+                  else
+                    _MyStateHooperIndex(hooperIndexData: hooperIndexData!),
+                  const SizedBox(height: 16),
+                  _MyStateTitle(
+                      title: StringRes.injuryRisk.tr, onPressed: () {}),
+                  const SizedBox(height: 10),
+                ],
               ),
-              const SizedBox(width: 16),
-              const VerticalDivider(
-                thickness: 1,
-                color: ColorRes.disable,
-                indent: 2,
-                endIndent: 4,
+            ),
+            const SizedBox(width: 32),
+            Expanded(
+              child: Column(
+                children: [
+                  _MyStateTitle(
+                      title: StringRes.urinalysis.tr, onPressed: () {}),
+                  const SizedBox(height: 10),
+                  _MyStateUrinalysis(
+                    emptyWeight: emptyWeight,
+                    weightPercent: weightPercent,
+                  ),
+                  const SizedBox(height: 16),
+                  _MyStateTitle(
+                      title: StringRes.workoutIntensity.tr, onPressed: () {}),
+                  const SizedBox(height: 10),
+                ],
               ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  children: [
-                    MyStateTitle(
-                        title: StringRes.urinalysis.tr, onPressed: () {}),
-                    const SizedBox(height: 10),
-                    emptyText(),
-                    const SizedBox(height: 16),
-                    MyStateTitle(
-                        title: StringRes.workoutIntensity.tr, onPressed: () {}),
-                    const SizedBox(height: 10),
-                    emptyText(),
-                  ],
-                ),
-              ),
-            ],
+            ),
+          ],
+        ),
+      );
+}
+
+/// 데이터 없음
+class _EmptyDataText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Text(
+          StringRes.noData.tr,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: ColorRes.fontBlack,
           ),
         ),
       );
 }
 
-class MyStateTitle extends StatelessWidget {
+/// 나의 상태 - 타이틀.
+class _MyStateTitle extends StatelessWidget {
   final String title;
 
   final VoidCallback onPressed;
 
-  const MyStateTitle({
-    super.key,
+  const _MyStateTitle({
     required this.title,
     required this.onPressed,
   });
@@ -267,23 +226,192 @@ class MyStateTitle extends StatelessWidget {
       );
 }
 
+/// 나의 상태 - 후퍼인덱스.
+class _MyStateHooperIndex extends StatelessWidget {
+  final HooperIndexData hooperIndexData;
+
+  const _MyStateHooperIndex({
+    required this.hooperIndexData,
+  });
+
+  @override
+  Widget build(BuildContext context) => Column(
+        children: [
+          _MyStateHooperIndexItem(text: "잠", status: hooperIndexData.sleep),
+          _MyStateHooperIndexItem(text: "스트레스", status: hooperIndexData.stress),
+          _MyStateHooperIndexItem(text: "피로", status: hooperIndexData.fatigue),
+          _MyStateHooperIndexItem(
+              text: "근육통", status: hooperIndexData.musclePain),
+        ],
+      );
+}
+
+/// 나의 상태 - 후퍼인덱스 아이템.
+class _MyStateHooperIndexItem extends StatelessWidget {
+  final String text;
+
+  final HooperIndexStatus status;
+
+  const _MyStateHooperIndexItem({
+    required this.text,
+    required this.status,
+  });
+
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 14,
+                color: ColorRes.fontBlack,
+              ),
+            ),
+          ),
+          Text(
+            status.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              color: ColorRes.disable,
+            ),
+          ),
+          const SizedBox(width: 4),
+          Container(
+            width: 16,
+            height: 16,
+            decoration: BoxDecoration(
+              color: status.toColor(),
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ],
+      );
+}
+
+/// 나의상태 - 소변검사.
+class _MyStateUrinalysis extends StatelessWidget {
+  final String emptyWeight;
+
+  final int weightPercent;
+
+  late final isPositiveWeight = weightPercent > 0;
+
+  late final weightPercentSign = isPositiveWeight ? "+" : "-";
+
+  late final weightPercentColor = isPositiveWeight ? Colors.red : Colors.blue;
+
+  late final weightWord = isPositiveWeight
+      ? StringRes.emptyWeightGood.tr
+      : StringRes.emptyWeightWarning.tr;
+
+  _MyStateUrinalysis({
+    required this.emptyWeight,
+    required this.weightPercent,
+  });
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                StringRes.emptyWeightParams.trParams(
+                  {
+                    "weight": emptyWeight,
+                  },
+                ),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                "($weightPercentSign$weightPercent%)",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: weightPercentColor,
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 14,
+                  color: ColorRes.urine3,
+                ),
+              ),
+              const Text(
+                " : 양호",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            weightWord,
+            softWrap: true,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 10,
+              color: weightPercentColor,
+            ),
+          ),
+        ],
+      );
+}
+
 /// 통계.
 class _Statistics extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => Column(
-    children: [
-      _StatisticsTitle(),
-    ],
-  );
+        children: [
+          _StatisticsTitle(),
+        ],
+      ).paddingSymmetric(horizontal: 20);
 }
 
 /// 통계 타이틀.
 class _StatisticsTitle extends StatelessWidget {
+  final _selectedStyle = const TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: ColorRes.fontBlack,
+  );
+
+  final _normalStyle = const TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: ColorRes.disable,
+  );
+
   @override
   Widget build(BuildContext context) => Row(
-    children: [
-      TextButton(onPressed: () {}, child: Text("주간")),
-      TextButton(onPressed: () {}, child: Text("월간"))
-    ],
-  );
+        children: [
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              "주간",
+              style: _selectedStyle,
+            ),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              "월간",
+              style: _normalStyle,
+            ),
+          ),
+        ],
+      );
 }

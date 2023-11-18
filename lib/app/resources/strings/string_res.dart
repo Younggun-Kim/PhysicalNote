@@ -74,5 +74,7 @@ class StringRes {
   static final injuryRisk = _generateId();
   static final workoutIntensity = _generateId();
   static final noRecordAndRecordYourStatusToday = _generateId();
-
+  static final emptyWeightParams = _generateId();
+  static final emptyWeightWarning = _generateId();
+  static final emptyWeightGood = _generateId();
 }

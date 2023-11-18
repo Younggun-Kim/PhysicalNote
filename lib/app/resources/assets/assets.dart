@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String check = 'assets/images/check.svg';
+  static const String checkBlue = 'assets/images/check_blue.svg';
   static const String checkOff = 'assets/images/check_off.svg';
   static const String checkOn = 'assets/images/check_on.svg';
   static const String checkRed = 'assets/images/check_red.svg';

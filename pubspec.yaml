@@ -48,6 +48,8 @@ dependencies:
   easy_rich_text: ^2.0.0
   syncfusion_flutter_sliders: ^23.1.41
   intl: ^0.18.1
+  syncfusion_flutter_charts: ^23.1.44
+  dotted_line: ^3.2.2
 
 dev_dependencies:
   flutter_test:
