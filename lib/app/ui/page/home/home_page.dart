@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -166,6 +167,7 @@ class _MyStateContainer extends StatelessWidget {
                   _MyStateTitle(
                       title: StringRes.workoutIntensity.tr, onPressed: () {}),
                   const SizedBox(height: 10),
+                  _MyStateWorkoutIntensity(),
                 ],
               ),
             ),
@@ -369,6 +371,87 @@ class _MyStateUrinalysis extends StatelessWidget {
           ),
         ],
       );
+}
+
+/// 나의 상태 - 운동강도.
+class _MyStateWorkoutIntensity extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) => AspectRatio(aspectRatio: 1, child: PieChart(
+    PieChartData(
+      // pieTouchData: () {},
+      borderData: FlBorderData(
+        show: false,
+      ),
+      sectionsSpace: 0,
+      centerSpaceRadius: 40,
+      sections: showingSections(),
+    ),
+  ),);
+
+  List<PieChartSectionData> showingSections() {
+    return List.generate(4, (i) {
+      const fontSize = 25.0;
+      const radius = 60.0;
+      const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
+      switch (i) {
+        case 0:
+          return PieChartSectionData(
+            color: Colors.blue,
+            value: 40,
+            title: '40%',
+            radius: radius,
+            titleStyle: const TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: ColorRes.fontBlack,
+              shadows: shadows,
+            ),
+          );
+        case 1:
+          return PieChartSectionData(
+            color: Colors.yellowAccent,
+            value: 30,
+            title: '30%',
+            radius: radius,
+            titleStyle: const TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: ColorRes.fontBlack,
+              shadows: shadows,
+            ),
+          );
+        case 2:
+          return PieChartSectionData(
+            color: Colors.purpleAccent,
+            value: 15,
+            title: '15%',
+            radius: radius,
+            titleStyle: const TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: ColorRes.fontBlack,
+              shadows: shadows,
+            ),
+          );
+        case 3:
+          return PieChartSectionData(
+            color: Colors.greenAccent,
+            value: 15,
+            title: '15%',
+            radius: radius,
+            titleStyle: const TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: ColorRes.fontBlack,
+              shadows: shadows,
+            ),
+          );
+        default:
+          throw Error();
+      }
+    });
+  }
 }
 
 /// 통계.
