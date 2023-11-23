@@ -4,6 +4,8 @@ import 'package:physical_note/app/data/hooper_index.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
+import 'home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
+
 class HomeController extends BaseController {
   /// 유저 이미지 URL
   var userImageUrl = "".obs;
@@ -25,7 +27,19 @@ class HomeController extends BaseController {
   var emptyWeight = "".obs;
 
   /// 비교 몸무게 퍼센트
-  var weightPercent = 10.obs;
+  var weightPercent = 0.obs;
+
+  /// 운동강도 - 축구.
+  var workoutIntensitySoccer = HomeWorkoutIntensityChartUiState(
+      name: "축구",
+      value: 6.5
+  ).obs;
+
+  /// 운동강도 - 피지컬.
+  var workoutIntensityPhysical = HomeWorkoutIntensityChartUiState(
+      name: "피지컬",
+      value: 6.5
+  ).obs;
 
   @override
   void onInit() {
@@ -56,11 +70,11 @@ class HomeController extends BaseController {
 
   /// 유저 정보 편집 클릭.
   void onPressedUserEdit() {
-    showToast("유저 정보 편집 클릭");
+    logger.i("유저 정보 편집 클릭");
   }
 
   /// 홈 다음 버튼 클릭.
   void onPressedNextButton() {
-    showToast("다음 버튼 클릭!");
+    logger.i("다음 버튼 클릭!");
   }
 }

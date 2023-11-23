@@ -1,8 +1,9 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/data/hooper_index.dart';
+import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
+import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_progress_bar.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
 
@@ -26,6 +27,8 @@ class HomePage extends GetView<HomeController> {
                   hooperIndexData: controller.hooperIndexData.value,
                   emptyWeight: controller.emptyWeight.value,
                   weightPercent: controller.weightPercent.value,
+                  soccerUiState: controller.workoutIntensitySoccer.value,
+                  physicalUiState: controller.workoutIntensityPhysical.value,
                 ),
               ),
               const SizedBox(height: 20),
@@ -109,10 +112,16 @@ class _MyStateContainer extends StatelessWidget {
 
   final int weightPercent;
 
+  final HomeWorkoutIntensityChartUiState soccerUiState;
+
+  final HomeWorkoutIntensityChartUiState physicalUiState;
+
   const _MyStateContainer({
     required this.hooperIndexData,
     required this.emptyWeight,
     required this.weightPercent,
+    required this.soccerUiState,
+    required this.physicalUiState,
   });
 
   @override
@@ -166,8 +175,11 @@ class _MyStateContainer extends StatelessWidget {
                   const SizedBox(height: 16),
                   _MyStateTitle(
                       title: StringRes.workoutIntensity.tr, onPressed: () {}),
-                  const SizedBox(height: 10),
-                  _MyStateWorkoutIntensity(),
+                  const SizedBox(height: 20),
+                  _MyStateWorkoutIntensity(
+                    soccerUiState: soccerUiState,
+                    physicalUiState: physicalUiState,
+                  ),
                 ],
               ),
             ),
@@ -375,83 +387,31 @@ class _MyStateUrinalysis extends StatelessWidget {
 
 /// 나의 상태 - 운동강도.
 class _MyStateWorkoutIntensity extends StatelessWidget {
+  final HomeWorkoutIntensityChartUiState soccerUiState;
+
+  final HomeWorkoutIntensityChartUiState physicalUiState;
+
+  const _MyStateWorkoutIntensity({
+    required this.soccerUiState,
+    required this.physicalUiState,
+  });
 
   @override
-  Widget build(BuildContext context) => AspectRatio(aspectRatio: 1, child: PieChart(
-    PieChartData(
-      // pieTouchData: () {},
-      borderData: FlBorderData(
-        show: false,
-      ),
-      sectionsSpace: 0,
-      centerSpaceRadius: 40,
-      sections: showingSections(),
-    ),
-  ),);
-
-  List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
-      const fontSize = 25.0;
-      const radius = 60.0;
-      const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: Colors.blue,
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: const TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: ColorRes.fontBlack,
-              shadows: shadows,
+  Widget build(BuildContext context) => AspectRatio(
+        aspectRatio: 2,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: HomeWorkoutIntensityProgressBar(uiState: soccerUiState),
             ),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: Colors.yellowAccent,
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: const TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: ColorRes.fontBlack,
-              shadows: shadows,
+            const SizedBox(width: 10),
+            Expanded(
+              child: HomeWorkoutIntensityProgressBar(uiState: physicalUiState),
             ),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: Colors.purpleAccent,
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: const TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: ColorRes.fontBlack,
-              shadows: shadows,
-            ),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: Colors.greenAccent,
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: const TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-              color: ColorRes.fontBlack,
-              shadows: shadows,
-            ),
-          );
-        default:
-          throw Error();
-      }
-    });
-  }
+          ],
+        ),
+      );
 }
 
 /// 통계.

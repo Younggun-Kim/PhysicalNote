@@ -42,13 +42,14 @@ dependencies:
   rxdart: ^0.27.7
   uuid: ^4.0.0
   logger: ^2.0.2
-  fluttertoast: ^8.2.2
   flutter_svg: ^2.0.7
   url_launcher: ^6.1.14
   easy_rich_text: ^2.0.0
   intl: ^0.18.1
   dotted_line: ^3.2.2
   fl_chart: ^0.64.0
+  sleek_circular_slider: ^2.0.1
+
 
 dev_dependencies:
   flutter_test:

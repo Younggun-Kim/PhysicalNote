@@ -48,17 +48,17 @@ class LoginController extends BaseController {
 
   /// 네이버 클릭.
   void onPressedNaver() {
-    showToast("네이버 로그인 클릭");
+    logger.i("네이버 로그인 클릭");
   }
 
   /// 카카오 클릭.
   void onPressedKakao() {
-    showToast("카카오 로그인 클릭");
+    logger.i("카카오 로그인 클릭");
   }
 
   /// 애플 클릭.
   void onPressedApple() {
-    showToast("애플 로그인 클릭");
+    logger.i("애플 로그인 클릭");
   }
 
   @override
