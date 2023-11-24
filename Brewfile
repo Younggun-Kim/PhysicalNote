@@ -1,0 +1,10 @@
+tap "dart-lang/dart"
+tap "homebrew/bundle"
+brew "fastlane", link: false
+brew "git-lfs"
+brew "node"
+brew "openapi-generator"
+brew "pyenv"
+brew "rbenv"
+brew "ruby"
+brew "swiftgen"

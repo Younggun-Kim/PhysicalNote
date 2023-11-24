@@ -49,6 +49,7 @@ dependencies:
   dotted_line: ^3.2.2
   fl_chart: ^0.64.0
   sleek_circular_slider: ^2.0.1
+  fluttertoast:
 
 
 dev_dependencies:
