@@ -70,4 +70,6 @@ final koKr = {
   StringRes.emptyWeightParams: "공복 몸무게 : @weightkg",
   StringRes.emptyWeightWarning: "✔ 수분 섭취 상태와 함께 식단 조절에 신경쓰세요.",
   StringRes.emptyWeightGood: "✔ 식단조절에 신경쓰세요.",
+  StringRes.workoutIntensityStatistics: "운동 강도 통계",
+  StringRes.physical: "피지컬",
 };

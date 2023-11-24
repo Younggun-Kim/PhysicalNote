@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -420,6 +421,15 @@ class _Statistics extends GetView<HomeController> {
   Widget build(BuildContext context) => Column(
         children: [
           _StatisticsTitle(),
+          const SizedBox(height: 20),
+          _StatisticsChartTitle(),
+          const SizedBox(height: 10),
+          Obx(
+            () => _StatisticsChart(
+              statisticsSports: controller.statisticsSports,
+              statisticsPhysical: controller.statisticsPhysical,
+            ),
+          ),
         ],
       ).paddingSymmetric(horizontal: 20);
 }
@@ -457,4 +467,106 @@ class _StatisticsTitle extends StatelessWidget {
           ),
         ],
       );
+}
+
+/// 통계 차트 타이틀.
+class _StatisticsChartTitle extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              StringRes.workoutIntensityStatistics.tr,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: ColorRes.fontBlack,
+              ),
+            ),
+          ),
+          Container(
+            width: 11,
+            height: 11,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              color: Colors.greenAccent,
+            ),
+          ),
+          Text(
+            StringRes.sports.tr,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: ColorRes.fontBlack,
+            ),
+          ),
+          const SizedBox(width: 5),
+          Container(
+            width: 11,
+            height: 11,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              color: Colors.red,
+            ),
+          ),
+          const SizedBox(width: 5),
+          Text(
+            StringRes.physical.tr,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: ColorRes.fontBlack,
+            ),
+          ),
+        ],
+      );
+}
+
+/// 통계 차트.
+class _StatisticsChart extends StatelessWidget {
+  final List<FlSpot> statisticsSports;
+
+  final List<FlSpot> statisticsPhysical;
+
+  const _StatisticsChart({
+    required this.statisticsSports,
+    required this.statisticsPhysical,
+  });
+
+  @override
+  Widget build(BuildContext context) => AspectRatio(
+        aspectRatio: 1.78,
+        child: LineChart(lineChartData),
+      );
+
+  LineChartData get lineChartData => LineChartData(
+        // lineTouchData: lineTouchData1,
+        // gridData: gridData,
+        // titlesData: titlesData1,
+        // borderData: borderData,
+        lineBarsData: lineBarData,
+        minX: 0,
+        maxX: 14,
+        maxY: 4,
+        minY: 0,
+      );
+
+  /// Bar 데이터.
+  List<LineChartBarData> get lineBarData => [
+        makeBarData(statisticsSports, ColorRes.risk0),
+        makeBarData(statisticsPhysical, ColorRes.intensity0),
+      ];
+
+  /// Bar 데이터 생성.
+  LineChartBarData makeBarData(List<FlSpot> spots, Color color) {
+    return LineChartBarData(
+        isCurved: true,
+        color: color,
+        barWidth: 2,
+        isStrokeCapRound: true,
+        dotData: const FlDotData(show: false),
+        belowBarData: BarAreaData(show: false),
+        spots: spots);
+  }
 }
