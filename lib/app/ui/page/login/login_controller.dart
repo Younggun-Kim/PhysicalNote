@@ -1,9 +1,17 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/login/login_api.dart';
+import 'package:physical_note/app/data/login/model/post_login_request_model.dart';
+import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LoginController extends BaseController {
+  final LoginAPI api;
+
+  LoginController({required this.api});
+
   /// 이메일 컨트롤러.
   final email = "".obsWithController;
 
@@ -42,8 +50,24 @@ class LoginController extends BaseController {
   }
 
   /// 로그인 버튼 클릭.
-  void onPressedLogin() {
-    Get.offAllNamed(RouteType.HOME);
+  Future<void> onPressedLogin() async {
+    final requestData = PostLoginRequestModel(
+      loginId: email.value,
+      password: password.value,
+      type: UserSnsType.idPw.key,
+    );
+
+    final userStorage = UserStorage();
+    final response = await api.postLogin(requestData);
+
+    /// 1. token 저장.
+    /// 2. 홈 화면으로 넘어가기.
+    final token = response?.token;
+    if (token == null) {
+    } else {
+      userStorage.apiKey.val = token;
+      Get.offAllNamed(RouteType.HOME);
+    }
   }
 
   /// 네이버 클릭.

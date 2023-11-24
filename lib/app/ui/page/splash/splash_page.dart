@@ -16,7 +16,7 @@ class SplashPage extends GetView<SplashController> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(Assets.splash),
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
           ),
         ),
         alignment: Alignment.center,
