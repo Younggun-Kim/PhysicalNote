@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/login/login_controller.dart';
-import 'package:physical_note/app/ui/widgets/buttons/round_button.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
 import '../../../resources/resources.dart';
@@ -21,15 +20,9 @@ class LoginPage extends GetView<LoginController> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            const SizedBox(height: 150),
-            Text(
-              StringRes.appName.tr,
-              style: const TextStyle(
-                  fontSize: 30,
-                  color: ColorRes.primary,
-                  fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(height: 100),
+            const SizedBox(height: 75),
+            SvgPicture.asset(Assets.logo),
+            const SizedBox(height: 75),
             const _EmailField(),
             const SizedBox(height: 20),
             const _PasswordField(),
