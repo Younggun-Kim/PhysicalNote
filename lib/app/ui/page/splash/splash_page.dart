@@ -13,15 +13,13 @@ class SplashPage extends GetView<SplashController> {
     return PageRoot(
       controller: controller,
       child: Container(
-        alignment: Alignment.center,
-        child: Text(
-          StringRes.appName.tr,
-          style: const TextStyle(
-            color: ColorRes.primary,
-            fontSize: 36,
-            fontWeight: FontWeight.bold
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(Assets.splash),
+            fit: BoxFit.contain,
           ),
         ),
+        alignment: Alignment.center,
       ),
     );
   }
