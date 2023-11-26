@@ -17,16 +17,21 @@ class TermPage extends GetView<TermController> {
       child: Column(
         children: [
           _Header(),
-          const SizedBox(height: 40),
-          Text(
-            StringRes.acceptTerms.tr,
-            style: const TextStyle(
-              color: ColorRes.fontBlack,
-              fontSize: 32,
-              fontWeight: FontWeight.w400,
-              height: 1.5,
+          const SizedBox(height: 30),
+          Container(
+            width: double.infinity,
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Text(
+              StringRes.acceptTerms.tr,
+              style: const TextStyle(
+                color: ColorRes.fontBlack,
+                fontSize: 32,
+                fontWeight: FontWeight.w500,
+                height: 1.5,
+              ),
             ),
-          ).paddingSymmetric(horizontal: 20),
+          ),
           const SizedBox(height: 90),
           Obx(
             () => AppCheckbox(

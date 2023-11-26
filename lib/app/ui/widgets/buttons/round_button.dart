@@ -41,7 +41,11 @@ class RoundButton extends StatelessWidget {
     this.selectedColor,
     this.disabledColor = ColorRes.disable,
     required this.text,
-    this.textStyle,
+    this.textStyle = const TextStyle(
+      color: ColorRes.white,
+      fontWeight: FontWeight.w500,
+      fontSize: 16,
+    ),
     this.selectedTextStyle,
     this.disabledTextStyle = const TextStyle(
       color: ColorRes.white,
