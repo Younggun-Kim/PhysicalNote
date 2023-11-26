@@ -89,10 +89,22 @@ class HomeController extends BaseController {
   /// 유저 정보 편집 클릭.
   void onPressedUserEdit() {
     logger.i("유저 정보 편집 클릭");
+    _logout();
   }
 
   /// 홈 다음 버튼 클릭.
   void onPressedNextButton() {
     logger.i("다음 버튼 클릭!");
+  }
+
+  /// 로그아웃.
+  void _logout() {
+    final userStorage = UserStorage();
+
+    /// 저장된 토근 삭제
+    userStorage.apiKey.val = "";
+
+    /// 로그인으로 이동.
+    Get.offAndToNamed(RouteType.LOGIN);
   }
 }

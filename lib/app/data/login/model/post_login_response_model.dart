@@ -1,6 +1,12 @@
+// ignore: depend_on_referenced_packages
+import 'package:json_annotation/json_annotation.dart';
+
+part 'post_login_response_model.g.dart';
+
+@JsonSerializable()
 class PostLoginResponseModel {
   final String? token;
-  final String? userId;
+  final int? userId;
   final String? loginId;
   final String? name;
 
@@ -11,14 +17,13 @@ class PostLoginResponseModel {
     this.name,
   });
 
-  factory PostLoginResponseModel.fromJson(Map<String, dynamic> json) =>
-      PostLoginResponseModel(
-        token: json['token'],
-        userId: json['userId'],
-        loginId: json['loginId'],
-        name: json['name'],
-      );
 
-  // static List<PostLoginResponseModel> listFromJson(list) =>
-  //     List<PostLoginResponseModel>.from(list.map((x) => PostLoginResponseModel.fromJson(x)));
+  /// Connect the generated [_$PersonFromJson] function to the `fromJson`
+  /// factory.
+  factory PostLoginResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$PostLoginResponseModelFromJson(json);
+
+  /// Connect the generated [_$PersonToJson] function to the `toJson` method.
+  Map<String, dynamic> toJson() => _$PostLoginResponseModelToJson(this);
+
 }

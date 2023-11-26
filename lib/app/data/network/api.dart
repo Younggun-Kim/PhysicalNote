@@ -18,7 +18,6 @@ class API extends GetConnect {
     super.onInit();
 
     httpClient
-      ..baseUrl = server
       ..defaultContentType = 'application/json'
       ..timeout = const Duration(seconds: 10)
       ..addRequestModifier<dynamic>((request) {

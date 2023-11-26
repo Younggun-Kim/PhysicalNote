@@ -5,7 +5,7 @@ enum UserSnsType {
   kakao('KAKAO'),
   apple('APPLE');
 
-  const UserSnsType(this.key);
+  const UserSnsType(this.name);
 
-  final String key;
+  final String name;
 }

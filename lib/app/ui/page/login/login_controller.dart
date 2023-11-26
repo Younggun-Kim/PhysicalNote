@@ -54,7 +54,7 @@ class LoginController extends BaseController {
     final requestData = PostLoginRequestModel(
       loginId: email.value,
       password: password.value,
-      type: UserSnsType.idPw.key,
+      type: UserSnsType.idPw.name,
     );
 
     final userStorage = UserStorage();
