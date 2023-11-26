@@ -1,7 +1,7 @@
 import 'package:physical_note/app/data/login/model/post_login_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_response_model.dart';
 import 'package:physical_note/app/data/network/api.dart';
-import 'package:physical_note/app/data/server_response_fail/model/server_response_fail_model.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 
 import '../../utils/logger/logger.dart';
 
