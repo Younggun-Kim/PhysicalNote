@@ -23,7 +23,7 @@ class UserStorage extends BaseStorage {
   late final snsType = 0.val(_Key.snsType.name, getBox: getBox);
 
   /// 정보 등록 여부
-  late final isRegisteredInformation = true.val(_Key.isRegisteredInformation.name, getBox: getBox);
+  late final isRegisteredInformation = false.val(_Key.isRegisteredInformation.name, getBox: getBox);
 
   /// 로그인 여부.
   bool get isLogin => apiKey.val.isNotEmpty;

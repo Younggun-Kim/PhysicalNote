@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/data/workout/workout_api.dart';
+import 'package:physical_note/app/ui/page/search_category/search_category_list_ui_mapper.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'item/search_category_list_item_ui_state.dart';
 import 'search_category_args.dart';
@@ -30,8 +32,15 @@ class SearchCategoryController extends BaseController {
       .toObs(false);
 
   /// 검색 버튼 클릭.
-  void onPressedSearchButton() {
-    logger.d("검색 클릭");
+  Future<void> onPressedSearchButton() async {
+    logger.i("검색 버튼 클릭");
+    final api = Get.find<WorkoutAPI>();
+    final response = await api.getWorkoutCategory(0);
+
+    final toUiState = response.content
+        .map((e) => searchCategoryListItemUiStateFrom(e))
+        .toList();
+    items.value = toUiState;
   }
 
   /// 리스트 선택 클릭.
