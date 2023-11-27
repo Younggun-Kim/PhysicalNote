@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/data/workout/model/get_workout_category_response_list_item_model.dart';
 import 'package:physical_note/app/data/workout/workout_api.dart';
 import 'package:physical_note/app/ui/page/search_category/search_category_list_ui_mapper.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -37,9 +38,13 @@ class SearchCategoryController extends BaseController {
     final api = Get.find<WorkoutAPI>();
     final response = await api.getWorkoutCategory(0);
 
+
+    logger.i("response.content: ${response.content}");
+
     final toUiState = response.content
-        .map((e) => searchCategoryListItemUiStateFrom(e))
+        .map((e) => searchCategoryListItemUiStateFrom(e as GetWorkoutCategoryResponseListItemModel))
         .toList();
+
     items.value = toUiState;
   }
 

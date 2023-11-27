@@ -1,15 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'base_list_pageable_model.dart';
+part of 'paginate_pageable_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BaseListPageableModel _$BaseListPageableModelFromJson(
+PaginatePageableModel _$PaginatePageableModelFromJson(
         Map<String, dynamic> json) =>
-    BaseListPageableModel(
-      BaseListSortModel.fromJson(json['sort'] as Map<String, dynamic>),
+    PaginatePageableModel(
+      PaginateSortModel.fromJson(json['sort'] as Map<String, dynamic>),
       json['offset'] as int,
       json['pageNumber'] as int,
       json['pageSize'] as int,
@@ -17,8 +17,8 @@ BaseListPageableModel _$BaseListPageableModelFromJson(
       json['unpaged'] as bool,
     );
 
-Map<String, dynamic> _$BaseListPageableModelToJson(
-        BaseListPageableModel instance) =>
+Map<String, dynamic> _$PaginatePageableModelToJson(
+        PaginatePageableModel instance) =>
     <String, dynamic>{
       'sort': instance.sort,
       'offset': instance.offset,
