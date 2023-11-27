@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item.dart';
 import 'package:physical_note/app/ui/page/search_category/search_category.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
+
+import 'item/search_category_list_item_ui_state.dart';
 
 /// 종목 검색 뷰.
 class SearchCategoryPage extends GetView<SearchCategoryController> {
@@ -20,21 +23,27 @@ class SearchCategoryPage extends GetView<SearchCategoryController> {
             _SearchTextField(),
             const SizedBox(height: 40),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Obx(() => ListView.builder(
-                      itemBuilder: (context, index) {
-                        final uiState = controller.items[index];
-                        return SearchCategoryListItem(
-                          uiState: uiState,
-                          onTap: controller.onPressedListItem,
-                        );
-                      },
-                      itemCount: controller.items.length,
-                    )),
-              ),
-            ),
-            const SizedBox(height: 40),
+                child: Stack(
+              children: [
+                RefreshIndicator(
+                    onRefresh: controller.onRefresh,
+                    child: PagedListView<int, SearchCategoryListItemUiState>(
+                      pagingController: controller.pagingController,
+                      builderDelegate: PagedChildBuilderDelegate<
+                          SearchCategoryListItemUiState>(
+                        itemBuilder: (context, item, index) =>
+                            SearchCategoryListItem(
+                          uiState: item,
+                          onTap: (SearchCategoryListItemUiState uiState) {
+                            controller.onPressedListItem(uiState);
+                          },
+                        ),
+                        noItemsFoundIndicatorBuilder: (context) =>
+                            const SizedBox(),
+                      ),
+                    ))
+              ],
+            )),
             Obx(
               () => RoundButton(
                 width: double.infinity,

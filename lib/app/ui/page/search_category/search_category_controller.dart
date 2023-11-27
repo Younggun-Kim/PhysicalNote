@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/data/workout/model/get_workout_category_response_list_item_model.dart';
 import 'package:physical_note/app/data/workout/workout_api.dart';
 import 'package:physical_note/app/ui/page/search_category/search_category_list_ui_mapper.dart';
+import 'package:physical_note/app/utils/pagination/load_page.dart';
+import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'item/search_category_list_item_ui_state.dart';
 import 'search_category_args.dart';
@@ -26,11 +29,25 @@ class SearchCategoryController extends BaseController {
     SearchCategoryListItemUiState(id: 6, name: "6"),
   ].obs;
 
+  final pagingController =
+  PagingController<int, SearchCategoryListItemUiState>(firstPageKey: 1);
+
+  /// 페이지 로딩
+  Future<void> onRefresh() async {
+    pagingController.refresh();
+  }
+
   /// 아이템 선택 여부.
   late final isSelectedListItem = items.behaviorStream
       .map((event) => event.firstWhereOrNull((element) => element.isSelected))
       .map((event) => event != null)
       .toObs(false);
+
+  @override
+  onInit() {
+
+    pagingController.start((pageKey) => loadPage(pageKey));
+  }
 
   /// 검색 버튼 클릭.
   Future<void> onPressedSearchButton() async {
@@ -47,6 +64,7 @@ class SearchCategoryController extends BaseController {
 
     items.value = toUiState;
   }
+
 
   /// 리스트 선택 클릭.
   Future<void> onPressedListItem(SearchCategoryListItemUiState uiState) async {
