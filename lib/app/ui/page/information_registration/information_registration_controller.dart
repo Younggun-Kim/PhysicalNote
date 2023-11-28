@@ -1,18 +1,22 @@
+// ignore_for_file: unnecessary_cast
+
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
-import 'package:physical_note/app/utils/getx/base_controller.dart';
+import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item_ui_state.dart';
 import 'package:physical_note/app/utils/utils.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:rxdart/streams.dart';
 
 import '../search_category/search_category_args.dart';
 
 /// 정보등록 컨트롤러.
 class InformationRegistrationController extends BaseController {
   /// 종목.
-  var category = "".obs;
+  Rx<SearchCategoryListItemUiState?> category =
+      (null as SearchCategoryListItemUiState?).obs;
 
   /// 스포츠.
-  var sports = "".obs;
+  Rx<SearchCategoryListItemUiState?> sports =
+      (null as SearchCategoryListItemUiState?).obs;
 
   /// 아마추어 선택 여부.
   var isAmateur = false.obs;
@@ -23,25 +27,37 @@ class InformationRegistrationController extends BaseController {
   /// 다음 버튼 활성화 여부.
   late var isEnabledNext = CombineLatestStream(
     [
-      category.behaviorStream.map((event) => event.isNotEmpty),
-      sports.behaviorStream.map((event) => event.isNotEmpty),
+      category.behaviorStream.map((event) => event != null),
+      sports.behaviorStream.map((event) => event != null),
       isAmateur.behaviorStream,
       isElite.behaviorStream
     ],
-        (values) => values[0] && values[1] && (values[2] || values[3]),
+    (values) => values[0] && values[1] && (values[2] || values[3]),
   ).toObs(false);
 
   /// 종목 클릭.
   void onPressedCategory() async {
     var args = SearchCategoryArgs(false);
-    var result = await Get.toNamed(RouteType.SEARCH_CATEGORY, arguments:args);
+    var result = await Get.toNamed(RouteType.SEARCH_CATEGORY, arguments: args);
+
+    if (result is! SearchCategoryListItemUiState) {
+      category.value = null;
+      return;
+    }
+
     category.value = result;
   }
 
   /// 스포츠 클릭.
   void onPressedSports() async {
     var args = SearchCategoryArgs(true);
-    var result = await Get.toNamed(RouteType.SEARCH_CATEGORY, arguments:args);
+    var result = await Get.toNamed(RouteType.SEARCH_CATEGORY, arguments: args);
+
+    if (result is! SearchCategoryListItemUiState) {
+      sports.value = null;
+      return;
+    }
+
     sports.value = result;
   }
 

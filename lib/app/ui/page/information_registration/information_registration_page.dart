@@ -22,16 +22,18 @@ class InformationRegistrationPage
               const Spacer(),
               _FieldName(text: StringRes.category.tr),
               const SizedBox(height: 10),
-              Obx(() => _ListSearchButton(
-                    text: controller.category.value,
-                    onTap: controller.onPressedCategory,
-                  )),
+              Obx(
+                () => _ListSearchButton(
+                  text: controller.category.value?.name ?? "",
+                  onTap: controller.onPressedCategory,
+                ),
+              ),
               const SizedBox(height: 36),
               _FieldName(text: StringRes.sports.tr),
               const SizedBox(height: 10),
               Obx(
                 () => _ListSearchButton(
-                  text: controller.sports.value,
+                  text: controller.sports.value?.name ?? "",
                   onTap: controller.onPressedSports,
                 ),
               ),

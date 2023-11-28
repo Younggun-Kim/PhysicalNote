@@ -22,32 +22,11 @@ class SearchCategoryPage extends GetView<SearchCategoryController> {
             const SizedBox(height: 40),
             _SearchTextField(),
             const SizedBox(height: 40),
-            Expanded(
-                child: Stack(
-              children: [
-                RefreshIndicator(
-                    onRefresh: controller.onRefresh,
-                    child: PagedListView<int, SearchCategoryListItemUiState>(
-                      pagingController: controller.pagingController,
-                      builderDelegate: PagedChildBuilderDelegate<
-                          SearchCategoryListItemUiState>(
-                        itemBuilder: (context, item, index) =>
-                            SearchCategoryListItem(
-                          uiState: item,
-                          onTap: (SearchCategoryListItemUiState uiState) {
-                            controller.onPressedListItem(uiState);
-                          },
-                        ),
-                        noItemsFoundIndicatorBuilder: (context) =>
-                            const SizedBox(),
-                      ),
-                    ))
-              ],
-            )),
+            _SearchList(),
             Obx(
               () => RoundButton(
                 width: double.infinity,
-                isEnabled: controller.isSelectedListItem.value,
+                isEnabled: controller.isSelectedCategory.value,
                 margin: const EdgeInsets.symmetric(horizontal: 30),
                 text: StringRes.next.tr,
                 textStyle: const TextStyle(
@@ -84,4 +63,32 @@ class _SearchTextField extends GetView<SearchCategoryController> {
         isShowSearch: true,
         onPressedSearch: controller.onPressedSearchButton,
       ).paddingSymmetric(horizontal: 30);
+}
+
+/// 검색 리스트.
+class _SearchList extends GetView<SearchCategoryController> {
+  @override
+  Widget build(BuildContext context) => Expanded(
+        child: Stack(
+          children: [
+            RefreshIndicator(
+              onRefresh: controller.onRefresh,
+              child: PagedListView<int, SearchCategoryListItemUiState>(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                pagingController: controller.pagingController,
+                builderDelegate:
+                    PagedChildBuilderDelegate<SearchCategoryListItemUiState>(
+                  itemBuilder: (context, item, index) => SearchCategoryListItem(
+                    uiState: item,
+                    onTap: (SearchCategoryListItemUiState uiState) {
+                      controller.onPressedListItem(uiState);
+                    },
+                  ),
+                  noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+                ),
+              ),
+            )
+          ],
+        ),
+      );
 }

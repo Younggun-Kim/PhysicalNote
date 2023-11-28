@@ -19,64 +19,64 @@ class SearchCategoryController extends BaseController {
   /// 검색어 컨트롤러.
   final keyword = "".obsWithController;
 
-  /// 리스트 목록.
-  final items = <SearchCategoryListItemUiState>[
-    SearchCategoryListItemUiState(id: 1, name: "1"),
-    SearchCategoryListItemUiState(id: 2, name: "2"),
-    SearchCategoryListItemUiState(id: 3, name: "3"),
-    SearchCategoryListItemUiState(id: 4, name: "4"),
-    SearchCategoryListItemUiState(id: 5, name: "5"),
-    SearchCategoryListItemUiState(id: 6, name: "6"),
-  ].obs;
-
+  /// 페이지 컨트롤러.
   final pagingController =
-  PagingController<int, SearchCategoryListItemUiState>(firstPageKey: 1);
+      PagingController<int, SearchCategoryListItemUiState>(firstPageKey: 0);
 
-  /// 페이지 로딩
-  Future<void> onRefresh() async {
-    pagingController.refresh();
-  }
-
-  /// 아이템 선택 여부.
-  late final isSelectedListItem = items.behaviorStream
-      .map((event) => event.firstWhereOrNull((element) => element.isSelected))
-      .map((event) => event != null)
-      .toObs(false);
+  /// 카테고리 선택 여부.
+  final isSelectedCategory = false.obs;
 
   @override
   onInit() {
-
+    super.onInit();
     pagingController.start((pageKey) => loadPage(pageKey));
   }
 
   /// 검색 버튼 클릭.
-  Future<void> onPressedSearchButton() async {
-    logger.i("검색 버튼 클릭");
-    final api = Get.find<WorkoutAPI>();
-    final response = await api.getWorkoutCategory(0);
+  Future<void> onPressedSearchButton() async => onRefresh();
 
-
-    logger.i("response.content: ${response.content}");
-
-    final toUiState = response.content
-        .map((e) => searchCategoryListItemUiStateFrom(e as GetWorkoutCategoryResponseListItemModel))
-        .toList();
-
-    items.value = toUiState;
+  /// 페이지 리프레시.
+  Future<void> onRefresh() async {
+    pagingController.refresh();
   }
-
 
   /// 리스트 선택 클릭.
   Future<void> onPressedListItem(SearchCategoryListItemUiState uiState) async {
-    var newItems = items.map((element) {
-      element.isSelected = element.id == uiState.id;
-      return element;
-    });
-    items.value = newItems.toList();
+    final items =
+        pagingController.itemList as List<SearchCategoryListItemUiState>;
+
+    final newItems = items.map((item) {
+      var newItem = item;
+      newItem.isSelected = newItem.id == uiState.id;
+      return newItem;
+    }).toList();
+
+    pagingController.itemList = newItems;
+    isSelectedCategory.value = newItems.any((element) => element.isSelected == true);
   }
 
   /// 다음 버튼 클릭.
   void onPressedNextButton() {
-    close(result: isSports ? "Sports" : "Category");
+    var selectedItem = pagingController.itemList?.firstWhere((element) => element.isSelected);
+    close(result: selectedItem);
+  }
+
+  /// 페이지 로딩.
+  Future<LoadPage<int, SearchCategoryListItemUiState>> loadPage(
+      int pageKey) async {
+    final api = Get.find<WorkoutAPI>();
+    final response = await api.getWorkoutCategory(page: pageKey);
+
+    final isLastPage = response.last;
+    final toUiStates = response.content
+        .map((e) => searchCategoryListItemUiStateFrom(
+            e as GetWorkoutCategoryResponseListItemModel))
+        .toList();
+
+    return LoadPage(
+      items: toUiStates,
+      isLastPage: isLastPage,
+      nextPageKey: pageKey + 1,
+    );
   }
 }

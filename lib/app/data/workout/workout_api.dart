@@ -10,7 +10,9 @@ class WorkoutAPI extends API {
   WorkoutAPI() : super(basePath: "/api/workout");
 
   /// 운동 카테고리 목록 조회.
-  Future<PaginateModel> getWorkoutCategory(int page) async {
+  Future<PaginateModel> getWorkoutCategory({
+    required int page,
+  }) async {
     final response = await get(
       requestUrl + "/category?page=$page",
     );
@@ -21,7 +23,8 @@ class WorkoutAPI extends API {
       final failResponse = ServerResponseFailModel.fromJson(response.body);
       return Future.error({failResponse.message});
     } else {
-      final successResponse = PaginateModel.fromJson(response.body, GetWorkoutCategoryResponseListItemModel.fromJson);
+      final successResponse = PaginateModel.fromJson(
+          response.body, GetWorkoutCategoryResponseListItemModel.fromJson);
       return successResponse;
     }
   }

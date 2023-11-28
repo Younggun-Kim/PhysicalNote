@@ -47,7 +47,6 @@ class _SelectButton extends StatelessWidget {
   final Function(SearchCategoryListItemUiState) onTap;
 
   const _SelectButton({
-    super.key,
     required this.uiState,
     required this.onTap,
   });
@@ -55,7 +54,7 @@ class _SelectButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => InkWellOver(
         child: Container(
-          padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
+          padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: ColorRes.white,
