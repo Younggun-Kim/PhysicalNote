@@ -45,7 +45,6 @@ class InformationRegistrationController extends BaseController {
     var result = await Get.toNamed(RouteType.SEARCH_CATEGORY, arguments: args);
 
     if (result is! SearchCategoryListItemUiState) {
-      category.value = null;
       return;
     }
 
@@ -73,7 +72,6 @@ class InformationRegistrationController extends BaseController {
     var result = await Get.toNamed(RouteType.SEARCH_CATEGORY, arguments: args);
 
     if (result is! SearchCategoryListItemUiState) {
-      sports.value = null;
       return;
     }
 
