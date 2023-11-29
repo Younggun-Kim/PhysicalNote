@@ -79,4 +79,5 @@ class StringRes {
   static final emptyWeightGood = _generateId();
   static final workoutIntensityStatistics = _generateId();
   static final physical = _generateId();
+  static final pleaseSelectCategory = _generateId();
 }

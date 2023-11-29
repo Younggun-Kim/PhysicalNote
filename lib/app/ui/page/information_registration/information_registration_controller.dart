@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_cast
-
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item_ui_state.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/streams.dart';
@@ -37,7 +37,11 @@ class InformationRegistrationController extends BaseController {
 
   /// 종목 클릭.
   void onPressedCategory() async {
-    var args = SearchCategoryArgs(false);
+    var args = SearchCategoryArgs(
+      isSports: false,
+      categoryId: category.value?.id,
+      sportsId: null,
+    );
     var result = await Get.toNamed(RouteType.SEARCH_CATEGORY, arguments: args);
 
     if (result is! SearchCategoryListItemUiState) {
@@ -45,12 +49,27 @@ class InformationRegistrationController extends BaseController {
       return;
     }
 
+    // 둘이 다르면 스포츠 초기화.
+    if (category.value != result) {
+      sports.value = null;
+    }
+
     category.value = result;
   }
 
   /// 스포츠 클릭.
   void onPressedSports() async {
-    var args = SearchCategoryArgs(true);
+    // 종목 선택 필수.
+    if (category.value == null) {
+      showToast(StringRes.pleaseSelectCategory.tr);
+      return;
+    }
+
+    var args = SearchCategoryArgs(
+      isSports: true,
+      categoryId: category.value?.id,
+      sportsId: sports.value?.id,
+    );
     var result = await Get.toNamed(RouteType.SEARCH_CATEGORY, arguments: args);
 
     if (result is! SearchCategoryListItemUiState) {

@@ -26,7 +26,7 @@ class SearchCategoryPage extends GetView<SearchCategoryController> {
             Obx(
               () => RoundButton(
                 width: double.infinity,
-                isEnabled: controller.isSelectedCategory.value,
+                isEnabled: controller.isSelectedItem.value,
                 margin: const EdgeInsets.symmetric(horizontal: 30),
                 text: StringRes.next.tr,
                 textStyle: const TextStyle(
