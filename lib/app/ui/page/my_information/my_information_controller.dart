@@ -42,6 +42,13 @@ class MyInformationController extends BaseController {
   final pagingController =
       PagingController<int, PositionListItemUiState>(firstPageKey: 0);
 
+  get positionIds =>
+      pagingController.itemList
+          ?.where((e) => e.isSelected)
+          .map((e) => e.id)
+          .toList() ??
+      [];
+
   /// 왼쪽 발.
   var leftFoot = 0.0.obs;
 
@@ -64,9 +71,9 @@ class MyInformationController extends BaseController {
   @override
   void onInit() {
     super.onInit();
-    loadUserData();
+    _loadUserData();
     // loadWorkoutPositionData(0);
-    pagingController.start((pageKey) => loadWorkoutPositionData(pageKey));
+    pagingController.start((pageKey) => _loadWorkoutPositionData(pageKey));
   }
 
   void onInputBirth(String value) {
@@ -110,12 +117,17 @@ class MyInformationController extends BaseController {
   /// 등록 클릭.
   void onPressedRegistration() async {
     unFocus();
-    await Future.delayed(const Duration(milliseconds: 300));
-    Get.until((route) => Get.currentRoute == RouteType.HOME);
+
+    _postUser().then((value) async {
+      await Future.delayed(const Duration(milliseconds: 300));
+      Get.until((route) => Get.currentRoute == RouteType.HOME);
+    }).catchError((error) {
+      logger.e(error);
+    });
   }
 
   /// 유저 정보 조회.
-  Future<void> loadUserData() async {
+  Future<void> _loadUserData() async {
     final userApi = Get.find<UserAPI>();
     final response = await userApi.getUser();
 
@@ -123,7 +135,7 @@ class MyInformationController extends BaseController {
   }
 
   /// 포지션 조회.
-  Future<LoadPage<int, PositionListItemUiState>> loadWorkoutPositionData(
+  Future<LoadPage<int, PositionListItemUiState>> _loadWorkoutPositionData(
       int pageKey) async {
     final workoutId = args.workoutId;
     final workoutAPI = Get.find<WorkoutAPI>();
@@ -140,5 +152,11 @@ class MyInformationController extends BaseController {
       isLastPage: isLastPage,
       nextPageKey: pageKey + 1,
     );
+  }
+
+  /// 유저 정보 등록/수정
+  Future<void> _postUser() async {
+    final userApi = Get.find<UserAPI>();
+    await userApi.postUser(requestData: getUserRequestData());
   }
 }
