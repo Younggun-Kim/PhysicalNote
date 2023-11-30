@@ -92,6 +92,7 @@ class _Name extends GetView<MyInformationController> {
             fontSize: 16,
             fontWeight: FontWeight.w400,
             hint: StringRes.nameHint.tr,
+            readOnly: true,
           ),
         ],
       ).paddingSymmetric(horizontal: 30);
@@ -180,51 +181,11 @@ class _Birth extends GetView<MyInformationController> {
         children: [
           FieldName(name: StringRes.birth.tr),
           const SizedBox(height: 10),
-          Obx(
-            () => OutlineRoundButton(
-              width: double.infinity,
-              text: controller.isSelectedBirth.value
-                  ? controller.birth.value.toFormattedString('yyyy-MM-dd')
-                  : "",
-              hint: StringRes.eightDigits.tr,
-              fontSize: 16,
-              onPressed: () async {
-                await showModalBottomSheet(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(25.0),
-                    ),
-                  ),
-                  context: context,
-                  builder: (context) => Column(
-                    children: [
-                      Expanded(
-                        child: Obx(
-                          () => CupertinoDatePicker(
-                            initialDateTime: controller.tempBirth.value,
-                            onDateTimeChanged: controller.onDateTimeChanged,
-                            mode: CupertinoDatePickerMode.date,
-                          ),
-                        ),
-                      ),
-                      RoundButton(
-                        width: double.infinity,
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        text: StringRes.confirm.tr,
-                        onPressed: () {
-                          controller.onPressedDateTimeChangeButton();
-                          Navigator.pop(context);
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
-                );
-
-                /// Temp Birth 초기화
-                controller.resetTempBirth();
-              },
-            ),
+          OutlineTextField(
+            controller: controller.birth.controller,
+            keyboardType: TextInputType.number,
+            maxLength: 8,
+            readOnly: true,
           ),
         ],
       );
@@ -239,6 +200,7 @@ class _Gender extends GetView<MyInformationController> {
           const SizedBox(height: 10),
           OutlineTextField(
             controller: controller.gender.controller,
+            readOnly: true,
           ),
         ],
       );

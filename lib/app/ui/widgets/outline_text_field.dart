@@ -35,6 +35,8 @@ class OutlineTextField extends StatelessWidget {
 
   final Widget rightWidget;
 
+  final bool readOnly;
+
   /// 생성자.
   const OutlineTextField({
     Key? key,
@@ -51,6 +53,7 @@ class OutlineTextField extends StatelessWidget {
     this.isShowSearch = false,
     this.onPressedSearch,
     this.rightWidget = const SizedBox(),
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -64,7 +67,7 @@ class OutlineTextField extends StatelessWidget {
         alignment: Alignment.center,
         padding: contentPadding,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: readOnly ? ColorRes.disable : ColorRes.white,
           border: Border.all(color: ColorRes.borderWhite),
           borderRadius: borderRadius,
           boxShadow: [
@@ -84,9 +87,10 @@ class OutlineTextField extends StatelessWidget {
                 maxLength: maxLength,
                 keyboardType: keyboardType,
                 obscureText: obscureText,
+                readOnly: readOnly,
                 style: TextStyle(
                   fontSize: fontSize,
-                  color: textColor,
+                  color: readOnly ? ColorRes.white : textColor,
                   fontWeight: fontWeight,
                 ),
                 decoration: InputDecoration(

@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/user/user_api.dart';
+import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item_ui_state.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -21,14 +24,8 @@ class MyInformationController extends BaseController {
   /// 몸무게.
   var weight = "".obsWithController;
 
-  /// 생년월일 선택 여부.
-  var isSelectedBirth = false.obs;
-
   /// 생년월일.
-  var birth = DateTime.now().obs;
-
-  /// 임시 생년월일.
-  var tempBirth = DateTime.now().obs;
+  var birth = "".obsWithController;
 
   /// 성별.
   var gender = "".obsWithController;
@@ -60,26 +57,20 @@ class MyInformationController extends BaseController {
       team.behaviorStream.map((event) => event.isNotEmpty),
       height.behaviorStream.map((event) => event.isNotEmpty),
       weight.behaviorStream.map((event) => event.isNotEmpty),
-      isSelectedBirth.behaviorStream,
+      birth.behaviorStream.map((event) => event.length == 8),
       gender.behaviorStream.map((event) => event.isNotEmpty),
     ],
     (values) => values.every((element) => element == true),
   ).toObs(false);
 
-  /// 날짜 변경.
-  void onDateTimeChanged(DateTime dateTime) {
-    tempBirth.value = dateTime;
+  @override
+  void onInit() {
+    super.onInit();
+    loadUserData();
   }
 
-  /// 날짜 변경 확인 버튼 클릭.
-  void onPressedDateTimeChangeButton() {
-    birth.value = tempBirth.value;
-    isSelectedBirth.value = true;
-  }
-
-  /// 임시 생년월일 초기화.
-  void resetTempBirth() {
-    tempBirth.value = birth.value;
+  void onInputBirth(String value) {
+    birth.value = value;
   }
 
   /// 포지션 선택.
@@ -94,11 +85,13 @@ class MyInformationController extends BaseController {
   /// 왼쪽 발 변경.
   void onChangeLeftFoot(newValue) {
     leftFoot.value = newValue;
+    rightFoot.value = 10.0 - newValue;
   }
 
   /// 오른쪽 발 변경.
   void onChangeRightFoot(newValue) {
     rightFoot.value = newValue;
+    leftFoot.value = 10.0 - newValue;
   }
 
   /// 팀명 클릭.
@@ -114,5 +107,13 @@ class MyInformationController extends BaseController {
     unFocus();
     await Future.delayed(const Duration(milliseconds: 300));
     Get.until((route) => Get.currentRoute == RouteType.HOME);
+  }
+
+  /// 유저 정보 조회.
+  Future<void> loadUserData() async {
+    final userApi = Get.find<UserAPI>();
+    final response = await userApi.getUser();
+
+    setScreenData(response);
   }
 }
