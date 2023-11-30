@@ -1,14 +1,19 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
+import 'package:physical_note/app/data/workout/workout_api.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item_ui_state.dart';
 import 'package:physical_note/app/utils/utils.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:rxdart/streams.dart';
+
+import 'my_information_args.dart';
 
 class MyInformationController extends BaseController {
+  /// args.
+  final args = Get.arguments as MyInformationArgs;
+
   /// 이름.
   var name = "".obsWithController;
 
@@ -31,18 +36,7 @@ class MyInformationController extends BaseController {
   var gender = "".obsWithController;
 
   /// 포지션 목록.
-  var positionItems = <PositionListItemUiState>[
-    PositionListItemUiState(id: 1, name: "축구1", isSelected: false),
-    PositionListItemUiState(id: 2, name: "축구2", isSelected: false),
-    PositionListItemUiState(id: 3, name: "축구3", isSelected: false),
-    PositionListItemUiState(id: 4, name: "축구4", isSelected: false),
-    PositionListItemUiState(id: 5, name: "축구5", isSelected: false),
-    PositionListItemUiState(id: 6, name: "축구6", isSelected: false),
-    PositionListItemUiState(id: 7, name: "축구7", isSelected: false),
-    PositionListItemUiState(id: 8, name: "축구8", isSelected: false),
-    PositionListItemUiState(id: 9, name: "축구9", isSelected: false),
-    PositionListItemUiState(id: 10, name: "축구10", isSelected: false),
-  ].obs;
+  var positionItems = <PositionListItemUiState>[].obs;
 
   /// 왼쪽 발.
   var leftFoot = 0.0.obs;
@@ -67,6 +61,7 @@ class MyInformationController extends BaseController {
   void onInit() {
     super.onInit();
     loadUserData();
+    loadWorkoutPositionData(0);
   }
 
   void onInputBirth(String value) {
@@ -115,5 +110,19 @@ class MyInformationController extends BaseController {
     final response = await userApi.getUser();
 
     setScreenData(response);
+  }
+
+  /// 포지션 조회.
+  Future<void> loadWorkoutPositionData(int pageKey) async {
+    final workoutId = args.workoutId;
+    final workoutAPI = Get.find<WorkoutAPI>();
+    final response = await workoutAPI.getWorkoutPositionDetail(
+        pageKey: pageKey, workoutId: workoutId);
+
+    final toUiState = response.content
+        .map((e) => positionListItemUiStateFrom(data: e))
+        .toList();
+
+    positionItems.value = toUiState;
   }
 }

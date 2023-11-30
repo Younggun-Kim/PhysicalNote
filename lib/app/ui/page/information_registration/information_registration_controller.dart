@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item_ui_state.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/streams.dart';
@@ -32,7 +33,7 @@ class InformationRegistrationController extends BaseController {
       isAmateur.behaviorStream,
       isElite.behaviorStream
     ],
-    (values) => values[0] && values[1] && (values[2] || values[3]),
+        (values) => values[0] && values[1] && (values[2] || values[3]),
   ).toObs(false);
 
   /// 종목 클릭.
@@ -92,6 +93,13 @@ class InformationRegistrationController extends BaseController {
 
   /// 다음 클릭.
   Future<void> onPressedNext() async {
-    await Get.toNamed(RouteType.MY_INFORMATION);
+    final workoutId = sports.value?.id;
+
+    if (workoutId == null) {
+      return;
+    }
+
+    final args = MyInformationArgs(workoutId: workoutId);
+    await Get.toNamed(RouteType.MY_INFORMATION, arguments: args);
   }
 }

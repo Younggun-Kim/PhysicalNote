@@ -1,12 +1,10 @@
-import 'package:intl/intl.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
+import 'package:physical_note/app/data/workout/model/get_workout_position_detail_response_model.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_controller.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
+import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 
 extension MyInformationUiMapper on MyInformationController {
-
   void setScreenData(GetUserResponseModel? response) {
-
     /// 이름.
     name.value = response?.name ?? "";
 
@@ -33,5 +31,15 @@ extension MyInformationUiMapper on MyInformationController {
 
     /// 오른쪽 발.
     rightFoot.value = response?.rightValue ?? 0;
+  }
+
+  /// 포지션 UiState Mapper.
+  PositionListItemUiState positionListItemUiStateFrom({
+    required GetWorkoutPositionDetailResponseModel data,
+  }) {
+    return PositionListItemUiState(
+      id: data.id,
+      name: data.name,
+    );
   }
 }

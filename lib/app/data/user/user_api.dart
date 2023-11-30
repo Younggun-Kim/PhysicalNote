@@ -8,6 +8,7 @@ class UserAPI extends API {
   UserAPI() : super(basePath: "/api/user");
 
   /// 로그인 요청.
+  // TODO: API 수정 - positionId 필요
   Future<GetUserResponseModel?> getUser() async {
     logger.i("call UserAPI.getUser");
     final response = await get(requestUrl);
