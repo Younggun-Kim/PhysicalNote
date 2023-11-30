@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item.dart';
+import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/buttons/hint_button.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
 /// 내정보 뷰.
 class MyInformationPage extends GetView<MyInformationController> {
@@ -227,21 +227,22 @@ class _Position extends GetView<MyInformationController> {
           const SizedBox(height: 10),
           SizedBox(
             height: 40,
-            child: Obx(
-              () => ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: controller.positionItems.length,
-                itemBuilder: (context, index) {
-                  var uiState = controller.positionItems[index];
-                  return PositionListItem(
-                    uiState: uiState,
-                    onTap: controller.onTapPositionItem,
-                  );
-                },
-                separatorBuilder: (context, itemIndex) {
-                  return const SizedBox(width: 5);
-                },
+            child: PagedListView.separated(
+              scrollDirection: Axis.horizontal,
+              pagingController: controller.pagingController,
+              builderDelegate:
+                  PagedChildBuilderDelegate<PositionListItemUiState>(
+                itemBuilder: (context, item, index) => PositionListItem(
+                  uiState: item,
+                  onTap: (PositionListItemUiState uiState) {
+                    controller.onTapPositionItem(uiState);
+                  },
+                ),
+                noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
               ),
+              separatorBuilder: (context, itemIndex) {
+                return const SizedBox(width: 5);
+              },
             ),
           ),
         ],

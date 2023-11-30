@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/data/workout/workout_api.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item_ui_state.dart';
+import 'package:physical_note/app/utils/pagination/load_page.dart';
+import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/streams.dart';
 
@@ -35,8 +38,9 @@ class MyInformationController extends BaseController {
   /// 성별.
   var gender = "".obsWithController;
 
-  /// 포지션 목록.
-  var positionItems = <PositionListItemUiState>[].obs;
+  /// 포지션 페이지 컨트롤러.
+  final pagingController =
+      PagingController<int, PositionListItemUiState>(firstPageKey: 0);
 
   /// 왼쪽 발.
   var leftFoot = 0.0.obs;
@@ -61,7 +65,8 @@ class MyInformationController extends BaseController {
   void onInit() {
     super.onInit();
     loadUserData();
-    loadWorkoutPositionData(0);
+    // loadWorkoutPositionData(0);
+    pagingController.start((pageKey) => loadWorkoutPositionData(pageKey));
   }
 
   void onInputBirth(String value) {
@@ -70,11 +75,16 @@ class MyInformationController extends BaseController {
 
   /// 포지션 선택.
   void onTapPositionItem(PositionListItemUiState uiState) {
-    var newItems = positionItems.map((element) {
-      element.isSelected = element.id == uiState.id;
-      return element;
-    });
-    positionItems.value = newItems.toList();
+    final items = pagingController.itemList as List<PositionListItemUiState>;
+
+    final newItems = items.map((item) {
+      if (item.id == uiState.id) {
+        item.isSelected = !uiState.isSelected;
+      }
+      return item;
+    }).toList();
+
+    pagingController.itemList = newItems;
   }
 
   /// 왼쪽 발 변경.
@@ -113,16 +123,22 @@ class MyInformationController extends BaseController {
   }
 
   /// 포지션 조회.
-  Future<void> loadWorkoutPositionData(int pageKey) async {
+  Future<LoadPage<int, PositionListItemUiState>> loadWorkoutPositionData(
+      int pageKey) async {
     final workoutId = args.workoutId;
     final workoutAPI = Get.find<WorkoutAPI>();
     final response = await workoutAPI.getWorkoutPositionDetail(
         pageKey: pageKey, workoutId: workoutId);
 
-    final toUiState = response.content
+    final isLastPage = response.last == true;
+    final toUiStates = response.content
         .map((e) => positionListItemUiStateFrom(data: e))
         .toList();
 
-    positionItems.value = toUiState;
+    return LoadPage(
+      items: toUiStates,
+      isLastPage: isLastPage,
+      nextPageKey: pageKey + 1,
+    );
   }
 }
