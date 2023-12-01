@@ -10,8 +10,8 @@ extension MyInformationUiMapper on MyInformationController {
     /// 이름.
     name.value = response?.name ?? "";
 
-    /// 팀명.
-    team.value = response?.teamName ?? "";
+    /// 팀명 / 코치 명.
+    team.value = response?.teamAndCoach() ?? "";
 
     /// 키.
     height.value = response?.height?.toInt().toString() ?? "";

@@ -6,9 +6,9 @@ part 'server_response_fail_model.g.dart';
 @JsonSerializable()
 class ServerResponseFailModel {
   final int status;
-  final String error;
-  final String message;
-  final String devMessage;
+  final String? error;
+  final String? message;
+  final String? devMessage;
 
   ServerResponseFailModel(
     this.status,

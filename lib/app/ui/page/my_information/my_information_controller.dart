@@ -23,7 +23,7 @@ class MyInformationController extends BaseController {
   /// 팀 uistate.
   SearchTeamsListItemUiState? teamUiState;
 
-  /// 팀명.
+  /// 팀명 / 코치 명.
   var team = "".obs;
 
   /// 키.

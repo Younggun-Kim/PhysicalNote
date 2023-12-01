@@ -10,9 +10,9 @@ ServerResponseFailModel _$ServerResponseFailModelFromJson(
         Map<String, dynamic> json) =>
     ServerResponseFailModel(
       json['status'] as int,
-      json['error'] as String,
-      json['message'] as String,
-      json['devMessage'] as String,
+      json['error'] as String?,
+      json['message'] as String?,
+      json['devMessage'] as String?,
     );
 
 Map<String, dynamic> _$ServerResponseFailModelToJson(

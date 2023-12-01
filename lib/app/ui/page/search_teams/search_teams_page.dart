@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item.dart';
+import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/search_teams/search_teams_controller.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
@@ -93,22 +96,29 @@ class _FieldNames extends StatelessWidget {
 class _CoachList extends GetView<SearchTeamsController> {
   @override
   Widget build(BuildContext context) => Expanded(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Obx(
-            () => ListView.separated(
-              itemBuilder: (context, index) {
-                final uiState = controller.items[index];
-                return SearchTeamsListItem(
-                  uiState: uiState,
-                  onTap: controller.onPressedListItem,
-                );
-              },
-              itemCount: controller.items.length,
-              separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox(height: 10),
+        child: Stack(
+          children: [
+            RefreshIndicator(
+              onRefresh: controller.onRefresh,
+              child: PagedListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                pagingController: controller.pagingController,
+                builderDelegate:
+                    PagedChildBuilderDelegate<SearchTeamsListItemUiState>(
+                  itemBuilder: (context, item, index) => SearchTeamsListItem(
+                    uiState: item,
+                    onTap: (SearchTeamsListItemUiState uiState) {
+                      controller.onPressedListItem(uiState);
+                    },
+                  ),
+                  noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+                ),
+                separatorBuilder: (context, itemIndex) {
+                  return const SizedBox(width: 10);
+                },
+              ),
             ),
-          ),
+          ],
         ),
       );
 }

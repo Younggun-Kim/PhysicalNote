@@ -25,6 +25,18 @@ class GetUserResponseModel {
   final double? weight;
   final String? token;
 
+  String? teamAndCoach() {
+    if(teamName != null && teamHeadCoach != null) {
+      return "$teamName / $teamHeadCoach";
+    } else if(teamName != null) {
+      return teamName;
+    } else if(teamHeadCoach != null) {
+      return teamHeadCoach;
+    } else {
+      return null;
+    }
+  }
+
   GetUserResponseModel({
     required this.id,
     required this.loginId,

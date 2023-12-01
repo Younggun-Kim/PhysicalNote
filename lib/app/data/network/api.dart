@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
+import 'package:physical_note/app/utils/logger/logger.dart';
 
 class API extends GetConnect {
   /// 서버 주소.
@@ -24,6 +25,7 @@ class API extends GetConnect {
       ..addRequestModifier<dynamic>(
         (request) {
           /// 헤더에 토큰 추가 작업
+          logger.i('Request Url: ${request.url.toString()}');
           if (request.url.toString().contains("/api")) {
             final userStorage = UserStorage();
             final token = userStorage.apiKey.val;
@@ -31,6 +33,7 @@ class API extends GetConnect {
           } else {
             request.headers.remove('Authorization');
           }
+          logger.w("Request Header: ${request.headers.toString()}");
           return request;
         },
       );
