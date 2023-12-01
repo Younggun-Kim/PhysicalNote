@@ -22,6 +22,9 @@ class PageRoot extends StatelessWidget {
   /// 리사이즈 사용 여부.
   final bool resize;
 
+  /// 전체 화면 여부.
+  final bool isFullPage;
+
   /// 자식 위젯.
   final Widget child;
 
@@ -37,6 +40,7 @@ class PageRoot extends StatelessWidget {
     this.safeStatusBar = true,
     this.safeNavigationBar = true,
     this.resize = true,
+    this.isFullPage = false,
     required this.child,
     this.onWillPop,
   }) : super(key: key);
@@ -55,14 +59,19 @@ class PageRoot extends StatelessWidget {
           Scaffold(
             backgroundColor: backgroundColor,
             resizeToAvoidBottomInset: resize,
-            body: SafeArea(
-              top: safeStatusBar,
-              bottom: safeNavigationBar,
-              child: SizedBox(
-                width: double.infinity,
-                child: child,
-              ),
-            ),
+            body: isFullPage
+                ? SizedBox(
+                    width: double.infinity,
+                    child: child,
+                  )
+                : SafeArea(
+                    top: safeStatusBar,
+                    bottom: safeNavigationBar,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: child,
+                    ),
+                  ),
           ),
           _createLoading(),
         ],

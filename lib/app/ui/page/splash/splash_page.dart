@@ -12,6 +12,7 @@ class SplashPage extends GetView<SplashController> {
   Widget build(BuildContext context) {
     return PageRoot(
       controller: controller,
+      isFullPage: true,
       child: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
