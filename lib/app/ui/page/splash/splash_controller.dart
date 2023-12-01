@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
@@ -21,15 +22,7 @@ class SplashController extends BaseController {
   Future<void> nextPage() async {
     await 3.delay();
 
-    final userStorage = UserStorage();
-
-    if (userStorage.isLogin) {
-      /// 홈으로 이동
-      /// 홈에서 정보등록 여부 판단해서 팝업으로 열자
-      _moveHome();
-    } else {
-      _moveLogin();
-    }
+    _postLoginRelogin();
   }
 
   /// 홈 이동.
@@ -40,5 +33,22 @@ class SplashController extends BaseController {
   /// 로그인 화면 이동.
   void _moveLogin() async {
     await Get.offAllNamed(RouteType.LOGIN);
+  }
+
+  /// 리로그인 요청.
+  Future<void> _postLoginRelogin() async {
+    final loginApi = Get.find<LoginAPI>();
+    final response = await loginApi.postLoginRelogin();
+    final userStorage = UserStorage();
+
+    final token = response?.token;
+
+    if(token != null) {
+      userStorage.apiKey.val = token;
+      _moveHome();
+    } else {
+      userStorage.apiKey.val = "";
+      _moveLogin();
+    }
   }
 }
