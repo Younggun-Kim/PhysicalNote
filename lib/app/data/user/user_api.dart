@@ -35,7 +35,6 @@ class UserAPI extends API {
     final response = await post(requestUrl, requestData);
 
     logger.w(response.bodyString);
-    logger.w("Status Code : ${response.statusCode}\n response body: ${response.bodyString}");
 
     if (response.status.hasError) {
       final failResponse = ServerResponseFailModel.fromJson(response.body);

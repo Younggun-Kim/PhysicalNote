@@ -14,14 +14,20 @@ class OutlineRoundButton extends StatelessWidget {
 
   final double? fontSize;
 
+  final double radius;
+
+  final EdgeInsets? padding;
+
   final VoidCallback? onPressed;
 
   const OutlineRoundButton({
     super.key,
     this.width,
     this.height = 56,
+    this.radius = 28,
     required this.hint,
     required this.text,
+    this.padding,
     this.fontSize,
     this.onPressed,
   });
@@ -32,6 +38,8 @@ class OutlineRoundButton extends StatelessWidget {
   Widget build(BuildContext context) => RoundButton(
         width: width,
         height: height,
+        radius: radius,
+        padding: padding,
         backgroundColor: ColorRes.white,
         alignment: Alignment.centerLeft,
         border: Border.all(

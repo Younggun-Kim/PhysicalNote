@@ -20,6 +20,9 @@ class HomeController extends BaseController {
   /// 유저 이름.
   var userName = "코너".obs;
 
+  /// 나의 상태 날짜.
+  var myStateDate = DateTime.now().obs;
+
   /// 후퍼인덱스.
   // ignore: unnecessary_cast
   Rx<HooperIndexData?> hooperIndexData = (null as HooperIndexData?).obs;
@@ -37,6 +40,7 @@ class HomeController extends BaseController {
   /// 운동강도 - 피지컬.
   var workoutIntensityPhysical =
       HomeWorkoutIntensityChartUiState(name: "피지컬", value: 6.5).obs;
+
 
   /// 통계 - 스포츠.
   var statisticsSports = <FlSpot>[

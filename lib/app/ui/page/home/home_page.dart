@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,8 +7,10 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/data/hooper_index.dart';
 import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_progress_bar.dart';
+import 'package:physical_note/app/ui/widgets/buttons/outline_round_button.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
 import '../../../resources/resources.dart';
 import 'home_controller.dart';
@@ -23,6 +27,12 @@ class HomePage extends GetView<HomeController> {
               const SizedBox(height: 40),
               const _UserInformation(),
               const SizedBox(height: 48),
+              Obx(
+                () => _MyStateHeader(
+                  date: controller.myStateDate.value,
+                ),
+              ),
+              const SizedBox(height: 10),
               Obx(
                 () => _MyStateContainer(
                   hooperIndexData: controller.hooperIndexData.value,
@@ -103,6 +113,49 @@ class _UserInformation extends GetView<HomeController> {
           )
         ],
       ).paddingSymmetric(horizontal: 20);
+}
+
+/// 나의상태 헤더.
+class _MyStateHeader extends StatelessWidget {
+  final DateTime date;
+
+  const _MyStateHeader({
+    required this.date,
+  });
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            StringRes.myState.tr,
+            style: const TextStyle(
+              fontSize: 30,
+              color: ColorRes.fontBlack,
+            ),
+          ),
+          Row(
+            children: [
+              Text(
+                date.toFormattedString('yyyy년 M월 d일'),
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(width: 5),
+              SvgPicture.asset(Assets.codeBrowser),
+              const Spacer(),
+              OutlineRoundButton(
+                text: StringRes.next.tr,
+                hint: "",
+                height: 24,
+                radius: 12,
+                onPressed: () {},
+              ),
+            ],
+          )
+        ],
+      ).paddingSymmetric(horizontal: 30);
 }
 
 /// 나의 상태 컨테이너.
@@ -426,8 +479,8 @@ class _Statistics extends GetView<HomeController> {
           const SizedBox(height: 10),
           Obx(
             () => _StatisticsChart(
-              statisticsSports: controller.statisticsSports,
-              statisticsPhysical: controller.statisticsPhysical,
+              statisticsSports: controller.statisticsSports.value,
+              statisticsPhysical: controller.statisticsPhysical.value,
             ),
           ),
         ],
