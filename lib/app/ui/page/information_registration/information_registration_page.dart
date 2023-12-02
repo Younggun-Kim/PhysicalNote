@@ -44,7 +44,7 @@ class InformationRegistrationPage
                     child: Obx(
                       () => RoundButton(
                         text: StringRes.amateur.tr,
-                        isSelected: controller.isAmateur.value,
+                        isSelected: controller.isElite.value == false,
                         backgroundColor: ColorRes.white,
                         selectedColor: ColorRes.primary,
                         textStyle: const TextStyle(
@@ -66,7 +66,7 @@ class InformationRegistrationPage
                       () => RoundButton(
                         text: StringRes.elite.tr,
                         isEnabled: true,
-                        isSelected: controller.isElite.value,
+                        isSelected: controller.isElite.value == true,
                         backgroundColor: ColorRes.white,
                         selectedColor: ColorRes.primary,
                         textStyle: const TextStyle(

@@ -12,13 +12,9 @@ class WorkoutAPI extends API {
   WorkoutAPI() : super(basePath: "/api/workout");
 
   /// 운동 카테고리 목록 조회.
-  /// // TODO: API 수정 - 검색어 필요.
-  Future<PaginateModel> getWorkoutCategory({
-    required int page,
-  }) async {
-    final response = await get(
-      requestUrl + "/category?page=$page",
-    );
+  Future<PaginateModel> getWorkoutCategory(
+      {required int page, required String keyword}) async {
+    final response = await get(requestUrl + "/category?page=$page&keyword=$keyword");
 
     logger.i("API Response: ${response.bodyString}");
 
@@ -37,9 +33,10 @@ class WorkoutAPI extends API {
   Future<PaginateModel> getWorkoutDetail({
     required int pageKey,
     required int categoryId,
+    required String keyword,
   }) async {
     final response = await get(
-      requestUrl + "/$categoryId?page=$pageKey",
+      requestUrl + "/$categoryId?page=$pageKey&keyword=$keyword",
     );
 
     logger.i("API Response: ${response.bodyString}");

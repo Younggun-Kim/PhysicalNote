@@ -17,7 +17,6 @@ class SearchCategoryController extends BaseController {
   /// Sports 여부.
   late final isSports = args.isSports;
 
-
   /// 기존의 선택된 종목 Id.
   late int? selectedId = isSports ? args.sportsId : args.categoryId;
 
@@ -81,14 +80,15 @@ class SearchCategoryController extends BaseController {
       int pageKey) async {
     final api = Get.find<WorkoutAPI>();
 
-    // Todo: 검색어 추가 필요.
-    final response = await api.getWorkoutCategory(page: pageKey);
+    final response = await api.getWorkoutCategory(
+      page: pageKey,
+      keyword: keyword.value,
+    );
 
     final isLastPage = response.last;
     final toUiStates = response.content
         .map((e) => searchCategoryListItemUiStateFrom(
-            e as GetWorkoutCategoryResponseListItemModel,
-            e.id == selectedId))
+            e as GetWorkoutCategoryResponseListItemModel, e.id == selectedId))
         .toList();
 
     return LoadPage(
@@ -113,6 +113,7 @@ class SearchCategoryController extends BaseController {
     final response = await api.getWorkoutDetail(
       pageKey: pageKey,
       categoryId: categoryId,
+      keyword: keyword.value,
     );
 
     final isLastPage = response.last;

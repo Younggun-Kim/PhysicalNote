@@ -22,6 +22,8 @@ class MyInformationPage extends GetView<MyInformationController> {
               _Name(),
               const SizedBox(height: 20),
               _Team(),
+              const SizedBox(height: 10),
+              _Elite(),
               const SizedBox(height: 20),
               _HeightWeight(),
               const SizedBox(height: 20),
@@ -112,6 +114,57 @@ class _Team extends GetView<MyInformationController> {
               onTap: () async {
                 controller.onPressedTeamName();
               },
+            ),
+          ),
+        ],
+      ).paddingSymmetric(horizontal: 30);
+}
+
+/// 엘리트, 아마추어 여부
+class _Elite extends GetView<MyInformationController> {
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          Expanded(
+            child: Obx(
+              () => RoundButton(
+                text: StringRes.amateur.tr,
+                isSelected: controller.isElite.value == false,
+                backgroundColor: ColorRes.white,
+                selectedColor: ColorRes.primary,
+                textStyle: const TextStyle(
+                  color: ColorRes.fontBlack,
+                  fontSize: 16,
+                ),
+                selectedTextStyle: const TextStyle(
+                  color: ColorRes.fontBlack,
+                  fontSize: 16,
+                ),
+                border: Border.all(color: ColorRes.borderDeselect),
+                onPressed: () => controller.onPressedElite(false),
+              ),
+            ),
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: Obx(
+              () => RoundButton(
+                text: StringRes.elite.tr,
+                isEnabled: true,
+                isSelected: controller.isElite.value == true,
+                backgroundColor: ColorRes.white,
+                selectedColor: ColorRes.primary,
+                textStyle: const TextStyle(
+                  color: ColorRes.fontBlack,
+                  fontSize: 16,
+                ),
+                selectedTextStyle: const TextStyle(
+                  color: ColorRes.fontBlack,
+                  fontSize: 16,
+                ),
+                border: Border.all(color: ColorRes.borderDeselect),
+                onPressed: () => controller.onPressedElite(true),
+              ),
             ),
           ),
         ],

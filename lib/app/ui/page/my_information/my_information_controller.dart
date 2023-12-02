@@ -26,6 +26,9 @@ class MyInformationController extends BaseController {
   /// 팀명 / 코치 명.
   var team = "".obs;
 
+  /// 엘리트 여부.
+  late final isElite = args.isElite.obs;
+
   /// 키.
   var height = "".obsWithController;
 
@@ -72,7 +75,6 @@ class MyInformationController extends BaseController {
   void onInit() {
     super.onInit();
     _loadUserData();
-    // loadWorkoutPositionData(0);
     pagingController.start((pageKey) => _loadWorkoutPositionData(pageKey));
   }
 
@@ -112,6 +114,11 @@ class MyInformationController extends BaseController {
         await Get.toNamed(RouteType.SEARCH_TEAMS) as SearchTeamsListItemUiState;
     teamUiState = uiState;
     team.value = teamUiState?.clubAndCoach ?? "";
+  }
+
+  /// 엘리트/아마추어 클릭.
+  void onPressedElite(bool value) {
+    isElite.value = value;
   }
 
   /// 등록 클릭.
