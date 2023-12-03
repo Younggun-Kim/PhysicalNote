@@ -28,6 +28,7 @@ class StringRes {
   static final requiredTermService = _generateId();
   static final requiredTermPrivacy = _generateId();
   static final next = _generateId();
+  static final prev = _generateId();
   static final signUp = _generateId();
   static final phoneNumber = _generateId();
   static final phoneNumberError = _generateId();

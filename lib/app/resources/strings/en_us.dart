@@ -20,6 +20,7 @@ final enUs = {
   StringRes.requiredTermService: "[필수] 서비스 이용약관",
   StringRes.requiredTermPrivacy: "[필수] 개인정보 수집 및 이용 동의",
   StringRes.next: "다음",
+  StringRes.prev: "이전",
   StringRes.signUp: "회원가입",
   StringRes.phoneNumber: "휴대폰 번호",
   StringRes.phoneHint: "( - )없이 11자리를 입력하세요.",

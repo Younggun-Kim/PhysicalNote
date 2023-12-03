@@ -5,6 +5,9 @@ class FlexibleScrollView extends StatelessWidget {
   /// 스크롤 뷰 패딩.
   final EdgeInsets? padding;
 
+  /// 스크롤 방향
+  final Axis scrollDirection;
+
   /// 스크롤 뷰 내부 위젯.
   final Widget child;
 
@@ -17,6 +20,7 @@ class FlexibleScrollView extends StatelessWidget {
   const FlexibleScrollView({
     Key? key,
     this.padding,
+    this.scrollDirection = Axis.vertical,
     this.controller,
     this.hasScrollBody = false,
     required this.child,
@@ -25,6 +29,7 @@ class FlexibleScrollView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CustomScrollView(
     controller: controller,
+    scrollDirection: scrollDirection,
     slivers: [
       SliverFillRemaining(
         hasScrollBody: hasScrollBody,

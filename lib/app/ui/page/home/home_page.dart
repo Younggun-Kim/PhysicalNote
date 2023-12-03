@@ -21,33 +21,71 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 40),
-              const _UserInformation(),
-              const SizedBox(height: 48),
-              Obx(
-                () => _MyStateHeader(
-                  date: controller.myStateDate.value,
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                const SizedBox(height: 40),
+                const _UserInformation(),
+                const SizedBox(height: 48),
+                Obx(
+                  () => _MyStateHeader(
+                    date: controller.myStateDate.value,
+                    buttonName: controller.myStatePageButtonName.value,
+                    onPressedNextButton: controller.onPressedNextButton,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              Obx(
-                () => _MyStateContainer(
-                  hooperIndexData: controller.hooperIndexData.value,
-                  emptyWeight: controller.emptyWeight.value,
-                  weightPercent: controller.weightPercent.value,
-                  soccerUiState: controller.workoutIntensitySoccer.value,
-                  physicalUiState: controller.workoutIntensityPhysical.value,
-                ),
-              ),
-              const SizedBox(height: 20),
-              _Statistics(),
-            ],
+                const SizedBox(height: 10),
+              ])),
+            ];
+          },
+          body: Obx(
+            () => PageView(
+              controller: controller.myStatePageController.value,
+              children: [
+                SizedBox.expand(child: _FirstBody()),
+                SizedBox.expand(child: _SecondBody()),
+              ],
+            ),
           ),
         ),
       );
+}
+
+class _FirstBody extends GetView<HomeController> {
+  @override
+  Widget build(BuildContext context) => SingleChildScrollView(
+        child: Column(
+          children: [
+            Obx(
+              () => _MyStateContainer(
+                hooperIndexData: controller.hooperIndexData.value,
+                emptyWeight: controller.emptyWeight.value,
+                weightPercent: controller.weightPercent.value,
+                soccerUiState: controller.workoutIntensitySoccer.value,
+                physicalUiState: controller.workoutIntensityPhysical.value,
+              ),
+            ),
+            const SizedBox(height: 20),
+            _Statistics(),
+          ],
+        ),
+      );
+}
+
+class _SecondBody extends GetView<HomeController> {
+  @override
+  Widget build(BuildContext context) => SingleChildScrollView(
+        child: SizedBox(
+          height: 400,
+          child: InteractiveViewer(
+            scaleEnabled: true,
+            panEnabled: true,
+            constrained: true,
+            child: Text("efe")
+        ),
+      ));
 }
 
 /// User 정보
@@ -119,8 +157,14 @@ class _UserInformation extends GetView<HomeController> {
 class _MyStateHeader extends StatelessWidget {
   final DateTime date;
 
+  final String buttonName;
+
+  final VoidCallback onPressedNextButton;
+
   const _MyStateHeader({
     required this.date,
+    required this.buttonName,
+    required this.onPressedNextButton,
   });
 
   @override
@@ -146,11 +190,11 @@ class _MyStateHeader extends StatelessWidget {
               SvgPicture.asset(Assets.codeBrowser),
               const Spacer(),
               OutlineRoundButton(
-                text: StringRes.next.tr,
+                text: buttonName,
                 hint: "",
                 height: 24,
                 radius: 12,
-                onPressed: () {},
+                onPressed: onPressedNextButton,
               ),
             ],
           )
