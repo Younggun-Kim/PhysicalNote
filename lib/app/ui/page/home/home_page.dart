@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:interactable_svg/interactable_svg/interactable_svg.dart';
 import 'package:physical_note/app/data/hooper_index.dart';
 import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_progress_bar.dart';
@@ -11,6 +12,7 @@ import 'package:physical_note/app/ui/widgets/buttons/outline_round_button.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
+import 'package:physical_note/app/utils/utils.dart';
 
 import '../../../resources/resources.dart';
 import 'home_controller.dart';
@@ -77,16 +79,17 @@ class _FirstBody extends GetView<HomeController> {
 class _SecondBody extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-        child: SizedBox(
+      child: SizedBox(
+          width: 300,
           height: 400,
-          child: InteractiveViewer(
-            scaleEnabled: true,
-            panEnabled: true,
-            constrained: true,
-            child: Text("efe")
-        ),
-      ));
+          child: InteractableSvg(
+            svgAddress: Assets.musclesFrontAndBack,
+            onChanged: (Region? region) {
+              logger.w(region.toString());
+            },
+          )));
 }
+
 
 /// User 정보
 class _UserInformation extends GetView<HomeController> {

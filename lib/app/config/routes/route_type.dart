@@ -3,6 +3,7 @@
 part of 'routes.dart';
 
 abstract class RouteType {
+  static const TEST = '/test';
   static const SPLASH = '/splash';
   static const LOCALIZATION = "/localization";
   static const LOGIN = "/login";

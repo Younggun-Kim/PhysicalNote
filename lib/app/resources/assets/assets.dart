@@ -17,6 +17,8 @@ class Assets {
   static const String imgKakao = 'assets/images/img_kakao.svg';
   static const String imgNaver = 'assets/images/img_naver.svg';
   static const String logo = 'assets/images/logo.svg';
+  static const String maleMuscle = 'assets/images/male_muscle.svg';
+  static const String musclesFrontAndBack = 'assets/images/muscles_front_and_back.svg';
   static const String searchRefraction = 'assets/images/search-refraction.svg';
   static const String splash = 'assets/images/splash.png';
   static const String userDefault = 'assets/images/user_default.svg';
