@@ -9,7 +9,7 @@ part of 'month_intensity_graph_model.dart';
 MonthIntensityGraphModel _$MonthIntensityGraphModelFromJson(
         Map<String, dynamic> json) =>
     MonthIntensityGraphModel(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       type: json['type'] as String?,
       level: json['level'] as int?,
       xvalue: json['xvalue'] as String?,

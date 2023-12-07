@@ -22,7 +22,7 @@ class GetHomeResponseModel {
   final RiskInfoModel? riskInfoModel;
   final UrineInfoModel? urineInfoModel;
   final UserSimpleInfoModel? userSimpleInfo;
-  final WeekIntensityGraphModel? weekIntensityGraph;
+  final List<WeekIntensityGraphModel>? weekIntensityGraph;
   final WorkoutInfoModel? workoutInfo;
 
   GetHomeResponseModel({

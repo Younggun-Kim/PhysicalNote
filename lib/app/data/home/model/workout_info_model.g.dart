@@ -8,7 +8,7 @@ part of 'workout_info_model.dart';
 
 WorkoutInfoModel _$WorkoutInfoModelFromJson(Map<String, dynamic> json) =>
     WorkoutInfoModel(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       comparisonRoad: json['comparisonRoad'] as int?,
       comparisonTime: json['comparisonTime'] as int?,
       workoutRoad: json['workoutRoad'] as int?,

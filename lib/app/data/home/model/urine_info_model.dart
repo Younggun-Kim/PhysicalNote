@@ -5,16 +5,16 @@ part 'urine_info_model.g.dart';
 /// 운동 카테고리 조회 목록 아이템 모델.
 @JsonSerializable()
 class UrineInfoModel {
-  final int id;
-  final int differenceFat;
-  final int weight;
+  final int? id;
+  final int? differenceFat;
+  final int? weight;
   final String? urine;
   final String? recordDate;
 
   UrineInfoModel({
-    required this.id,
-    required this.differenceFat,
-    required this.weight,
+    this.id,
+    this.differenceFat,
+    this.weight,
     this.urine,
     this.recordDate,
   });

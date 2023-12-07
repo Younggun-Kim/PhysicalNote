@@ -8,6 +8,14 @@ sealed class HooperIndexStatus {
 
   @override
   String toString();
+
+  static HooperIndexStatus? changeFrom(String? remoteString) {
+    if(remoteString == "관리요망(1단계)") {
+      return HooperIndexStatusWarning();
+    } else {
+      return null;
+    }
+  }
 }
 
 /// 후퍼인덱스 상태값 - 위험
@@ -48,15 +56,15 @@ class HooperIndexStatusGood extends HooperIndexStatus {
 
 /// 후퍼인덱스 데이터
 class HooperIndexData {
-  final HooperIndexStatus sleep;
-  final HooperIndexStatus stress;
-  final HooperIndexStatus fatigue;
-  final HooperIndexStatus musclePain;
+  final HooperIndexStatus? sleep;
+  final HooperIndexStatus? stress;
+  final HooperIndexStatus? fatigue;
+  final HooperIndexStatus? musclePain;
 
   HooperIndexData({
-    required this.sleep,
-    required this.stress,
-    required this.fatigue,
-    required this.musclePain,
+    this.sleep,
+    this.stress,
+    this.fatigue,
+    this.musclePain,
   });
 }

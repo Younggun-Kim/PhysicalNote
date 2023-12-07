@@ -5,7 +5,7 @@ part 'workout_info_model.g.dart';
 /// 운동 카테고리 조회 목록 아이템 모델.
 @JsonSerializable()
 class WorkoutInfoModel {
-  final int id;
+  final int? id;
   final int? comparisonRoad;
   final int? comparisonTime;
   final int? workoutRoad;
@@ -13,7 +13,7 @@ class WorkoutInfoModel {
   final String? recordDate;
 
   WorkoutInfoModel({
-    required this.id,
+    this.id,
     this.comparisonRoad,
     this.comparisonTime,
     this.workoutRoad,

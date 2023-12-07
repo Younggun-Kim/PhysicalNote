@@ -9,7 +9,7 @@ part of 'week_intensity_graph_model.dart';
 WeekIntensityGraphModel _$WeekIntensityGraphModelFromJson(
         Map<String, dynamic> json) =>
     WeekIntensityGraphModel(
-      id: json['id'] as int,
+      id: json['id'] as int?,
       type: json['type'] as String?,
       level: json['level'] as int?,
       xvalue: json['xvalue'] as String?,

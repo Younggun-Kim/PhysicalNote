@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/initializer/app_initializer.dart';
@@ -18,7 +20,11 @@ void run() async {
 
   // initTheme();
 
+
   await AppInitializer.init();
+
+  // CERTIFICATE_VERIFY_FAILED 방지.
+  HttpOverrides.global = MyHttpOverrides();
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
@@ -30,4 +36,12 @@ void run() async {
     locale: Get.deviceLocale,
     fallbackLocale: const Locale('ko', 'KR'), // Default Locale
   ));
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
 }

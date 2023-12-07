@@ -5,7 +5,7 @@ part 'hooper_index_info_model.g.dart';
 /// 운동 카테고리 조회 목록 아이템 모델.
 @JsonSerializable()
 class HooperIndexInfoModel {
-  final int id;
+  final int? id;
   final String? fatigue;
   final String? muscleSoreness;
   final String? sleep;
@@ -13,7 +13,7 @@ class HooperIndexInfoModel {
   final String? recordDate;
 
   HooperIndexInfoModel({
-    required this.id,
+    this.id,
     this.fatigue,
     this.muscleSoreness,
     this.sleep,

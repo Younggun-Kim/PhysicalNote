@@ -2,9 +2,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/data/hooper_index.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 import 'home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
@@ -26,9 +29,7 @@ class HomeController extends BaseController {
   var myStateDate = DateTime.now().obs;
 
   /// 나의 상태 페이지 스크롤 컨트롤러.
-  var myStatePageController = PageController(
-    initialPage: 0
-  ).obs;
+  var myStatePageController = PageController(initialPage: 0).obs;
 
   /// 나의 상태 페이지 버튼 명
   late var myStatePageButtonName = StringRes.next.tr.obs;
@@ -76,6 +77,7 @@ class HomeController extends BaseController {
   void onInit() {
     moveInformationRegistration();
     super.onInit();
+    loadHome();
   }
 
   /// 정보 등록 화면으로 이동.
@@ -125,5 +127,14 @@ class HomeController extends BaseController {
 
     /// 로그인으로 이동.
     Get.offAndToNamed(RouteType.LOGIN);
+  }
+
+  /// 홈 로딩.
+  Future<void> loadHome() async {
+    final homeApi = Get.find<HomeAPI>();
+    final recordDate = myStateDate.value.toFormattedString("yyyy-MM-dd");
+    final response = await homeApi.getHome(recordDate);
+
+    setScreenData(response);
   }
 }

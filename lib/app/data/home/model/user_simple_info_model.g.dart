@@ -8,8 +8,8 @@ part of 'user_simple_info_model.dart';
 
 UserSimpleInfoModel _$UserSimpleInfoModelFromJson(Map<String, dynamic> json) =>
     UserSimpleInfoModel(
-      id: json['id'] as int,
-      name: json['name'] as String,
+      id: json['id'] as int?,
+      name: json['name'] as String?,
       teamName: json['teamName'] as String?,
       teamCoachName: json['teamCoachName'] as String?,
       profile: json['profile'] as String?,

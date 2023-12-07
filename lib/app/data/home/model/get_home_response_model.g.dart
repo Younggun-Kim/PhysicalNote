@@ -33,10 +33,10 @@ GetHomeResponseModel _$GetHomeResponseModelFromJson(
           ? null
           : UserSimpleInfoModel.fromJson(
               json['userSimpleInfo'] as Map<String, dynamic>),
-      weekIntensityGraph: json['weekIntensityGraph'] == null
-          ? null
-          : WeekIntensityGraphModel.fromJson(
-              json['weekIntensityGraph'] as Map<String, dynamic>),
+      weekIntensityGraph: (json['weekIntensityGraph'] as List<dynamic>?)
+          ?.map((e) =>
+              WeekIntensityGraphModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       workoutInfo: json['workoutInfo'] == null
           ? null
           : WorkoutInfoModel.fromJson(

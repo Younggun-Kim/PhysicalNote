@@ -364,11 +364,11 @@ class _MyStateHooperIndex extends StatelessWidget {
 class _MyStateHooperIndexItem extends StatelessWidget {
   final String text;
 
-  final HooperIndexStatus status;
+  final HooperIndexStatus? status;
 
   const _MyStateHooperIndexItem({
     required this.text,
-    required this.status,
+    this.status,
   });
 
   @override
@@ -395,7 +395,7 @@ class _MyStateHooperIndexItem extends StatelessWidget {
             width: 16,
             height: 16,
             decoration: BoxDecoration(
-              color: status.toColor(),
+              color: status?.toColor() ?? ColorRes.disable,
               borderRadius: BorderRadius.circular(8),
             ),
           ),

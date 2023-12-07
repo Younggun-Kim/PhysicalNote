@@ -5,16 +5,16 @@ part 'risk_info_model.g.dart';
 /// 운동 카테고리 조회 목록 아이템 모델.
 @JsonSerializable()
 class RiskInfoModel {
-  final int id;
-  final int injuryLevel;
-  final int injuryPercent;
+  final int? id;
+  final int? injuryLevel;
+  final int? injuryPercent;
   final String? recordDate;
 
 
   RiskInfoModel({
-    required this.id,
-    required this.injuryLevel,
-    required this.injuryPercent,
+    this.id,
+    this.injuryLevel,
+    this.injuryPercent,
     this.recordDate,
   });
 

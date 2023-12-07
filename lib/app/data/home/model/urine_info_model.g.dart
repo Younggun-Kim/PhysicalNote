@@ -8,9 +8,9 @@ part of 'urine_info_model.dart';
 
 UrineInfoModel _$UrineInfoModelFromJson(Map<String, dynamic> json) =>
     UrineInfoModel(
-      id: json['id'] as int,
-      differenceFat: json['differenceFat'] as int,
-      weight: json['weight'] as int,
+      id: json['id'] as int?,
+      differenceFat: json['differenceFat'] as int?,
+      weight: json['weight'] as int?,
       urine: json['urine'] as String?,
       recordDate: json['recordDate'] as String?,
     );
