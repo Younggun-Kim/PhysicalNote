@@ -81,4 +81,6 @@ class StringRes {
   static final workoutIntensityStatistics = _generateId();
   static final physical = _generateId();
   static final pleaseSelectCategory = _generateId();
+  static final monthly = _generateId();
+  static final weekly = _generateId();
 }

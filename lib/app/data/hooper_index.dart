@@ -10,7 +10,7 @@ sealed class HooperIndexStatus {
   String toString();
 
   static HooperIndexStatus? changeFrom(String? remoteString) {
-    if(remoteString == "관리요망(1단계)") {
+    if (remoteString == "관리요망(1단계)") {
       return HooperIndexStatusWarning();
     } else {
       return null;

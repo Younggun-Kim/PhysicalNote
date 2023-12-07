@@ -8,6 +8,8 @@ import 'package:interactable_svg/interactable_svg/interactable_svg.dart';
 import 'package:physical_note/app/data/hooper_index.dart';
 import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_progress_bar.dart';
+import 'package:physical_note/app/ui/page/home/model/home_urine_model.dart';
+import 'package:physical_note/app/ui/widgets/buttons/label_button.dart';
 import 'package:physical_note/app/ui/widgets/buttons/outline_round_button.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
@@ -63,8 +65,7 @@ class _FirstBody extends GetView<HomeController> {
             Obx(
               () => _MyStateContainer(
                 hooperIndexData: controller.hooperIndexData.value,
-                emptyWeight: controller.emptyWeight.value,
-                weightPercent: controller.weightPercent.value,
+                urineData: controller.urineData.value,
                 soccerUiState: controller.workoutIntensitySoccer.value,
                 physicalUiState: controller.workoutIntensityPhysical.value,
               ),
@@ -101,9 +102,10 @@ class _UserInformation extends GetView<HomeController> {
             () => SizedBox(
               width: 54,
               height: 54,
-              child: controller.userImageUrl.isEmpty
-                  ? SvgPicture.asset(Assets.userDefault)
-                  : Image.network(controller.userImageUrl.value),
+              child: Image.network(
+                controller.userImageUrl.value,
+                errorBuilder: profileErrorBuilder,
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -153,9 +155,17 @@ class _UserInformation extends GetView<HomeController> {
           )
         ],
       ).paddingSymmetric(horizontal: 20);
+
+  /// 프로필 에러 빌더.
+  Widget profileErrorBuilder(
+    BuildContext context,
+    Object error,
+    StackTrace? stackTrace,
+  ) =>
+      SvgPicture.asset(Assets.userDefault);
 }
 
-/// 나의상태 헤더.
+/// 나의상태 헤더.x
 class _MyStateHeader extends StatelessWidget {
   final DateTime date;
 
@@ -208,9 +218,7 @@ class _MyStateHeader extends StatelessWidget {
 class _MyStateContainer extends StatelessWidget {
   final HooperIndexData? hooperIndexData;
 
-  final String emptyWeight;
-
-  final int weightPercent;
+  final HomeUrineModel? urineData;
 
   final HomeWorkoutIntensityChartUiState soccerUiState;
 
@@ -218,8 +226,7 @@ class _MyStateContainer extends StatelessWidget {
 
   const _MyStateContainer({
     required this.hooperIndexData,
-    required this.emptyWeight,
-    required this.weightPercent,
+    required this.urineData,
     required this.soccerUiState,
     required this.physicalUiState,
   });
@@ -268,10 +275,13 @@ class _MyStateContainer extends StatelessWidget {
                   _MyStateTitle(
                       title: StringRes.urinalysis.tr, onPressed: () {}),
                   const SizedBox(height: 10),
-                  _MyStateUrinalysis(
-                    emptyWeight: emptyWeight,
-                    weightPercent: weightPercent,
-                  ),
+                  if (urineData == null)
+                    _EmptyDataText()
+                  else
+                    _MyStateUrinalysis(
+                      emptyWeight: urineData!.weight.toString(),
+                      weightPercent: urineData!.differenceFat,
+                    ),
                   const SizedBox(height: 16),
                   _MyStateTitle(
                       title: StringRes.workoutIntensity.tr, onPressed: () {}),
@@ -340,7 +350,7 @@ class _MyStateTitle extends StatelessWidget {
       );
 }
 
-/// 나의 상태 - 후퍼인덱스.
+/// 나의 상x태 - 후퍼인덱스.
 class _MyStateHooperIndex extends StatelessWidget {
   final HooperIndexData hooperIndexData;
 
@@ -550,19 +560,16 @@ class _StatisticsTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          TextButton(
+          LabelButton(
             onPressed: () {},
-            child: Text(
-              "주간",
-              style: _selectedStyle,
-            ),
+            text: StringRes.weekly.tr,
+            textStyle: _normalStyle,
           ),
-          TextButton(
+          const SizedBox(width: 16),
+          LabelButton(
             onPressed: () {},
-            child: Text(
-              "월간",
-              style: _normalStyle,
-            ),
+            text: StringRes.monthly.tr,
+            textStyle: _selectedStyle,
           ),
         ],
       );
@@ -634,16 +641,23 @@ class _StatisticsChart extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => AspectRatio(
-        aspectRatio: 1.78,
-        child: LineChart(lineChartData),
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.fromLTRB(0, 16, 24, 16),
+        decoration: BoxDecoration(
+          border: Border.all(color: ColorRes.borderDeselect),
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: AspectRatio(
+          aspectRatio: 1.78,
+          child: LineChart(lineChartData),
+        ),
       );
 
   LineChartData get lineChartData => LineChartData(
         // lineTouchData: lineTouchData1,
-        // gridData: gridData,
-        // titlesData: titlesData1,
-        // borderData: borderData,
+        gridData: gridData,
+        borderData: borderData,
+        titlesData: titlesData,
         lineBarsData: lineBarData,
         minX: 0,
         maxX: 14,
@@ -668,4 +682,39 @@ class _StatisticsChart extends StatelessWidget {
         belowBarData: BarAreaData(show: false),
         spots: spots);
   }
+
+  /// Axis 값 표시.
+  FlTitlesData get titlesData => const FlTitlesData(
+        show: true,
+        leftTitles: AxisTitles(
+          sideTitles: SideTitles(
+            reservedSize: 24,
+            showTitles: true,
+          ),
+        ),
+        rightTitles: AxisTitles(),
+        topTitles: AxisTitles(),
+        bottomTitles: AxisTitles(),
+      );
+
+  /// Grid 설정.
+  FlGridData get gridData => FlGridData(
+        show: true,
+        drawHorizontalLine: true,
+        horizontalInterval: 0.4,
+        getDrawingHorizontalLine: horizontalGridLine,
+        drawVerticalLine: false,
+      );
+
+  /// Horizontal Grid Line.
+  FlLine horizontalGridLine(double value) {
+    return const FlLine(
+      color: ColorRes.disable,
+      strokeWidth: 1,
+      dashArray: null,
+    );
+  }
+
+  /// Border Data.
+  FlBorderData get borderData => FlBorderData(show: false);
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_cast
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +13,7 @@ import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 import 'home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
+import 'model/home_urine_model.dart';
 
 class HomeController extends BaseController {
   /// 유저 이미지 URL
@@ -35,14 +38,10 @@ class HomeController extends BaseController {
   late var myStatePageButtonName = StringRes.next.tr.obs;
 
   /// 후퍼인덱스.
-  // ignore: unnecessary_cast
   Rx<HooperIndexData?> hooperIndexData = (null as HooperIndexData?).obs;
 
-  /// 공복 몸무게.
-  var emptyWeight = "".obs;
-
-  /// 비교 몸무게 퍼센트
-  var weightPercent = 0.obs;
+  /// 소변검사.
+  Rx<HomeUrineModel?> urineData = (null as HomeUrineModel?).obs;
 
   /// 운동강도 - 축구.
   var workoutIntensitySoccer =
@@ -88,16 +87,6 @@ class HomeController extends BaseController {
       // 정보등록으로 이동
       await 1.delay();
       await Get.toNamed(RouteType.INFORMATION_REGISTRATION);
-    } else {
-      await 1.delay();
-
-      hooperIndexData.value = HooperIndexData(
-        sleep: HooperIndexStatusGood(),
-        stress: HooperIndexStatusDangerous(),
-        fatigue: HooperIndexStatusWarning(),
-        musclePain: HooperIndexStatusNormal(),
-      );
-      emptyWeight.value = "5.5";
     }
   }
 

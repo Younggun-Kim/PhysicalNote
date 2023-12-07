@@ -74,4 +74,6 @@ final koKr = {
   StringRes.workoutIntensityStatistics: "운동 강도 통계",
   StringRes.physical: "피지컬",
   StringRes.pleaseSelectCategory: "종목을 선택해주세요.",
+  StringRes.monthly: "월간",
+  StringRes.weekly: "주간"
 };
