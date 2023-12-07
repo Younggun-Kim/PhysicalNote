@@ -90,7 +90,6 @@ class _SecondBody extends GetView<HomeController> {
           )));
 }
 
-
 /// User 정보
 class _UserInformation extends GetView<HomeController> {
   const _UserInformation();
