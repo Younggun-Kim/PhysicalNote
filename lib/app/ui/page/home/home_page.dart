@@ -4,20 +4,22 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:interactable_svg/interactable_svg/interactable_svg.dart';
 import 'package:physical_note/app/data/hooper_index.dart';
-import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
-import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_progress_bar.dart';
+import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
+import 'package:physical_note/app/ui/page/home/item/home_training_balance_item/home_training_balance_type.dart';
 import 'package:physical_note/app/ui/page/home/model/home_urine_model.dart';
 import 'package:physical_note/app/ui/widgets/buttons/label_button.dart';
 import 'package:physical_note/app/ui/widgets/buttons/outline_round_button.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
-import 'package:physical_note/app/utils/utils.dart';
 
 import '../../../resources/resources.dart';
 import 'home_controller.dart';
+import 'item/home_injury_check_item/home_injury_check_item.dart';
+import 'item/home_training_balance_item/home_training_balance_item.dart';
+import 'item/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
+import 'item/home_workout_intensity_chart/home_workout_intensity_progress_bar.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
@@ -47,6 +49,7 @@ class HomePage extends GetView<HomeController> {
           body: Obx(
             () => PageView(
               controller: controller.myStatePageController.value,
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 SizedBox.expand(child: _FirstBody()),
                 SizedBox.expand(child: _SecondBody()),
@@ -80,15 +83,16 @@ class _FirstBody extends GetView<HomeController> {
 class _SecondBody extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
-      child: SizedBox(
-          width: 300,
-          height: 400,
-          child: InteractableSvg(
-            svgAddress: Assets.musclesFrontAndBack,
-            onChanged: (Region? region) {
-              logger.w(region.toString());
-            },
-          )));
+        child: Column(
+          children: [
+            _SecondState(
+              todayTime: "3시간 30분",
+              differenceTime: 40,
+              injuryCheckList: controller.injuryCheckList.value,
+            ),
+          ],
+        ),
+      );
 }
 
 /// User 정보
@@ -717,4 +721,158 @@ class _StatisticsChart extends StatelessWidget {
 
   /// Border Data.
   FlBorderData get borderData => FlBorderData(show: false);
+}
+
+/// 두번째 나의상태
+class _SecondState extends StatelessWidget {
+  final String todayTime;
+
+  final int differenceTime;
+
+  final List<HomeInjuryCheckItemUiState> injuryCheckList;
+
+  const _SecondState({
+    required this.todayTime,
+    required this.differenceTime,
+    required this.injuryCheckList,
+  });
+
+  String differenceTimeString(int time) {
+    final sign = time > 0 ? "+" : "-";
+    return "($sign$time분)";
+  }
+
+  @override
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: ColorRes.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: ColorRes.borderDeselect),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.25),
+              spreadRadius: 3,
+              blurRadius: 5,
+              offset: const Offset(0, 2), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _MyStateTitle(
+              title: "운동시간",
+              onPressed: () {},
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Text(
+                  "오늘의 시간 : $todayTime",
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontBlack,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  differenceTimeString(differenceTime),
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    color: differenceTime > 0 ? Colors.blue : Colors.red,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            /// 트레이닝 밸런스
+            const Row(
+              children: [
+                Text(
+                  "트레이닝 밸런스",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontBlack,
+                  ),
+                ),
+                SizedBox(width: 4),
+                Text(
+                  "(운동강도 X 운동시간) 평균 값",
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontDisable,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(height: 10),
+            const Row(
+              children: [
+                Expanded(
+                  child: HomeTrainingBalanceItem(
+                    type: HomeTrainingBalanceType.walk,
+                    period: "이번주",
+                    average: 770,
+                  ),
+                ),
+                Expanded(
+                  child: HomeTrainingBalanceItem(
+                    type: HomeTrainingBalanceType.running,
+                    period: "저번주",
+                    average: 1230,
+                  ),
+                ),
+                Expanded(
+                  child: HomeTrainingBalanceItem(
+                    type: HomeTrainingBalanceType.retired,
+                    period: "지난주",
+                    average: 1515,
+                  ),
+                ),
+                Expanded(
+                  child: HomeTrainingBalanceItem(
+                    type: HomeTrainingBalanceType.retired,
+                    period: "지난 8주",
+                    average: 1515,
+                  ),
+                ),
+              ],
+            ),
+
+            /// 부상체크.
+            const SizedBox(height: 16),
+            const Text(
+              "부상체크",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: ColorRes.fontBlack,
+              ),
+            ),
+            const SizedBox(height: 16),
+            if (injuryCheckList.isNotEmpty)
+              Column(
+                children:
+                    List<Widget>.generate(injuryCheckList.length, (index) {
+                  return HomeInjuryCheckItem(
+                    uiState: injuryCheckList[index],
+                  );
+                }).toList(),
+              )
+            else
+              Center(
+                child: _EmptyDataText(),
+              ),
+
+          ],
+        ),
+      );
 }

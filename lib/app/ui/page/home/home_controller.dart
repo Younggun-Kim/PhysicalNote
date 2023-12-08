@@ -9,10 +9,11 @@ import 'package:physical_note/app/data/hooper_index.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
+import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
-import 'home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
+import 'item/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
 import 'model/home_urine_model.dart';
 
 class HomeController extends BaseController {
@@ -70,6 +71,17 @@ class HomeController extends BaseController {
     FlSpot(10, 2.8),
     FlSpot(12, 2.6),
     FlSpot(13, 3.9),
+  ].obs;
+
+  /// 부상 체크 목록.
+  var injuryCheckList = <HomeInjuryCheckItemUiState>[
+    HomeInjuryCheckItemUiState(level: 0, muscleName: "대퇴근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(level: 1, muscleName: "대흉근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(level: 2, muscleName: "대흉근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(level: 3, muscleName: "대흉근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(level: 4, muscleName: "대흉근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(level: 5, muscleName: "대흉근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(level: 6, muscleName: "", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
   ].obs;
 
   @override

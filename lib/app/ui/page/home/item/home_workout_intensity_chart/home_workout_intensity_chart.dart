@@ -1,7 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/page/home/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
+
+import 'home_workout_intensity_chart_ui_state.dart';
 
 class HomeWorkoutIntensityChart extends StatelessWidget {
   final HomeWorkoutIntensityChartUiState uiState;

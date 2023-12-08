@@ -19,8 +19,11 @@ class Assets {
   static const String logo = 'assets/images/logo.svg';
   static const String maleMuscle = 'assets/images/male_muscle.svg';
   static const String musclesFrontAndBack = 'assets/images/muscles_front_and_back.svg';
+  static const String retiredMan = 'assets/images/retired_man.svg';
+  static const String runningMan = 'assets/images/running_man.svg';
   static const String searchRefraction = 'assets/images/search-refraction.svg';
   static const String splash = 'assets/images/splash.png';
   static const String userDefault = 'assets/images/user_default.svg';
+  static const String walkMan = 'assets/images/walk_man.svg';
 
 }
