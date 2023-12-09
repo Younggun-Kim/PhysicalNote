@@ -1,3 +1,5 @@
+import 'package:physical_note/app/data/login/model/post_login_find_id_request_model.dart';
+import 'package:physical_note/app/data/login/model/post_login_find_id_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_relogin_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_response_model.dart';
@@ -43,7 +45,8 @@ class LoginAPI extends API {
   }
 
   /// 회원가입 요청.
-  Future<PostLoginSignInResponseModel?> postLoginSignIn({required PostLoginSignInRequestModel requestData}) async {
+  Future<PostLoginSignInResponseModel?> postLoginSignIn(
+      {required PostLoginSignInRequestModel requestData}) async {
     final response = await post(
       requestUrl + "/signin/temporary?role=USER",
       requestData.toJson(),
@@ -54,6 +57,25 @@ class LoginAPI extends API {
     } else {
       final successResponse =
           PostLoginSignInResponseModel.fromJson(response.body);
+      logger.i("Success Response: ${successResponse.toJson()}");
+      return successResponse;
+    }
+  }
+
+  /// 아이디 찾기.
+  // TODO: Response 모델에 name, email 추가 필요.
+  Future<PostLoginFindIdResponseModel?> postLoginFindId(
+      {required PostLoginFindIdRequestModel requestData}) async {
+    final response = await post(
+      requestUrl + "/find_id",
+      requestData.toJson(),
+    );
+
+    if (response.status.hasError) {
+      return null;
+    } else {
+      final successResponse =
+          PostLoginFindIdResponseModel.fromJson(response.body);
       logger.i("Success Response: ${successResponse.toJson()}");
       return successResponse;
     }
