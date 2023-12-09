@@ -90,6 +90,20 @@ class _SecondBody extends GetView<HomeController> {
               differenceTime: 40,
               injuryCheckList: controller.injuryCheckList.value,
             ),
+            const SizedBox(height: 20),
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: const Text(
+                "통증위치",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: ColorRes.fontBlack,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       );
@@ -871,7 +885,6 @@ class _SecondState extends StatelessWidget {
               Center(
                 child: _EmptyDataText(),
               ),
-
           ],
         ),
       );
