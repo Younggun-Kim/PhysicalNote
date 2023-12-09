@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up_controller.dart';
-import 'package:physical_note/app/ui/widgets/buttons/round_button.dart';
 
 import '../../widgets/widgets.dart';
 

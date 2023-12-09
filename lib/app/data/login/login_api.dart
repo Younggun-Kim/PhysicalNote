@@ -1,6 +1,8 @@
 import 'package:physical_note/app/data/login/model/post_login_relogin_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_response_model.dart';
+import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
+import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
 import 'package:physical_note/app/data/network/api.dart';
 
 import '../../utils/logger/logger.dart';
@@ -35,6 +37,23 @@ class LoginAPI extends API {
     } else {
       final successResponse =
           PostLoginReloginResponseModel.fromJson(response.body);
+      logger.i("Success Response: ${successResponse.toJson()}");
+      return successResponse;
+    }
+  }
+
+  /// 회원가입 요청.
+  Future<PostLoginSignInResponseModel?> postLoginSignIn({required PostLoginSignInRequestModel requestData}) async {
+    final response = await post(
+      requestUrl + "/signin/temporary?role=USER",
+      requestData.toJson(),
+    );
+
+    if (response.status.hasError) {
+      return null;
+    } else {
+      final successResponse =
+          PostLoginSignInResponseModel.fromJson(response.body);
       logger.i("Success Response: ${successResponse.toJson()}");
       return successResponse;
     }

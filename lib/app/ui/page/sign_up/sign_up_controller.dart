@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/login/login_api.dart';
+import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
+import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -63,9 +67,32 @@ class SignUpController extends BaseController {
   }
 
   /// 로그인 버튼 클릭.
+  // TODO: Pass 연동 추가 필요.
   void onPressedLoginButton() async {
     unFocus();
     await Future.delayed(const Duration(milliseconds: 300));
-    Get.until((route) => Get.currentRoute == RouteType.LOGIN);
+    await postLogin();
+  }
+
+  /// 로그인 요청.
+  Future<void> postLogin() async {
+    final loginApi = Get.find<LoginAPI>();
+    final requestData = PostLoginSignInRequestModel(
+      loginId: email.value,
+      passCode: "",
+      password: password.value,
+      type: UserSnsType.idPw.name,
+    );
+    final response = await loginApi.postLoginSignIn(requestData: requestData);
+    final token = response?.token;
+
+    if (token == null) {
+      return;
+    }
+
+    // 토큰 저장 후 홈으로 이동.
+    final userStorage = UserStorage();
+    userStorage.apiKey.val = token;
+    Get.offAllNamed(RouteType.HOME);
   }
 }
