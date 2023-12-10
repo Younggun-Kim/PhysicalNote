@@ -2,19 +2,19 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'urine_info_model.g.dart';
 
-/// 운동 카테고리 조회 목록 아이템 모델.
+/// 홈 소변 검사 모델.
 @JsonSerializable()
 class UrineInfoModel {
   final int? id;
-  final int? differenceFat;
-  final int? weight;
+  final double? weight;
+  final double? differenceFat;
   final String? urine;
   final String? recordDate;
 
   UrineInfoModel({
     this.id,
-    this.differenceFat,
     this.weight,
+    this.differenceFat,
     this.urine,
     this.recordDate,
   });

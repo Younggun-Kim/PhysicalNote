@@ -19,8 +19,8 @@ class GetHomeResponseModel {
   final List<IntensityInfoModel>? intensityInfo;
   final List<MonthIntensityGraphModel>? monthIntensityGraph;
   final String? recordDate;
-  final RiskInfoModel? riskInfoModel;
-  final UrineInfoModel? urineInfoModel;
+  final RiskInfoModel? riskInfo;
+  final UrineInfoModel? urineInfo;
   final UserSimpleInfoModel? userSimpleInfo;
   final List<WeekIntensityGraphModel>? weekIntensityGraph;
   final WorkoutInfoModel? workoutInfo;
@@ -30,8 +30,8 @@ class GetHomeResponseModel {
     this.intensityInfo,
     this.monthIntensityGraph,
     this.recordDate,
-    this.riskInfoModel,
-    this.urineInfoModel,
+    this.riskInfo,
+    this.urineInfo,
     this.userSimpleInfo,
     this.weekIntensityGraph,
     this.workoutInfo

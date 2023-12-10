@@ -21,14 +21,12 @@ GetHomeResponseModel _$GetHomeResponseModelFromJson(
               MonthIntensityGraphModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       recordDate: json['recordDate'] as String?,
-      riskInfoModel: json['riskInfoModel'] == null
+      riskInfo: json['riskInfo'] == null
           ? null
-          : RiskInfoModel.fromJson(
-              json['riskInfoModel'] as Map<String, dynamic>),
-      urineInfoModel: json['urineInfoModel'] == null
+          : RiskInfoModel.fromJson(json['riskInfo'] as Map<String, dynamic>),
+      urineInfo: json['urineInfo'] == null
           ? null
-          : UrineInfoModel.fromJson(
-              json['urineInfoModel'] as Map<String, dynamic>),
+          : UrineInfoModel.fromJson(json['urineInfo'] as Map<String, dynamic>),
       userSimpleInfo: json['userSimpleInfo'] == null
           ? null
           : UserSimpleInfoModel.fromJson(
@@ -50,8 +48,8 @@ Map<String, dynamic> _$GetHomeResponseModelToJson(
       'intensityInfo': instance.intensityInfo,
       'monthIntensityGraph': instance.monthIntensityGraph,
       'recordDate': instance.recordDate,
-      'riskInfoModel': instance.riskInfoModel,
-      'urineInfoModel': instance.urineInfoModel,
+      'riskInfo': instance.riskInfo,
+      'urineInfo': instance.urineInfo,
       'userSimpleInfo': instance.userSimpleInfo,
       'weekIntensityGraph': instance.weekIntensityGraph,
       'workoutInfo': instance.workoutInfo,

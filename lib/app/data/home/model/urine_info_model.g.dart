@@ -9,8 +9,8 @@ part of 'urine_info_model.dart';
 UrineInfoModel _$UrineInfoModelFromJson(Map<String, dynamic> json) =>
     UrineInfoModel(
       id: json['id'] as int?,
-      differenceFat: json['differenceFat'] as int?,
-      weight: json['weight'] as int?,
+      weight: (json['weight'] as num?)?.toDouble(),
+      differenceFat: (json['differenceFat'] as num?)?.toDouble(),
       urine: json['urine'] as String?,
       recordDate: json['recordDate'] as String?,
     );
@@ -18,8 +18,8 @@ UrineInfoModel _$UrineInfoModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$UrineInfoModelToJson(UrineInfoModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'differenceFat': instance.differenceFat,
       'weight': instance.weight,
+      'differenceFat': instance.differenceFat,
       'urine': instance.urine,
       'recordDate': instance.recordDate,
     };

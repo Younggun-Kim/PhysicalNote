@@ -305,7 +305,7 @@ class _MyStateContainer extends StatelessWidget {
                   else
                     _MyStateUrinalysis(
                       emptyWeight: urineData!.weight.toString(),
-                      weightPercent: urineData!.differenceFat,
+                      differenceFat: urineData!.differenceFat,
                     ),
                   const SizedBox(height: 16),
                   _MyStateTitle(
@@ -456,13 +456,11 @@ class _MyStateHooperIndexItem extends StatelessWidget {
 class _MyStateUrinalysis extends StatelessWidget {
   final String emptyWeight;
 
-  final int weightPercent;
+  final int differenceFat;
 
-  late final isPositiveWeight = weightPercent > 0;
+  late final isPositiveWeight = differenceFat > 0;
 
-  late final weightPercentSign = isPositiveWeight ? "+" : "-";
-
-  late final weightPercentColor = isPositiveWeight ? Colors.red : Colors.blue;
+  late final differenceFatColor = isPositiveWeight ? Colors.red : Colors.blue;
 
   late final weightWord = isPositiveWeight
       ? StringRes.emptyWeightGood.tr
@@ -470,7 +468,7 @@ class _MyStateUrinalysis extends StatelessWidget {
 
   _MyStateUrinalysis({
     required this.emptyWeight,
-    required this.weightPercent,
+    required this.differenceFat,
   });
 
   @override
@@ -493,11 +491,11 @@ class _MyStateUrinalysis extends StatelessWidget {
                 ),
               ),
               Text(
-                "($weightPercentSign$weightPercent%)",
+                "($differenceFat%)",
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 10,
                   fontWeight: FontWeight.w400,
-                  color: weightPercentColor,
+                  color: differenceFatColor,
                 ),
               )
             ],
@@ -527,7 +525,7 @@ class _MyStateUrinalysis extends StatelessWidget {
             textAlign: TextAlign.left,
             style: TextStyle(
               fontSize: 10,
-              color: weightPercentColor,
+              color: differenceFatColor,
             ),
           ),
         ],
