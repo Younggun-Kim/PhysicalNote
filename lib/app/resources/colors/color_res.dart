@@ -8,6 +8,9 @@ class ColorRes {
   /// 클릭 오버레이 컬러.
   static final clickOverlayColor = Colors.black.withOpacity(0.1);
 
+  /// 딤 컬러.
+  static final dimmed = Colors.black.withOpacity(0.7);
+
   /// 0xffffffff
   static const white = Color(0xffffffff);
 

@@ -8,6 +8,7 @@ import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/data/hooper_index.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
@@ -137,5 +138,10 @@ class HomeController extends BaseController {
     final response = await homeApi.getHome(recordDate);
 
     setScreenData(response);
+  }
+
+  /// 나의상태 - 달력 클릭.
+  Future<void> onPressedCalendar() async {
+    await Get.dialog(const CalendarDialog());
   }
 }

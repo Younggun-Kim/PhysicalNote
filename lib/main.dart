@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:physical_note/app/config/initializer/app_initializer.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 
@@ -25,6 +26,9 @@ void run() async {
 
   // CERTIFICATE_VERIFY_FAILED 방지.
   HttpOverrides.global = MyHttpOverrides();
+
+  // Locale 초기화.
+  await initializeDateFormatting();
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,

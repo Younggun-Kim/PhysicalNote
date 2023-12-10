@@ -40,6 +40,7 @@ class HomePage extends GetView<HomeController> {
                     date: controller.myStateDate.value,
                     buttonName: controller.myStatePageButtonName.value,
                     onPressedNextButton: controller.onPressedNextButton,
+                    onPressedCalendar: controller.onPressedCalendar,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -191,10 +192,13 @@ class _MyStateHeader extends StatelessWidget {
 
   final VoidCallback onPressedNextButton;
 
+  final VoidCallback onPressedCalendar;
+
   const _MyStateHeader({
     required this.date,
     required this.buttonName,
     required this.onPressedNextButton,
+    required this.onPressedCalendar,
   });
 
   @override
@@ -217,7 +221,10 @@ class _MyStateHeader extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 5),
-              SvgPicture.asset(Assets.codeBrowser),
+              InkWellOver(
+                onTap: onPressedCalendar,
+                child: SvgPicture.asset(Assets.codeBrowser),
+              ),
               const Spacer(),
               OutlineRoundButton(
                 text: buttonName,
