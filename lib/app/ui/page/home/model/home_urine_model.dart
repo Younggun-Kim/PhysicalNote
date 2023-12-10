@@ -1,9 +1,11 @@
+import 'package:physical_note/app/config/constant/urine_status_type.dart';
+
 /// 홈 소변검사 모델.
 class HomeUrineModel {
   final int id;
   final int weight;
   final int differenceFat;
-  final String urine;
+  final UrineStatusType urine;
 
   HomeUrineModel({
     required this.id,

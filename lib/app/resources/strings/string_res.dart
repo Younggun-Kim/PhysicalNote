@@ -87,5 +87,13 @@ class StringRes {
   static final stress = _generateId();
   static final fatigue = _generateId();
   static final musclePain = _generateId();
+  static final urineVeryGood = _generateId();
+  static final urineGood = _generateId();
+  static final urineAppropriate = _generateId();
+  static final urineDemand = _generateId();
+  static final urineRecommended = _generateId();
+  static final urineNeed = _generateId();
+  static final urineEmergency = _generateId();
+  static final urineNone = _generateId();
 
 }

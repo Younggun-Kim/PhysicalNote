@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/data/hooper_index_status.dart';
+import 'package:physical_note/app/config/constant/hooper_index_status.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/item/home_training_balance_item/home_training_balance_type.dart';
 import 'package:physical_note/app/ui/page/home/model/home_urine_model.dart';
@@ -304,8 +304,7 @@ class _MyStateContainer extends StatelessWidget {
                     _EmptyDataText()
                   else
                     _MyStateUrinalysis(
-                      emptyWeight: urineData!.weight.toString(),
-                      differenceFat: urineData!.differenceFat,
+                      urineData: urineData!,
                     ),
                   const SizedBox(height: 16),
                   _MyStateTitle(
@@ -454,11 +453,9 @@ class _MyStateHooperIndexItem extends StatelessWidget {
 
 /// 나의상태 - 소변검사.
 class _MyStateUrinalysis extends StatelessWidget {
-  final String emptyWeight;
+  final HomeUrineModel urineData;
 
-  final int differenceFat;
-
-  late final isPositiveWeight = differenceFat > 0;
+  late final isPositiveWeight = urineData.differenceFat > 0;
 
   late final differenceFatColor = isPositiveWeight ? Colors.red : Colors.blue;
 
@@ -467,8 +464,7 @@ class _MyStateUrinalysis extends StatelessWidget {
       : StringRes.emptyWeightWarning.tr;
 
   _MyStateUrinalysis({
-    required this.emptyWeight,
-    required this.differenceFat,
+    required this.urineData,
   });
 
   @override
@@ -482,7 +478,7 @@ class _MyStateUrinalysis extends StatelessWidget {
               Text(
                 StringRes.emptyWeightParams.trParams(
                   {
-                    "weight": emptyWeight,
+                    "weight": urineData.weight.toString(),
                   },
                 ),
                 style: const TextStyle(
@@ -491,7 +487,7 @@ class _MyStateUrinalysis extends StatelessWidget {
                 ),
               ),
               Text(
-                "($differenceFat%)",
+                "(${urineData.differenceFat}%)",
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
@@ -506,12 +502,12 @@ class _MyStateUrinalysis extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 14,
-                  color: ColorRes.urine3,
+                  color: urineData.urine.toColor(),
                 ),
               ),
-              const Text(
-                " : 양호",
-                style: TextStyle(
+              Text(
+                " : ${urineData.urine.toString()}",
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),

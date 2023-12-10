@@ -68,25 +68,25 @@ class ColorRes {
   /// 0xffe82e25.
   static const wellness7 = Color(0xffe82e25);
 
-  /// 0xfffffef9.
+  /// 0xfffffef9. 매우 양호.
   static const urine1 = Color(0xfffffef9);
 
-  /// 0xffe9efcd.
+  /// 0xffe9efcd. 양호.
   static const urine2 = Color(0xffe9efcd);
 
-  /// 0xffe6e68c.
+  /// 0xffe6e68c. 적정.
   static const urine3 = Color(0xffe6e68c);
 
-  /// 0xffe0dc56.
+  /// 0xffe0dc56. 수분 섭취 요망.
   static const urine4 = Color(0xffe0dc56);
 
-  /// 0xffe2da15.
+  /// 0xffe2da15. 수분 섭취 권장.
   static const urine5 = Color(0xffe2da15);
 
-  /// 0xffd2a121.
+  /// 0xffd2a121. 수분 섭취 필요.
   static const urine6 = Color(0xffd2a121);
 
-  /// 0xffc18d27.
+  /// 0xffc18d27. 수분 부족 위급.
   static const urine7 = Color(0xffc18d27);
 
   /// 0xff8dbe3d.

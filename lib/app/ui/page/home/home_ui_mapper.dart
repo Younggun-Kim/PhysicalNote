@@ -1,7 +1,8 @@
+import 'package:physical_note/app/config/constant/urine_status_type.dart';
 import 'package:physical_note/app/data/home/model/get_home_response_model.dart';
 import 'package:physical_note/app/data/home/model/hooper_index_info_model.dart';
 import 'package:physical_note/app/data/home/model/urine_info_model.dart';
-import 'package:physical_note/app/data/hooper_index_status.dart';
+import 'package:physical_note/app/config/constant/hooper_index_status.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
@@ -49,7 +50,7 @@ extension HomeUiMapper on HomeController {
       id: urineId,
       weight: data.weight?.toInt() ?? 0,
       differenceFat: data.differenceFat?.toInt() ?? 0,
-      urine: data.urine ?? "",
+      urine: UrineStatusType.typeFrom(data.urine ?? ""),
     );
   }
 }

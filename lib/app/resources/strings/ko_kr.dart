@@ -80,4 +80,12 @@ final koKr = {
   StringRes.stress: "스트레스",
   StringRes.fatigue: "피로",
   StringRes.musclePain: "근육통",
+  StringRes.urineVeryGood: "매우 양호",
+  StringRes.urineGood: "양호",
+  StringRes.urineAppropriate: "적정",
+  StringRes.urineDemand: "수분 섭취 요망",
+  StringRes.urineRecommended: "수분 섭취 권장",
+  StringRes.urineNeed: "수분 섭취  필요",
+  StringRes.urineEmergency: "수분 부족 위급",
+  StringRes.urineNone: "정보 없음",
 };
