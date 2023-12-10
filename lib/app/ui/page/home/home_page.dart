@@ -1,5 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -70,8 +72,7 @@ class _FirstBody extends GetView<HomeController> {
               () => _MyStateContainer(
                 hooperIndexData: controller.hooperIndexData.value,
                 urineData: controller.urineData.value,
-                sportsUiState: controller.workoutIntensitySports.value,
-                physicalUiState: controller.workoutIntensityPhysical.value,
+                workoutIntensityData: controller.workoutIntensityList.value,
               ),
             ),
             const SizedBox(height: 20),
@@ -245,15 +246,12 @@ class _MyStateContainer extends StatelessWidget {
 
   final HomeUrineModel? urineData;
 
-  final HomeWorkoutIntensityChartUiState sportsUiState;
-
-  final HomeWorkoutIntensityChartUiState physicalUiState;
+  final List<HomeWorkoutIntensityChartUiState> workoutIntensityData;
 
   const _MyStateContainer({
     required this.hooperIndexData,
     required this.urineData,
-    required this.sportsUiState,
-    required this.physicalUiState,
+    required this.workoutIntensityData,
   });
 
   @override
@@ -310,10 +308,12 @@ class _MyStateContainer extends StatelessWidget {
                   _MyStateTitle(
                       title: StringRes.workoutIntensity.tr, onPressed: () {}),
                   const SizedBox(height: 20),
-                  _MyStateWorkoutIntensity(
-                    sportsUiState: sportsUiState,
-                    physicalUiState: physicalUiState,
-                  ),
+                  if (workoutIntensityData.isEmpty)
+                    _EmptyDataText()
+                  else
+                    _MyStateWorkoutIntensity(
+                      uiStates: workoutIntensityData,
+                    ),
                 ],
               ),
             ),
@@ -530,29 +530,27 @@ class _MyStateUrinalysis extends StatelessWidget {
 
 /// 나의 상태 - 운동강도.
 class _MyStateWorkoutIntensity extends StatelessWidget {
-  final HomeWorkoutIntensityChartUiState sportsUiState;
-
-  final HomeWorkoutIntensityChartUiState physicalUiState;
+  final List<HomeWorkoutIntensityChartUiState> uiStates;
 
   const _MyStateWorkoutIntensity({
-    required this.sportsUiState,
-    required this.physicalUiState,
+    required this.uiStates,
   });
 
   @override
   Widget build(BuildContext context) => AspectRatio(
-        aspectRatio: 2,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: HomeWorkoutIntensityProgressBar(uiState: sportsUiState),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: HomeWorkoutIntensityProgressBar(uiState: physicalUiState),
-            ),
-          ],
+        aspectRatio: 141 / (95 * max(1, uiStates.length / 2)),
+        child: GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: uiStates.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, //1 개의 행에 보여줄 item 개수
+            childAspectRatio: 1 / 1.5, //item 의 가로 1, 세로 1 의 비율
+            mainAxisSpacing: 10, //수평 Padding
+            crossAxisSpacing: 10, //수직 Padding
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            return HomeWorkoutIntensityProgressBar(uiState: uiStates[index]);
+          },
         ),
       );
 }

@@ -1,12 +1,11 @@
 import 'package:physical_note/app/config/constant/urine_status_type.dart';
-import 'package:physical_note/app/data/home/model/get_home_response_model.dart';
-import 'package:physical_note/app/data/home/model/hooper_index_info_model.dart';
-import 'package:physical_note/app/data/home/model/urine_info_model.dart';
+import 'package:physical_note/app/data/home/model/home_model.dart';
 import 'package:physical_note/app/config/constant/hooper_index_status.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 
+import 'item/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
 import 'model/home_urine_model.dart';
 
 extension HomeUiMapper on HomeController {
@@ -17,6 +16,8 @@ extension HomeUiMapper on HomeController {
     userImageUrl.value = data.userSimpleInfo?.profile ?? Assets.userDefault;
     hooperIndexData.value = setHooperIndexDataFrom(data.hooperIndexInfo);
     urineData.value = setHomeUrineModelFrom(data.urineInfo);
+    workoutIntensityList.value =
+        setHomeWorkoutIntensityChartUiStateFrom(data.intensityInfo);
   }
 
   /// 후퍼인덱스 매핑
@@ -52,5 +53,25 @@ extension HomeUiMapper on HomeController {
       differenceFat: data.differenceFat?.toInt() ?? 0,
       urine: UrineStatusType.typeFrom(data.urine ?? ""),
     );
+  }
+
+  /// 운동강도 매핑
+  List<HomeWorkoutIntensityChartUiState>
+      setHomeWorkoutIntensityChartUiStateFrom(
+          List<IntensityInfoModel>? remoteData) {
+    var data = remoteData;
+
+    if (data == null || data.isEmpty) {
+      return [];
+    } else {
+      return data
+          .map(
+            (e) => HomeWorkoutIntensityChartUiState(
+              name: e.type ?? "",
+              value: e.level?.toDouble() ?? 0.0,
+            ),
+          )
+          .toList();
+    }
   }
 }
