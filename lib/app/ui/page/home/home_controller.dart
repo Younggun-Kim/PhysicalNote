@@ -46,12 +46,17 @@ class HomeController extends BaseController {
   Rx<HomeUrineModel?> urineData = (null as HomeUrineModel?).obs;
 
   /// 운동강도 - 축구.
-  var workoutIntensitySoccer =
-      HomeWorkoutIntensityChartUiState(name: "축구", value: 6.5).obs;
+  var workoutIntensitySports =
+      HomeWorkoutIntensityChartUiState(name: StringRes.sports.tr, value: 6.5)
+          .obs;
 
   /// 운동강도 - 피지컬.
   var workoutIntensityPhysical =
-      HomeWorkoutIntensityChartUiState(name: "피지컬", value: 6.5).obs;
+      HomeWorkoutIntensityChartUiState(name: StringRes.physical.tr, value: 6.5)
+          .obs;
+
+  /// 운동 강도 목록.
+  var workoutIntensityList = <HomeWorkoutIntensityChartUiState>[].obs;
 
   /// 통계 - 스포츠.
   var statisticsSports = <FlSpot>[

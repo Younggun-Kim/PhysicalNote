@@ -70,7 +70,7 @@ class _FirstBody extends GetView<HomeController> {
               () => _MyStateContainer(
                 hooperIndexData: controller.hooperIndexData.value,
                 urineData: controller.urineData.value,
-                soccerUiState: controller.workoutIntensitySoccer.value,
+                sportsUiState: controller.workoutIntensitySports.value,
                 physicalUiState: controller.workoutIntensityPhysical.value,
               ),
             ),
@@ -245,14 +245,14 @@ class _MyStateContainer extends StatelessWidget {
 
   final HomeUrineModel? urineData;
 
-  final HomeWorkoutIntensityChartUiState soccerUiState;
+  final HomeWorkoutIntensityChartUiState sportsUiState;
 
   final HomeWorkoutIntensityChartUiState physicalUiState;
 
   const _MyStateContainer({
     required this.hooperIndexData,
     required this.urineData,
-    required this.soccerUiState,
+    required this.sportsUiState,
     required this.physicalUiState,
   });
 
@@ -311,7 +311,7 @@ class _MyStateContainer extends StatelessWidget {
                       title: StringRes.workoutIntensity.tr, onPressed: () {}),
                   const SizedBox(height: 20),
                   _MyStateWorkoutIntensity(
-                    soccerUiState: soccerUiState,
+                    sportsUiState: sportsUiState,
                     physicalUiState: physicalUiState,
                   ),
                 ],
@@ -530,12 +530,12 @@ class _MyStateUrinalysis extends StatelessWidget {
 
 /// 나의 상태 - 운동강도.
 class _MyStateWorkoutIntensity extends StatelessWidget {
-  final HomeWorkoutIntensityChartUiState soccerUiState;
+  final HomeWorkoutIntensityChartUiState sportsUiState;
 
   final HomeWorkoutIntensityChartUiState physicalUiState;
 
   const _MyStateWorkoutIntensity({
-    required this.soccerUiState,
+    required this.sportsUiState,
     required this.physicalUiState,
   });
 
@@ -546,7 +546,7 @@ class _MyStateWorkoutIntensity extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: HomeWorkoutIntensityProgressBar(uiState: soccerUiState),
+              child: HomeWorkoutIntensityProgressBar(uiState: sportsUiState),
             ),
             const SizedBox(width: 10),
             Expanded(
