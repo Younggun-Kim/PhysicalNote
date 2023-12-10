@@ -76,13 +76,41 @@ class HomeController extends BaseController {
 
   /// 부상 체크 목록.
   var injuryCheckList = <HomeInjuryCheckItemUiState>[
-    HomeInjuryCheckItemUiState(level: 0, muscleName: "대퇴근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(level: 1, muscleName: "대흉근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(level: 2, muscleName: "대흉근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(level: 3, muscleName: "대흉근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(level: 4, muscleName: "대흉근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(level: 5, muscleName: "대흉근", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(level: 6, muscleName: "", recordDate: "2023-12-08", description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(
+        level: 0,
+        muscleName: "대퇴근",
+        recordDate: "2023-12-08",
+        description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(
+        level: 1,
+        muscleName: "대흉근",
+        recordDate: "2023-12-08",
+        description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(
+        level: 2,
+        muscleName: "대흉근",
+        recordDate: "2023-12-08",
+        description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(
+        level: 3,
+        muscleName: "대흉근",
+        recordDate: "2023-12-08",
+        description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(
+        level: 4,
+        muscleName: "대흉근",
+        recordDate: "2023-12-08",
+        description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(
+        level: 5,
+        muscleName: "대흉근",
+        recordDate: "2023-12-08",
+        description: "fejfioejoifjoesijfojseoifjea"),
+    HomeInjuryCheckItemUiState(
+        level: 6,
+        muscleName: "",
+        recordDate: "2023-12-08",
+        description: "fejfioejoifjoesijfojseoifjea"),
   ].obs;
 
   @override
@@ -142,6 +170,17 @@ class HomeController extends BaseController {
 
   /// 나의상태 - 달력 클릭.
   Future<void> onPressedCalendar() async {
-    await Get.dialog(const CalendarDialog());
+    final response = await Get.dialog(
+      CalendarDialog(
+        initialDate: myStateDate.value,
+      ),
+    );
+
+    final newDateTime = response as DateTime?;
+
+    if (newDateTime != null && myStateDate.value != newDateTime) {
+      myStateDate.value = newDateTime;
+      await loadHome();
+    }
   }
 }
