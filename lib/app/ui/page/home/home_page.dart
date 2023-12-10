@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/data/hooper_index.dart';
+import 'package:physical_note/app/data/hooper_index_status.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/item/home_training_balance_item/home_training_balance_type.dart';
 import 'package:physical_note/app/ui/page/home/model/home_urine_model.dart';
@@ -258,7 +258,7 @@ class _MyStateContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        padding: const EdgeInsets.all(16),
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           color: ColorRes.white,
@@ -386,11 +386,25 @@ class _MyStateHooperIndex extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          _MyStateHooperIndexItem(text: "잠", status: hooperIndexData.sleep),
-          _MyStateHooperIndexItem(text: "스트레스", status: hooperIndexData.stress),
-          _MyStateHooperIndexItem(text: "피로", status: hooperIndexData.fatigue),
           _MyStateHooperIndexItem(
-              text: "근육통", status: hooperIndexData.musclePain),
+            text: StringRes.sleep.tr,
+            status: hooperIndexData.sleep,
+          ),
+          const SizedBox(height: 6),
+          _MyStateHooperIndexItem(
+            text: StringRes.stress.tr,
+            status: hooperIndexData.stress,
+          ),
+          const SizedBox(height: 6),
+          _MyStateHooperIndexItem(
+            text: StringRes.fatigue.tr,
+            status: hooperIndexData.fatigue,
+          ),
+          const SizedBox(height: 6),
+          _MyStateHooperIndexItem(
+            text: StringRes.musclePain.tr,
+            status: hooperIndexData.musclePain,
+          ),
         ],
       );
 }

@@ -75,5 +75,9 @@ final koKr = {
   StringRes.physical: "피지컬",
   StringRes.pleaseSelectCategory: "종목을 선택해주세요.",
   StringRes.monthly: "월간",
-  StringRes.weekly: "주간"
+  StringRes.weekly: "주간",
+  StringRes.sleep: "잠",
+  StringRes.stress: "스트레스",
+  StringRes.fatigue: "피로",
+  StringRes.musclePain: "근육통",
 };

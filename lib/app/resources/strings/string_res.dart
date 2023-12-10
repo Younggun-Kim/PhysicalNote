@@ -83,4 +83,9 @@ class StringRes {
   static final pleaseSelectCategory = _generateId();
   static final monthly = _generateId();
   static final weekly = _generateId();
+  static final sleep = _generateId();
+  static final stress = _generateId();
+  static final fatigue = _generateId();
+  static final musclePain = _generateId();
+
 }

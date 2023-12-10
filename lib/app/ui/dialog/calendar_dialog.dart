@@ -4,6 +4,7 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:physical_note/app/ui/widgets/buttons/round_button.dart';
 
+/// 달력 다이얼로그.
 class CalendarDialog extends StatefulWidget {
   const CalendarDialog({
     Key? key,

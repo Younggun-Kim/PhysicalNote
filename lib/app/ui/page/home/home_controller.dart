@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/home/home_api.dart';
-import 'package:physical_note/app/data/hooper_index.dart';
+import 'package:physical_note/app/data/hooper_index_status.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/calendar_dialog.dart';

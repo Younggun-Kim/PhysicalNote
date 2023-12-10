@@ -137,6 +137,19 @@ class ColorRes {
   /// 0xffe60012.
   static const risk3 = Color(0xffe60012);
 
+  /// 0xff7230ff.
+  static const hooperIndexGood = Color(0xff7230ff);
+
+  /// 0xff7230ff.
+  static const hooperIndexDanger = Color(0xffff0000);
+
+  /// 0xff7230ff.
+  static const hooperIndexWarning = Color(0xffffcd1d);
+
+  /// 0xff7230ff.
+  static const hooperIndexNormal = Color(0xff1ead2d);
+
+
   static MaterialColor _createMaterialColor(Color color) {
     List strengths = <double>[.05];
     Map<int, Color> swatch = {};
