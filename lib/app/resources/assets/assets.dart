@@ -23,6 +23,7 @@ class Assets {
   static const String runningMan = 'assets/images/running_man.svg';
   static const String searchRefraction = 'assets/images/search-refraction.svg';
   static const String splash = 'assets/images/splash.png';
+  static const String triangle = 'assets/images/triangle.png';
   static const String userDefault = 'assets/images/user_default.svg';
   static const String walkMan = 'assets/images/walk_man.svg';
 

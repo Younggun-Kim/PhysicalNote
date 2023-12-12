@@ -185,7 +185,7 @@ class _UserInformation extends GetView<HomeController> {
       SvgPicture.asset(Assets.userDefault);
 }
 
-/// 나의상태 헤더.x
+/// 나의상태 헤더.
 class _MyStateHeader extends StatelessWidget {
   final DateTime date;
 
@@ -288,6 +288,7 @@ class _MyStateContainer extends StatelessWidget {
                   _MyStateTitle(
                       title: StringRes.injuryRisk.tr, onPressed: () {}),
                   const SizedBox(height: 10),
+                  _MyStateList(),
                 ],
               ),
             ),
@@ -322,7 +323,7 @@ class _MyStateContainer extends StatelessWidget {
       );
 }
 
-/// 데이터 없음
+/// 데이터 없음.
 class _EmptyDataText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
@@ -374,7 +375,7 @@ class _MyStateTitle extends StatelessWidget {
       );
 }
 
-/// 나의 상x태 - 후퍼인덱스.
+/// 나의 상태 - 후퍼인덱스.
 class _MyStateHooperIndex extends StatelessWidget {
   final HooperIndexData hooperIndexData;
 
@@ -553,6 +554,13 @@ class _MyStateWorkoutIntensity extends StatelessWidget {
           },
         ),
       );
+}
+
+/// 나의 상태 - 부상위험도.
+class _MyStateList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) =>
+      const AspectRatio(aspectRatio: 1, child: Text("흠,,"));
 }
 
 /// 통계.

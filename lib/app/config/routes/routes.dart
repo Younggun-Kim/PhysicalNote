@@ -21,7 +21,7 @@ class Routes {
   static final pages = [
     GetPage(
       name: RouteType.TEST,
-      page: () => const TestPage(),
+      page: () => TestPage(),
       binding: TestBindings(),
     ),
     GetPage(
