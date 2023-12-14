@@ -18,6 +18,7 @@ import 'package:physical_note/app/ui/widgets/page_root.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
 import '../../../resources/resources.dart';
+import 'home_constant.dart';
 import 'home_controller.dart';
 import 'item/home_injury_check_item/home_injury_check_item.dart';
 import 'item/home_training_balance_item/home_training_balance_item.dart';
@@ -580,6 +581,8 @@ class _Statistics extends GetView<HomeController> {
           const SizedBox(height: 10),
           Obx(
             () => _StatisticsChart(
+              currentDate: controller.myStateDate.value,
+              isWeekly: controller.isWeekly.value,
               chartData: controller.isWeekly.value
                   ? controller.weeklyDataList.value
                   : controller.monthlyDataList.value,
@@ -658,6 +661,7 @@ class _StatisticsChartTitle extends StatelessWidget {
               color: ColorRes.intensityLine1,
             ),
           ),
+          const SizedBox(width: 5),
           Text(
             StringRes.sports.tr,
             style: const TextStyle(
@@ -672,7 +676,7 @@ class _StatisticsChartTitle extends StatelessWidget {
             height: 11,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
-              color: ColorRes.wellness1,
+              color: ColorRes.homePhysicalPurple,
             ),
           ),
           const SizedBox(width: 5),
@@ -690,9 +694,15 @@ class _StatisticsChartTitle extends StatelessWidget {
 
 /// 통계 차트.
 class _StatisticsChart extends StatelessWidget {
+  final DateTime currentDate;
+
+  final bool isWeekly;
+
   final List<HomeStatisticsChartModel> chartData;
 
   const _StatisticsChart({
+    required this.currentDate,
+    required this.isWeekly,
     required this.chartData,
   });
 
@@ -716,7 +726,7 @@ class _StatisticsChart extends StatelessWidget {
         titlesData: titlesData,
         lineBarsData: lineBarData,
         minX: 0,
-        maxX: 10,
+        maxX: 5,
         minY: 0,
         maxY: 10,
       );
@@ -732,7 +742,7 @@ class _StatisticsChart extends StatelessWidget {
     return LineChartBarData(
       isCurved: true,
       color: data.lineColor,
-      barWidth: 2,
+      barWidth: 1,
       isStrokeCapRound: true,
       dotData: const FlDotData(show: true),
       belowBarData: BarAreaData(show: false),
@@ -741,24 +751,77 @@ class _StatisticsChart extends StatelessWidget {
   }
 
   /// Axis 값 표시.
-  FlTitlesData get titlesData => const FlTitlesData(
+  FlTitlesData get titlesData => FlTitlesData(
         show: true,
-        leftTitles: AxisTitles(
+        leftTitles: const AxisTitles(
           sideTitles: SideTitles(
-            reservedSize: 24,
+            reservedSize: 30,
             showTitles: true,
           ),
         ),
-        rightTitles: AxisTitles(),
-        topTitles: AxisTitles(),
-        bottomTitles: AxisTitles(),
+        rightTitles: const AxisTitles(),
+        topTitles: const AxisTitles(),
+        bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 24,
+          interval: 1,
+          getTitlesWidget:
+              isWeekly ? _weeklyBottomTitleWidgets : _monthlyBottomTitleWidgets,
+        )),
       );
+
+  /// 주간 X Axis 매핑
+  Widget _weeklyBottomTitleWidgets(double value, TitleMeta meta) {
+    const style = TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+    );
+
+    var weekday = "";
+
+    int xValue = value.toInt();
+    if (xValue <= HomeConstant.weeklyMaxXLength) {
+      const weekdays = ["일", "월", "화", "수", "목", "금", " 토"];
+      weekday = weekdays[xValue];
+    }
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 10,
+      child: Text(weekday, style: style),
+    );
+  }
+
+  /// 월간 X Axis 매핑
+  Widget _monthlyBottomTitleWidgets(double value, TitleMeta meta) {
+    const style = TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 12,
+    );
+
+    var month = "";
+
+    int xValue = value.toInt();
+    if (xValue <= HomeConstant.monthMaxXLength) {
+      month = DateTime(currentDate.year,
+              currentDate.month - (HomeConstant.monthMaxXLength - xValue))
+          .month
+          .toString();
+    }
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 10,
+      child: Text("$month월", style: style),
+    );
+  }
 
   /// Grid 설정.
   FlGridData get gridData => FlGridData(
         show: true,
         drawHorizontalLine: true,
-        horizontalInterval: 0.4,
+        horizontalInterval: 1,
         getDrawingHorizontalLine: horizontalGridLine,
         drawVerticalLine: false,
       );
@@ -773,7 +836,13 @@ class _StatisticsChart extends StatelessWidget {
   }
 
   /// Border Data.
-  FlBorderData get borderData => FlBorderData(show: false);
+  FlBorderData get borderData => FlBorderData(
+        show: true,
+        border: const Border.symmetric(
+          vertical: BorderSide.none,
+          horizontal: BorderSide(color: ColorRes.disable, width: 1),
+        ),
+      );
 }
 
 /// 두번째 나의상태

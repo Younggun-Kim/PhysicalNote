@@ -149,6 +149,8 @@ class ColorRes {
   /// 0xff7230ff.
   static const hooperIndexNormal = Color(0xff1ead2d);
 
+  /// 0xff7B4DFF.
+  static const homePhysicalPurple = Color(0xff7B4DFF);
 
   static MaterialColor _createMaterialColor(Color color) {
     List strengths = <double>[.05];

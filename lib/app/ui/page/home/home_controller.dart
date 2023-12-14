@@ -84,26 +84,6 @@ class HomeController extends BaseController {
         muscleName: "대흉근",
         recordDate: "2023-12-08",
         description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(
-        level: 3,
-        muscleName: "대흉근",
-        recordDate: "2023-12-08",
-        description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(
-        level: 4,
-        muscleName: "대흉근",
-        recordDate: "2023-12-08",
-        description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(
-        level: 5,
-        muscleName: "대흉근",
-        recordDate: "2023-12-08",
-        description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(
-        level: 6,
-        muscleName: "",
-        recordDate: "2023-12-08",
-        description: "fejfioejoifjoesijfojseoifjea"),
   ].obs;
 
   @override
