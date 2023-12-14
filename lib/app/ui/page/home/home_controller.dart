@@ -14,6 +14,7 @@ import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
+import 'item/home_training_balance_item/home_training_balance_type.dart';
 import 'item/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
 import 'model/home_urine_model.dart';
 
@@ -66,6 +67,36 @@ class HomeController extends BaseController {
 
   /// 통계 - 월간.
   var monthlyDataList = <HomeStatisticsChartModel>[].obs;
+
+  /// 운동시간 - 오늘의 시간.
+  var workoutTodayTime = "".obs;
+
+  /// 운동시간 - 어제와 비교 시간.
+  var workoutYesterdayCompareTime = "".obs;
+
+  /// 운동시간 - 이번주.
+  var workoutThisWeek = 0.obs;
+
+  /// 운동시간 - 이번주 상태
+  var workoutThisWeekStatus = HomeTrainingBalanceType.none.obs;
+
+  /// 운동시간 - 지난주.
+  var workoutLastWeek = 0.obs;
+
+  /// 운동시간 - 이번주 상태
+  var workoutLastWeekStatus = HomeTrainingBalanceType.none.obs;
+
+  /// 운동시간 - 지난4주.
+  var workoutLastFourWeek = 0.obs;
+
+  /// 운동시간 - 이번주 상태
+  var workoutLastFourWeekStatus = HomeTrainingBalanceType.none.obs;
+
+  /// 운동시간 - 지난8주.
+  var workoutLastEightWeek = 0.obs;
+
+  /// 운동시간 - 이번주 상태
+  var workoutLastEightWeekStatus = HomeTrainingBalanceType.none.obs;
 
   /// 부상 체크 목록.
   var injuryCheckList = <HomeInjuryCheckItemUiState>[

@@ -89,10 +89,21 @@ class _SecondBody extends GetView<HomeController> {
   Widget build(BuildContext context) => SingleChildScrollView(
         child: Column(
           children: [
-            _SecondState(
-              todayTime: "3시간 30분",
-              differenceTime: 40,
-              injuryCheckList: controller.injuryCheckList.value,
+            Obx(
+              () => _SecondState(
+                todayTime: controller.workoutTodayTime.value,
+                yesterdayCompareTime:
+                    controller.workoutYesterdayCompareTime.value,
+                injuryCheckList: controller.injuryCheckList.value,
+                  thisWeek: controller.workoutThisWeek.value,
+                  thisWeekLoad: controller.workoutThisWeekStatus.value,
+                  lastWeek: controller.workoutLastWeek.value,
+                  lastWeekLoad: controller.workoutLastWeekStatus.value,
+                  lastFourWeek: controller.workoutLastFourWeek.value,
+                  lastFourWeekLoad: controller.workoutLastFourWeekStatus.value,
+                  lastEightWeek: controller.workoutLastEightWeek.value,
+                  lastEightWeekLoad: controller.workoutLastEightWeekStatus.value,
+              ),
             ),
             const SizedBox(height: 20),
             Container(
@@ -849,20 +860,34 @@ class _StatisticsChart extends StatelessWidget {
 class _SecondState extends StatelessWidget {
   final String todayTime;
 
-  final int differenceTime;
+  final String yesterdayCompareTime;
 
   final List<HomeInjuryCheckItemUiState> injuryCheckList;
 
+  final int thisWeek;
+  final HomeTrainingBalanceType thisWeekLoad;
+  final int lastWeek;
+  final HomeTrainingBalanceType lastWeekLoad;
+  final int lastFourWeek;
+  final HomeTrainingBalanceType lastFourWeekLoad;
+  final int lastEightWeek;
+  final HomeTrainingBalanceType lastEightWeekLoad;
+
   const _SecondState({
     required this.todayTime,
-    required this.differenceTime,
+    required this.yesterdayCompareTime,
     required this.injuryCheckList,
+    required this.thisWeek,
+    required this.thisWeekLoad,
+    required this.lastWeek,
+    required this.lastWeekLoad,
+    required this.lastFourWeek,
+    required this.lastFourWeekLoad,
+    required this.lastEightWeek,
+    required this.lastEightWeekLoad,
   });
 
-  String differenceTimeString(int time) {
-    final sign = time > 0 ? "+" : "-";
-    return "($sign$time분)";
-  }
+  bool get isPositiveYesterdayTime => yesterdayCompareTime.contains("+");
 
   @override
   Widget build(BuildContext context) => Container(
@@ -885,14 +910,14 @@ class _SecondState extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _MyStateTitle(
-              title: "운동시간",
+              title: StringRes.workoutTime.tr,
               onPressed: () {},
             ),
             const SizedBox(height: 16),
             Row(
               children: [
                 Text(
-                  "오늘의 시간 : $todayTime",
+                  "${StringRes.todayTime.tr} : $todayTime",
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -901,11 +926,11 @@ class _SecondState extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  differenceTimeString(differenceTime),
+                  "($yesterdayCompareTime분)",
                   style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
-                    color: differenceTime > 0 ? Colors.blue : Colors.red,
+                    color: isPositiveYesterdayTime ? Colors.blue : Colors.red,
                   ),
                 )
               ],
@@ -913,20 +938,20 @@ class _SecondState extends StatelessWidget {
             const SizedBox(height: 16),
 
             /// 트레이닝 밸런스
-            const Row(
+            Row(
               children: [
                 Text(
-                  "트레이닝 밸런스",
-                  style: TextStyle(
+                  StringRes.trainingBalance.tr,
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: ColorRes.fontBlack,
                   ),
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Text(
-                  "(운동강도 X 운동시간) 평균 값",
-                  style: TextStyle(
+                  StringRes.trainingBalanceFormula.tr,
+                  style: const TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
                     color: ColorRes.fontDisable,
@@ -935,34 +960,34 @@ class _SecondState extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            const Row(
+            Row(
               children: [
                 Expanded(
                   child: HomeTrainingBalanceItem(
-                    type: HomeTrainingBalanceType.walk,
-                    period: "이번주",
-                    average: 770,
+                    type: thisWeekLoad,
+                    period: StringRes.thisWeek.tr,
+                    average: thisWeek,
                   ),
                 ),
                 Expanded(
                   child: HomeTrainingBalanceItem(
-                    type: HomeTrainingBalanceType.running,
-                    period: "저번주",
-                    average: 1230,
+                    type: lastWeekLoad,
+                    period: StringRes.lastWeek.tr,
+                    average: lastWeek,
                   ),
                 ),
                 Expanded(
                   child: HomeTrainingBalanceItem(
-                    type: HomeTrainingBalanceType.retired,
-                    period: "지난주",
-                    average: 1515,
+                    type: lastFourWeekLoad,
+                    period: StringRes.lastFourWeek.tr,
+                    average: lastFourWeek,
                   ),
                 ),
                 Expanded(
                   child: HomeTrainingBalanceItem(
-                    type: HomeTrainingBalanceType.retired,
-                    period: "지난 8주",
-                    average: 1515,
+                    type: lastEightWeekLoad,
+                    period: StringRes.lastEightWeek.tr,
+                    average: lastEightWeek,
                   ),
                 ),
               ],

@@ -88,4 +88,12 @@ final koKr = {
   StringRes.urineNeed: "수분 섭취  필요",
   StringRes.urineEmergency: "수분 부족 위급",
   StringRes.urineNone: "정보 없음",
+  StringRes.workoutTime: "운동시간",
+  StringRes.todayTime: "오늘의 시간",
+  StringRes.trainingBalance: "트레이닝 밸런스",
+  StringRes.trainingBalanceFormula: "(운동강도 X 운동시간) 평균 값",
+  StringRes.thisWeek: "이번주",
+  StringRes.lastWeek: "저번주",
+  StringRes.lastFourWeek: "지난4주",
+  StringRes.lastEightWeek: "지난8주",
 };

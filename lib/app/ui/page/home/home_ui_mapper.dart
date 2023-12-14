@@ -13,6 +13,7 @@ import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model
 import 'package:physical_note/app/utils/logger/logger.dart';
 
 import 'home_constant.dart';
+import 'item/home_training_balance_item/home_training_balance_type.dart';
 import 'item/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
 import 'model/home_urine_model.dart';
 
@@ -30,6 +31,22 @@ extension HomeUiMapper on HomeController {
         setHomeStatisticsWeeklyDataFrom(data.weekIntensityGraph);
     monthlyDataList.value =
         setHomeStatisticsMonthlyFrom(data.monthIntensityGraph);
+    workoutTodayTime.value = data.workoutInfo?.todayWorkoutTime ?? "";
+    workoutYesterdayCompareTime.value =
+        data.workoutInfo?.yesterdayCompareTime ?? "";
+    workoutThisWeek.value = data.workoutInfo?.thisWeekWorkoutRoad ?? 0;
+    workoutThisWeekStatus.value =
+        HomeTrainingBalanceType.from(data.workoutInfo?.thisWeekWorkoutRoadString);
+    workoutLastWeek.value = data.workoutInfo?.lastWeekWorkoutRoad ?? 0;
+    workoutLastWeekStatus.value =
+        HomeTrainingBalanceType.from(data.workoutInfo?.lastWeekWorkoutRoadString);
+    workoutLastFourWeek.value = data.workoutInfo?.lastFourWeekWorkoutRoad ?? 0;
+    workoutLastFourWeekStatus.value = HomeTrainingBalanceType.from(
+        data.workoutInfo?.lastFourWeekWorkoutRoadString);
+    workoutLastEightWeek.value =
+        data.workoutInfo?.lastEightWeekWorkoutRoad ?? 0;
+    workoutLastEightWeekStatus.value = HomeTrainingBalanceType.from(
+        data.workoutInfo?.lastEightWeekWorkoutRoadString);
   }
 
   /// 후퍼인덱스 매핑
@@ -210,7 +227,8 @@ extension HomeUiMapper on HomeController {
           final month = myStateDate.value.month;
           final remoteDataDate = DateFormat('yyyy-MM').parse(data.xvalue ?? "");
           final remoteDataMonth = remoteDataDate.month;
-          final index = max(0, remoteDataMonth - month + HomeConstant.monthMaxXLength);
+          final index =
+              max(0, remoteDataMonth - month + HomeConstant.monthMaxXLength);
 
           return HomeStatisticsChartItemModel(
               id: 0,

@@ -95,5 +95,12 @@ class StringRes {
   static final urineNeed = _generateId();
   static final urineEmergency = _generateId();
   static final urineNone = _generateId();
-
+  static final workoutTime = _generateId();
+  static final todayTime = _generateId();
+  static final trainingBalance = _generateId();
+  static final trainingBalanceFormula = _generateId();
+  static final thisWeek = _generateId();
+  static final lastWeek = _generateId();
+  static final lastFourWeek = _generateId();
+  static final lastEightWeek = _generateId();
 }

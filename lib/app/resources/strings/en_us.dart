@@ -83,4 +83,7 @@ final enUs = {
   StringRes.urineNeed: "수분 섭취  필요",
   StringRes.urineEmergency: "수분 부족 위급",
   StringRes.urineNone: "정보 없음",
+  StringRes.workoutTime: "운동시간",
+  StringRes.todayTime: "오늘의 시간",
+  StringRes.trainingBalance: "트레이닝 밸런스",
 };

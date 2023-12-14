@@ -37,9 +37,9 @@ class HomeTrainingBalanceItem extends StatelessWidget {
           ),
           Text(
             "($average)",
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 10,
-              color: ColorRes.fontDisable,
+              color: type.toColor(),
             ),
           ),
         ],
