@@ -580,7 +580,9 @@ class _Statistics extends GetView<HomeController> {
           const SizedBox(height: 10),
           Obx(
             () => _StatisticsChart(
-              chartDatas: controller.weeklyDataList.value,
+              chartData: controller.isWeekly.value
+                  ? controller.weeklyDataList.value
+                  : controller.monthlyDataList.value,
             ),
           ),
         ],
@@ -653,7 +655,7 @@ class _StatisticsChartTitle extends StatelessWidget {
             height: 11,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
-              color: Colors.greenAccent,
+              color: ColorRes.intensityLine1,
             ),
           ),
           Text(
@@ -670,7 +672,7 @@ class _StatisticsChartTitle extends StatelessWidget {
             height: 11,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
-              color: Colors.red,
+              color: ColorRes.wellness1,
             ),
           ),
           const SizedBox(width: 5),
@@ -688,10 +690,10 @@ class _StatisticsChartTitle extends StatelessWidget {
 
 /// 통계 차트.
 class _StatisticsChart extends StatelessWidget {
-  final List<HomeStatisticsChartModel> chartDatas;
+  final List<HomeStatisticsChartModel> chartData;
 
   const _StatisticsChart({
-    required this.chartDatas,
+    required this.chartData,
   });
 
   @override
@@ -714,14 +716,14 @@ class _StatisticsChart extends StatelessWidget {
         titlesData: titlesData,
         lineBarsData: lineBarData,
         minX: 0,
-        maxX: 14,
-        maxY: 4,
+        maxX: 10,
         minY: 0,
+        maxY: 10,
       );
 
   /// Bar 데이터.
   List<LineChartBarData> get lineBarData =>
-      chartDatas.map((e) => makeBarData(data: e)).toList();
+      chartData.map((e) => makeBarData(data: e)).toList();
 
   /// Bar 데이터 생성.
   LineChartBarData makeBarData({
@@ -732,7 +734,7 @@ class _StatisticsChart extends StatelessWidget {
       color: data.lineColor,
       barWidth: 2,
       isStrokeCapRound: true,
-      dotData: const FlDotData(show: false),
+      dotData: const FlDotData(show: true),
       belowBarData: BarAreaData(show: false),
       spots: data.toSpots(),
     );

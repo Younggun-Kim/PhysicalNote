@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_cast
 
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
@@ -65,26 +64,8 @@ class HomeController extends BaseController {
   /// 통계 - 주간.
   var weeklyDataList = <HomeStatisticsChartModel>[].obs;
 
-  /// 통계 - 스포츠.
-  var statisticsSports = <FlSpot>[
-    FlSpot(1, 1),
-    FlSpot(3, 1.5),
-    FlSpot(5, 1.4),
-    FlSpot(7, 3.4),
-    FlSpot(10, 2),
-    FlSpot(12, 2.2),
-    FlSpot(13, 1.8),
-  ].obs;
-
-  /// 통계 - 스포츠.
-  var statisticsPhysical = <FlSpot>[
-    FlSpot(1, 1),
-    FlSpot(3, 2.8),
-    FlSpot(7, 1.2),
-    FlSpot(10, 2.8),
-    FlSpot(12, 2.6),
-    FlSpot(13, 3.9),
-  ].obs;
+  /// 통계 - 월간.
+  var monthlyDataList = <HomeStatisticsChartModel>[].obs;
 
   /// 부상 체크 목록.
   var injuryCheckList = <HomeInjuryCheckItemUiState>[
