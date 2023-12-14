@@ -11,6 +11,7 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
+import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
@@ -57,6 +58,12 @@ class HomeController extends BaseController {
 
   /// 운동 강도 목록.
   var workoutIntensityList = <HomeWorkoutIntensityChartUiState>[].obs;
+
+  /// 통계 - 주간 / 월간
+  var isWeekly = true.obs;
+
+  /// 통계 - 주간.
+  var weeklyDataList = <HomeStatisticsChartModel>[].obs;
 
   /// 통계 - 스포츠.
   var statisticsSports = <FlSpot>[
@@ -187,5 +194,10 @@ class HomeController extends BaseController {
       myStateDate.value = newDateTime;
       await loadHome();
     }
+  }
+
+  /// 주간 / 월간 클릭.
+  void onPressedMonthlyOrWeekly(bool weekly) {
+    isWeekly.value = weekly;
   }
 }

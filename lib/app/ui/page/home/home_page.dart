@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/hooper_index_status.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/item/home_training_balance_item/home_training_balance_type.dart';
+import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
 import 'package:physical_note/app/ui/page/home/model/home_urine_model.dart';
 import 'package:physical_note/app/ui/widgets/buttons/label_button.dart';
 import 'package:physical_note/app/ui/widgets/buttons/outline_round_button.dart';
@@ -288,7 +289,7 @@ class _MyStateContainer extends StatelessWidget {
                   _MyStateTitle(
                       title: StringRes.injuryRisk.tr, onPressed: () {}),
                   const SizedBox(height: 10),
-                  _MyStateList(),
+                  // _MyStateList(),
                 ],
               ),
             ),
@@ -327,7 +328,7 @@ class _MyStateContainer extends StatelessWidget {
 class _EmptyDataText extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Text(
           StringRes.noData.tr,
           textAlign: TextAlign.center,
@@ -568,14 +569,18 @@ class _Statistics extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          _StatisticsTitle(),
+          Obx(
+            () => _StatisticsTitle(
+              isWeekly: controller.isWeekly.value,
+              onPressedMonthlyOrWeekly: controller.onPressedMonthlyOrWeekly,
+            ),
+          ),
           const SizedBox(height: 20),
           _StatisticsChartTitle(),
           const SizedBox(height: 10),
           Obx(
             () => _StatisticsChart(
-              statisticsSports: controller.statisticsSports.value,
-              statisticsPhysical: controller.statisticsPhysical.value,
+              chartDatas: controller.weeklyDataList.value,
             ),
           ),
         ],
@@ -584,6 +589,10 @@ class _Statistics extends GetView<HomeController> {
 
 /// 통계 타이틀.
 class _StatisticsTitle extends StatelessWidget {
+  final bool isWeekly;
+
+  final Function(bool weekly) onPressedMonthlyOrWeekly;
+
   final _selectedStyle = const TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w700,
@@ -596,19 +605,28 @@ class _StatisticsTitle extends StatelessWidget {
     color: ColorRes.disable,
   );
 
+  const _StatisticsTitle({
+    required this.isWeekly,
+    required this.onPressedMonthlyOrWeekly,
+  });
+
   @override
   Widget build(BuildContext context) => Row(
         children: [
           LabelButton(
-            onPressed: () {},
+            onPressed: () {
+              onPressedMonthlyOrWeekly(true);
+            },
             text: StringRes.weekly.tr,
-            textStyle: _normalStyle,
+            textStyle: isWeekly ? _selectedStyle : _normalStyle,
           ),
           const SizedBox(width: 16),
           LabelButton(
-            onPressed: () {},
+            onPressed: () {
+              onPressedMonthlyOrWeekly(false);
+            },
             text: StringRes.monthly.tr,
-            textStyle: _selectedStyle,
+            textStyle: isWeekly ? _normalStyle : _selectedStyle,
           ),
         ],
       );
@@ -670,13 +688,10 @@ class _StatisticsChartTitle extends StatelessWidget {
 
 /// 통계 차트.
 class _StatisticsChart extends StatelessWidget {
-  final List<FlSpot> statisticsSports;
-
-  final List<FlSpot> statisticsPhysical;
+  final List<HomeStatisticsChartModel> chartDatas;
 
   const _StatisticsChart({
-    required this.statisticsSports,
-    required this.statisticsPhysical,
+    required this.chartDatas,
   });
 
   @override
@@ -705,21 +720,22 @@ class _StatisticsChart extends StatelessWidget {
       );
 
   /// Bar 데이터.
-  List<LineChartBarData> get lineBarData => [
-        makeBarData(statisticsSports, ColorRes.risk0),
-        makeBarData(statisticsPhysical, ColorRes.intensity0),
-      ];
+  List<LineChartBarData> get lineBarData =>
+      chartDatas.map((e) => makeBarData(data: e)).toList();
 
   /// Bar 데이터 생성.
-  LineChartBarData makeBarData(List<FlSpot> spots, Color color) {
+  LineChartBarData makeBarData({
+    required HomeStatisticsChartModel data,
+  }) {
     return LineChartBarData(
-        isCurved: true,
-        color: color,
-        barWidth: 2,
-        isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: spots);
+      isCurved: true,
+      color: data.lineColor,
+      barWidth: 2,
+      isStrokeCapRound: true,
+      dotData: const FlDotData(show: false),
+      belowBarData: BarAreaData(show: false),
+      spots: data.toSpots(),
+    );
   }
 
   /// Axis 값 표시.
