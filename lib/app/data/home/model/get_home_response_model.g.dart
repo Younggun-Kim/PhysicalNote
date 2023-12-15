@@ -39,6 +39,9 @@ GetHomeResponseModel _$GetHomeResponseModelFromJson(
           ? null
           : WorkoutInfoModel.fromJson(
               json['workoutInfo'] as Map<String, dynamic>),
+      injuryInfo: (json['injuryInfo'] as List<dynamic>?)
+          ?.map((e) => InjuryInfoModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$GetHomeResponseModelToJson(
@@ -53,4 +56,5 @@ Map<String, dynamic> _$GetHomeResponseModelToJson(
       'userSimpleInfo': instance.userSimpleInfo,
       'weekIntensityGraph': instance.weekIntensityGraph,
       'workoutInfo': instance.workoutInfo,
+      'injuryInfo': instance.injuryInfo,
     };

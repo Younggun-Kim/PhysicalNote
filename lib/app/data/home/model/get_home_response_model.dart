@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'hooper_index_info_model.dart';
+import 'injury_info_model.dart';
 import 'intensity_info_model.dart';
 import 'month_intensity_graph_model.dart';
 import 'risk_info_model.dart';
@@ -24,6 +25,7 @@ class GetHomeResponseModel {
   final UserSimpleInfoModel? userSimpleInfo;
   final List<WeekIntensityGraphModel>? weekIntensityGraph;
   final WorkoutInfoModel? workoutInfo;
+  final List<InjuryInfoModel>? injuryInfo;
 
   GetHomeResponseModel({
     this.hooperIndexInfo,
@@ -34,7 +36,8 @@ class GetHomeResponseModel {
     this.urineInfo,
     this.userSimpleInfo,
     this.weekIntensityGraph,
-    this.workoutInfo
+    this.workoutInfo,
+    this.injuryInfo,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`
