@@ -103,4 +103,5 @@ class StringRes {
   static final lastWeek = _generateId();
   static final lastFourWeek = _generateId();
   static final lastEightWeek = _generateId();
+  static final unitPercent = _generateId();
 }

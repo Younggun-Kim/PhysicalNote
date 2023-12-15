@@ -43,6 +43,9 @@ class HomeController extends BaseController {
   /// 후퍼인덱스.
   Rx<HooperIndexData?> hooperIndexData = (null as HooperIndexData?).obs;
 
+  /// 부상 위험도.
+  var risk = (null as int?).obs;
+
   /// 소변검사.
   Rx<HomeUrineModel?> urineData = (null as HomeUrineModel?).obs;
 

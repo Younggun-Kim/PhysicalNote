@@ -86,4 +86,10 @@ final enUs = {
   StringRes.workoutTime: "운동시간",
   StringRes.todayTime: "오늘의 시간",
   StringRes.trainingBalance: "트레이닝 밸런스",
+  StringRes.trainingBalanceFormula: "(운동강도 X 운동시간) 평균 값",
+  StringRes.thisWeek: "이번주",
+  StringRes.lastWeek: "저번주",
+  StringRes.lastFourWeek: "지난4주",
+  StringRes.lastEightWeek: "지난8주",
+  StringRes.unitPercent: "(단위: %)",
 };

@@ -96,4 +96,5 @@ final koKr = {
   StringRes.lastWeek: "저번주",
   StringRes.lastFourWeek: "지난4주",
   StringRes.lastEightWeek: "지난8주",
+  StringRes.unitPercent: "(단위: %)",
 };

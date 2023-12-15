@@ -73,6 +73,7 @@ class _FirstBody extends GetView<HomeController> {
             Obx(
               () => _MyStateContainer(
                 hooperIndexData: controller.hooperIndexData.value,
+                risk: controller.risk.value,
                 urineData: controller.urineData.value,
                 workoutIntensityData: controller.workoutIntensityList.value,
               ),
@@ -257,12 +258,15 @@ class _MyStateHeader extends StatelessWidget {
 class _MyStateContainer extends StatelessWidget {
   final HooperIndexData? hooperIndexData;
 
+  final int? risk;
+
   final HomeUrineModel? urineData;
 
   final List<HomeWorkoutIntensityChartUiState> workoutIntensityData;
 
   const _MyStateContainer({
     required this.hooperIndexData,
+    required this.risk,
     required this.urineData,
     required this.workoutIntensityData,
   });
@@ -301,7 +305,10 @@ class _MyStateContainer extends StatelessWidget {
                   _MyStateTitle(
                       title: StringRes.injuryRisk.tr, onPressed: () {}),
                   const SizedBox(height: 10),
-                  // _MyStateList(),
+                  if (urineData == null)
+                    _EmptyDataText()
+                  else
+                    _MyStateList(risk: risk ?? 0),
                 ],
               ),
             ),
@@ -571,9 +578,130 @@ class _MyStateWorkoutIntensity extends StatelessWidget {
 
 /// 나의 상태 - 부상위험도.
 class _MyStateList extends StatelessWidget {
+  final int risk;
+
+  const _MyStateList({
+    required this.risk,
+  });
+
   @override
-  Widget build(BuildContext context) =>
-      const AspectRatio(aspectRatio: 1, child: Text("흠,,"));
+  Widget build(BuildContext context) => Column(
+        children: [
+          Text(
+            StringRes.unitPercent.tr,
+            style: const TextStyle(
+              fontSize: 10,
+              color: ColorRes.disable,
+            ),
+          ),
+          const SizedBox(height: 10),
+          AspectRatio(
+            aspectRatio: 127 / 37,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: _square(
+                      number: risk,
+                      backgroundColor: ColorRes.risk0,
+                      isWhiteImage: false,
+                      isShowImage: risk < 7),
+                ),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: _square(
+                      number: risk,
+                      backgroundColor: ColorRes.risk1,
+                      isWhiteImage: false,
+                      isShowImage: risk > 6 && risk < 14),
+                ),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: _square(
+                      number: risk,
+                      backgroundColor: ColorRes.risk2,
+                      isWhiteImage: true,
+                      isShowImage: risk > 13 && risk < 21),
+                ),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: _square(
+                      number: risk,
+                      backgroundColor: ColorRes.risk3,
+                      isWhiteImage: true,
+                      isShowImage: risk > 20 && risk < 24),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              _numberText(0),
+              const Spacer(),
+              _numberText(7),
+              const Spacer(),
+              _numberText(14),
+              const Spacer(),
+              _numberText(21),
+              const Spacer(),
+              _numberText(28),
+            ],
+          )
+        ],
+      );
+
+  // TODO: 이미지.svg 파일 깨짐
+  Widget _square({
+    required int number,
+    required Color backgroundColor,
+    required bool isWhiteImage,
+    required bool isShowImage,
+  }) =>
+      Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: backgroundColor,
+        ),
+        child: Visibility(
+          visible: isShowImage,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 6,
+                left: 6,
+                child: SvgPicture.asset(
+                  isWhiteImage ? Assets.walkMan : Assets.retiredMan,
+                  width: 10,
+                  height: 17,
+                ),
+              ),
+              Positioned(
+                bottom: 4,
+                right: 4,
+                child: Text(
+                  risk.toString(),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: isWhiteImage ? ColorRes.white : ColorRes.disable,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      );
+
+  Widget _numberText(int number) => Text(
+        number.toString(),
+        style: const TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w500,
+          color: ColorRes.fontDisable,
+        ),
+      );
 }
 
 /// 통계.

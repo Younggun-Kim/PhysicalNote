@@ -24,6 +24,7 @@ extension HomeUiMapper on HomeController {
     userClubCoach.value = data.userSimpleInfo?.teamCoachName ?? "";
     userImageUrl.value = data.userSimpleInfo?.profile ?? Assets.userDefault;
     hooperIndexData.value = setHooperIndexDataFrom(data.hooperIndexInfo);
+    risk.value = data.riskInfo?.injuryLevel;
     urineData.value = setHomeUrineModelFrom(data.urineInfo);
     workoutIntensityList.value =
         setHomeWorkoutIntensityChartUiStateFrom(data.intensityInfo);
