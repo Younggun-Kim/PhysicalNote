@@ -990,7 +990,7 @@ class _SecondState extends StatelessWidget {
 
   final String yesterdayCompareTime;
 
-  final List<HomeInjuryCheckItemUiState> injuryCheckList;
+  final List<HomeInjuryCheckItemUiState>? injuryCheckList;
 
   final int thisWeek;
   final HomeTrainingBalanceType thisWeekLoad;
@@ -1133,12 +1133,12 @@ class _SecondState extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            if (injuryCheckList.isNotEmpty)
+            if (injuryCheckList?.isNotEmpty == true)
               Column(
                 children:
-                    List<Widget>.generate(injuryCheckList.length, (index) {
+                    List<Widget>.generate(injuryCheckList!.length, (index) {
                   return HomeInjuryCheckItem(
-                    uiState: injuryCheckList[index],
+                    uiState: injuryCheckList![index],
                   );
                 }).toList(),
               )

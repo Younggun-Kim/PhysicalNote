@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:physical_note/app/config/constant/injury_level_type.dart';
+import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
@@ -21,16 +23,22 @@ class HomeInjuryCheckItem extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _Level(level: uiState.level),
-              const SizedBox(width: 10),
-              Text(
-                uiState.muscleName ?? "",
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
+              _Level(
+                injuryLevelType: uiState.injuryLevelType,
               ),
-              if((uiState.muscleName ?? "").isNotEmpty)
+              const SizedBox(width: 10),
+              if (uiState.muscleType != null)
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Text(
+                    uiState.muscleType?.rawValue ?? "",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                )
+              else
                 const SizedBox(width: 10),
               Text(
                 uiState.recordDate ?? "",
@@ -49,23 +57,61 @@ class HomeInjuryCheckItem extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
+          Visibility(
+            visible: uiState.injuryType != InjuryType.disease,
+            child: Row(
+              children: [
+                Text(
+                  "${uiState.injuryType?.toKor() ?? ""}(${uiState.injuryLevelTypeString})",
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontBlack,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: uiState.injuryType != InjuryType.disease,
+            child: Row(
+              children: [
+                Text(
+                  uiState.injuryLevelType.toString(),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontBlack,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Text(
-            uiState.description ?? "",
+            _comment(),
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       );
+
+  /// 코멘트 문자열.
+  String _comment() {
+    final comment = uiState.comment ?? "";
+    final colons = uiState.injuryType == InjuryType.disease ? "" : ": ";
+    return "$colons$comment";
+  }
 }
 
 class _Level extends StatelessWidget {
-  /// Level - 0 ~ 5 단게 / other = 질병.
-  final int? level;
+  final InjuryLevelType? injuryLevelType;
 
-  const _Level({required this.level});
+  const _Level({
+    required this.injuryLevelType,
+  });
 
   @override
   Widget build(BuildContext context) => Container(
@@ -73,73 +119,27 @@ class _Level extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           border: Border.all(
-            color: levelToBorderColor(level),
+            color: injuryLevelType?.toBorderColor() ?? ColorRes.borderDeselect,
           ),
-          color: levelToBackgroundColor(level),
+          color: injuryLevelType?.toBackgroundColor() ?? ColorRes.disable,
         ),
         child: Text(
-          levelToString(level),
+          levelString(),
           style: TextStyle(
             fontSize: 14,
-            color: levelToFontColor(level),
+            color: injuryLevelType?.toFontColor() ?? ColorRes.white,
             fontWeight: FontWeight.w400,
           ),
         ),
       );
 
-  /// Level 문자열로 변경.
-  String levelToString(int? level) {
-    if (level != null && level >= 0 && level <= 5) {
-      return "$level단계";
-    } else {
+  String levelString() {
+    final level = injuryLevelType?.toLevel();
+
+    if (level == null) {
       return "질병";
-    }
-  }
-
-  /// Level 백그라운드 색상.
-  Color levelToBackgroundColor(int? level) {
-    if (level == 0) {
-      return ColorRes.intensity0;
-    } else if (level == 1) {
-      return ColorRes.intensity1;
-    } else if (level == 2) {
-      return ColorRes.intensity2;
-    } else if (level == 3) {
-      return ColorRes.intensity3;
-    } else if (level == 4) {
-      return ColorRes.intensity4;
-    } else if (level == 5) {
-      return ColorRes.intensity5;
     } else {
-      return ColorRes.disable;
-    }
-  }
-
-  /// Level 테두리 색상.
-  Color levelToBorderColor(int? level) {
-    if (level == 0) {
-      return ColorRes.intensityLine0;
-    } else if (level == 1) {
-      return ColorRes.intensityLine1;
-    } else if (level == 2) {
-      return ColorRes.intensityLine2;
-    } else if (level == 3) {
-      return ColorRes.intensityLine3;
-    } else if (level == 4) {
-      return ColorRes.intensityLine4;
-    } else if (level == 5) {
-      return ColorRes.intensityLine5;
-    } else {
-      return ColorRes.borderDeselect;
-    }
-  }
-
-  /// Level 폰트 색상.
-  Color levelToFontColor(int? level) {
-    if (level != null && level < 3) {
-      return ColorRes.fontBlack;
-    } else {
-      return ColorRes.white;
+      return "$level단계";
     }
   }
 }

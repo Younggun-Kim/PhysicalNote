@@ -102,23 +102,7 @@ class HomeController extends BaseController {
   var workoutLastEightWeekStatus = HomeTrainingBalanceType.none.obs;
 
   /// 부상 체크 목록.
-  var injuryCheckList = <HomeInjuryCheckItemUiState>[
-    HomeInjuryCheckItemUiState(
-        level: 0,
-        muscleName: "대퇴근",
-        recordDate: "2023-12-08",
-        description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(
-        level: 1,
-        muscleName: "대흉근",
-        recordDate: "2023-12-08",
-        description: "fejfioejoifjoesijfojseoifjea"),
-    HomeInjuryCheckItemUiState(
-        level: 2,
-        muscleName: "대흉근",
-        recordDate: "2023-12-08",
-        description: "fejfioejoifjoesijfojseoifjea"),
-  ].obs;
+  Rx<List<HomeInjuryCheckItemUiState>?> injuryCheckList = (null as List<HomeInjuryCheckItemUiState>?).obs;
 
   @override
   void onInit() {

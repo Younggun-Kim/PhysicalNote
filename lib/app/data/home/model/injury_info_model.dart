@@ -8,9 +8,8 @@ class InjuryInfoModel {
   final int? id;
   final String? injuryType;
   final String? muscleType;
-  final String? recordType;
+  final String? recordDate;
   final String? injuryLevelType;
-
   final String? injuryLevelString;
   final String comment;
 
@@ -18,7 +17,7 @@ class InjuryInfoModel {
     required this.id,
     required this.injuryType,
     required this.muscleType,
-    required this.recordType,
+    required this.recordDate,
     required this.injuryLevelType,
     required this.injuryLevelString,
     required this.comment,
