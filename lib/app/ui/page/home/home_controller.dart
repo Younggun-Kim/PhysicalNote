@@ -118,7 +118,7 @@ class HomeController extends BaseController {
     if (!userStorage.isRegisteredInformation.val) {
       // 정보등록으로 이동
       await 1.delay();
-      await Get.toNamed(RouteType.INFORMATION_REGISTRATION);
+      await Get.toNamed(RouteType.INFORMATION_REGISTRATION_GUIDE);
     }
   }
 
