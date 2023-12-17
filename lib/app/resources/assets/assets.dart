@@ -26,6 +26,7 @@ class Assets {
   static const String splash = 'assets/images/splash.png';
   static const String triangle = 'assets/images/triangle.png';
   static const String userDefault = 'assets/images/user_default.svg';
+  static const String userDefaultBasic = 'assets/images/user_default_basic.svg';
   static const String walkMan = 'assets/images/walk_man.svg';
 
 }

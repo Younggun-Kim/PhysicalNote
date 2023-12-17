@@ -14,6 +14,7 @@ class InformationRegistrationGuidePage
       controller: controller,
       isFullPage: true,
       child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(Assets.splash),
@@ -21,6 +22,26 @@ class InformationRegistrationGuidePage
           ),
         ),
         alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 180),
+            Text(
+              StringRes.informationRegistrationGuide.tr,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+                color: ColorRes.fontBlack,
+              ),
+            ),
+            const SizedBox(height: 20),
+            RoundButton(
+              text: StringRes.doInformationRegistration.tr,
+              onPressed: controller.onPressedButton,
+            ),
+          ],
+        ),
       ),
     );
   }

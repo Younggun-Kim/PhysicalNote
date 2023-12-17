@@ -97,4 +97,6 @@ final koKr = {
   StringRes.lastFourWeek: "지난4주",
   StringRes.lastEightWeek: "지난8주",
   StringRes.unitPercent: "(단위: %)",
+  StringRes.informationRegistrationGuide : "추가정보를 등록해야만\n앱을 사용할 수 있습니다.",
+  StringRes.doInformationRegistration: "정보등록 하기",
 };

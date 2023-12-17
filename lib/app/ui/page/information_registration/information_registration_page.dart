@@ -90,6 +90,7 @@ class InformationRegistrationPage
                   width: double.infinity,
                   text: StringRes.next.tr,
                   isEnabled: controller.isEnabledNext.value,
+                  disabledColor: ColorRes.disable,
                   onPressed: controller.onPressedNext,
                 ),
               ),

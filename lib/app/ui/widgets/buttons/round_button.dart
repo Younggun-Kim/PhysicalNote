@@ -62,7 +62,7 @@ class RoundButton extends StatelessWidget {
         margin: margin,
         padding: padding,
         decoration: BoxDecoration(
-          // color: buttonBackgroundColor,
+          color: buttonBackgroundColor,
           border: border,
           borderRadius: BorderRadius.circular(radius),
           boxShadow: [
@@ -77,7 +77,7 @@ class RoundButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: isEnabled ? onPressed : null,
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(backgroundColor),
+            backgroundColor: MaterialStateProperty.all(buttonBackgroundColor),
             alignment: alignment,
             overlayColor: MaterialStateProperty.all(ColorRes.clickOverlayColor),
             shape: MaterialStateProperty.all(

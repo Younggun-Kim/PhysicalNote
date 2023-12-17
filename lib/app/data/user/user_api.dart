@@ -29,7 +29,7 @@ class UserAPI extends API {
 
   /// 유저 정보 등록/수정.
   // TODO: API 확인 필요.
-  Future<GetUserResponseModel> postUser(
+  Future<GetUserResponseModel?> postUser(
       {required PostUserRequestModel requestData}) async {
     logger.i("request UserAPI.postUser: ${requestData.toJson()}");
     final response = await post(requestUrl, requestData);
@@ -37,9 +37,7 @@ class UserAPI extends API {
     logger.w(response.bodyString);
 
     if (response.status.hasError) {
-      final failResponse = ServerResponseFailModel.fromJson(response.body);
-      logger.i("Fail Message: ${failResponse.toJson()}");
-      return Future.error({failResponse.message});
+      return null;
     } else {
       final successResponse = GetUserResponseModel.fromJson(response.body);
       logger.i("Success Response: ${successResponse.toJson()}");
