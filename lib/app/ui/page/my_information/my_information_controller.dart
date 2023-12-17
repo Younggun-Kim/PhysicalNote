@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/config/constant/photo_model.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/common/common_api.dart';
+import 'package:physical_note/app/data/common/model/post_upload_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/data/workout/workout_api.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
@@ -172,7 +174,19 @@ class MyInformationController extends BaseController {
   /// 유저 정보 등록/수정
   Future<void> _postUser() async {
     final userApi = Get.find<UserAPI>();
+    final imageUploadResult = await _postImageUpload();
+    logger.w(imageUploadResult?.toJson());
     await userApi.postUser(requestData: getUserRequestData());
+  }
+
+  /// 이미지 업로드.
+  Future<PostUploadResponseModel?> _postImageUpload() async {
+    final file = profile.value.file;
+    if (file == null) {
+      return null;
+    }
+    final commonApi = Get.find<CommonAPI>();
+    return await commonApi.postUpload("profile", profile.value);
   }
 
   /// 프로필 클릭.
@@ -194,7 +208,8 @@ class MyInformationController extends BaseController {
 
     final imageSource =
         result.id == 1 ? ImageSource.camera : ImageSource.gallery;
-    final file = await ImagePicker().pickImage(source: imageSource);
+    final file =
+        await ImagePicker().pickImage(source: imageSource, maxWidth: 1024, imageQuality: 80);
 
     if (file == null) {
       return;
