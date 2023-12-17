@@ -32,6 +32,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
         child: NestedScrollView(
+          controller: controller.scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverList(

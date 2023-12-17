@@ -26,8 +26,8 @@ class SplashController extends BaseController {
   }
 
   /// 홈 이동.
-  void _moveHome() async {
-    await Get.offAllNamed(RouteType.HOME);
+  void _moveMain() async {
+    await Get.offAllNamed(RouteType.MAIN);
   }
 
   /// 로그인 화면 이동.
@@ -45,7 +45,7 @@ class SplashController extends BaseController {
 
     if(token != null) {
       userStorage.apiKey.val = token;
-      _moveHome();
+      _moveMain();
     } else {
       userStorage.apiKey.val = "";
       _moveLogin();

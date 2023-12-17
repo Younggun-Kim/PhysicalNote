@@ -5,6 +5,7 @@ part of 'routes.dart';
 abstract class RouteType {
   static const TEST = '/test';
   static const SPLASH = '/splash';
+  static const MAIN = '/main';
   static const LOCALIZATION = "/localization";
   static const LOGIN = "/login";
   static const FIND_ID = "/find_id";
@@ -14,6 +15,8 @@ abstract class RouteType {
   static const SIGN_UP = "/sign_up";
   static const TERM = "/term";
   static const HOME = "/home";
+  static const DATA = "/data";
+  static const FEEDBACK = "/feedback";
   static const INFORMATION_REGISTRATION = "/information_registration";
   static const SEARCH_CATEGORY = "/search_category";
   static const MY_INFORMATION = "/my_information";

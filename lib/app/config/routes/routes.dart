@@ -1,5 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/change_password/change_password.dart';
+import 'package:physical_note/app/ui/page/data/data.dart';
+import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/page/find_password/find_password.dart';
@@ -8,6 +12,7 @@ import 'package:physical_note/app/ui/page/information_registration/information_r
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide.dart';
 import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
+import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
 import 'package:physical_note/app/ui/page/search_category/search_category.dart';
 import 'package:physical_note/app/ui/page/search_teams/search_teams.dart';
@@ -29,6 +34,11 @@ class Routes {
       name: RouteType.SPLASH,
       page: () => const SplashPage(),
       binding: SplashBindings(),
+    ),
+    GetPage(
+      name: RouteType.MAIN,
+      page: () => const MainScreenPage(),
+      binding: MainScreenBindings(),
     ),
     GetPage(
       name: RouteType.LOCALIZATION,
@@ -76,6 +86,18 @@ class Routes {
       name: RouteType.HOME,
       page: () => const HomePage(),
       binding: HomeBindings(),
+      maintainState: false,
+    ),
+    GetPage(
+      name: RouteType.DATA,
+      page: () => const DataPage(),
+      binding: DataBindings(),
+      maintainState: false,
+    ),
+    GetPage(
+      name: RouteType.FEEDBACK,
+      page: () => const FeedbackPage(),
+      binding: FeedbackBindings(),
       maintainState: false,
     ),
     GetPage(

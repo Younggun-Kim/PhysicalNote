@@ -20,6 +20,12 @@ class Assets {
   static const String logo = 'assets/images/logo.svg';
   static const String maleMuscle = 'assets/images/male_muscle.svg';
   static const String musclesFrontAndBack = 'assets/images/muscles_front_and_back.svg';
+  static const String navigationData = 'assets/navigation_data.svg';
+  static const String navigationDataSelect = 'assets/navigation_data_select.svg';
+  static const String navigationFeedback = 'assets/navigation_feedback.svg';
+  static const String navigationFeedbackSelect = 'assets/navigation_feedback_select.svg';
+  static const String navigationHome = 'assets/navigation_home.svg';
+  static const String navigationHomeSelect = 'assets/navigation_home_select.svg';
   static const String noneWalkMan = 'assets/images/none_walk_man.svg';
   static const String retiredMan = 'assets/images/retired_man.svg';
   static const String runningMan = 'assets/images/running_man.svg';

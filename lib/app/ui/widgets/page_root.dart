@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/resources/resources.dart';
 import 'dart:io';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 
@@ -78,12 +80,30 @@ class PageRoot extends StatelessWidget {
       );
 
   /// 로딩 뷰.
-  Widget _createLoading() => Obx(() => Visibility(
-        visible: controller.isLoading.value,
-        child: Center(
-          child: CircularProgressIndicator(
-            color: progressColor,
+  Widget _createLoading() => Obx(
+        () => Visibility(
+          visible: controller.isLoading.value,
+          child: Center(
+            child: CircularProgressIndicator(
+              color: progressColor,
+            ),
           ),
         ),
-      ));
+      );
+
+  /// 바텀 네비게이션 아이템.
+  Widget _bottomNavigationItem(String asset, String name, bool isSelected) =>
+      Column(
+        children: [
+          SvgPicture.asset(asset),
+          Text(
+            name,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+              color: isSelected ? ColorRes.fontBlack : ColorRes.fontDisable,
+            ),
+          ),
+        ],
+      );
 }
