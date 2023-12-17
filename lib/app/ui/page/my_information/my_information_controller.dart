@@ -17,6 +17,9 @@ class MyInformationController extends BaseController {
   /// args.
   final args = Get.arguments as MyInformationArgs;
 
+  /// 프로필 이미지.
+  var profile = "".obs;
+
   /// 이름.
   var name = "".obsWithController;
 

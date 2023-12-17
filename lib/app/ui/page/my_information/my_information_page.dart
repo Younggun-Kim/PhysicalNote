@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/resources/resources.dart';
@@ -19,6 +20,7 @@ class MyInformationPage extends GetView<MyInformationController> {
           child: Column(
             children: [
               _Header(),
+              _ProfileImage(),
               _Name(),
               const SizedBox(height: 20),
               _Team(),
@@ -79,6 +81,65 @@ class FieldName extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
+      );
+}
+
+/// 프로필 이미지.
+class _ProfileImage extends GetView<MyInformationController> {
+  @override
+  Widget build(BuildContext context) => Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Obx(() => Container(
+                height: 92,
+                width: 92,
+                decoration: BoxDecoration(
+                  color: ColorRes.white,
+                  borderRadius: BorderRadius.circular(46),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.25),
+                      spreadRadius: 3,
+                      blurRadius: 5,
+                      offset: const Offset(0, 2), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Image.network(
+                  controller.profile.value,
+                  fit: BoxFit.fitWidth,
+                  errorBuilder: (
+                    BuildContext context,
+                    Object error,
+                    StackTrace? stackTrace,
+                  ) {
+                    return SvgPicture.asset(Assets.userDefault);
+                  },
+                ),
+              )),
+          Positioned(
+            bottom: -10,
+            right: -10,
+            child: Container(
+              width: 38,
+              height: 38,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(19),
+                color: ColorRes.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.25),
+                    spreadRadius: 3,
+                    blurRadius: 5,
+                    offset: const Offset(0, 2), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: SvgPicture.asset(Assets.camera),
+            ),
+          ),
+        ],
       );
 }
 
