@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:physical_note/app/config/constant/photo_model.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item.dart';
@@ -20,7 +23,7 @@ class MyInformationPage extends GetView<MyInformationController> {
           child: Column(
             children: [
               _Header(),
-              _ProfileImage(),
+              _Profile(),
               _Name(),
               const SizedBox(height: 20),
               _Team(),
@@ -85,48 +88,19 @@ class FieldName extends StatelessWidget {
 }
 
 /// 프로필 이미지.
-class _ProfileImage extends GetView<MyInformationController> {
+class _Profile extends GetView<MyInformationController> {
   @override
   Widget build(BuildContext context) => Stack(
         clipBehavior: Clip.none,
         children: [
-          Obx(() => Container(
-                height: 92,
-                width: 92,
-                decoration: BoxDecoration(
-                  color: ColorRes.white,
-                  borderRadius: BorderRadius.circular(46),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.25),
-                      spreadRadius: 3,
-                      blurRadius: 5,
-                      offset: const Offset(0, 2), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Image.network(
-                  controller.profile.value,
-                  fit: BoxFit.fitWidth,
-                  errorBuilder: (
-                    BuildContext context,
-                    Object error,
-                    StackTrace? stackTrace,
-                  ) {
-                    return SvgPicture.asset(Assets.userDefault);
-                  },
-                ),
-              )),
-          Positioned(
-            bottom: -10,
-            right: -10,
-            child: Container(
-              width: 38,
-              height: 38,
-              padding: const EdgeInsets.all(8),
+          Obx(
+            () => Container(
+              height: 92,
+              width: 92,
+              clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(19),
                 color: ColorRes.white,
+                borderRadius: BorderRadius.circular(46),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.25),
@@ -136,11 +110,79 @@ class _ProfileImage extends GetView<MyInformationController> {
                   ),
                 ],
               ),
-              child: SvgPicture.asset(Assets.camera),
+              child: _ProfileImage(
+                photoData: controller.profile.value,
+              ),
             ),
           ),
+          Positioned(
+              bottom: -10,
+              right: -10,
+              child: InkWellOver(
+                borderRadius: BorderRadius.circular(19),
+                child: Container(
+                  width: 38,
+                  height: 38,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(19),
+                    color: ColorRes.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.25),
+                        spreadRadius: 3,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 2), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: SvgPicture.asset(Assets.camera),
+                ),
+                onTap: () async {
+                  await controller.onTapProfile(context);
+                },
+              )),
         ],
       );
+}
+
+/// 프로필 이미지.
+class _ProfileImage extends StatelessWidget {
+  final PhotoModel photoData;
+
+  const _ProfileImage({required this.photoData});
+
+  @override
+  Widget build(BuildContext context) {
+    if (photoData.imageUrl != null) {
+      return Image.network(
+        photoData.imageUrl ?? "",
+        fit: BoxFit.fitWidth,
+        errorBuilder: (
+          BuildContext context,
+          Object error,
+          StackTrace? stackTrace,
+        ) {
+          return SvgPicture.asset(Assets.userDefault);
+        },
+      );
+    } else if (photoData.file != null) {
+      return Image.file(
+        File(photoData.file?.path ?? ""),
+        fit: BoxFit.fitWidth,
+        errorBuilder: (
+          BuildContext context,
+          Object error,
+          StackTrace? stackTrace,
+        ) {
+          return SvgPicture.asset(Assets.userDefault);
+        },
+      );
+    } else {
+      return SvgPicture.asset(Assets.userDefault);
+    }
+  }
 }
 
 /// 이름.

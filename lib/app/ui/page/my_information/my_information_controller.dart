@@ -1,11 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:physical_note/app/config/constant/photo_model.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/data/workout/workout_api.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item_ui_state.dart';
+import 'package:physical_note/app/ui/widgets/list_dialog/list_dialog.dart';
+import 'package:physical_note/app/ui/widgets/list_dialog/list_dialog_item.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -18,7 +23,7 @@ class MyInformationController extends BaseController {
   final args = Get.arguments as MyInformationArgs;
 
   /// 프로필 이미지.
-  var profile = "".obs;
+  Rx<PhotoModel> profile = PhotoModel().obs;
 
   /// 이름.
   var name = "".obsWithController;
@@ -168,5 +173,33 @@ class MyInformationController extends BaseController {
   Future<void> _postUser() async {
     final userApi = Get.find<UserAPI>();
     await userApi.postUser(requestData: getUserRequestData());
+  }
+
+  /// 프로필 클릭.
+  Future onTapProfile(BuildContext context) async {
+    final response = await Get.dialog(
+      ListDialog(
+        items: [
+          ListDialogItem(id: 1, name: "카메라"),
+          ListDialogItem(id: 2, name: "앨범"),
+        ],
+      ),
+    );
+
+    final result = response as ListDialogItem?;
+
+    if (result == null) {
+      return;
+    }
+
+    final imageSource =
+        result.id == 1 ? ImageSource.camera : ImageSource.gallery;
+    final file = await ImagePicker().pickImage(source: imageSource);
+
+    if (file == null) {
+      return;
+    }
+
+    profile.value = PhotoModel(file: file, imageUrl: null);
   }
 }

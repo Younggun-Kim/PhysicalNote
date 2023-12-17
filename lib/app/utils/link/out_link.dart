@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class OutLink extends GetxService{
-
+class OutLink extends GetxService {
   /// url 실행.
   Future<bool> moveUrl(
-      String url, {
-        LaunchMode mode = LaunchMode.externalApplication,
-      }) async {
+    String url, {
+    LaunchMode mode = LaunchMode.externalApplication,
+  }) async {
     try {
       return await launchUrlString(
         Uri.encodeFull(url),
@@ -28,5 +28,10 @@ class OutLink extends GetxService{
   /// 이용약관 동의.
   Future<bool> moveServiceTerm() async {
     return moveUrl("https://www.google.com");
+  }
+
+  /// 카메라.
+  Future<XFile?> moveCamera() async {
+    return await ImagePicker().pickImage(source: ImageSource.camera);
   }
 }
