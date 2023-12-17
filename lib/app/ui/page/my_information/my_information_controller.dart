@@ -22,7 +22,7 @@ import 'my_information_args.dart';
 
 class MyInformationController extends BaseController {
   /// args.
-  final args = Get.arguments as MyInformationArgs;
+  final args = Get.arguments as MyInformationArgs?;
 
   /// 프로필 이미지.
   Rx<PhotoModel> profile = PhotoModel().obs;
@@ -37,7 +37,7 @@ class MyInformationController extends BaseController {
   var team = "".obs;
 
   /// 엘리트 여부.
-  late final isElite = args.isElite.obs;
+  late final isElite = (args?.isElite).obs;
 
   /// 키.
   var height = "".obsWithController;
@@ -154,7 +154,11 @@ class MyInformationController extends BaseController {
   /// 포지션 조회.
   Future<LoadPage<int, PositionListItemUiState>> _loadWorkoutPositionData(
       int pageKey) async {
-    final workoutId = args.workoutId;
+    final workoutId = args?.workoutId;
+
+    if (workoutId == null) {
+      return LoadPage(items: [], isLastPage: true, nextPageKey: 1);
+    }
     final workoutAPI = Get.find<WorkoutAPI>();
     final response = await workoutAPI.getWorkoutPositionDetail(
         pageKey: pageKey, workoutId: workoutId);
@@ -208,8 +212,8 @@ class MyInformationController extends BaseController {
 
     final imageSource =
         result.id == 1 ? ImageSource.camera : ImageSource.gallery;
-    final file =
-        await ImagePicker().pickImage(source: imageSource, maxWidth: 1024, imageQuality: 80);
+    final file = await ImagePicker()
+        .pickImage(source: imageSource, maxWidth: 1024, imageQuality: 80);
 
     if (file == null) {
       return;

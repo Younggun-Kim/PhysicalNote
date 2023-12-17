@@ -19,6 +19,9 @@ import 'item/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.
 import 'model/home_urine_model.dart';
 
 class HomeController extends BaseController {
+  /// 스크롤 컨트롤러.
+  final scrollController = ScrollController();
+
   /// 유저 이미지 URL
   var userImageUrl = "".obs;
 
@@ -102,7 +105,8 @@ class HomeController extends BaseController {
   var workoutLastEightWeekStatus = HomeTrainingBalanceType.none.obs;
 
   /// 부상 체크 목록.
-  Rx<List<HomeInjuryCheckItemUiState>?> injuryCheckList = (null as List<HomeInjuryCheckItemUiState>?).obs;
+  Rx<List<HomeInjuryCheckItemUiState>?> injuryCheckList =
+      (null as List<HomeInjuryCheckItemUiState>?).obs;
 
   @override
   void onInit() {
@@ -125,7 +129,7 @@ class HomeController extends BaseController {
   /// 유저 정보 편집 클릭.
   void onPressedUserEdit() {
     logger.i("유저 정보 편집 클릭");
-    _logout();
+    Get.toNamed(RouteType.MY_INFORMATION);
   }
 
   /// 홈 다음 버튼 클릭.
@@ -178,5 +182,15 @@ class HomeController extends BaseController {
   /// 주간 / 월간 클릭.
   void onPressedMonthlyOrWeekly(bool weekly) {
     isWeekly.value = weekly;
+  }
+
+
+  /// 스크롤 상단으로 이동.
+  void scrollToTop() {
+    scrollController.animateTo(
+      0.0,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.ease,
+    );
   }
 }
