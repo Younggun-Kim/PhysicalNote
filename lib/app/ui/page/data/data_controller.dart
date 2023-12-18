@@ -6,6 +6,10 @@ class DataController extends BaseController {
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
 
+
+  /// 페이지 컨트롤러.
+  var pageController = PageController(initialPage: 0).obs;
+
   /// 스크롤 상단으로 이동.
   void scrollToTop() {
     scrollController.animateTo(
