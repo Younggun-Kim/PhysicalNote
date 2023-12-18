@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:physical_note/app/ui/page/data/data_controller.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
@@ -11,7 +10,7 @@ import 'main_tab_index.dart';
 
 class MainScreenController extends BaseMainController<MainUiState> {
   @override
-  Rx<MainUiState> get uiState => MainUiState().obs;
+  final Rx<MainUiState> uiState = MainUiState().obs;
 
   /// 메인 탭 인덱스 변경.
   void setTabIndex(MainTabIndex tabIndex) {

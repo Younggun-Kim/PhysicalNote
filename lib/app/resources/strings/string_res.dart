@@ -9,6 +9,10 @@ class StringRes {
   static String _generateId() => _uuid.v1();
 
   static final appName = _generateId();
+  static final bottomTabData = _generateId();
+  static final bottomTabHome = _generateId();
+  static final bottomTabFeedback = _generateId();
+
 
   static final email = _generateId();
   static final emailHint = _generateId();

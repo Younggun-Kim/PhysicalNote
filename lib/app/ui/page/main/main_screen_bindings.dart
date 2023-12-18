@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
@@ -11,6 +12,8 @@ class MainScreenBindings extends Bindings {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => DataController());
     Get.lazyPut(() => FeedbackController());
-  }
 
+    /// API
+    Get.lazyPut(() => HomeAPI());
+  }
 }

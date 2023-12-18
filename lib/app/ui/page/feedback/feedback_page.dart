@@ -12,7 +12,7 @@ class FeedbackPage extends GetView<FeedbackController> {
     controller: controller,
     child: FlexibleScrollView(
       controller: controller.scrollController,
-      child: Text("hello"),
+      child: Text("핃백"),
     ),
   );
 }

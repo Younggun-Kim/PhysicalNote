@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/resources/resources.dart';
 import 'dart:io';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 
@@ -31,7 +29,7 @@ class PageRoot extends StatelessWidget {
   final Widget child;
 
   /// 뒤로가기 콜백.
-  final Future<bool> Function()? onWillPop;
+  final Future<bool> Function(bool didPop)? onWillPop;
 
   /// 생성자.
   const PageRoot({
@@ -49,8 +47,8 @@ class PageRoot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Platform.isAndroid
-      ? WillPopScope(
-          onWillPop: onWillPop,
+      ? PopScope(
+          onPopInvoked: onWillPop,
           child: _createPage(),
         )
       : _createPage();
@@ -89,21 +87,5 @@ class PageRoot extends StatelessWidget {
             ),
           ),
         ),
-      );
-
-  /// 바텀 네비게이션 아이템.
-  Widget _bottomNavigationItem(String asset, String name, bool isSelected) =>
-      Column(
-        children: [
-          SvgPicture.asset(asset),
-          Text(
-            name,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-              color: isSelected ? ColorRes.fontBlack : ColorRes.fontDisable,
-            ),
-          ),
-        ],
       );
 }

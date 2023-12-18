@@ -1,13 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/change_password/change_password.dart';
-import 'package:physical_note/app/ui/page/data/data.dart';
-import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/page/find_password/find_password.dart';
-import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/ui/page/information_registration/information_registration.dart';
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide.dart';
 import 'package:physical_note/app/ui/page/localization/localization.dart';
@@ -82,24 +77,24 @@ class Routes {
       binding: TermBindings(),
       maintainState: false,
     ),
-    GetPage(
-      name: RouteType.HOME,
-      page: () => const HomePage(),
-      binding: HomeBindings(),
-      maintainState: false,
-    ),
-    GetPage(
-      name: RouteType.DATA,
-      page: () => const DataPage(),
-      binding: DataBindings(),
-      maintainState: false,
-    ),
-    GetPage(
-      name: RouteType.FEEDBACK,
-      page: () => const FeedbackPage(),
-      binding: FeedbackBindings(),
-      maintainState: false,
-    ),
+    // GetPage(
+    //   name: RouteType.HOME,
+    //   page: () => const HomePage(),
+    //   binding: HomeBindings(),
+    //   maintainState: false,
+    // ),
+    // GetPage(
+    //   name: RouteType.DATA,
+    //   page: () => const DataPage(),
+    //   binding: DataBindings(),
+    //   maintainState: false,
+    // ),
+    // GetPage(
+    //   name: RouteType.FEEDBACK,
+    //   page: () => const FeedbackPage(),
+    //   binding: FeedbackBindings(),
+    //   maintainState: false,
+    // ),
     GetPage(
       name: RouteType.INFORMATION_REGISTRATION,
       page: () => const InformationRegistrationPage(),

@@ -3,6 +3,9 @@ part of 'translations.dart';
 /// 한국어.
 final koKr = {
   StringRes.appName: "Physical Note",
+  StringRes.bottomTabData: "데이터",
+  StringRes.bottomTabHome: "홈",
+  StringRes.bottomTabFeedback: "피드백",
   StringRes.email: "이메일",
   StringRes.emailHint: "이메일 주소를 입력하세요.",
   StringRes.emailError: "바른 이메일 양식을 입력해주세요.",
