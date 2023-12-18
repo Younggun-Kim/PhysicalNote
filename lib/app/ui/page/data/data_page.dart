@@ -28,7 +28,7 @@ class DataPage extends GetView<DataController> {
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 20),
                     Obx(
                       () => _Calendar(
                         isOpen: controller.isCalendarOpen.value,
@@ -41,7 +41,7 @@ class DataPage extends GetView<DataController> {
                         onPressedNext: controller.onPressedCalendarNext,
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 20),
                     Obx(
                       () => _DataMenu(
                         currentMenu: controller.menu.value,
@@ -290,7 +290,7 @@ class _Calendar extends StatelessWidget {
             /// 날짜 선택 처리.
             return currentDate == day;
           },
-        ),
+        ).paddingOnly(bottom: 20),
       );
 }
 
