@@ -11,7 +11,10 @@ class DataController extends BaseController {
   var pageController = PageController(initialPage: 0).obs;
 
   /// 날짜.
-  Rx<DateTime?> date = DateTime.now().obs;
+  var date = DateTime.now().obs;
+
+  /// 포커스 날짜.
+  var focusDate = DateTime.now().obs;
 
   /// 메뉴.
   var menu = DataMenuType.wellness.obs;
@@ -26,8 +29,9 @@ class DataController extends BaseController {
   }
 
   /// 날짜 변경.
-  void onChangedDate(DateTime? newDate) {
+  void onChangedDate(DateTime newDate, DateTime newFocusDate) {
     date.value = newDate;
+    focusDate.value = newFocusDate;
   }
 
   /// 메뉴 선택.

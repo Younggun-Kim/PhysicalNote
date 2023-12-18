@@ -152,6 +152,12 @@ class ColorRes {
   /// 0xff7B4DFF.
   static const homePhysicalPurple = Color(0xff7B4DFF);
 
+  /// 0xff98999C.
+  static const gray5 = Color(0xff98999C);
+
+  /// 0xff222222.
+  static const gray10 = Color(0xff222222);
+
   static MaterialColor _createMaterialColor(Color color) {
     List strengths = <double>[.05];
     Map<int, Color> swatch = {};

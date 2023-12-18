@@ -1,4 +1,3 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
@@ -9,6 +8,8 @@ import 'package:physical_note/app/ui/page/data/intensity/intensity_page.dart';
 import 'package:physical_note/app/ui/page/data/wellness/wellness_page.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
+import 'package:physical_note/app/utils/utils.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class DataPage extends GetView<DataController> {
   const DataPage({super.key});
@@ -26,6 +27,7 @@ class DataPage extends GetView<DataController> {
                     const SizedBox(height: 40),
                     Obx(() => _Calendar(
                           currentDate: controller.date.value,
+                          focusDate: controller.focusDate.value,
                           onChangedDate: controller.onChangedDate,
                         )),
                     const SizedBox(height: 40),
@@ -57,34 +59,78 @@ class DataPage extends GetView<DataController> {
 
 /// 달력.
 class _Calendar extends StatelessWidget {
-  final DateTime? currentDate;
+  final DateTime currentDate;
+  final DateTime focusDate;
 
-  final Function(DateTime? newDate) onChangedDate;
+  final Function(DateTime newDate, DateTime focusDate) onChangedDate;
 
   const _Calendar({
     required this.currentDate,
     required this.onChangedDate,
+    required this.focusDate,
   });
 
-  // 날짜 텍스트 스타일.
-  TextStyle _getDayTextStyle({required bool isSelected}) => TextStyle(
-        fontSize: 14,
-        color: isSelected ? ColorRes.white : ColorRes.fontBlack,
-        fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-      );
+  /// 달력 로케일.
+  String _locale() {
+    final deviceLocale = Get.deviceLocale;
+    if (deviceLocale == null) {
+      return "ko_KR";
+    }
+
+    return "${deviceLocale.languageCode}_${deviceLocale.countryCode}";
+  }
 
   @override
-  Widget build(BuildContext context) => CalendarDatePicker2(
-        config: CalendarDatePicker2Config(
-          todayTextStyle: _getDayTextStyle(isSelected: false),
-          dayTextStyle: _getDayTextStyle(isSelected: false),
-          selectedDayTextStyle: _getDayTextStyle(isSelected: true),
-          selectedDayHighlightColor: ColorRes.primary,
-          centerAlignModePicker: false,
+  Widget build(BuildContext context) => TableCalendar(
+        headerVisible: false,
+        firstDay: DateTime.utc(2021, 10, 16),
+        lastDay: DateTime.utc(2030, 3, 14),
+        // 달력 스크롤 잡아 주는 역할
+        focusedDay: focusDate,
+        currentDay: currentDate,
+        locale: _locale(),
+        daysOfWeekHeight: 24,
+        daysOfWeekStyle: const DaysOfWeekStyle(
+          weekdayStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: ColorRes.gray5,
+          ),
+          weekendStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: ColorRes.gray5,
+          ),
         ),
-        value: [currentDate],
-        onValueChanged: (newDates) {
-          onChangedDate(newDates.first);
+        calendarStyle: const CalendarStyle(
+          todayTextStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: ColorRes.gray10,
+          ),
+          todayDecoration: BoxDecoration(),
+          selectedTextStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: ColorRes.white,
+          ),
+          selectedDecoration: BoxDecoration(
+            color: ColorRes.primary,
+            shape: BoxShape.circle,
+          ),
+          outsideTextStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: ColorRes.gray5,
+          ),
+        ),
+        onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
+          logger.w(selectedDay);
+          onChangedDate(selectedDay, focusedDay);
+        },
+        selectedDayPredicate: (DateTime day) {
+          /// 날짜 선택 처리.
+          return currentDate == day;
         },
       );
 }

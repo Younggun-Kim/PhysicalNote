@@ -59,6 +59,7 @@ dependencies:
     sdk: flutter
   image_picker: ^1.0.5
   lazy_load_indexed_stack: ^1.0.1
+  table_calendar: ^3.0.9
 
 
 dev_dependencies:
