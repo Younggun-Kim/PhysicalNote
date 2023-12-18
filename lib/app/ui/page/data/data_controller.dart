@@ -6,9 +6,11 @@ class DataController extends BaseController {
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
 
-
   /// 페이지 컨트롤러.
   var pageController = PageController(initialPage: 0).obs;
+
+  /// 날짜.
+  Rx<DateTime?> date = DateTime.now().obs;
 
   /// 스크롤 상단으로 이동.
   void scrollToTop() {
@@ -17,5 +19,10 @@ class DataController extends BaseController {
       duration: const Duration(milliseconds: 200),
       curve: Curves.ease,
     );
+  }
+
+  /// 날짜 변경.
+  void onChangedDate(DateTime? newDate) {
+    date.value = newDate;
   }
 }
