@@ -112,4 +112,6 @@ class StringRes {
   static final doInformationRegistration = _generateId();
   static final wellness = _generateId();
   static final injuryCheck = _generateId();
+  static final close = _generateId();
+  static final open = _generateId();
 }

@@ -14,7 +14,10 @@ class DataController extends BaseController {
   var date = DateTime.now().obs;
 
   /// 포커스 날짜.
-  var focusDate = DateTime.now().obs;
+  var focusedDate = DateTime.now().obs;
+
+  /// 달력 오픈 여부.
+  var isCalendarOpen = true.obs;
 
   /// 메뉴.
   var menu = DataMenuType.wellness.obs;
@@ -31,7 +34,32 @@ class DataController extends BaseController {
   /// 날짜 변경.
   void onChangedDate(DateTime newDate, DateTime newFocusDate) {
     date.value = newDate;
-    focusDate.value = newFocusDate;
+    focusedDate.value = newFocusDate;
+  }
+
+  /// 달력 - 월 변경.
+  void onPageChanged(DateTime newFocusDate) {
+    focusedDate.value = newFocusDate;
+  }
+
+  /// 달력 - 폴딩
+  void onToggleOpen() {
+    final isOpen = !isCalendarOpen.value;
+    isCalendarOpen.value = isOpen;
+  }
+
+  /// 달력 - 이전 달 클릭.
+  void onPressedCalendarPrev() {
+    final currentFocusedDate = focusedDate.value;
+    focusedDate.value = DateTime(currentFocusedDate.year,
+        currentFocusedDate.month - 1, currentFocusedDate.day);
+  }
+
+  /// 달력 - 다음 달 클릭.
+  void onPressedCalendarNext() {
+    final currentFocusedDate = focusedDate.value;
+    focusedDate.value = DateTime(currentFocusedDate.year,
+        currentFocusedDate.month + 1, currentFocusedDate.day);
   }
 
   /// 메뉴 선택.

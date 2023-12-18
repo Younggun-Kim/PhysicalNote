@@ -104,4 +104,6 @@ final koKr = {
   StringRes.doInformationRegistration: "정보등록 하기",
   StringRes.wellness: "웰리니스",
   StringRes.injuryCheck: "부상체크",
+  StringRes.close: "닫기",
+  StringRes.open: "열기",
 };
