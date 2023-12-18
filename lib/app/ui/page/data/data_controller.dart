@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 
 class DataController extends BaseController {
@@ -11,6 +12,9 @@ class DataController extends BaseController {
 
   /// 날짜.
   Rx<DateTime?> date = DateTime.now().obs;
+
+  /// 메뉴.
+  var menu = DataMenuType.wellness.obs;
 
   /// 스크롤 상단으로 이동.
   void scrollToTop() {
@@ -24,5 +28,11 @@ class DataController extends BaseController {
   /// 날짜 변경.
   void onChangedDate(DateTime? newDate) {
     date.value = newDate;
+  }
+
+  /// 메뉴 선택.
+  void onTapMenu(DataMenuType type) {
+    menu.value = type;
+    pageController.value.jumpToPage(type.index);
   }
 }

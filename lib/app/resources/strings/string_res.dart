@@ -110,4 +110,6 @@ class StringRes {
   static final unitPercent = _generateId();
   static final informationRegistrationGuide = _generateId();
   static final doInformationRegistration = _generateId();
+  static final wellness = _generateId();
+  static final injuryCheck = _generateId();
 }
