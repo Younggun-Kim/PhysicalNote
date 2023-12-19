@@ -10,7 +10,6 @@ import 'package:physical_note/app/ui/page/data/wellness/wellness_page.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
-import 'package:physical_note/app/utils/utils.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'intensity/intensity_page.dart';
@@ -36,6 +35,7 @@ class DataPage extends GetView<DataController> {
                         focusDate: controller.focusedDate.value,
                         onChangedDate: controller.onChangedDate,
                         onPageChanged: controller.onPageChanged,
+                        onPressedYear: controller.onPressedYear,
                         onToggleOpen: controller.onToggleOpen,
                         onPressedPrev: controller.onPressedCalendarPrev,
                         onPressedNext: controller.onPressedCalendarNext,
@@ -71,6 +71,7 @@ class DataPage extends GetView<DataController> {
 class _CalendarHeader extends StatelessWidget {
   final bool isExpanded;
   final DateTime focusedDate;
+  final VoidCallback onPressedYear;
   final VoidCallback onToggleOpen;
   final VoidCallback onPressedPrev;
   final VoidCallback onPressedNext;
@@ -78,6 +79,7 @@ class _CalendarHeader extends StatelessWidget {
   const _CalendarHeader({
     required this.isExpanded,
     required this.focusedDate,
+    required this.onPressedYear,
     required this.onToggleOpen,
     required this.onPressedPrev,
     required this.onPressedNext,
@@ -94,7 +96,9 @@ class _CalendarHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           InkWellOver(
-            onTap: () {},
+            onTap: () {
+              onPressedYear();
+            },
             child: Row(
               children: [
                 Text(
@@ -192,6 +196,7 @@ class _Calendar extends StatelessWidget {
   final DateTime focusDate;
   final Function(DateTime newDate, DateTime focusDate) onChangedDate;
   final Function(DateTime focusDate) onPageChanged;
+  final VoidCallback onPressedYear;
   final VoidCallback onToggleOpen;
   final VoidCallback onPressedPrev;
   final VoidCallback onPressedNext;
@@ -202,6 +207,7 @@ class _Calendar extends StatelessWidget {
     required this.onChangedDate,
     required this.focusDate,
     required this.onPageChanged,
+    required this.onPressedYear,
     required this.onToggleOpen,
     required this.onPressedPrev,
     required this.onPressedNext,
@@ -226,6 +232,7 @@ class _Calendar extends StatelessWidget {
           return _CalendarHeader(
             isExpanded: isOpen,
             focusedDate: focusDate,
+            onPressedYear: onPressedYear,
             onToggleOpen: onToggleOpen,
             onPressedPrev: onPressedPrev,
             onPressedNext: onPressedNext,
@@ -233,8 +240,8 @@ class _Calendar extends StatelessWidget {
         },
         content: TableCalendar(
           headerVisible: false,
-          firstDay: DateTime.utc(2021, 10, 16),
-          lastDay: DateTime.utc(2030, 3, 14),
+          firstDay: DateTime.utc(1980, 10, 16),
+          lastDay: DateTime.utc(2050, 3, 14),
           // 달력 스크롤 잡아 주는 역할
           focusedDay: focusDate,
           currentDay: currentDate,
@@ -278,7 +285,6 @@ class _Calendar extends StatelessWidget {
             ),
           ),
           onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
-            logger.w(selectedDay);
             onChangedDate(selectedDay, focusedDay);
           },
           onPageChanged: (DateTime focusedDay) {

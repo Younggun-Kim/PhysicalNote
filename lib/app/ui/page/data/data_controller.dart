@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 
@@ -35,6 +36,27 @@ class DataController extends BaseController {
   void onChangedDate(DateTime newDate, DateTime newFocusDate) {
     date.value = newDate;
     focusedDate.value = newFocusDate;
+  }
+
+  /// 년 클릭
+  Future onPressedYear() async {
+    final response = await Get.dialog(
+      DateYearMonthPickerDialog(
+        initialDate: date.value,
+        minimumDate: DateTime.utc(1980, 1, 1),
+        maximumDate: DateTime.utc(2050, 12, 31),
+      ),
+    );
+
+    final newDateTime = response as DateTime?;
+
+    if (newDateTime != null && date.value != newDateTime) {
+      date.value = newDateTime;
+      focusedDate.value = newDateTime;
+
+      // TODO: 여기서 리프레ㅅ
+      // await loadHome();
+    }
   }
 
   /// 달력 - 월 변경.
