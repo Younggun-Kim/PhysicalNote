@@ -143,7 +143,6 @@ class _CalendarHeader extends StatelessWidget {
           const Spacer(),
           OutlineRoundButton(
             height: 28,
-            padding: const EdgeInsets.symmetric(horizontal: 0),
             hint: "",
             text: StringRes.close.tr,
             onPressed: () {
@@ -175,7 +174,6 @@ class _CalendarHeader extends StatelessWidget {
               child: Center(
                 child: OutlineRoundButton(
                   height: 28,
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   hint: "",
                   text: StringRes.open.tr,
                   onPressed: () {

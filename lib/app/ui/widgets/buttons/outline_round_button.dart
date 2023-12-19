@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/widgets/buttons/round_button.dart';
+import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 
 /// Outline 형태 Round 버튼
 class OutlineRoundButton extends StatelessWidget {
@@ -27,7 +27,7 @@ class OutlineRoundButton extends StatelessWidget {
     this.radius = 28,
     required this.hint,
     required this.text,
-    this.padding,
+    this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
     this.fontSize,
     this.onPressed,
   });
@@ -35,21 +35,26 @@ class OutlineRoundButton extends StatelessWidget {
   get hasText => text.isNotEmpty;
 
   @override
-  Widget build(BuildContext context) => RoundButton(
-        width: width,
-        height: height,
-        radius: radius,
-        padding: padding,
-        backgroundColor: ColorRes.white,
-        alignment: Alignment.centerLeft,
-        border: Border.all(
-          color: ColorRes.disable,
+  Widget build(BuildContext context) => InkWellOver(
+        borderRadius: BorderRadius.circular(radius),
+        onTap: onPressed,
+        child: Container(
+          width: width,
+          height: height,
+          padding: padding,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: ColorRes.white,
+            borderRadius: BorderRadius.circular(radius),
+            border: Border.all(color: ColorRes.disable),
+          ),
+          child: Text(
+            hasText ? text : hint,
+            style: TextStyle(
+              color: hasText ? ColorRes.fontBlack : ColorRes.fontDisable,
+              fontSize: fontSize,
+            ),
+          ),
         ),
-        text: hasText ? text : hint,
-        textStyle: TextStyle(
-          color: hasText ? ColorRes.fontBlack : ColorRes.fontDisable,
-          fontSize: fontSize,
-        ),
-        onPressed: onPressed,
       );
 }
