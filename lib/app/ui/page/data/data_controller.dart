@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
+import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 
 class DataController extends BaseController {
@@ -11,14 +12,11 @@ class DataController extends BaseController {
   /// 페이지 컨트롤러.
   var pageController = PageController(initialPage: 0).obs;
 
-  /// 날짜.
-  var date = DateTime.now().obs;
-
-  /// 포커스 날짜.
-  var focusedDate = DateTime.now().obs;
-
-  /// 달력 오픈 여부.
-  var isCalendarOpen = true.obs;
+  late var calendarUiState = ExpansionCalendarUiState(
+    isExpanded: true,
+    currentDate: DateTime.now(),
+    focusedDate: DateTime.now(),
+  ).obs;
 
   /// 메뉴.
   var menu = DataMenuType.wellness.obs;
@@ -34,15 +32,16 @@ class DataController extends BaseController {
 
   /// 날짜 변경.
   void onChangedDate(DateTime newDate, DateTime newFocusDate) {
-    date.value = newDate;
-    focusedDate.value = newFocusDate;
+    // calendarUiState.value.currentDate = newDate;
+    calendarUiState.value.focusedDate = newDate;
+    calendarUiState.refresh();
   }
 
   /// 년 클릭
   Future onPressedYear() async {
     final response = await Get.dialog(
       DateYearMonthPickerDialog(
-        initialDate: date.value,
+        initialDate: calendarUiState.value.currentDate,
         minimumDate: DateTime.utc(1980, 1, 1),
         maximumDate: DateTime.utc(2050, 12, 31),
       ),
@@ -50,9 +49,11 @@ class DataController extends BaseController {
 
     final newDateTime = response as DateTime?;
 
-    if (newDateTime != null && date.value != newDateTime) {
-      date.value = newDateTime;
-      focusedDate.value = newDateTime;
+    if (newDateTime != null &&
+        calendarUiState.value.currentDate != newDateTime) {
+      calendarUiState.value.currentDate = newDateTime;
+      calendarUiState.value.focusedDate = newDateTime;
+      calendarUiState.refresh();
 
       // TODO: 여기서 리프레ㅅ
       // await loadHome();
@@ -61,27 +62,31 @@ class DataController extends BaseController {
 
   /// 달력 - 월 변경.
   void onPageChanged(DateTime newFocusDate) {
-    focusedDate.value = newFocusDate;
+    calendarUiState.value.focusedDate = newFocusDate;
+    calendarUiState.refresh();
   }
 
   /// 달력 - 폴딩
-  void onToggleOpen() {
-    final isOpen = !isCalendarOpen.value;
-    isCalendarOpen.value = isOpen;
+  void onToggleCalendarExpanded() {
+    final isExpanded = !calendarUiState.value.isExpanded;
+    calendarUiState.value.isExpanded = isExpanded;
+    calendarUiState.refresh();
   }
 
   /// 달력 - 이전 달 클릭.
   void onPressedCalendarPrev() {
-    final currentFocusedDate = focusedDate.value;
-    focusedDate.value = DateTime(currentFocusedDate.year,
+    final currentFocusedDate = calendarUiState.value.focusedDate;
+    calendarUiState.value.focusedDate = DateTime(currentFocusedDate.year,
         currentFocusedDate.month - 1, currentFocusedDate.day);
+    calendarUiState.refresh();
   }
 
   /// 달력 - 다음 달 클릭.
   void onPressedCalendarNext() {
-    final currentFocusedDate = focusedDate.value;
-    focusedDate.value = DateTime(currentFocusedDate.year,
+    final currentFocusedDate = calendarUiState.value.focusedDate;
+    calendarUiState.value.focusedDate = DateTime(currentFocusedDate.year,
         currentFocusedDate.month + 1, currentFocusedDate.day);
+    calendarUiState.refresh();
   }
 
   /// 메뉴 선택.

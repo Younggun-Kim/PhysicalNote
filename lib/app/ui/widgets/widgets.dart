@@ -14,3 +14,4 @@ export 'header.dart';
 export 'ink_well_over.dart';
 export 'loading_widget.dart';
 export 'page_root.dart';
+export 'package:expansion_widget/expansion_widget.dart';

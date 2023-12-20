@@ -66,7 +66,7 @@ class LoginController extends BaseController {
     if (token == null) {
     } else {
       userStorage.apiKey.val = token;
-      Get.offAllNamed(RouteType.HOME);
+      Get.offAllNamed(RouteType.MAIN);
     }
   }
 
