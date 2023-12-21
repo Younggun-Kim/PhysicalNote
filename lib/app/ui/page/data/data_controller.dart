@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/app_constant.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
@@ -42,8 +43,8 @@ class DataController extends BaseController {
     final response = await Get.dialog(
       DateYearMonthPickerDialog(
         initialDate: calendarUiState.value.currentDate,
-        minimumDate: DateTime.utc(1980, 1, 1),
-        maximumDate: DateTime.utc(2050, 12, 31),
+        minimumDate: AppConstant.CALENDAR_MIN_DATE,
+        maximumDate: AppConstant.CALENDAR_MAX_DATE,
       ),
     );
 
