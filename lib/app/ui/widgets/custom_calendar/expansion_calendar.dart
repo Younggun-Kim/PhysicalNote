@@ -217,7 +217,7 @@ class _CalendarBody extends StatelessWidget {
   Widget build(BuildContext context) => TableCalendar(
         headerVisible: false,
         firstDay: AppConstant.CALENDAR_MIN_DATE,
-        lastDay: AppConstant.CALENDAR_MIN_DATE,
+        lastDay: AppConstant.CALENDAR_MAX_DATE,
         // 달력 스크롤 잡아 주는 역할
         focusedDay: uiState.focusedDate,
         currentDay: uiState.currentDate,
@@ -268,7 +268,7 @@ class _CalendarBody extends StatelessWidget {
         },
         selectedDayPredicate: (DateTime day) {
           /// 날짜 선택 처리.
-          return uiState.focusedDate == day;
+          return isSameDay(uiState.focusedDate, day);
         },
       ).paddingOnly(bottom: 20);
 }
