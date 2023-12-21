@@ -381,8 +381,8 @@ class _Slider extends StatelessWidget {
           ),
           child: Slider(
             value: value,
-            min: 0,
-            max: 6,
+            min: 1,
+            max: 7,
             divisions: 6,
             onChanged: onChanged,
           ),

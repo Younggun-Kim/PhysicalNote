@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/app_constant.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
+import 'package:physical_note/app/data/wellness/wellness_api.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
+import 'package:physical_note/app/ui/page/data/data_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 class DataController extends BaseController {
@@ -15,6 +18,7 @@ class DataController extends BaseController {
   /// 페이지 컨트롤러.
   var pageController = PageController(initialPage: 0).obs;
 
+  /// 캘린더 Ui State.
   late var calendarUiState = ExpansionCalendarUiState(
     isExpanded: true,
     currentDate: DateTime.now(),
@@ -24,13 +28,14 @@ class DataController extends BaseController {
   /// 메뉴.
   var menu = DataMenuType.wellness.obs;
 
+  /// 웰리니스 Api 로딩 여부.
+  var isWellnessLoaded = false.obs;
+
   /// 웰리니스 - 후퍼인덱스 Ui State.
-  var wellnessHooperIndexUiState = DataWellnessHooperIndexUiState(
-          sleep: 0, stress: 0, fatigue: 0, muscleSoreness: 0)
-      .obs;
+  var wellnessHooperIndexUiState = DataWellnessHooperIndexUiState().obs;
 
   /// 웰리니스 - 소변검사표.
-  var wellnessUrineTable = 0.0.obs;
+  var wellnessUrineTable = 1.0.obs;
 
   /// 웰리니스 - 소변검사 몸무게.
   var wellnessUrineWeight = "".obsWithController;
@@ -48,10 +53,11 @@ class DataController extends BaseController {
   }
 
   /// 날짜 변경.
-  void onChangedDate(DateTime newDate, DateTime newFocusDate) {
-    // calendarUiState.value.currentDate = newDate;
+  void onChangedDate(DateTime newDate) {
     calendarUiState.value.focusedDate = newDate;
     calendarUiState.refresh();
+
+    _loadApi();
   }
 
   /// 년 클릭
@@ -67,13 +73,8 @@ class DataController extends BaseController {
     final newDateTime = response as DateTime?;
 
     if (newDateTime != null &&
-        calendarUiState.value.currentDate != newDateTime) {
-      calendarUiState.value.currentDate = newDateTime;
-      calendarUiState.value.focusedDate = newDateTime;
-      calendarUiState.refresh();
-
-      // TODO: 여기서 리프레ㅅ
-      // await loadHome();
+        calendarUiState.value.focusedDate != newDateTime) {
+      onChangedDate(newDateTime);
     }
   }
 
@@ -134,7 +135,38 @@ class DataController extends BaseController {
   }
 
   /// 웰리니스 - 저장하기 클릭.
-  void onPressedWellnessSave() {
+  void onPressedWellnessSave() {}
 
+  /// 화면 정보 로딩.
+  Future _loadApi() async {
+    final currentMenu = menu.value;
+
+    setLoading(true);
+    await Future.delayed(const Duration(seconds: 1));
+    switch (currentMenu) {
+      case DataMenuType.wellness:
+        await _loadWellness();
+      case DataMenuType.intensity:
+        break;
+      case DataMenuType.injury:
+        break;
+    }
+
+    setLoading(false);
+  }
+
+  /// 웰리니스 불러오기.
+  Future<void> _loadWellness() async {
+    final wellnessApi = Get.find<WellnessAPI>();
+    final date =
+        calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
+    final response = await wellnessApi.getWellness(date);
+
+    if (response == null) {
+      isWellnessLoaded.value = false;
+    } else {
+      setWellness(response);
+      isWellnessLoaded.value = true;
+    }
   }
 }

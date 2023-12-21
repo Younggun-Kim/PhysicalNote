@@ -13,9 +13,9 @@ class DataWellnessHooperIndexUiState {
   double muscleSoreness;
 
   DataWellnessHooperIndexUiState({
-    required this.sleep,
-    required this.stress,
-    required this.fatigue,
-    required this.muscleSoreness,
+    this.sleep = 1,
+    this.stress = 1,
+    this.fatigue = 1,
+    this.muscleSoreness = 1,
   });
 }

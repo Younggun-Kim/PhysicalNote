@@ -26,7 +26,7 @@ class ExpansionCalendar extends StatelessWidget {
   final Function() onPressedNext;
 
   /// 날짜 변경 이벤트.
-  final Function(DateTime newDate, DateTime focusDate) onChangedDate;
+  final Function(DateTime newDate) onChangedDate;
 
   /// 달력 스크롤링 이벤트.
   final Function(DateTime focusDate) onPageChanged;
@@ -192,7 +192,7 @@ class _CalendarBody extends StatelessWidget {
   final ExpansionCalendarUiState uiState;
 
   /// 날짜 변경 이벤트.
-  final Function(DateTime newDate, DateTime focusDate) onChangedDate;
+  final Function(DateTime newDate) onChangedDate;
 
   /// 달력 스크롤링 이벤트.
   final Function(DateTime focusDate) onPageChanged;
@@ -261,7 +261,7 @@ class _CalendarBody extends StatelessWidget {
           ),
         ),
         onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
-          onChangedDate(selectedDay, focusedDay);
+          onChangedDate(selectedDay);
         },
         onPageChanged: (DateTime focusedDay) {
           onPageChanged(focusedDay);
