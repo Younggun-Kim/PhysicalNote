@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
@@ -56,22 +57,24 @@ class PageRoot extends StatelessWidget {
   /// 페이지의 기본적인 구조를 생성.
   Widget _createPage() => Stack(
         children: [
-          Scaffold(
-            backgroundColor: backgroundColor,
-            resizeToAvoidBottomInset: resize,
-            body: isFullPage
-                ? SizedBox(
-                    width: double.infinity,
-                    child: child,
-                  )
-                : SafeArea(
-                    top: safeStatusBar,
-                    bottom: safeNavigationBar,
-                    child: SizedBox(
+          KeyboardDismissOnTap(
+            child: Scaffold(
+              backgroundColor: backgroundColor,
+              resizeToAvoidBottomInset: resize,
+              body: isFullPage
+                  ? SizedBox(
                       width: double.infinity,
                       child: child,
+                    )
+                  : SafeArea(
+                      top: safeStatusBar,
+                      bottom: safeNavigationBar,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: child,
+                      ),
                     ),
-                  ),
+            ),
           ),
           _createLoading(),
         ],

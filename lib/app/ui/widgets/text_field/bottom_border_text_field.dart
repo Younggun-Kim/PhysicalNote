@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:physical_note/app/resources/colors/color_res.dart';
 
 class BottomBorderTextField extends StatelessWidget {
@@ -58,6 +59,10 @@ class BottomBorderTextField extends StatelessWidget {
           keyboardType: keyboardType,
           readOnly: readOnly,
           style: textStyle,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly
+          ],
+
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(

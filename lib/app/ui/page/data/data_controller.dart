@@ -1,7 +1,11 @@
+// ignore_for_file: unnecessary_cast
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/app_constant.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
+import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
@@ -12,7 +16,6 @@ import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
-// TODO: 키보드 버그 수정, 스크롤뷰 클릭시 키보드 내려가게, API 저장 후 리스펀스로 세팅하는거 없애기.
 // TODO: isWellnessLoaded 로 Post, Put 나누기,
 class DataController extends BaseController {
   /// 스크롤 컨트롤러.
@@ -31,8 +34,8 @@ class DataController extends BaseController {
   /// 메뉴.
   var menu = DataMenuType.wellness.obs;
 
-  /// 웰리니스 Api 로딩 여부.
-  var isWellnessLoaded = false.obs;
+  /// 웰리니스 Id
+  var wellnessId = (null as int?).obs;
 
   /// 웰리니스 - 후퍼인덱스 Ui State.
   var wellnessHooperIndexUiState = DataWellnessHooperIndexUiState().obs;
@@ -153,6 +156,13 @@ class DataController extends BaseController {
 
     logger.w("requestData: ${requestData.toJson()}");
     _postWellness(requestData);
+
+    final id = wellnessId.value;
+    if (id == null) {
+      _postWellness(requestData);
+    } else {
+      _putWellnessDetail(id, requestData);
+    }
   }
 
   /// 화면 정보 로딩.
@@ -180,8 +190,16 @@ class DataController extends BaseController {
         calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
     final response = await wellnessApi.getWellness(date);
 
-    isWellnessLoaded.value = response?.id != null;
-    setWellness(response);
+    if (response is GetWellnessResponseModel) {
+      wellnessId.value = response.id;
+      setWellness(response);
+    } else {
+      wellnessId.value = null;
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+      setWellness(null); // 값 초기화
+    }
   }
 
   /// 웰리니스 저장하기.
@@ -190,9 +208,41 @@ class DataController extends BaseController {
 
     setLoading(true);
     final response = await wellnessApi.postWellness(requestData: requestData);
-    isWellnessLoaded.value = response?.id != null;
-    logger.w("response: ${response?.toJson()}");
-    setWellness(response);
+
+    if (response is GetWellnessResponseModel) {
+      wellnessId.value = response.id;
+      showToast("웰리니스 저장 성공.");
+    } else {
+      wellnessId.value = null;
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
+  }
+
+  /// 웰리니스 수정하기.
+  Future<void> _putWellnessDetail(
+      int id, PostWellnessRequestModel requestData) async {
+    final wellnessApi = Get.find<WellnessAPI>();
+
+    setLoading(true);
+
+    final response = await wellnessApi.putWellnessDetail(
+      wellnessId: id,
+      requestData: requestData,
+    );
+
+    if (response is GetWellnessResponseModel) {
+      wellnessId.value = response.id;
+      showToast("웰리니스 수정 성공.");
+    } else {
+      wellnessId.value = null;
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
     await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
   }

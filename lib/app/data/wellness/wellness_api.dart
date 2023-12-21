@@ -8,13 +8,14 @@ import 'model/get_wellness_response_model.dart';
 class WellnessAPI extends API {
   WellnessAPI() : super(basePath: "/api/welllness");
 
-  Future<GetWellnessResponseModel?> getWellness(String date) async {
+  Future<dynamic> getWellness(String date) async {
     final response = await get("$requestUrl?recordDate=$date");
 
     logger.w(response.bodyString);
 
     if (response.status.hasError) {
-      return null;
+      final failResponse = ServerResponseFailModel.fromJson(response.body);
+      return failResponse;
     } else {
       final successResponse = GetWellnessResponseModel.fromJson(response.body);
       logger.i("Success Response: ${successResponse.toJson()}");
@@ -22,8 +23,8 @@ class WellnessAPI extends API {
     }
   }
 
-  /// 유저 정보 등록/수정.
-  Future<GetWellnessResponseModel?> postWellness(
+  /// 웰리니스 저장
+  Future<dynamic> postWellness(
       {required PostWellnessRequestModel requestData}) async {
     logger.i("postWellness: ${requestData.toJson()}");
     final response = await post(requestUrl, requestData.toJson());
@@ -31,7 +32,28 @@ class WellnessAPI extends API {
     logger.w(response.bodyString);
 
     if (response.status.hasError) {
-      return null;
+      final failResponse = ServerResponseFailModel.fromJson(response.body);
+      return failResponse;
+    } else {
+      final successResponse = GetWellnessResponseModel.fromJson(response.body);
+      return successResponse;
+    }
+  }
+
+  /// 웰리니스 수정
+  Future<dynamic> putWellnessDetail({
+    required int wellnessId,
+    required PostWellnessRequestModel requestData,
+  }) async {
+    logger.i("putWellnessDetail: ${requestData.toJson()}");
+    final response =
+        await put(requestUrl + "/$wellnessId", requestData.toJson());
+
+    logger.w(response.bodyString);
+
+    if (response.status.hasError) {
+      final failResponse = ServerResponseFailModel.fromJson(response.body);
+      return failResponse;
     } else {
       final successResponse = GetWellnessResponseModel.fromJson(response.body);
       return successResponse;

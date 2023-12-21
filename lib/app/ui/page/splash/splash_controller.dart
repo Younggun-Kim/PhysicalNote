@@ -3,6 +3,7 @@ import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
+import 'package:physical_note/app/utils/getx/rx_extensions.dart';
 
 class SplashController extends BaseController {
   /// 컨트롤러 초기화.
@@ -14,6 +15,7 @@ class SplashController extends BaseController {
   /// 컨트롤러 준비 완료.
   @override
   void onReady() async {
+    unFocus();
     await nextPage();
     super.onReady();
   }

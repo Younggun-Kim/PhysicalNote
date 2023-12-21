@@ -29,6 +29,9 @@ class WellnessPage extends StatelessWidget {
   /// 저장하기 클릭.
   final VoidCallback onPressedWellnessSave;
 
+  /// 웰리니스 저장 여부.
+  final bool isWellnessLoaded;
+
   const WellnessPage({
     super.key,
     required this.hooperIndexUiState,
@@ -38,6 +41,7 @@ class WellnessPage extends StatelessWidget {
     required this.weightController,
     required this.bmiController,
     required this.onPressedWellnessSave,
+    required this.isWellnessLoaded,
   });
 
   @override
@@ -88,7 +92,9 @@ class WellnessPage extends StatelessWidget {
             const SizedBox(height: 24),
             RoundButton(
               width: double.infinity,
-              text: StringRes.doSave.tr,
+              text: isWellnessLoaded
+                  ? StringRes.doUpdate.tr
+                  : StringRes.doSave.tr,
               onPressed: onPressedWellnessSave,
             ),
           ],

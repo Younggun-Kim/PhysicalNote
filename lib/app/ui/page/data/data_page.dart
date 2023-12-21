@@ -65,6 +65,7 @@ class DataPage extends GetView<DataController> {
                           controller.wellnessUrineWeight.controller,
                       bmiController: controller.wellnessUrineBmi.controller,
                       onPressedWellnessSave: controller.onPressedWellnessSave,
+                      isWellnessLoaded: controller.wellnessId.value != null,
                     ),
                   ),
                 ),

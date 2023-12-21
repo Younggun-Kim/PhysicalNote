@@ -12,7 +12,7 @@ extension DataUiMapper on DataController {
       muscleSoreness: _convertAndClampToRange(data?.muscleSoreness ?? 1),
     );
     wellnessUrineTable.value = _convertAndClampToRange(data?.urine ?? 1);
-    wellnessUrineWeight.value = data?.emptyStomachWeight?.toString() ?? 0.0.toString();
+    wellnessUrineWeight.value = data?.emptyStomachWeight?.toString() ?? "";
     wellnessUrineBmi.value = data?.bodyFat.toString() ?? "";
   }
 

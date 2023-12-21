@@ -61,6 +61,7 @@ dependencies:
   lazy_load_indexed_stack: ^1.0.1
   table_calendar: ^3.0.9
   expansion_widget: ^0.0.3
+  flutter_keyboard_visibility: ^6.0.0
 
 
 dev_dependencies:
