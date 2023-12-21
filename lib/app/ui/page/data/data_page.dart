@@ -52,8 +52,22 @@ class DataPage extends GetView<DataController> {
             () => PageView(
               controller: controller.pageController.value,
               physics: const NeverScrollableScrollPhysics(),
-              children: const [
-                SizedBox.expand(child: WellnessPage()),
+              children: [
+                SizedBox.expand(
+                  child: Obx(
+                    () => WellnessPage(
+                      hooperIndexUiState:
+                          controller.wellnessHooperIndexUiState.value,
+                      onChangeHooperIndex: controller.onChangeHooperIndex,
+                      table: controller.wellnessUrineTable.value,
+                      onChangedUrine: controller.onChangedUrine,
+                      weightController:
+                          controller.wellnessUrineWeight.controller,
+                      bmiController: controller.wellnessUrineBmi.controller,
+                      onPressedWellnessSave: controller.onPressedWellnessSave,
+                    ),
+                  ),
+                ),
                 SizedBox.expand(child: IntensityPage()),
                 SizedBox.expand(child: InjuryPage()),
               ],

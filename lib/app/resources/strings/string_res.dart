@@ -76,6 +76,7 @@ class StringRes {
   static final noData = _generateId();
   static final hooperIndex = _generateId();
   static final urinalysis = _generateId();
+  static final urinalysisTable = _generateId();
   static final injuryRisk = _generateId();
   static final workoutIntensity = _generateId();
   static final noRecordAndRecordYourStatusToday = _generateId();
@@ -88,9 +89,17 @@ class StringRes {
   static final monthly = _generateId();
   static final weekly = _generateId();
   static final sleep = _generateId();
+  static final sleepKorEng = _generateId();
+  static final sleepEng = _generateId();
   static final stress = _generateId();
+  static final stressKorEng = _generateId();
+  static final stressEng = _generateId();
   static final fatigue = _generateId();
+  static final fatigueKorEng = _generateId();
+  static final fatigueEng = _generateId();
   static final musclePain = _generateId();
+  static final musclePainKorEng = _generateId();
+  static final musclePainEng = _generateId();
   static final urineVeryGood = _generateId();
   static final urineGood = _generateId();
   static final urineAppropriate = _generateId();
@@ -111,7 +120,19 @@ class StringRes {
   static final informationRegistrationGuide = _generateId();
   static final doInformationRegistration = _generateId();
   static final wellness = _generateId();
+  static final wellnessKorEng = _generateId();
+  static final wellnessDescription = _generateId();
   static final injuryCheck = _generateId();
   static final close = _generateId();
   static final open = _generateId();
+  static final veryVeryGood = _generateId();
+  static final veryVeryBad = _generateId();
+  static final satisfactory = _generateId();
+  static final insufficient = _generateId();
+  static final urineTestWeightKg = _generateId();
+  static final myAnswer = _generateId();
+  static final bmiPercent = _generateId();
+  static final compellingRequest = _generateId();
+  static final doSave = _generateId();
+
 }

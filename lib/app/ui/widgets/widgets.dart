@@ -1,7 +1,10 @@
-export 'outline_text_field.dart';
+export 'text_field/outline_text_field.dart';
 export 'buttons/label_button.dart';
 export 'buttons/outline_round_button.dart';
 export 'buttons/round_button.dart';
+
+export 'slider/border_thumb_shape.dart';
+export 'slider/custom_slider_tick_mark_shape.dart';
 
 export 'bottom_sheet_list/bottom_sheet_list.dart';
 export 'list_dialog/list_dialog.dart';

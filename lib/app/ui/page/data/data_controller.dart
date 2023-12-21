@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
+import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
-import 'package:physical_note/app/utils/getx/base_controller.dart';
+import 'package:physical_note/app/utils/utils.dart';
 
 class DataController extends BaseController {
   /// 스크롤 컨트롤러.
@@ -21,6 +23,20 @@ class DataController extends BaseController {
 
   /// 메뉴.
   var menu = DataMenuType.wellness.obs;
+
+  /// 웰리니스 - 후퍼인덱스 Ui State.
+  var wellnessHooperIndexUiState = DataWellnessHooperIndexUiState(
+          sleep: 0, stress: 0, fatigue: 0, muscleSoreness: 0)
+      .obs;
+
+  /// 웰리니스 - 소변검사표.
+  var wellnessUrineTable = 0.0.obs;
+
+  /// 웰리니스 - 소변검사 몸무게.
+  var wellnessUrineWeight = "".obsWithController;
+
+  /// 웰리니스 - 소변검사 Bmi.
+  var wellnessUrineBmi = "".obsWithController;
 
   /// 스크롤 상단으로 이동.
   void scrollToTop() {
@@ -94,5 +110,31 @@ class DataController extends BaseController {
   void onTapMenu(DataMenuType type) {
     menu.value = type;
     pageController.value.jumpToPage(type.index);
+  }
+
+  /// 웰리니스 - 후퍼인덱스 슬라이드 변경 이벤트.
+  void onChangeHooperIndex(HooperIndexType type, double value) {
+    switch (type) {
+      case HooperIndexType.sleep:
+        wellnessHooperIndexUiState.value.sleep = value;
+
+      case HooperIndexType.stress:
+        wellnessHooperIndexUiState.value.stress = value;
+      case HooperIndexType.fatigue:
+        wellnessHooperIndexUiState.value.fatigue = value;
+      case HooperIndexType.muscleSoreness:
+        wellnessHooperIndexUiState.value.muscleSoreness = value;
+    }
+    wellnessHooperIndexUiState.refresh();
+  }
+
+  /// 웰리니스 - 소변검사 슬라이드 변경 이벤트.
+  void onChangedUrine(double value) {
+    wellnessUrineTable.value = value;
+  }
+
+  /// 웰리니스 - 저장하기 클릭.
+  void onPressedWellnessSave() {
+
   }
 }

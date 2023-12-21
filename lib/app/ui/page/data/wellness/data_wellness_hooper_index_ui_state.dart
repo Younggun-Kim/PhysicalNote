@@ -1,0 +1,21 @@
+/// 데이터 - 웰리니스 - 후퍼인덱스 UiState.
+class DataWellnessHooperIndexUiState {
+  /// 수며의 질.
+  double sleep;
+
+  /// 스트레스.
+  double stress;
+
+  /// 피로도.
+  double fatigue;
+
+  /// 근육통.
+  double muscleSoreness;
+
+  DataWellnessHooperIndexUiState({
+    required this.sleep,
+    required this.stress,
+    required this.fatigue,
+    required this.muscleSoreness,
+  });
+}
