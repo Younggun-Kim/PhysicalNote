@@ -63,12 +63,32 @@ extension RxMapExt<K, V> on RxMap<K, V> {
 extension StreamExt<T> on Stream<T> {
   /// Stream -> Obs 변환.
   Rx<T> toObs(T initialValue) => Rx<T>(initialValue)..bindStream(this);
+
+
+  /// 클릭 스로틀.
+  Stream<T> clickThrottle() => throttleTime(const Duration(milliseconds: 500));
+
+  /// 아무 동작도 하지 않는 리스너로 수집.
+  /// 이건 뭐하는 거니
+  StreamSubscription<T> collect() {
+    return listen((event) {
+      /* empty */
+    });
+  }
 }
 
 extension StreamBoolExt on Stream<bool> {
 
   /// !bool 반환.
   Stream<bool> not() => map((event) => !event);
+}
+
+
+extension SubjectExt on rx.Subject<void> {
+  /// null 데이터 발행.
+  void emit() {
+    add(null);
+  }
 }
 
 extension GetxControllerExt<T extends List> on RxObjectMixin<T> {

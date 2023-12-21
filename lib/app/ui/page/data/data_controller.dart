@@ -15,8 +15,8 @@ import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_ind
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
+import 'package:rxdart/rxdart.dart';
 
-// TODO: isWellnessLoaded 로 Post, Put 나누기,
 class DataController extends BaseController {
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
@@ -141,7 +141,12 @@ class DataController extends BaseController {
   }
 
   /// 웰리니스 - 저장하기 클릭.
-  void onPressedWellnessSave() {
+  late final onPressedWellnessSave = PublishSubject<void>()
+    ..clickThrottle()
+        .exhaustMap((value) => _onPressedWellnessSave().asStream())
+        .collect();
+
+  Future<void> _onPressedWellnessSave() async {
     final requestData = PostWellnessRequestModel(
       sleep: wellnessHooperIndexUiState.value.sleep.toInt(),
       stress: wellnessHooperIndexUiState.value.stress.toInt(),
@@ -155,7 +160,6 @@ class DataController extends BaseController {
     );
 
     logger.w("requestData: ${requestData.toJson()}");
-    _postWellness(requestData);
 
     final id = wellnessId.value;
     if (id == null) {
