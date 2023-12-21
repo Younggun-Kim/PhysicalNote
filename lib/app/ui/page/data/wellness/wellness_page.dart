@@ -154,6 +154,7 @@ class _HooperIndex extends StatelessWidget {
               value: uiState.sleep,
               minValueName: StringRes.veryVeryGood.tr,
               maxValueName: StringRes.veryVeryBad.tr,
+              color: ColorRes.wellness5,
               onChanged: (double value) {
                 onChangeHooperIndex(HooperIndexType.sleep, value);
               },
@@ -165,6 +166,7 @@ class _HooperIndex extends StatelessWidget {
               value: uiState.stress,
               minValueName: StringRes.veryVeryGood.tr,
               maxValueName: StringRes.veryVeryBad.tr,
+              color: ColorRes.wellness3,
               onChanged: (double value) {
                 onChangeHooperIndex(HooperIndexType.stress, value);
               },
@@ -176,6 +178,7 @@ class _HooperIndex extends StatelessWidget {
               value: uiState.fatigue,
               minValueName: StringRes.veryVeryGood.tr,
               maxValueName: StringRes.veryVeryBad.tr,
+              color: ColorRes.wellness6,
               onChanged: (double value) {
                 onChangeHooperIndex(HooperIndexType.fatigue, value);
               },
@@ -187,6 +190,7 @@ class _HooperIndex extends StatelessWidget {
               value: uiState.muscleSoreness,
               minValueName: StringRes.veryVeryGood.tr,
               maxValueName: StringRes.veryVeryBad.tr,
+              color: ColorRes.wellness2,
               onChanged: (double value) {
                 onChangeHooperIndex(HooperIndexType.muscleSoreness, value);
               },
@@ -242,6 +246,7 @@ class _Urine extends StatelessWidget {
               value: table,
               minValueName: StringRes.satisfactory.tr,
               maxValueName: StringRes.insufficient.tr,
+              color: ColorRes.urine3,
               onChanged: (double value) {
                 onChangedUrine(value);
               },
@@ -287,6 +292,8 @@ class _SliderItem extends StatelessWidget {
 
   final String maxValueName;
 
+  final Color color;
+
   final Function(double value) onChanged;
 
   const _SliderItem({
@@ -295,6 +302,7 @@ class _SliderItem extends StatelessWidget {
     required this.value,
     required this.minValueName,
     required this.maxValueName,
+    required this.color,
     required this.onChanged,
   });
 
@@ -337,6 +345,7 @@ class _SliderItem extends StatelessWidget {
           const SizedBox(height: 10),
           _Slider(
             value: value,
+            color: color,
             onChanged: onChanged,
           ),
         ],
@@ -347,10 +356,13 @@ class _SliderItem extends StatelessWidget {
 class _Slider extends StatelessWidget {
   final double value;
 
+  final Color color;
+
   final Function(double value) onChanged;
 
   const _Slider({
     required this.value,
+    required this.color,
     required this.onChanged,
   });
 
@@ -370,9 +382,9 @@ class _Slider extends StatelessWidget {
         child: SliderTheme(
           data: SliderThemeData(
             trackHeight: 10,
-            activeTrackColor: ColorRes.wellness1,
+            activeTrackColor: color,
             inactiveTrackColor: ColorRes.white,
-            thumbColor: ColorRes.wellness1,
+            thumbColor: color,
             thumbShape: BorderThumbShape(),
             showValueIndicator: ShowValueIndicator.always,
             overlayShape: SliderComponentShape.noOverlay,

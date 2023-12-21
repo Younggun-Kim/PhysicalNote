@@ -4,16 +4,16 @@ import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_ind
 
 extension DataUiMapper on DataController {
   /// 웰리니스 매퍼
-  void setWellness(GetWellnessResponseModel data) {
+  void setWellness(GetWellnessResponseModel? data) {
     wellnessHooperIndexUiState.value = DataWellnessHooperIndexUiState(
-      sleep: _convertAndClampToRange(data.sleep ?? 1),
-      stress: _convertAndClampToRange(data.stress ?? 1),
-      fatigue: _convertAndClampToRange(data.fatigue ?? 1),
-      muscleSoreness: _convertAndClampToRange(data.muscleSoreness ?? 1),
+      sleep: _convertAndClampToRange(data?.sleep ?? 1),
+      stress: _convertAndClampToRange(data?.stress ?? 1),
+      fatigue: _convertAndClampToRange(data?.fatigue ?? 1),
+      muscleSoreness: _convertAndClampToRange(data?.muscleSoreness ?? 1),
     );
-    wellnessUrineTable.value = _convertAndClampToRange(data.urine ?? 1);
-    wellnessUrineWeight.value = data.emptyStomachWeight.toString();
-    wellnessUrineBmi.value = data.bodyFat.toString();
+    wellnessUrineTable.value = _convertAndClampToRange(data?.urine ?? 1);
+    wellnessUrineWeight.value = data?.emptyStomachWeight?.toString() ?? 0.0.toString();
+    wellnessUrineBmi.value = data?.bodyFat.toString() ?? "";
   }
 
   /// 슬라이더에 맞게 변환

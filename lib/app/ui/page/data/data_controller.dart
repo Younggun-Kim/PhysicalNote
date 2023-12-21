@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/app_constant.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
+import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
@@ -11,6 +12,8 @@ import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
+// TODO: 키보드 버그 수정, 스크롤뷰 클릭시 키보드 내려가게, API 저장 후 리스펀스로 세팅하는거 없애기.
+// TODO: isWellnessLoaded 로 Post, Put 나누기,
 class DataController extends BaseController {
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
@@ -135,14 +138,28 @@ class DataController extends BaseController {
   }
 
   /// 웰리니스 - 저장하기 클릭.
-  void onPressedWellnessSave() {}
+  void onPressedWellnessSave() {
+    final requestData = PostWellnessRequestModel(
+      sleep: wellnessHooperIndexUiState.value.sleep.toInt(),
+      stress: wellnessHooperIndexUiState.value.stress.toInt(),
+      fatigue: wellnessHooperIndexUiState.value.fatigue.toInt(),
+      muscleSoreness: wellnessHooperIndexUiState.value.muscleSoreness.toInt(),
+      urine: wellnessUrineTable.value.toInt(),
+      bodyFat: double.tryParse(wellnessUrineBmi.value) ?? 0.0,
+      emptyStomachWeight: double.tryParse(wellnessUrineWeight.value) ?? 0.0,
+      recordDate:
+          calendarUiState.value.focusedDate.toFormattedString("yyyy-MM-dd"),
+    );
+
+    logger.w("requestData: ${requestData.toJson()}");
+    _postWellness(requestData);
+  }
 
   /// 화면 정보 로딩.
   Future _loadApi() async {
     final currentMenu = menu.value;
 
     setLoading(true);
-    await Future.delayed(const Duration(seconds: 1));
     switch (currentMenu) {
       case DataMenuType.wellness:
         await _loadWellness();
@@ -152,6 +169,7 @@ class DataController extends BaseController {
         break;
     }
 
+    await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
   }
 
@@ -162,11 +180,20 @@ class DataController extends BaseController {
         calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
     final response = await wellnessApi.getWellness(date);
 
-    if (response == null) {
-      isWellnessLoaded.value = false;
-    } else {
-      setWellness(response);
-      isWellnessLoaded.value = true;
-    }
+    isWellnessLoaded.value = response?.id != null;
+    setWellness(response);
+  }
+
+  /// 웰리니스 저장하기.
+  Future<void> _postWellness(PostWellnessRequestModel requestData) async {
+    final wellnessApi = Get.find<WellnessAPI>();
+
+    setLoading(true);
+    final response = await wellnessApi.postWellness(requestData: requestData);
+    isWellnessLoaded.value = response?.id != null;
+    logger.w("response: ${response?.toJson()}");
+    setWellness(response);
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
   }
 }
