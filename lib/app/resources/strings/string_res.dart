@@ -13,7 +13,6 @@ class StringRes {
   static final bottomTabHome = _generateId();
   static final bottomTabFeedback = _generateId();
 
-
   static final email = _generateId();
   static final emailHint = _generateId();
   static final emailError = _generateId();
@@ -136,4 +135,7 @@ class StringRes {
   static final doSave = _generateId();
   static final doUpdate = _generateId();
 
+  /// DateTime 영역
+  static final hourParams = _generateId();
+  static final minParams = _generateId();
 }

@@ -26,7 +26,7 @@ class DataController extends BaseController {
 
   /// 캘린더 Ui State.
   late var calendarUiState = ExpansionCalendarUiState(
-    isExpanded: true,
+    isExpanded: false,
     currentDate: DateTime.now(),
     focusedDate: DateTime.now(),
   ).obs;
