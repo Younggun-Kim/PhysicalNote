@@ -129,4 +129,7 @@ final koKr = {
   StringRes.doUpdate: "수정하기",
   StringRes.hourParams: "@hour시간",
   StringRes.minParams: "@min분",
+  StringRes.performedWorkout: "어떤 운동을 했나요?",
+  StringRes.sportsTraining: "스포츠훈련",
+  StringRes.physicalTraining: "피지컬훈련",
 };

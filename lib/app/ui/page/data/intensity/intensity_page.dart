@@ -5,7 +5,27 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
 class IntensityPage extends StatelessWidget {
-  IntensityPage({super.key});
+  final int hour;
+
+  final int minute;
+
+  final Function(int) onSelectedHourChanged;
+
+  final Function(int) onSelectedMinChanged;
+
+  final bool? isSports;
+
+  final Function(bool) onPressedWorkout;
+
+  const IntensityPage({
+    super.key,
+    required this.hour,
+    required this.minute,
+    required this.onSelectedHourChanged,
+    required this.onSelectedMinChanged,
+    required this.isSports,
+    required this.onPressedWorkout,
+  });
 
   @override
   Widget build(BuildContext context) => FlexibleScrollView(
@@ -22,11 +42,76 @@ class IntensityPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            const TimePicker(
-              initHour: 2,
-              initMin: 59,
+            TimePicker(
+              initHour: hour,
+              initMin: minute,
+              onSelectedHourChanged: onSelectedHourChanged,
+              onSelectedMinChanged: onSelectedMinChanged,
             ),
+            const SizedBox(height: 30),
+            Text(
+              StringRes.performedWorkout.tr,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                color: ColorRes.fontBlack,
+              ),
+            ),
+            const SizedBox(height: 30),
+            Row(
+              children: [
+                _WorkoutButton(
+                    text: StringRes.sportsTraining.tr,
+                    isSelected: isSports == true,
+                    onPressed: () {
+                      onPressedWorkout(true);
+                    }
+                ),
+                const SizedBox(width: 8),
+                _WorkoutButton(
+                  text: StringRes.physicalTraining.tr,
+                  isSelected: isSports == false,
+                  onPressed: () {
+                    onPressedWorkout(false);
+                  }
+                ),
+              ],
+            )
           ],
+        ),
+      );
+}
+
+/// 운동 버튼.
+class _WorkoutButton extends StatelessWidget {
+  final String text;
+  final bool isSelected;
+  final VoidCallback onPressed;
+
+  const _WorkoutButton({
+    required this.text,
+    required this.isSelected,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) => Expanded(
+        child: RoundButton(
+          text: text,
+          isSelected: isSelected,
+          selectedColor: ColorRes.primary,
+          selectedTextStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: ColorRes.white,
+          ),
+          backgroundColor: ColorRes.white,
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: ColorRes.borderDeselect,
+          ),
+          onPressed: onPressed,
         ),
       );
 }

@@ -53,6 +53,7 @@ class OutlineRoundButton extends StatelessWidget {
             style: TextStyle(
               color: hasText ? ColorRes.fontBlack : ColorRes.fontDisable,
               fontSize: fontSize,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),

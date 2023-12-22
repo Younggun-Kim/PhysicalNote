@@ -124,4 +124,5 @@ final enUs = {
   StringRes.doUpdate: "수정하기",
   StringRes.hourParams: "@hour시간",
   StringRes.minParams: "@min분",
+  StringRes.performedWorkout: "어떤 운동을 했나요?",
 };

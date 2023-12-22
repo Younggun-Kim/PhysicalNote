@@ -72,7 +72,18 @@ class DataPage extends GetView<DataController> {
                     ),
                   ),
                 ),
-                SizedBox.expand(child: IntensityPage()),
+                SizedBox.expand(
+                  child: Obx(
+                    () => IntensityPage(
+                      hour: controller.intensityHour.value,
+                      minute: controller.intensityMinute.value,
+                      onSelectedHourChanged: controller.onSelectedHourChanged,
+                      onSelectedMinChanged: controller.onSelectedMinChanged,
+                      isSports: controller.intensitySports.value,
+                      onPressedWorkout: controller.onPressedWorkout,
+                    ),
+                  ),
+                ),
                 SizedBox.expand(child: InjuryPage()),
               ],
             ),

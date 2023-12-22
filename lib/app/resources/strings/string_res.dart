@@ -134,6 +134,9 @@ class StringRes {
   static final compellingRequest = _generateId();
   static final doSave = _generateId();
   static final doUpdate = _generateId();
+  static final performedWorkout = _generateId();
+  static final sportsTraining = _generateId();
+  static final physicalTraining = _generateId();
 
   /// DateTime 영역
   static final hourParams = _generateId();

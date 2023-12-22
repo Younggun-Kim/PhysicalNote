@@ -250,4 +250,32 @@ class DataController extends BaseController {
     await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
   }
+
+  /**
+   * 운동 강도 Intensity.
+   */
+
+  /// 운동 강도 - 시간.
+  var intensityHour = 0.obs;
+
+  /// 운동 강도 - 분
+  var intensityMinute = 0.obs;
+
+  /// 운동 강도 - 스포츠 선택 여부.
+  var intensitySports = (null as bool?).obs;
+
+  /// 운동 강도 - 시간 변경.
+  void onSelectedHourChanged(int value) {
+    intensityHour.value = value;
+  }
+
+  /// 운동 강도 - 시간 변경.
+  void onSelectedMinChanged(int value) {
+    intensityMinute.value = value;
+  }
+
+  /// 운동 강도 - 종류 선택.
+  void onPressedWorkout(bool isSports) {
+    intensitySports.value = isSports;
+  }
 }
