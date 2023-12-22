@@ -8,6 +8,7 @@ export 'slider/custom_slider_tick_mark_shape.dart';
 
 export 'bottom_sheet_list/bottom_sheet_list.dart';
 export 'list_dialog/list_dialog.dart';
+export 'custom_picker/time_picker.dart';
 
 export 'app_check_box.dart';
 export 'bottom_sheet_date_picker.dart';

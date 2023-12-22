@@ -127,4 +127,6 @@ final koKr = {
   StringRes.compellingRequest: "대략적으로 작성해주세요.",
   StringRes.doSave: "저장하기",
   StringRes.doUpdate: "수정하기",
+  StringRes.hourParams: "@hour시간",
+  StringRes.minParams: "@min분",
 };

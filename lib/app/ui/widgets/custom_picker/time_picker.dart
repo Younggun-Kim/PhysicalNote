@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 
 import 'custom_picker_selection_overlay.dart';
@@ -12,9 +13,9 @@ class TimePicker extends StatefulWidget {
 
   const TimePicker({
     super.key,
-    this.height = 150,
-    required this.initHour,
-    required this.initMin,
+    this.height = 90,
+    this.initHour = 0,
+    this.initMin = 0,
   });
 
   @override
@@ -22,6 +23,17 @@ class TimePicker extends StatefulWidget {
 }
 
 class _TimePickerState extends State<TimePicker> {
+  int selectedHour = 0;
+
+  int selectedMin = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedHour = widget.initHour;
+    selectedMin = widget.initMin;
+  }
+
   @override
   Widget build(BuildContext context) => SizedBox(
         height: widget.height,
@@ -30,44 +42,61 @@ class _TimePickerState extends State<TimePicker> {
             Expanded(
               child: CupertinoPicker(
                 looping: true,
-                scrollController: FixedExtentScrollController(initialItem: 1),
+                scrollController:
+                    FixedExtentScrollController(initialItem: widget.initHour),
                 itemExtent: 32.0,
                 onSelectedItemChanged: (int index) {
-                  // Handle selected time
+                  setState(() {
+                    selectedHour = index;
+                  });
                 },
                 selectionOverlay: CustomPickerSelectionOverlay(
-                  background: ColorRes.primary.withOpacity(0.2),
+                  background: ColorRes.primary.withOpacity(0.4),
                   capEndEdge: false,
                 ),
                 children: List.generate(
                   24,
                   (index) => Text(
-                    "${index + 1}시간",
-                    style: const TextStyle(fontSize: 20.0, height: 1.5),
+                    StringRes.hourParams.trParams({"hour": "$index"}),
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: index == selectedHour
+                          ? ColorRes.fontBlack
+                          : ColorRes.disable,
+                    ),
                   ),
                 ),
               ),
             ),
             Expanded(
-                child: CupertinoPicker(
-              looping: true,
-              scrollController: FixedExtentScrollController(initialItem: 1),
-              itemExtent: 32.0,
-              onSelectedItemChanged: (int index) {
-                // Handle selected time
-              },
-              selectionOverlay: CustomPickerSelectionOverlay(
-                background: ColorRes.primary.withOpacity(0.2),
-                capStartEdge: false,
-              ),
-              children: List.generate(
-                60,
-                (index) => Text(
-                  "$index분",
-                  style: const TextStyle(fontSize: 20.0, height: 1.5),
+              child: CupertinoPicker(
+                looping: true,
+                scrollController:
+                    FixedExtentScrollController(initialItem: widget.initMin),
+                itemExtent: 32.0,
+                onSelectedItemChanged: (int index) {
+                  setState(() {
+                    selectedMin = index;
+                  });
+                },
+                selectionOverlay: CustomPickerSelectionOverlay(
+                  background: ColorRes.primary.withOpacity(0.4),
+                  capStartEdge: false,
+                ),
+                children: List.generate(
+                  60,
+                  (index) => Text(
+                    StringRes.minParams.trParams({"min": "$index"}),
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: index == selectedMin
+                          ? ColorRes.fontBlack
+                          : ColorRes.disable,
+                    ),
+                  ),
                 ),
               ),
-            ))
+            ),
           ],
         ),
       );
