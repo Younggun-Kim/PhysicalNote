@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/app_constant.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
+import 'package:physical_note/app/data/intensity/intensity_api.dart';
+import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
@@ -178,6 +180,7 @@ class DataController extends BaseController {
       case DataMenuType.wellness:
         await _loadWellness();
       case DataMenuType.intensity:
+        await _loadIntensity();
         break;
       case DataMenuType.injury:
         break;
@@ -255,6 +258,9 @@ class DataController extends BaseController {
    * 운동 강도 Intensity.
    */
 
+  /// 운동 강도 - id;
+  var intensityId = (null as int?).obs;
+
   /// 운동 강도 - 시간.
   var intensityHour = 0.obs;
 
@@ -285,5 +291,22 @@ class DataController extends BaseController {
   /// 운동강도 - 레벨 선택.
   void onPressedLevel(int level) {
     intensityLevel.value = level;
+  }
+
+  /// 운동강도 - api 조회.
+  Future _loadIntensity() async {
+    final intensityApi = Get.find<IntensityAPI>();
+    final date =
+        calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
+    final response = await intensityApi.getIntensity(date);
+
+    if (response is GetIntensityListResponseModel) {
+      // setIntensity(response);
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+      setIntensity(null); // 값 초기화
+    }
   }
 }

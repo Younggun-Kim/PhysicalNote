@@ -1,3 +1,4 @@
+import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
@@ -14,6 +15,11 @@ extension DataUiMapper on DataController {
     wellnessUrineTable.value = _convertAndClampToRange(data?.urine ?? 1);
     wellnessUrineWeight.value = data?.emptyStomachWeight?.toString() ?? "";
     wellnessUrineBmi.value = data?.bodyFat.toString() ?? "";
+  }
+
+  /// 운동강도 매퍼.
+  void setIntensity(GetIntensityResponseModel? data) {
+
   }
 
   /// 슬라이더에 맞게 변환
