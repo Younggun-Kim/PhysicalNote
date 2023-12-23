@@ -74,12 +74,10 @@ class DataPage extends GetView<DataController> {
                 SizedBox.expand(
                   child: Obx(
                     () => IntensityPage(
-                      hour: controller.intensityHour.value,
-                      minute: controller.intensityMinute.value,
+                      workoutType: controller.intensityWorkoutType.value,
+                      uiState: controller.intensityUiState.value,
                       onSelectedHourChanged: controller.onSelectedHourChanged,
                       onSelectedMinChanged: controller.onSelectedMinChanged,
-                      uiStates: controller.intensityUiStates,
-                      workoutType: controller.intensityWorkoutType.value,
                       onPressedWorkout: controller.onPressedWorkout,
                       onPressedLevel: controller.onPressedLevel,
                     ),

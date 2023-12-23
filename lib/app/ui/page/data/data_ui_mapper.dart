@@ -18,8 +18,7 @@ extension DataUiMapper on DataController {
   }
 
   /// 운동강도 매퍼.
-  void setIntensity(GetIntensityListResponseModel? data) {
-
+  void setIntensity(GetIntensityListResponseModel? list) {
   }
 
   /// 슬라이더에 맞게 변환
@@ -39,5 +38,4 @@ extension DataUiMapper on DataController {
 
     return result;
   }
-
 }

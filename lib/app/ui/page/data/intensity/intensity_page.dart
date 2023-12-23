@@ -9,13 +9,10 @@ import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'intensity_table.dart';
 
 class IntensityPage extends StatelessWidget {
-  final int hour;
-
-  final int minute;
-
-  final List<IntensityPageUiState> uiStates;
 
   final WorkoutType? workoutType;
+
+  final IntensityPageUiState? uiState;
 
   final Function(int) onSelectedHourChanged;
 
@@ -27,18 +24,13 @@ class IntensityPage extends StatelessWidget {
 
   const IntensityPage({
     super.key,
-    required this.hour,
-    required this.minute,
-    required this.uiStates,
     required this.workoutType,
+    required this.uiState,
     required this.onSelectedHourChanged,
     required this.onSelectedMinChanged,
     required this.onPressedWorkout,
     required this.onPressedLevel,
   });
-
-  /// 운동 강도.
-  int get level => uiStates.firstWhere((element) => element.type == workoutType).level ?? 0;
 
   @override
   Widget build(BuildContext context) => FlexibleScrollView(
@@ -56,8 +48,8 @@ class IntensityPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TimePicker(
-              initHour: hour,
-              initMin: minute,
+              initHour: uiState?.hour ?? 0,
+              initMin:  uiState?.minute ?? 0,
               onSelectedHourChanged: onSelectedHourChanged,
               onSelectedMinChanged: onSelectedMinChanged,
             ),
@@ -99,7 +91,7 @@ class IntensityPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             IntensityTable(
-              level: level,
+              level: uiState?.level ?? 0,
               onPressed: onPressedLevel,
             ),
             const SizedBox(height: 30),
