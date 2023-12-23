@@ -78,6 +78,7 @@ class StringRes {
   static final urinalysisTable = _generateId();
   static final injuryRisk = _generateId();
   static final workoutIntensity = _generateId();
+  static final workoutIntensityKorEng = _generateId();
   static final noRecordAndRecordYourStatusToday = _generateId();
   static final emptyWeightParams = _generateId();
   static final emptyWeightWarning = _generateId();
@@ -137,8 +138,24 @@ class StringRes {
   static final performedWorkout = _generateId();
   static final sportsTraining = _generateId();
   static final physicalTraining = _generateId();
+  static final description = _generateId();
+  static final intensity = _generateId();
 
   /// DateTime 영역
   static final hourParams = _generateId();
   static final minParams = _generateId();
+
+  /// 운동강도 레벨.
+  static final intensityLevelVeryEasy = _generateId();
+  static final intensityLevelVeryEasyDescription = _generateId();
+  static final intensityLevelEasy = _generateId();
+  static final intensityLevelEasyDescription = _generateId();
+  static final intensityLevelNormal = _generateId();
+  static final intensityLevelNormalDescription = _generateId();
+  static final intensityLevelHard = _generateId();
+  static final intensityLevelHardDescription = _generateId();
+  static final intensityLevelVeryHard = _generateId();
+  static final intensityLevelVeryHardDescription = _generateId();
+  static final intensityLevelOver = _generateId();
+  static final intensityLevelOverDescription = _generateId();
 }

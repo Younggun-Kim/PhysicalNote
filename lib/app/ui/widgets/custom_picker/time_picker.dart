@@ -83,7 +83,7 @@ class _TimePickerItem extends StatelessWidget {
         itemExtent: 32.0,
         onSelectedItemChanged: onSelectedItemChanged,
         selectionOverlay: CustomPickerSelectionOverlay(
-          background: ColorRes.primary.withOpacity(0.4),
+          background: ColorRes.primary.withOpacity(0.3),
           capStartEdge: capStartEdge,
           capEndEdge: capEndEdge,
         ),
