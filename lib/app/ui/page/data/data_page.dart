@@ -81,6 +81,8 @@ class DataPage extends GetView<DataController> {
                       onSelectedMinChanged: controller.onSelectedMinChanged,
                       isSports: controller.intensitySports.value,
                       onPressedWorkout: controller.onPressedWorkout,
+                      level: controller.intensityLevel.value ?? 0,
+                      onPressedLevel: controller.onPressedLevel,
                     ),
                   ),
                 ),

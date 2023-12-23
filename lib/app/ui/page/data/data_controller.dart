@@ -264,6 +264,9 @@ class DataController extends BaseController {
   /// 운동 강도 - 스포츠 선택 여부.
   var intensitySports = (null as bool?).obs;
 
+  /// 운동 강도 - 레벨.
+  var intensityLevel = (null as int?).obs;
+
   /// 운동 강도 - 시간 변경.
   void onSelectedHourChanged(int value) {
     intensityHour.value = value;
@@ -277,5 +280,10 @@ class DataController extends BaseController {
   /// 운동 강도 - 종류 선택.
   void onPressedWorkout(bool isSports) {
     intensitySports.value = isSports;
+  }
+
+  /// 운동강도 - 레벨 선택.
+  void onPressedLevel(int level) {
+    intensityLevel.value = level;
   }
 }
