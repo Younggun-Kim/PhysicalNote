@@ -8,7 +8,6 @@ import 'package:physical_note/app/ui/page/data/wellness/wellness_page.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
-import 'package:physical_note/app/utils/utils.dart';
 
 import 'intensity/intensity_page.dart';
 
@@ -66,7 +65,7 @@ class DataPage extends GetView<DataController> {
                           controller.wellnessUrineWeight.controller,
                       bmiController: controller.wellnessUrineBmi.controller,
                       onPressedWellnessSave: () {
-                        controller.onPressedWellnessSave.emit();
+                        controller.onPressedWellnessSave();
                       },
                       isWellnessLoaded: controller.wellnessId.value != null,
                     ),
@@ -79,9 +78,9 @@ class DataPage extends GetView<DataController> {
                       minute: controller.intensityMinute.value,
                       onSelectedHourChanged: controller.onSelectedHourChanged,
                       onSelectedMinChanged: controller.onSelectedMinChanged,
-                      isSports: controller.intensitySports.value,
+                      uiStates: controller.intensityUiStates,
+                      workoutType: controller.intensityWorkoutType.value,
                       onPressedWorkout: controller.onPressedWorkout,
-                      level: controller.intensityLevel.value ?? 0,
                       onPressedLevel: controller.onPressedLevel,
                     ),
                   ),

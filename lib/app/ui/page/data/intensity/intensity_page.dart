@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
 import 'intensity_table.dart';
@@ -11,15 +13,15 @@ class IntensityPage extends StatelessWidget {
 
   final int minute;
 
+  final List<IntensityPageUiState> uiStates;
+
+  final WorkoutType? workoutType;
+
   final Function(int) onSelectedHourChanged;
 
   final Function(int) onSelectedMinChanged;
 
-  final bool? isSports;
-
-  final Function(bool) onPressedWorkout;
-
-  final int level;
+  final Function(WorkoutType) onPressedWorkout;
 
   final Function(int) onPressedLevel;
 
@@ -27,13 +29,16 @@ class IntensityPage extends StatelessWidget {
     super.key,
     required this.hour,
     required this.minute,
+    required this.uiStates,
+    required this.workoutType,
     required this.onSelectedHourChanged,
     required this.onSelectedMinChanged,
-    required this.isSports,
     required this.onPressedWorkout,
-    required this.level,
     required this.onPressedLevel,
   });
+
+  /// 운동 강도.
+  int get level => uiStates.firstWhere((element) => element.type == workoutType).level ?? 0;
 
   @override
   Widget build(BuildContext context) => FlexibleScrollView(
@@ -70,16 +75,16 @@ class IntensityPage extends StatelessWidget {
               children: [
                 _WorkoutButton(
                     text: StringRes.sportsTraining.tr,
-                    isSelected: isSports == true,
+                    isSelected: workoutType == WorkoutType.sports,
                     onPressed: () {
-                      onPressedWorkout(true);
+                      onPressedWorkout(WorkoutType.sports);
                     }),
                 const SizedBox(width: 8),
                 _WorkoutButton(
                     text: StringRes.physicalTraining.tr,
-                    isSelected: isSports == false,
+                    isSelected: workoutType == WorkoutType.physical,
                     onPressed: () {
-                      onPressedWorkout(false);
+                      onPressedWorkout(WorkoutType.physical);
                     }),
               ],
             ),

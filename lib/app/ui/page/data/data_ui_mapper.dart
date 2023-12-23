@@ -18,7 +18,7 @@ extension DataUiMapper on DataController {
   }
 
   /// 운동강도 매퍼.
-  void setIntensity(GetIntensityResponseModel? data) {
+  void setIntensity(GetIntensityListResponseModel? data) {
 
   }
 

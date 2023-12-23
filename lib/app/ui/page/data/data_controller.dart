@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/app_constant.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
+import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/data/intensity/intensity_api.dart';
 import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
@@ -13,11 +14,11 @@ import 'package:physical_note/app/data/wellness/wellness_api.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/data_ui_mapper.dart';
+import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
-import 'package:rxdart/rxdart.dart';
 
 class DataController extends BaseController {
   /// 스크롤 컨트롤러.
@@ -143,12 +144,8 @@ class DataController extends BaseController {
   }
 
   /// 웰리니스 - 저장하기 클릭.
-  late final onPressedWellnessSave = PublishSubject<void>()
-    ..clickThrottle()
-        .exhaustMap((value) => _onPressedWellnessSave().asStream())
-        .collect();
 
-  Future<void> _onPressedWellnessSave() async {
+  Future<void> onPressedWellnessSave() async {
     final requestData = PostWellnessRequestModel(
       sleep: wellnessHooperIndexUiState.value.sleep.toInt(),
       stress: wellnessHooperIndexUiState.value.stress.toInt(),
@@ -258,9 +255,6 @@ class DataController extends BaseController {
    * 운동 강도 Intensity.
    */
 
-  /// 운동 강도 - id;
-  var intensityId = (null as int?).obs;
-
   /// 운동 강도 - 시간.
   var intensityHour = 0.obs;
 
@@ -268,10 +262,13 @@ class DataController extends BaseController {
   var intensityMinute = 0.obs;
 
   /// 운동 강도 - 스포츠 선택 여부.
-  var intensitySports = (null as bool?).obs;
+  var intensityWorkoutType = (null as WorkoutType?).obs;
 
-  /// 운동 강도 - 레벨.
-  var intensityLevel = (null as int?).obs;
+  /// 운동 강도 Ui State
+  var intensityUiStates = <IntensityPageUiState>[
+    IntensityPageUiState(type: WorkoutType.physical),
+    IntensityPageUiState(type: WorkoutType.sports)
+  ].obs;
 
   /// 운동 강도 - 시간 변경.
   void onSelectedHourChanged(int value) {
@@ -284,13 +281,27 @@ class DataController extends BaseController {
   }
 
   /// 운동 강도 - 종류 선택.
-  void onPressedWorkout(bool isSports) {
-    intensitySports.value = isSports;
+  void onPressedWorkout(WorkoutType type) {
+    intensityWorkoutType.value = type;
   }
 
   /// 운동강도 - 레벨 선택.
   void onPressedLevel(int level) {
-    intensityLevel.value = level;
+    if (intensityWorkoutType.value == null) {
+      showToast("운동 종류를 선택해주세요.");
+      return;
+    }
+
+    final workoutType = intensityWorkoutType.value;
+
+    final newUiStates = intensityUiStates.map((e) {
+      final uiState = e;
+      if (uiState.type == workoutType) {
+        uiState.level = level;
+      }
+      return uiState;
+    }).toList();
+    intensityUiStates.value = newUiStates;
   }
 
   /// 운동강도 - api 조회.
@@ -301,7 +312,7 @@ class DataController extends BaseController {
     final response = await intensityApi.getIntensity(date);
 
     if (response is GetIntensityListResponseModel) {
-      // setIntensity(response);
+      setIntensity(response);
     } else {
       final message =
           (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
