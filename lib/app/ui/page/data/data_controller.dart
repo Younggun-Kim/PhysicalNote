@@ -270,6 +270,16 @@ class DataController extends BaseController {
     }
   }).toObs(null);
 
+  /// 운동 강도 - 시간 컨트롤러.
+  final intensityHourController = FixedExtentScrollController(
+    initialItem: 0,
+  );
+
+  /// 운동 강도 - 분 컨트롤러.
+  final intensityMinuteController = FixedExtentScrollController(
+    initialItem: 0,
+  );
+
   /// 운동 강도 - 스포츠 Ui State.
   final _intensitySportsUiState =
       IntensityPageUiState(type: WorkoutType.sports).obs;
@@ -281,6 +291,14 @@ class DataController extends BaseController {
   /// 운동 강도 - 종류 선택.
   void onPressedWorkout(WorkoutType type) {
     intensityWorkoutType.value = type;
+    if (type == WorkoutType.sports) {
+        intensityHourController.jumpToItem(_intensitySportsUiState.value.hour);
+        intensityMinuteController.jumpToItem(_intensitySportsUiState.value.minute);
+    } else if (type == WorkoutType.physical) {
+      intensityHourController.jumpToItem(_intensityPhysicalUiState.value.hour);
+      intensityMinuteController.jumpToItem(_intensityPhysicalUiState.value.minute);
+
+    } else {}
   }
 
   /// 운동 강도 - 시간 변경.

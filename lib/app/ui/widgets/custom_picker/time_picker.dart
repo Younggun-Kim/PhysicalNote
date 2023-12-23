@@ -7,9 +7,9 @@ import 'custom_picker_selection_overlay.dart';
 class TimePicker extends StatelessWidget {
   final double height;
 
-  final int initHour;
+  final FixedExtentScrollController hourController;
 
-  final int initMin;
+  final FixedExtentScrollController minuteController;
 
   final Function(int) onSelectedHourChanged;
 
@@ -18,8 +18,8 @@ class TimePicker extends StatelessWidget {
   const TimePicker({
     super.key,
     this.height = 90,
-    this.initHour = 0,
-    this.initMin = 0,
+    required this.hourController,
+    required this.minuteController,
     required this.onSelectedHourChanged,
     required this.onSelectedMinChanged,
   });
@@ -31,11 +31,12 @@ class TimePicker extends StatelessWidget {
           children: [
             Expanded(
               child: _TimePickerItem(
-                index: initHour,
+                controller: hourController,
                 text: (int index) {
                   return StringRes.hourParams
-                      .trParams({"hour": "${index + 1}"});
+                      .trParams({"hour": "${index}"});
                 },
+                length: 24,
                 capStartEdge: true,
                 capEndEdge: false,
                 onSelectedItemChanged: onSelectedHourChanged,
@@ -43,10 +44,11 @@ class TimePicker extends StatelessWidget {
             ),
             Expanded(
               child: _TimePickerItem(
-                index: initMin,
+                controller: minuteController,
                 text: (int index) {
-                  return StringRes.minParams.trParams({"min": "${index + 1}"});
+                  return StringRes.minParams.trParams({"min": "${index}"});
                 },
+                length: 60,
                 capStartEdge: false,
                 capEndEdge: true,
                 onSelectedItemChanged: onSelectedMinChanged,
@@ -58,9 +60,11 @@ class TimePicker extends StatelessWidget {
 }
 
 class _TimePickerItem extends StatelessWidget {
-  final int index;
+  final FixedExtentScrollController controller;
 
   final String Function(int index) text;
+
+  final int length;
 
   final bool capStartEdge;
 
@@ -69,8 +73,9 @@ class _TimePickerItem extends StatelessWidget {
   final Function(int) onSelectedItemChanged;
 
   const _TimePickerItem({
-    required this.index,
+    required this.controller,
     required this.text,
+    required this.length,
     required this.capStartEdge,
     required this.capEndEdge,
     required this.onSelectedItemChanged,
@@ -79,7 +84,7 @@ class _TimePickerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CupertinoPicker(
         looping: true,
-        scrollController: FixedExtentScrollController(initialItem: index),
+        scrollController: controller,
         itemExtent: 32.0,
         onSelectedItemChanged: onSelectedItemChanged,
         selectionOverlay: CustomPickerSelectionOverlay(
@@ -88,7 +93,7 @@ class _TimePickerItem extends StatelessWidget {
           capEndEdge: capEndEdge,
         ),
         children: List.generate(
-          24,
+          length,
           (index) => Text(
             text(index),
             style: TextStyle(

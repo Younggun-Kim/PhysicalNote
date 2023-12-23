@@ -10,6 +10,10 @@ import 'intensity_table.dart';
 
 class IntensityPage extends StatelessWidget {
 
+  final FixedExtentScrollController hourController;
+
+  final FixedExtentScrollController minuteController;
+
   final WorkoutType? workoutType;
 
   final IntensityPageUiState? uiState;
@@ -24,6 +28,8 @@ class IntensityPage extends StatelessWidget {
 
   const IntensityPage({
     super.key,
+    required this.hourController,
+    required this.minuteController,
     required this.workoutType,
     required this.uiState,
     required this.onSelectedHourChanged,
@@ -48,8 +54,8 @@ class IntensityPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TimePicker(
-              initHour: uiState?.hour ?? 0,
-              initMin:  uiState?.minute ?? 0,
+              hourController: hourController,
+              minuteController: minuteController,
               onSelectedHourChanged: onSelectedHourChanged,
               onSelectedMinChanged: onSelectedMinChanged,
             ),
