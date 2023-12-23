@@ -264,9 +264,9 @@ class DataController extends BaseController {
   IntensityPageUiState? _getIntensityUiState() {
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
-      return _intensitySportsUiState.value;
+      return intensitySportsUiState.value;
     } else if (type == WorkoutType.physical) {
-      return _intensityPhysicalUiState.value;
+      return intensityPhysicalUiState.value;
     } else {
       return null;
     }
@@ -283,38 +283,27 @@ class DataController extends BaseController {
   );
 
   /// 운동 강도 - 스포츠 Ui State.
-  final _intensitySportsUiState =
+  final intensitySportsUiState =
       IntensityPageUiState(type: WorkoutType.sports).obs;
 
   /// 운동 강도 - 피지컬 Ui State.
-  final _intensityPhysicalUiState =
+  final intensityPhysicalUiState =
       IntensityPageUiState(type: WorkoutType.physical).obs;
 
   /// 운동 강도 - 종류 선택.
   void onPressedWorkout(WorkoutType type) {
     intensityWorkoutType.value = type;
-
-    /// 시간 설정.
-    if (type == WorkoutType.sports) {
-      intensityHourController.jumpToItem(_intensitySportsUiState.value.hour);
-      intensityMinuteController
-          .jumpToItem(_intensitySportsUiState.value.minute);
-    } else if (type == WorkoutType.physical) {
-      intensityHourController.jumpToItem(_intensityPhysicalUiState.value.hour);
-      intensityMinuteController
-          .jumpToItem(_intensityPhysicalUiState.value.minute);
-    } else {}
   }
 
   /// 운동 강도 - 시간 변경.
   void onSelectedHourChanged(int value) {
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
-      _intensitySportsUiState.value.hour = value;
-      _intensityPhysicalUiState.refresh();
+      intensitySportsUiState.value.hour = value;
+      intensitySportsUiState.refresh();
     } else if (type == WorkoutType.physical) {
-      _intensityPhysicalUiState.value.hour = value;
-      _intensityPhysicalUiState.refresh();
+      intensityPhysicalUiState.value.hour = value;
+      intensityPhysicalUiState.refresh();
     } else {}
   }
 
@@ -322,11 +311,11 @@ class DataController extends BaseController {
   void onSelectedMinChanged(int value) {
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
-      _intensitySportsUiState.value.minute = value;
-      _intensityPhysicalUiState.refresh();
+      intensitySportsUiState.value.minute = value;
+      intensitySportsUiState.refresh();
     } else if (type == WorkoutType.physical) {
-      _intensityPhysicalUiState.value.minute = value;
-      _intensityPhysicalUiState.refresh();
+      intensityPhysicalUiState.value.minute = value;
+      intensityPhysicalUiState.refresh();
     } else {}
   }
 
@@ -334,11 +323,11 @@ class DataController extends BaseController {
   void onPressedLevel(int level) {
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
-      _intensitySportsUiState.value.level = level;
-      _intensityPhysicalUiState.refresh();
+      intensitySportsUiState.value.level = level;
+      intensitySportsUiState.refresh();
     } else if (type == WorkoutType.physical) {
-      _intensityPhysicalUiState.value.level = level;
-      _intensityPhysicalUiState.refresh();
+      intensityPhysicalUiState.value.level = level;
+      intensityPhysicalUiState.refresh();
     } else {
       showToast("운동 종류를 선택해주세요.");
     }
@@ -359,5 +348,19 @@ class DataController extends BaseController {
       showToast(message);
       setIntensity(null); // 값 초기화
     }
+  }
+
+  void updateTime() {
+    final type = intensityWorkoutType.value;
+
+    /// 시간 설정.
+    if (type == WorkoutType.sports) {
+      intensityHourController.jumpToItem(intensitySportsUiState.value.hour);
+      intensityMinuteController.jumpToItem(intensitySportsUiState.value.minute);
+    } else if (type == WorkoutType.physical) {
+      intensityHourController.jumpToItem(intensityPhysicalUiState.value.hour);
+      intensityMinuteController
+          .jumpToItem(intensityPhysicalUiState.value.minute);
+    } else {}
   }
 }

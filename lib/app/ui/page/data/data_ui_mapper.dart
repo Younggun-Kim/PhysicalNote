@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
@@ -19,6 +21,37 @@ extension DataUiMapper on DataController {
 
   /// 운동강도 매퍼.
   void setIntensity(GetIntensityListResponseModel? list) {
+    final data = list?.data;
+    if (data == null) {
+      intensityHourController.jumpToItem(0);
+      intensityMinuteController.jumpToItem(0);
+      intensityWorkoutType.value = null;
+    } else {
+      final sportsData = data.firstWhereOrNull(
+        (e) => e.workoutType == WorkoutType.sports.remote,
+      );
+      final physicalData = data.firstWhereOrNull(
+        (e) => e.workoutType == WorkoutType.sports.remote,
+      );
+
+      var originSportsUiState = intensitySportsUiState.value;
+      originSportsUiState.id = sportsData?.id;
+      originSportsUiState.level = sportsData?.intensityType;
+      originSportsUiState.hour = _convertTimeToHour(sportsData?.workoutTime);
+      originSportsUiState.minute = _convertTimeToMinute(sportsData?.workoutTime);
+      intensitySportsUiState.value = originSportsUiState;
+
+      var originPhysicalUiState = intensityPhysicalUiState.value;
+      originPhysicalUiState.id = physicalData?.id;
+      originPhysicalUiState.level = physicalData?.intensityType;
+      originPhysicalUiState.hour = _convertTimeToHour(physicalData?.workoutTime);
+      originPhysicalUiState.minute = _convertTimeToMinute(physicalData?.workoutTime);
+      intensityPhysicalUiState.value = originPhysicalUiState;
+
+      /// 재선택 처리.
+      intensityWorkoutType.refresh();
+      updateTime();
+    }
   }
 
   /// 슬라이더에 맞게 변환
@@ -37,5 +70,25 @@ extension DataUiMapper on DataController {
     }
 
     return result;
+  }
+
+  /// HH:mm:ss의 시간 가져오기
+  int _convertTimeToHour(String? time) {
+    final splitTime = time?.split(":");
+    if (splitTime != null && splitTime.isNotEmpty && splitTime.length == 3) {
+      return int.tryParse(splitTime.first.toString()) ?? 0;
+    } else {
+      return 0;
+    }
+  }
+
+  /// HH:mm:ss의 분 가져오기
+  int _convertTimeToMinute(String? time) {
+    final splitTime = time?.split(":");
+    if (splitTime != null && splitTime.isNotEmpty && splitTime.length == 3) {
+      return int.tryParse(splitTime[1].toString()) ?? 0;
+    } else {
+      return 0;
+    }
   }
 }
