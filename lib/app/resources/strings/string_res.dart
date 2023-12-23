@@ -134,6 +134,7 @@ class StringRes {
   static final bmiPercent = _generateId();
   static final compellingRequest = _generateId();
   static final doSave = _generateId();
+  static final save = _generateId();
   static final doUpdate = _generateId();
   static final performedWorkout = _generateId();
   static final sportsTraining = _generateId();

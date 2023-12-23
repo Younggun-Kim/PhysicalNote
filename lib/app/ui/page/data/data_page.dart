@@ -77,7 +77,7 @@ class DataPage extends GetView<DataController> {
                       hourController: controller.intensityHourController,
                       minuteController: controller.intensityMinuteController,
                       workoutType: controller.intensityWorkoutType.value,
-                      uiState: controller.intensityUiState.value,
+                      uiState: controller.intensityUiState,
                       onSelectedHourChanged: controller.onSelectedHourChanged,
                       onSelectedMinChanged: controller.onSelectedMinChanged,
                       onPressedWorkout: controller.onPressedWorkout,

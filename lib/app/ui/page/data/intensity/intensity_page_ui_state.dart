@@ -8,6 +8,9 @@ class IntensityPageUiState {
   int? level;
   WorkoutType type;
 
+  /// 선택 완료 여부.
+  bool get isEnabled => level != null;
+
   IntensityPageUiState({
     this.id,
     this.level,

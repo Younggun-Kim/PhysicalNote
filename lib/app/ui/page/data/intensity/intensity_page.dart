@@ -103,7 +103,8 @@ class IntensityPage extends StatelessWidget {
             const SizedBox(height: 30),
             RoundButton(
               width: double.infinity,
-              text: StringRes.doUpdate.tr,
+              isEnabled: uiState?.isEnabled ?? false,
+              text: StringRes.save.tr,
               onPressed: () {},
             ),
           ],

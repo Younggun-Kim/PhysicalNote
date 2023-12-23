@@ -34,7 +34,7 @@ class TimePicker extends StatelessWidget {
                 controller: hourController,
                 text: (int index) {
                   return StringRes.hourParams
-                      .trParams({"hour": "${index}"});
+                      .trParams({"hour": "$index"});
                 },
                 length: 24,
                 capStartEdge: true,
@@ -46,7 +46,7 @@ class TimePicker extends StatelessWidget {
               child: _TimePickerItem(
                 controller: minuteController,
                 text: (int index) {
-                  return StringRes.minParams.trParams({"min": "${index}"});
+                  return StringRes.minParams.trParams({"min": "$index"});
                 },
                 length: 60,
                 capStartEdge: false,
