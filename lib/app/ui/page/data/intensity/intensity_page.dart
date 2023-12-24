@@ -26,6 +26,8 @@ class IntensityPage extends StatelessWidget {
 
   final Function(int) onPressedLevel;
 
+  final VoidCallback onPressedSave;
+
   const IntensityPage({
     super.key,
     required this.hourController,
@@ -36,6 +38,7 @@ class IntensityPage extends StatelessWidget {
     required this.onSelectedMinChanged,
     required this.onPressedWorkout,
     required this.onPressedLevel,
+    required this.onPressedSave,
   });
 
   @override
@@ -105,7 +108,7 @@ class IntensityPage extends StatelessWidget {
               width: double.infinity,
               isEnabled: uiState?.isEnabled ?? false,
               text: StringRes.save.tr,
-              onPressed: () {},
+              onPressed: onPressedSave,
             ),
           ],
         ),

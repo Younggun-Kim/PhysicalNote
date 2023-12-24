@@ -7,6 +7,8 @@ import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/data/intensity/intensity_api.dart';
 import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
+import 'package:physical_note/app/data/intensity/model/post_intensity_request_model.dart';
+import 'package:physical_note/app/data/intensity/model/post_intensity_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
@@ -362,5 +364,47 @@ class DataController extends BaseController {
       intensityMinuteController
           .jumpToItem(intensityPhysicalUiState.value.minute);
     } else {}
+  }
+
+  Future<void> onPressedSaveButton() async {
+    final type = intensityWorkoutType.value;
+
+    if (type == null) {
+      showToast("운동을 선택해주세요.");
+      return;
+    }
+
+    final level = type == WorkoutType.sports
+        ? intensitySportsUiState.value.level
+        : intensityPhysicalUiState.value.level;
+    final time = type == WorkoutType.sports
+        ? intensitySportsUiState.value.time
+        : intensityPhysicalUiState.value.time;
+    final requestData = PostIntensityRequestModel(
+      intensityLevel: level,
+      workoutTime: time,
+      workoutType: type.remote,
+      recordDate:
+          calendarUiState.value.focusedDate.toFormattedString("yyyy-MM-dd"),
+    );
+
+    _postIntensity(requestData);
+  }
+
+  /// 운동 강도 저장.
+  Future<void> _postIntensity(PostIntensityRequestModel requestData) async {
+    setLoading(true);
+    final intensityApi = Get.find<IntensityAPI>();
+    final response = await intensityApi.postIntensity(requestData);
+
+    if (response is PostIntensityResponseModel) {
+      showToast("운동 강도 저장 성공.");
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
   }
 }
