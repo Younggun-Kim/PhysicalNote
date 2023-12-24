@@ -370,6 +370,9 @@ class DataController extends BaseController {
     final time = type == WorkoutType.sports
         ? intensitySportsUiState.value.time
         : intensityPhysicalUiState.value.time;
+    final intensityId = type == WorkoutType.sports
+        ? intensitySportsUiState.value.id
+        : intensityPhysicalUiState.value.id;
     final requestData = PostIntensityRequestModel(
       intensityLevel: level,
       workoutTime: time,
@@ -378,7 +381,11 @@ class DataController extends BaseController {
           calendarUiState.value.focusedDate.toFormattedString("yyyy-MM-dd"),
     );
 
-    _postIntensity(requestData);
+    if (intensityId == null) {
+      _postIntensity(requestData);
+    } else {
+      _putIntensityDetail(requestData, intensityId);
+    }
   }
 
   /// 운동 강도 저장.
@@ -386,6 +393,24 @@ class DataController extends BaseController {
     setLoading(true);
     final intensityApi = Get.find<IntensityAPI>();
     final response = await intensityApi.postIntensity(requestData);
+
+    if (response is PostIntensityResponseModel) {
+      showToast("운동 강도 저장 성공.");
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
+  }
+
+  /// 운동 강도 수정.
+  Future<void> _putIntensityDetail(
+      PostIntensityRequestModel requestData, int intensityId) async {
+    setLoading(true);
+    final intensityApi = Get.find<IntensityAPI>();
+    final response = await intensityApi.putIntensity(requestData, intensityId);
 
     if (response is PostIntensityResponseModel) {
       showToast("운동 강도 저장 성공.");

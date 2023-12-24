@@ -38,7 +38,24 @@ class IntensityAPI extends API {
       return failResponse;
     } else {
       final successResponse =
-          PostIntensityResponseModel.fromJson(response.body);
+      PostIntensityResponseModel.fromJson(response.body);
+      return successResponse;
+    }
+  }
+
+  /// 운동 강도 수정
+  Future<dynamic> putIntensity(PostIntensityRequestModel requestData, int intensityId) async {
+    logger.i("putIntensity: ${requestData.toJson()}");
+    final response = await put("$requestUrl/$intensityId", requestData.toJson());
+
+    logger.w(response.bodyString);
+
+    if (response.status.hasError) {
+      final failResponse = ServerResponseFailModel.fromJson(response.body);
+      return failResponse;
+    } else {
+      final successResponse =
+      PostIntensityResponseModel.fromJson(response.body);
       return successResponse;
     }
   }
