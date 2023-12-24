@@ -31,7 +31,7 @@ extension DataUiMapper on DataController {
         (e) => e.workoutType == WorkoutType.sports.remote,
       );
       final physicalData = data.firstWhereOrNull(
-        (e) => e.workoutType == WorkoutType.sports.remote,
+        (e) => e.workoutType == WorkoutType.physical.remote,
       );
 
       var originSportsUiState = intensitySportsUiState.value;
@@ -40,6 +40,7 @@ extension DataUiMapper on DataController {
       originSportsUiState.hour = _convertTimeToHour(sportsData?.workoutTime);
       originSportsUiState.minute = _convertTimeToMinute(sportsData?.workoutTime);
       intensitySportsUiState.value = originSportsUiState;
+      intensitySportsUiState.refresh();
 
       var originPhysicalUiState = intensityPhysicalUiState.value;
       originPhysicalUiState.id = physicalData?.id;
@@ -47,10 +48,11 @@ extension DataUiMapper on DataController {
       originPhysicalUiState.hour = _convertTimeToHour(physicalData?.workoutTime);
       originPhysicalUiState.minute = _convertTimeToMinute(physicalData?.workoutTime);
       intensityPhysicalUiState.value = originPhysicalUiState;
+      intensityPhysicalUiState.refresh();
 
       /// 재선택 처리.
       intensityWorkoutType.refresh();
-      updateTime();
+      updateIntensityWorkoutTime();
     }
   }
 

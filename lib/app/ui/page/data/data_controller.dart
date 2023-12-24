@@ -146,7 +146,6 @@ class DataController extends BaseController {
   }
 
   /// 웰리니스 - 저장하기 클릭.
-
   Future<void> onPressedWellnessSave() async {
     final requestData = PostWellnessRequestModel(
       sleep: wellnessHooperIndexUiState.value.sleep.toInt(),
@@ -261,18 +260,7 @@ class DataController extends BaseController {
   var intensityWorkoutType = (null as WorkoutType?).obs;
 
   /// 운동 강도 - UiState
-  IntensityPageUiState? get intensityUiState => _getIntensityUiState();
-
-  IntensityPageUiState? _getIntensityUiState() {
-    final type = intensityWorkoutType.value;
-    if (type == WorkoutType.sports) {
-      return intensitySportsUiState.value;
-    } else if (type == WorkoutType.physical) {
-      return intensityPhysicalUiState.value;
-    } else {
-      return null;
-    }
-  }
+  var intensityUiState = (null as IntensityPageUiState?).obs;
 
   /// 운동 강도 - 시간 컨트롤러.
   final intensityHourController = FixedExtentScrollController(
@@ -295,6 +283,7 @@ class DataController extends BaseController {
   /// 운동 강도 - 종류 선택.
   void onPressedWorkout(WorkoutType type) {
     intensityWorkoutType.value = type;
+    updateIntensityWorkoutTime();
   }
 
   /// 운동 강도 - 시간 변경.
@@ -352,7 +341,7 @@ class DataController extends BaseController {
     }
   }
 
-  void updateTime() {
+  void updateIntensityWorkoutTime() {
     final type = intensityWorkoutType.value;
 
     /// 시간 설정.
@@ -366,6 +355,7 @@ class DataController extends BaseController {
     } else {}
   }
 
+  /// 운동 강도 저장 버튼 클릭.
   Future<void> onPressedSaveButton() async {
     final type = intensityWorkoutType.value;
 

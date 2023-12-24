@@ -9,14 +9,15 @@ import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'intensity_table.dart';
 
 class IntensityPage extends StatelessWidget {
-
   final FixedExtentScrollController hourController;
 
   final FixedExtentScrollController minuteController;
 
   final WorkoutType? workoutType;
 
-  final IntensityPageUiState? uiState;
+  final IntensityPageUiState sportsUiState;
+
+  final IntensityPageUiState physicalUiState;
 
   final Function(int) onSelectedHourChanged;
 
@@ -33,13 +34,20 @@ class IntensityPage extends StatelessWidget {
     required this.hourController,
     required this.minuteController,
     required this.workoutType,
-    required this.uiState,
+    required this.sportsUiState,
+    required this.physicalUiState,
     required this.onSelectedHourChanged,
     required this.onSelectedMinChanged,
     required this.onPressedWorkout,
     required this.onPressedLevel,
     required this.onPressedSave,
   });
+
+  IntensityPageUiState? get uiState => workoutType == null
+      ? null
+      : workoutType == WorkoutType.sports
+          ? sportsUiState
+          : physicalUiState;
 
   @override
   Widget build(BuildContext context) => FlexibleScrollView(
