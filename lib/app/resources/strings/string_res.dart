@@ -141,6 +141,8 @@ class StringRes {
   static final physicalTraining = _generateId();
   static final description = _generateId();
   static final intensity = _generateId();
+  static final add = _generateId();
+  static final painCheckLocation = _generateId();
 
   /// DateTime 영역
   static final hourParams = _generateId();

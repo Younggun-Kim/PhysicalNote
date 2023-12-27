@@ -78,7 +78,8 @@ class DataPage extends GetView<DataController> {
                       minuteController: controller.intensityMinuteController,
                       workoutType: controller.intensityWorkoutType.value,
                       sportsUiState: controller.intensitySportsUiState.value,
-                      physicalUiState: controller.intensityPhysicalUiState.value,
+                      physicalUiState:
+                          controller.intensityPhysicalUiState.value,
                       onSelectedHourChanged: controller.onSelectedHourChanged,
                       onSelectedMinChanged: controller.onSelectedMinChanged,
                       onPressedWorkout: controller.onPressedWorkout,
@@ -87,7 +88,11 @@ class DataPage extends GetView<DataController> {
                     ),
                   ),
                 ),
-                SizedBox.expand(child: InjuryPage()),
+                SizedBox.expand(
+                  child: InjuryPage(
+                    onPressedAdd: controller.onPressedAdd,
+                  ),
+                ),
               ],
             ),
           ),

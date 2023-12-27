@@ -105,11 +105,12 @@ final enUs = {
   StringRes.lastFourWeek: "지난4주",
   StringRes.lastEightWeek: "지난8주",
   StringRes.unitPercent: "(단위: %)",
-  StringRes.informationRegistrationGuide : "추가정보를 등록해야만\n앱을 사용할 수 있습니다.",
+  StringRes.informationRegistrationGuide: "추가정보를 등록해야만\n앱을 사용할 수 있습니다.",
   StringRes.doInformationRegistration: "정보등록 하기",
   StringRes.wellness: "웰리니스",
   StringRes.wellnessKorEng: "웰리니스 (Wellness)",
-  StringRes.wellnessDescription: "팀 내 피지컬 코치 및 운동코치 또는 선수 개인이 웰리니스 관련 데이터를 수집하고 분석함으로써 운동 컨디션 및 삶의 질을 관리하고, 부상을 보다 효과적으로 예방하는데 도움이 됩니다. 뿐만아니라, 경기력 향상 및 유지하는데 또한 도움이 됩니다.",
+  StringRes.wellnessDescription:
+      "팀 내 피지컬 코치 및 운동코치 또는 선수 개인이 웰리니스 관련 데이터를 수집하고 분석함으로써 운동 컨디션 및 삶의 질을 관리하고, 부상을 보다 효과적으로 예방하는데 도움이 됩니다. 뿐만아니라, 경기력 향상 및 유지하는데 또한 도움이 됩니다.",
   StringRes.injuryCheck: "부상체크",
   StringRes.close: "닫기",
   StringRes.open: "열기",
@@ -127,17 +128,19 @@ final enUs = {
   StringRes.hourParams: "@hour시간",
   StringRes.minParams: "@min분",
   StringRes.performedWorkout: "어떤 운동을 했나요?",
-
   StringRes.intensityLevelVeryEasy: "매우 쉬움",
   StringRes.intensityLevelVeryEasyDescription: "힘들진 않지만 쉴때보다는 힘듦",
   StringRes.intensityLevelEasy: "쉬움",
   StringRes.intensityLevelEasyDescription: "몇시간은 운동 더 할 수 있음 숨쉬기 쉽고 대화가 가능",
   StringRes.intensityLevelNormal: "중간",
-  StringRes.intensityLevelNormalDescription: "숨이 거칠고, 짧은 대화가 가능함. 편안 하지만 더하면 힘들 것 같음",
+  StringRes.intensityLevelNormalDescription:
+      "숨이 거칠고, 짧은 대화가 가능함. 편안 하지만 더하면 힘들 것 같음",
   StringRes.intensityLevelHard: "힘듦",
   StringRes.intensityLevelHardDescription: "불편은 하지만 문장으로 말할 수 있음음",
   StringRes.intensityLevelVeryHard: "매우 힘듦",
   StringRes.intensityLevelVeryHardDescription: "운동강도를 유지하기 어려움",
   StringRes.intensityLevelOver: "100%이상",
   StringRes.intensityLevelOverDescription: "숨을 쉴 수 없음 대화불가능",
+  StringRes.add: "추가",
+  StringRes.painCheckLocation: "통증이 있는 곳을 체크해주세요."
 };

@@ -422,4 +422,9 @@ class DataController extends BaseController {
     await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
   }
+
+  /**
+   * 부상체크
+   */
+  void onPressedAdd() {}
 }
