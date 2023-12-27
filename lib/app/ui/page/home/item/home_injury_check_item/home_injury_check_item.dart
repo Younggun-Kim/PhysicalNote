@@ -62,7 +62,7 @@ class HomeInjuryCheckItem extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "${uiState.injuryType?.toKor() ?? ""}(${uiState.injuryLevelTypeString})",
+                  "${uiState.injuryType?.toString() ?? ""}(${uiState.injuryLevelTypeString})",
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,

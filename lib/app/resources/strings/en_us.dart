@@ -142,5 +142,8 @@ final enUs = {
   StringRes.intensityLevelOver: "100%이상",
   StringRes.intensityLevelOverDescription: "숨을 쉴 수 없음 대화불가능",
   StringRes.add: "추가",
-  StringRes.painCheckLocation: "통증이 있는 곳을 체크해주세요."
+  StringRes.painCheckLocation: "통증이 있는 곳을 체크해주세요.",
+  StringRes.injuryTypeContact: "접촉(타박상)",
+  StringRes.injuryTypeNonContact: "비접촉(오버트레이닝)",
+  StringRes.injuryTypeDisease: "질병",
 };

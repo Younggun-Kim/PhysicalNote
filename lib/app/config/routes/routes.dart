@@ -5,6 +5,7 @@ import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart
 import 'package:physical_note/app/ui/page/find_password/find_password.dart';
 import 'package:physical_note/app/ui/page/information_registration/information_registration.dart';
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide.dart';
+import 'package:physical_note/app/ui/page/injury_check/injury_check.dart';
 import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
@@ -122,6 +123,11 @@ class Routes {
       name: RouteType.INFORMATION_REGISTRATION_GUIDE,
       page: () => const InformationRegistrationGuidePage(),
       binding: InformationRegistrationGuideBindings(),
+    ),
+    GetPage(
+      name: RouteType.INJURY_CHECK,
+      page: () => const InjuryCheckPage(),
+      binding: InjuryCheckBindings(),
     ),
   ];
 }

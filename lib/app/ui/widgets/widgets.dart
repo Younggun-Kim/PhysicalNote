@@ -1,5 +1,6 @@
 export 'text_field/outline_text_field.dart';
 export 'buttons/label_button.dart';
+export 'buttons/base_button.dart';
 export 'buttons/outline_round_button.dart';
 export 'buttons/round_button.dart';
 

@@ -143,6 +143,7 @@ class StringRes {
   static final intensity = _generateId();
   static final add = _generateId();
   static final painCheckLocation = _generateId();
+  static final injuryLocationSelection = _generateId();
 
   /// DateTime 영역
   static final hourParams = _generateId();
@@ -161,4 +162,9 @@ class StringRes {
   static final intensityLevelVeryHardDescription = _generateId();
   static final intensityLevelOver = _generateId();
   static final intensityLevelOverDescription = _generateId();
+
+  /// 부상 타입.
+  static final injuryTypeContact = _generateId();
+  static final injuryTypeNonContact = _generateId();
+  static final injuryTypeDisease = _generateId();
 }

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/app_constant.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/intensity/intensity_api.dart';
 import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
 import 'package:physical_note/app/data/intensity/model/post_intensity_request_model.dart';
@@ -18,6 +19,7 @@ import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/data_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
+import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -423,8 +425,12 @@ class DataController extends BaseController {
     setLoading(false);
   }
 
+  // ignore: slash_for_doc_comments
   /**
    * 부상체크
    */
-  void onPressedAdd() {}
+  void onPressedAdd() {
+    final args = InjuryCheckArgs(date: calendarUiState.value.focusedDate);
+    Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
+  }
 }

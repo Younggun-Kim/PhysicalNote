@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 
 const _contact = "CONTACT";
 const _disease = "DISEASE";
@@ -17,14 +18,15 @@ enum InjuryType {
   static InjuryType? from(String? rawValue) =>
       values.firstWhereOrNull((e) => e.rawValue == rawValue);
 
-  String toKor() {
+  @override
+  String toString() {
     switch (this) {
       case InjuryType.contact:
-        return "접촉";
+        return StringRes.injuryTypeContact.tr;
       case InjuryType.nonContact:
-        return "비접촉";
+        return StringRes.injuryTypeNonContact.tr;
       case InjuryType.disease:
-        return "질병";
+        return StringRes.injuryTypeDisease.tr;
     }
   }
 }
