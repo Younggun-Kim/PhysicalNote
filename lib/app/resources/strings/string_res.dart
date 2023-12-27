@@ -144,6 +144,18 @@ class StringRes {
   static final add = _generateId();
   static final painCheckLocation = _generateId();
   static final injuryLocationSelection = _generateId();
+  static final injuryCheckDiseaseHint = _generateId();
+  static final front = _generateId();
+  static final back = _generateId();
+  static final upperBody = _generateId();
+  static final lowerBody = _generateId();
+  static final leftArm = _generateId();
+  static final rightArm = _generateId();
+  static final leftLeg = _generateId();
+  static final rightLeg = _generateId();
+  static final torso = _generateId();
+
+
 
   /// DateTime 영역
   static final hourParams = _generateId();

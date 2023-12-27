@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
@@ -7,14 +8,25 @@ class OutlineTextField extends StatelessWidget {
   // Container
   final double? height;
 
+  /// null이면 높이/2 로 자동 설정.
+  final BorderRadius? borderRadius;
+
+  final EdgeInsets? margin;
+
   // TextField
   final TextEditingController controller;
 
   final int? maxLength;
 
+  final int? maxLines;
+
   final TextInputType keyboardType;
 
   final bool obscureText; // 암호화 여부.
+
+  final bool expands;
+
+  final List<TextInputFormatter>? inputFormatter;
 
   // - Decoration
   final String hint;
@@ -41,11 +53,16 @@ class OutlineTextField extends StatelessWidget {
   const OutlineTextField({
     Key? key,
     this.height = 56,
+    this.borderRadius,
+    this.margin,
     required this.controller,
     this.maxLength,
+    this.maxLines = 1,
     this.keyboardType = TextInputType.emailAddress,
     this.obscureText = false,
+    this.expands = false,
     this.hint = "",
+    this.inputFormatter,
     this.contentPadding = const EdgeInsets.all(16),
     this.fontSize = 16,
     this.textColor = ColorRes.fontBlack,
@@ -58,18 +75,19 @@ class OutlineTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BorderRadius borderRadius =
+    BorderRadius defaultBorderRadius =
         BorderRadius.circular(MediaQuery.of(context).size.height * 0.5);
 
     return Container(
       width: double.infinity,
-      height: 56,
+      height: height,
       alignment: Alignment.center,
+      margin: margin,
       padding: contentPadding,
       decoration: BoxDecoration(
         color: readOnly ? ColorRes.disable : ColorRes.white,
         border: Border.all(color: ColorRes.borderWhite),
-        borderRadius: borderRadius,
+        borderRadius: borderRadius ?? defaultBorderRadius,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.25),
@@ -85,6 +103,8 @@ class OutlineTextField extends StatelessWidget {
             child: TextField(
               controller: controller,
               maxLength: maxLength,
+              expands: expands,
+              maxLines: maxLines,
               keyboardType: keyboardType,
               obscureText: obscureText,
               readOnly: readOnly,
@@ -106,6 +126,7 @@ class OutlineTextField extends StatelessWidget {
                 contentPadding: EdgeInsets.zero,
                 counterText: '',
               ),
+              inputFormatters: inputFormatter,
             ),
           ),
           Visibility(

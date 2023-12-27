@@ -146,4 +146,5 @@ final enUs = {
   StringRes.injuryTypeContact: "접촉(타박상)",
   StringRes.injuryTypeNonContact: "비접촉(오버트레이닝)",
   StringRes.injuryTypeDisease: "질병",
+  StringRes.injuryCheckDiseaseHint: "부상 경위 및 질병 내용을 작성 해주세요.\n(글자수 제한 40자)",
 };
