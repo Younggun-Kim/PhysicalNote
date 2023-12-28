@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/app_constant.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
+import 'package:physical_note/app/ui/page/feedback/items/feedback_schedule_item_tag_type.dart';
+import 'package:physical_note/app/ui/page/feedback/items/feedback_schedule_item_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -19,6 +21,53 @@ class FeedbackController extends BaseController {
 
   /// 오늘의 피드백.
   var todayFeedback = "".obs;
+
+  /// 월간 주요 일정.
+  var monthlySchedule = <FeedbackScheduleItemUiState>[
+    FeedbackScheduleItemUiState(
+      teamName: "FC",
+      period: "12월 18일(목)",
+      time: "09:30 ~ 11:00 ",
+      place: "강릉종합운동장",
+    ),
+    FeedbackScheduleItemUiState(
+      teamName: "FC",
+      period: "12월 18일(목)",
+      time: "09:30 ~ 11:00 ",
+      place: "강릉종합운동장",
+    ),
+    FeedbackScheduleItemUiState(
+      teamName: "FC",
+      period: "12월 18일(목)",
+      time: "09:30 ~ 11:00 ",
+      place: "강릉종합운동장",
+    ),
+    FeedbackScheduleItemUiState(
+      teamName: "FC",
+      period: "12월 18일(목)",
+      time: "09:30 ~ 11:00 ",
+      place: "강릉종합운동장",
+    ),
+  ].obs;
+
+  /// 오늘 일정.
+  var todaySchedule = <FeedbackScheduleItemUiState>[
+    FeedbackScheduleItemUiState(
+      tag: FeedbackScheduleItemTagType.field,
+      name: "전술훈련",
+      time: "09:30 ~ 11:00 ",
+      place: "강릉종합운동장",
+      training: "전술훈련",
+    ),
+    FeedbackScheduleItemUiState(
+      tag: FeedbackScheduleItemTagType.physical,
+      name: "전술훈련",
+      time: "09:30 ~ 11:00 ",
+      place: "강릉종합운동장",
+      training: "전술훈련",
+      imageUrl: "https://picsum.photos/200/300",
+    ),
+  ].obs;
 
   /// 스크롤 상단으로 이동.
   void scrollToTop() {

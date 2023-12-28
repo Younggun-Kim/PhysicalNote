@@ -171,4 +171,9 @@ final koKr = {
   StringRes.monthlySchedule: "월간 주요 일정",
   StringRes.todaySchedule: "오늘 일정",
   StringRes.contactDedicatedCoach: "전담코치에게 연락하기",
+  StringRes.field: "필드",
+  StringRes.period: "기간",
+  StringRes.time: "시간",
+  StringRes.place: "장소",
+  StringRes.trainingContent: "훈련내용",
 };

@@ -158,6 +158,12 @@ class ColorRes {
   /// 0xff222222.
   static const gray10 = Color(0xff222222);
 
+  /// 피드백 태그 그린 - 0xffedfbd5.
+  static const feedbackTagGreen = Color(0xffedfbd5);
+
+  /// 피드백 태그 그린 - 0xffcad5eb.
+  static const feedbackTagBlue = Color(0xffcad5eb);
+
   static MaterialColor _createMaterialColor(Color color) {
     List strengths = <double>[.05];
     Map<int, Color> swatch = {};

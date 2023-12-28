@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback_controller.dart';
+import 'package:physical_note/app/ui/page/feedback/items/feedback_schedule_item.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
@@ -60,7 +61,7 @@ class FeedbackPage extends GetView<FeedbackController> {
                     text: StringRes.todaySchedule.tr,
                   ),
                   const SizedBox(height: 20),
-                  _MonthlySchedule(),
+                  _TodaySchedule(),
                   const SizedBox(height: 20),
                   _ContactDedicatedCoach(),
                   const SizedBox(height: 20),
@@ -127,20 +128,41 @@ class _TodayFeedback extends GetView<FeedbackController> {
 /// 월간 주요 일정.
 class _MonthlySchedule extends GetView<FeedbackController> {
   @override
-  Widget build(BuildContext context) => ListView.separated(
-        shrinkWrap: true,
-        primary: false,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 120,
-            child: Text("hello"),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(height: 20);
-        },
-        itemCount: 10,
-      );
+  Widget build(BuildContext context) => Obx(
+        () => ListView.separated(
+      shrinkWrap: true,
+      primary: false,
+      itemBuilder: (BuildContext context, int index) {
+        final uiStates = controller.monthlySchedule.toList();
+        final uiState = uiStates[index];
+        return FeedbackScheduleItem(uiState: uiState);
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const SizedBox(height: 20);
+      },
+      itemCount: controller.monthlySchedule.length,
+    ),
+  );
+}
+
+/// 오늘 일정.
+class _TodaySchedule extends GetView<FeedbackController> {
+  @override
+  Widget build(BuildContext context) => Obx(
+        () => ListView.separated(
+      shrinkWrap: true,
+      primary: false,
+      itemBuilder: (BuildContext context, int index) {
+        final uiStates = controller.todaySchedule.toList();
+        final uiState = uiStates[index];
+        return FeedbackScheduleItem(uiState: uiState);
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const SizedBox(height: 20);
+      },
+      itemCount: controller.todaySchedule.length,
+    ),
+  );
 }
 
 /// 전담 코치에게 연락.

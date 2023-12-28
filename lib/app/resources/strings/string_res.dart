@@ -159,6 +159,11 @@ class StringRes {
   static final monthlySchedule = _generateId();
   static final todaySchedule = _generateId();
   static final contactDedicatedCoach = _generateId();
+  static final field = _generateId();
+  static final period = _generateId();
+  static final time = _generateId();
+  static final place = _generateId();
+  static final trainingContent = _generateId();
 
 
 
