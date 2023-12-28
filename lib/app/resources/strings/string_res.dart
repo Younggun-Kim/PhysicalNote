@@ -154,6 +154,11 @@ class StringRes {
   static final leftLeg = _generateId();
   static final rightLeg = _generateId();
   static final torso = _generateId();
+  static final todayFeedback = _generateId();
+  static final emptyFeedback = _generateId();
+  static final monthlySchedule = _generateId();
+  static final todaySchedule = _generateId();
+  static final contactDedicatedCoach = _generateId();
 
 
 

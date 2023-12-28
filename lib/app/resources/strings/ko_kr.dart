@@ -166,4 +166,9 @@ final koKr = {
   StringRes.leftLeg: "왼쪽다리",
   StringRes.rightLeg: "오른쪽다리",
   StringRes.torso: "몸통",
+  StringRes.todayFeedback: "오늘의 피드백",
+  StringRes.emptyFeedback: "피드백이 없습니다.",
+  StringRes.monthlySchedule: "월간 주요 일정",
+  StringRes.todaySchedule: "오늘 일정",
+  StringRes.contactDedicatedCoach: "전담코치에게 연락하기",
 };
