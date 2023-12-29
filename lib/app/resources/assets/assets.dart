@@ -36,5 +36,6 @@ class Assets {
   static const String userDefault = 'assets/images/user_default.svg';
   static const String userDefaultBasic = 'assets/images/user_default_basic.svg';
   static const String walkMan = 'assets/images/walk_man.svg';
+  static const String xClose = 'assets/images/x-close.svg';
 
 }
