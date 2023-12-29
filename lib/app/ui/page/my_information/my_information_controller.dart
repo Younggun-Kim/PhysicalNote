@@ -7,6 +7,7 @@ import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/common/common_api.dart';
 import 'package:physical_note/app/data/common/model/post_upload_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
+import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/data/workout/workout_api.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
@@ -220,5 +221,18 @@ class MyInformationController extends BaseController {
     }
 
     profile.value = PhotoModel(file: file, imageUrl: null);
+  }
+
+
+
+  /// 로그아웃.
+  void logout() {
+    final userStorage = UserStorage();
+
+    /// 저장된 토근 삭제
+    userStorage.apiKey.val = "";
+
+    /// 로그인으로 이동.
+    Get.offAndToNamed(RouteType.LOGIN);
   }
 }

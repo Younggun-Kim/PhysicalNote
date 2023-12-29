@@ -143,17 +143,6 @@ class HomeController extends BaseController {
     }
   }
 
-  /// 로그아웃.
-  void _logout() {
-    final userStorage = UserStorage();
-
-    /// 저장된 토근 삭제
-    userStorage.apiKey.val = "";
-
-    /// 로그인으로 이동.
-    Get.offAndToNamed(RouteType.LOGIN);
-  }
-
   /// 홈 로딩.
   Future<void> loadHome() async {
     final homeApi = Get.find<HomeAPI>();

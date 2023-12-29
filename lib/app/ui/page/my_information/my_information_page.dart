@@ -65,6 +65,9 @@ class _Header extends GetView<MyInformationController> {
         title: StringRes.myInformation.tr,
         showBack: true,
         onPressed: controller.close,
+    menu: LabelButton(
+      text: StringRes.logout.tr, onPressed: controller.logout,
+    ),
       );
 }
 

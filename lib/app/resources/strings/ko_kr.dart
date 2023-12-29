@@ -18,6 +18,7 @@ final koKr = {
   StringRes.findId: "아이디 찾기",
   StringRes.findPw: "비밀번호 찾기",
   StringRes.login: "로그인",
+  StringRes.logout: "로그아웃",
   StringRes.startWithSns: "SNS 계정으로 시작하기",
   StringRes.acceptTerms: "서비스 이용을 위해\n약관에 동의해주세요.",
   StringRes.allAgree: "전체 동의",
