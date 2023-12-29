@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/data/feedback/feedback_api.dart';
+import 'package:physical_note/app/data/feedback/model/get_feedback_response_model.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
-import 'package:physical_note/app/ui/page/feedback/items/feedback_schedule_item_tag_type.dart';
+import 'package:physical_note/app/ui/page/feedback/feedback_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/feedback/items/feedback_schedule_item_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
-import 'package:physical_note/app/utils/getx/base_controller.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 class FeedbackController extends BaseController {
@@ -23,51 +26,10 @@ class FeedbackController extends BaseController {
   var todayFeedback = "".obs;
 
   /// 월간 주요 일정.
-  var monthlySchedule = <FeedbackScheduleItemUiState>[
-    FeedbackScheduleItemUiState(
-      teamName: "FC",
-      period: "12월 18일(목)",
-      time: "09:30 ~ 11:00 ",
-      place: "강릉종합운동장",
-    ),
-    FeedbackScheduleItemUiState(
-      teamName: "FC",
-      period: "12월 18일(목)",
-      time: "09:30 ~ 11:00 ",
-      place: "강릉종합운동장",
-    ),
-    FeedbackScheduleItemUiState(
-      teamName: "FC",
-      period: "12월 18일(목)",
-      time: "09:30 ~ 11:00 ",
-      place: "강릉종합운동장",
-    ),
-    FeedbackScheduleItemUiState(
-      teamName: "FC",
-      period: "12월 18일(목)",
-      time: "09:30 ~ 11:00 ",
-      place: "강릉종합운동장",
-    ),
-  ].obs;
+  var monthlySchedule = <FeedbackScheduleItemUiState>[].obs;
 
   /// 오늘 일정.
-  var todaySchedule = <FeedbackScheduleItemUiState>[
-    FeedbackScheduleItemUiState(
-      tag: FeedbackScheduleItemTagType.field,
-      name: "전술훈련",
-      time: "09:30 ~ 11:00 ",
-      place: "강릉종합운동장",
-      training: "전술훈련",
-    ),
-    FeedbackScheduleItemUiState(
-      tag: FeedbackScheduleItemTagType.physical,
-      name: "전술훈련",
-      time: "09:30 ~ 11:00 ",
-      place: "강릉종합운동장",
-      training: "전술훈련",
-      imageUrl: "https://picsum.photos/200/300",
-    ),
-  ].obs;
+  var todaySchedule = <FeedbackScheduleItemUiState>[].obs;
 
   /// 스크롤 상단으로 이동.
   void scrollToTop() {
@@ -83,7 +45,7 @@ class FeedbackController extends BaseController {
     calendarUiState.value.focusedDate = newDate;
     calendarUiState.refresh();
 
-    // _loadApi();
+    _loadApi();
   }
 
   /// 년 클릭
@@ -131,5 +93,26 @@ class FeedbackController extends BaseController {
     calendarUiState.value.focusedDate = DateTime(currentFocusedDate.year,
         currentFocusedDate.month + 1, currentFocusedDate.day);
     calendarUiState.refresh();
+  }
+
+  /// API 조회.
+  Future _loadApi() async {
+    final feedbackApi = Get.find<FeedbackAPI>();
+    final date =
+        calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
+    final response = await feedbackApi.getFeedback(date);
+
+    if (response is GetFeedbackResponseModel) {
+      setFeedback(response);
+    } else {
+      // wellnessId.value = null;
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+      setFeedback(null); // 값 초기화
+    }
+
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
   }
 }

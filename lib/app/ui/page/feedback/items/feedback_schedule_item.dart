@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/feedback/items/feedback_schedule_item_ui_state.dart';
-
-import 'feedback_schedule_item_tag_type.dart';
 
 class FeedbackScheduleItem extends StatelessWidget {
   final FeedbackScheduleItemUiState uiState;
@@ -33,7 +30,7 @@ class FeedbackScheduleItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _Tag(tag: uiState.tag),
+            _Tag(tag: uiState.tag, tagColor: uiState.tagColor),
             _Team(name: uiState.teamName),
             _Content(
               fieldName: StringRes.period.tr,
@@ -55,8 +52,8 @@ class FeedbackScheduleItem extends StatelessWidget {
               fieldName: StringRes.trainingContent.tr,
               content: uiState.training,
             ),
-            _Image(
-              imageUrl: uiState.imageUrl,
+            _ImageList(
+              imageList: uiState.imageList,
             ),
           ],
         ),
@@ -65,10 +62,12 @@ class FeedbackScheduleItem extends StatelessWidget {
 
 /// 태그.
 class _Tag extends StatelessWidget {
-  final FeedbackScheduleItemTagType? tag;
+  final String? tag;
+  final Color? tagColor;
 
   const _Tag({
-    this.tag,
+    required this.tag,
+    required this.tagColor,
   });
 
   @override
@@ -77,9 +76,9 @@ class _Tag extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(bottom: 6),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 1),
-          color: tag?.toColor(),
+          color: tagColor ?? ColorRes.disable,
           child: Text(
-            tag?.toString() ?? "",
+            tag ?? "",
             style: const TextStyle(
               fontSize: 15,
               color: ColorRes.fontBlack,
@@ -155,30 +154,38 @@ class _Content extends StatelessWidget {
       );
 }
 
-class _Image extends StatelessWidget {
-  final String? imageUrl;
+class _ImageList extends StatelessWidget {
+  final List<String>? imageList;
 
-  const _Image({this.imageUrl});
+  const _ImageList({this.imageList});
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl != null) {
-      return Center(
-        child: Image.network(
-          imageUrl!,
-          height: 140,
-          fit: BoxFit.contain,
-          errorBuilder: (
-            BuildContext context,
-            Object error,
-            StackTrace? stackTrace,
-          ) {
-            return const SizedBox();
-          },
-        ),
+    final list = imageList;
+    if (list == null || list.isEmpty) {
+      return const SizedBox(
+        width: 0,
+        height: 0,
       );
-    } else {
-      return const SizedBox();
     }
+
+    return SizedBox(
+      height: 107,
+      child: ListView.separated(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: list.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Image.network(
+            list[index],
+            height: 107,
+            fit: BoxFit.cover,
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(width: 10);
+        },
+      ),
+    );
   }
 }

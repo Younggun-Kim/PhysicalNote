@@ -1,8 +1,11 @@
-import 'feedback_schedule_item_tag_type.dart';
+import 'package:flutter/material.dart';
 
 class FeedbackScheduleItemUiState {
   /// 태그.
-  final FeedbackScheduleItemTagType? tag;
+  final String? tag;
+
+  /// 태그 색상.
+  final Color? tagColor;
 
   /// 팀 이름.
   final String? teamName;
@@ -14,25 +17,26 @@ class FeedbackScheduleItemUiState {
   final String? name;
 
   /// 시간.
-  final String time;
+  final String? time;
 
   /// 장소.
-  final String place;
+  final String? place;
 
   /// 훈련내용.
   final String? training;
 
   /// 이미지 주소.
-  final String? imageUrl;
+  final List<String>? imageList;
 
   FeedbackScheduleItemUiState({
     this.tag,
+    this.tagColor,
     this.teamName,
     this.period,
     this.name,
-    required this.time,
+    this.time,
     required this.place,
     this.training,
-    this.imageUrl,
+    this.imageList,
   });
 }

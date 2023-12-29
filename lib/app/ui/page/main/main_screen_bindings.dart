@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/data/feedback/feedback_api.dart';
 import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/data/intensity/intensity_api.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
@@ -19,5 +20,6 @@ class MainScreenBindings extends Bindings {
     Get.lazyPut(() => HomeAPI());
     Get.lazyPut(() => WellnessAPI());
     Get.lazyPut(() => IntensityAPI());
+    Get.lazyPut(() => FeedbackAPI());
   }
 }
