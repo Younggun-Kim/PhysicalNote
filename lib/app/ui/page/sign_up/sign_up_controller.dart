@@ -4,10 +4,13 @@ import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
+import 'package:physical_note/app/ui/page/sign_up/sign_up_args.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SignUpController extends BaseController {
+  final args = Get.arguments as SignUpArgs;
+
   /// 이름.
   final name = "".obsWithController;
 

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/ui/page/sign_up/sign_up_args.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -47,10 +48,11 @@ class TermController extends LifecycleController {
 
   /// 다음 버튼 클릭.
   Future<void> onPressedNextButton() async {
-    final passResult = await Get.toNamed(RouteType.PASS);
+    final passToken = await Get.toNamed(RouteType.PASS) as String?;
 
-    if (passResult != null) {
-      Get.toNamed(RouteType.SIGN_UP);
+    if (passToken != null) {
+      final args = SignUpArgs(passToken: passToken);
+      Get.toNamed(RouteType.SIGN_UP, arguments: args);
     }
   }
 }
