@@ -176,4 +176,5 @@ final koKr = {
   StringRes.time: "시간",
   StringRes.place: "장소",
   StringRes.trainingContent: "훈련내용",
+  StringRes.noSchedule: "일정이 없습니다.",
 };

@@ -164,6 +164,7 @@ class StringRes {
   static final time = _generateId();
   static final place = _generateId();
   static final trainingContent = _generateId();
+  static final noSchedule = _generateId();
 
 
 

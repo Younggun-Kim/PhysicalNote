@@ -56,12 +56,22 @@ class FeedbackPage extends GetView<FeedbackController> {
                   ),
                   const SizedBox(height: 20),
                   _MonthlySchedule(),
+                  Obx(
+                    () => _EmptyText(
+                      visible: controller.monthlySchedule.toList().isEmpty,
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   _FieldName(
                     text: StringRes.todaySchedule.tr,
                   ),
                   const SizedBox(height: 20),
                   _TodaySchedule(),
+                  Obx(
+                    () => _EmptyText(
+                      visible: controller.todaySchedule.toList().isEmpty,
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   _ContactDedicatedCoach(),
                   const SizedBox(height: 20),
@@ -130,19 +140,19 @@ class _MonthlySchedule extends GetView<FeedbackController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => ListView.separated(
-      shrinkWrap: true,
-      primary: false,
-      itemBuilder: (BuildContext context, int index) {
-        final uiStates = controller.monthlySchedule.toList();
-        final uiState = uiStates[index];
-        return FeedbackScheduleItem(uiState: uiState);
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(height: 20);
-      },
-      itemCount: controller.monthlySchedule.length,
-    ),
-  );
+          shrinkWrap: true,
+          primary: false,
+          itemBuilder: (BuildContext context, int index) {
+            final uiStates = controller.monthlySchedule.toList();
+            final uiState = uiStates[index];
+            return FeedbackScheduleItem(uiState: uiState);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(height: 20);
+          },
+          itemCount: controller.monthlySchedule.length,
+        ),
+      );
 }
 
 /// 오늘 일정.
@@ -150,19 +160,19 @@ class _TodaySchedule extends GetView<FeedbackController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => ListView.separated(
-      shrinkWrap: true,
-      primary: false,
-      itemBuilder: (BuildContext context, int index) {
-        final uiStates = controller.todaySchedule.toList();
-        final uiState = uiStates[index];
-        return FeedbackScheduleItem(uiState: uiState);
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(height: 20);
-      },
-      itemCount: controller.todaySchedule.length,
-    ),
-  );
+          shrinkWrap: true,
+          primary: false,
+          itemBuilder: (BuildContext context, int index) {
+            final uiStates = controller.todaySchedule.toList();
+            final uiState = uiStates[index];
+            return FeedbackScheduleItem(uiState: uiState);
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(height: 20);
+          },
+          itemCount: controller.todaySchedule.length,
+        ),
+      );
 }
 
 /// 전담 코치에게 연락.
@@ -187,6 +197,30 @@ class _ContactDedicatedCoach extends GetView<FeedbackController> {
               const SizedBox(width: 8),
               SvgPicture.asset(Assets.phonePrimary),
             ],
+          ),
+        ),
+      );
+}
+
+/// 일정이 없습니다.
+class _EmptyText extends StatelessWidget {
+  final bool visible;
+
+  const _EmptyText({required this.visible});
+
+  @override
+  Widget build(BuildContext context) => Visibility(
+        visible: visible,
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(vertical: 30),
+          child: Text(
+            StringRes.noSchedule.tr,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.fontDisable,
+            ),
           ),
         ),
       );
