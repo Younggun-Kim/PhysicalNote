@@ -223,8 +223,6 @@ class MyInformationController extends BaseController {
     profile.value = PhotoModel(file: file, imageUrl: null);
   }
 
-
-
   /// 로그아웃.
   void logout() {
     final userStorage = UserStorage();
@@ -233,6 +231,6 @@ class MyInformationController extends BaseController {
     userStorage.apiKey.val = "";
 
     /// 로그인으로 이동.
-    Get.offAndToNamed(RouteType.LOGIN);
+    Get.offAllNamed(RouteType.LOGIN);
   }
 }
