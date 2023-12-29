@@ -178,4 +178,6 @@ final koKr = {
   StringRes.place: "장소",
   StringRes.trainingContent: "훈련내용",
   StringRes.noSchedule: "일정이 없습니다.",
+  StringRes.noAccounts: "기입된 계정이 없습니다.",
+  StringRes.snsAccounts: "SNS로 가입한 계정입니다.",
 };

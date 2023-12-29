@@ -166,6 +166,8 @@ class StringRes {
   static final place = _generateId();
   static final trainingContent = _generateId();
   static final noSchedule = _generateId();
+  static final noAccounts = _generateId();
+  static final snsAccounts = _generateId();
 
 
 

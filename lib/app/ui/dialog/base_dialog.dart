@@ -10,13 +10,19 @@ class BaseDialog extends StatelessWidget {
 
   final String yesText;
 
-  final VoidCallback onPressedYes;
+  final Future Function()? onPressedYes;
+
+  final String noText;
+
+  final Future Function()? onPressedNo;
 
   const BaseDialog({
     super.key,
     required this.text,
     required this.yesText,
     required this.onPressedYes,
+    required this.noText,
+    required this.onPressedNo,
   });
 
   @override
@@ -40,7 +46,7 @@ class BaseDialog extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
                   color: ColorRes.white,
@@ -58,18 +64,57 @@ class BaseDialog extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 40),
-                    Expanded(
-                      child: Text(
-                        text,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: ColorRes.fontBlack,
-                          fontWeight: FontWeight.w400,
-                        ),
+                    Text(
+                      text,
+                      softWrap: true,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: ColorRes.fontBlack,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                     const SizedBox(height: 60),
-                    BaseButton(text: yesText, onPressed: onPressedYes),
+                    Row(
+                      children: [
+                        if (yesText.isNotEmpty)
+                          Expanded(
+                            child: BaseButton(
+                              height: 56,
+                              isSelected: true,
+                              selectedTextStyle: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: ColorRes.white,
+                              ),
+                              text: yesText,
+                              onPressed: () async {
+                                if (onPressedYes != null) {
+                                  await onPressedYes!();
+                                }
+                                Get.back();
+                              },
+                            ),
+                          ),
+                        if (noText.isNotEmpty)
+                          Expanded(
+                            child: BaseButton(
+                              height: 56,
+                              text: noText,
+                              defaultTextStyle: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: ColorRes.fontBlack,
+                              ),
+                              onPressed: () async {
+                                if (onPressedNo != null) {
+                                  await onPressedYes!();
+                                }
+                                Get.back();
+                              },
+                            ),
+                          ),
+                      ],
+                    )
                   ],
                 ),
               ),

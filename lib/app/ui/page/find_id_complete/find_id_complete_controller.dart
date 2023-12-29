@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete_argument.dart';
+import 'package:physical_note/app/ui/page/find_password/find_password_args.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
-
 
 class FindIdCompleteController extends BaseController {
   /// Arguments.
@@ -17,7 +17,9 @@ class FindIdCompleteController extends BaseController {
   /// 비밀번호 찾기 클릭.
   void onPressedFindPassword() {
     Get.until((route) => Get.currentRoute == RouteType.LOGIN);
-    Get.toNamed(RouteType.FIND_PASSWORD);
+
+    final args = FindPasswordArgs(name: argument.name, email: argument.email);
+    Get.toNamed(RouteType.FIND_PASSWORD, arguments: args);
   }
 
   /// 로그인 버튼 클릭.

@@ -4,6 +4,8 @@ import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_find_id_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_find_id_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
+import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
@@ -60,8 +62,18 @@ class FindIdController extends BaseController {
           ?.firstWhereOrNull((element) => element.type == UserSnsType.idPw.name)
           ?.email;
 
-      if (response.status == false) {
-        /// 가입된 계정이 없습니다.
+      if (response.status == false || (response.accounts?.length ?? 0) == 0) {
+        Get.dialog(
+          BaseDialog(
+            text: StringRes.noAccounts.tr,
+            yesText: StringRes.signUp.tr,
+            onPressedYes: () async {
+              close();
+            },
+            noText: "",
+            onPressedNo: () async {},
+          ),
+        );
       } else if (email != null) {
         Get.toNamed(
           RouteType.FIND_ID_COMPLETE,
@@ -71,7 +83,16 @@ class FindIdController extends BaseController {
           ),
         );
       } else {
-        /// SNS 계정
+        Get.dialog(
+          BaseDialog(
+              text: StringRes.snsAccounts.tr,
+              yesText: StringRes.login.tr,
+              onPressedYes: () async {
+                close();
+              },
+              noText: "",
+              onPressedNo: () async {}),
+        );
       }
     } else {
       final message =

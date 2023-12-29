@@ -8,6 +8,7 @@ import 'package:physical_note/app/data/login/model/post_pass_response_model.dart
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id_args.dart';
+import 'package:physical_note/app/ui/page/find_password/find_password_args.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -54,7 +55,7 @@ class LoginController extends BaseController {
     final name = data.response.passInfo?.utf8_name;
 
     // TODO: 임시로 내 전화번호 박음
-    final phone = data.response.passInfo?.mobileno ?? "01049212480";
+    final phone = data.response.passInfo?.mobileno;
 
     if (name == null || phone == null) {
       return;
@@ -71,7 +72,13 @@ class LoginController extends BaseController {
 
   /// 비밀번호 찾기 클릭.
   void onPressedFindPw() {
-    Get.toNamed(RouteType.FIND_PASSWORD);
+    Get.toNamed(
+      RouteType.FIND_PASSWORD,
+      arguments: FindPasswordArgs(
+        name: null,
+        email: null,
+      ),
+    );
   }
 
   /// 로그인 버튼 클릭.
