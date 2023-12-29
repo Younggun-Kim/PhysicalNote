@@ -3,6 +3,8 @@ import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
+import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up_args.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -70,7 +72,6 @@ class SignUpController extends BaseController {
   }
 
   /// 로그인 버튼 클릭.
-  // TODO: Pass 연동 추가 필요.
   void onPressedLoginButton() async {
     unFocus();
     await Future.delayed(const Duration(milliseconds: 300));
@@ -79,23 +80,33 @@ class SignUpController extends BaseController {
 
   /// 로그인 요청.
   Future<void> postLogin() async {
+    setLoading(true);
     final loginApi = Get.find<LoginAPI>();
     final requestData = PostLoginSignInRequestModel(
       loginId: email.value,
-      passCode: "",
+      passCode: args.passToken,
       password: password.value,
       type: UserSnsType.idPw.name,
     );
     final response = await loginApi.postLoginSignIn(requestData: requestData);
-    final token = response?.token;
 
-    if (token == null) {
-      return;
+    if (response is PostLoginSignInResponseModel) {
+      final token = response.token;
+      if (response.status == false || token == null) {
+        showToast(response.message ?? "서버 에러");
+      } else {
+        // 토큰 저장 후 홈으로 이동.
+        final userStorage = UserStorage();
+        userStorage.apiKey.val = token;
+        Get.offAllNamed(RouteType.HOME);
+      }
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
     }
 
-    // 토큰 저장 후 홈으로 이동.
-    final userStorage = UserStorage();
-    userStorage.apiKey.val = token;
-    Get.offAllNamed(RouteType.HOME);
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
   }
 }
