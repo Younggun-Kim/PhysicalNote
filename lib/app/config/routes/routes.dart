@@ -10,6 +10,7 @@ import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
+import 'package:physical_note/app/ui/page/pass/pass.dart';
 import 'package:physical_note/app/ui/page/search_category/search_category.dart';
 import 'package:physical_note/app/ui/page/search_teams/search_teams.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up.dart';
@@ -128,6 +129,11 @@ class Routes {
       name: RouteType.INJURY_CHECK,
       page: () => const InjuryCheckPage(),
       binding: InjuryCheckBindings(),
+    ),
+    GetPage(
+      name: RouteType.PASS,
+      page: () => const PassPage(),
+      binding: PassBindings(),
     ),
   ];
 }

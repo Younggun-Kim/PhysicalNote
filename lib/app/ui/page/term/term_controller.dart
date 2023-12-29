@@ -46,7 +46,11 @@ class TermController extends LifecycleController {
   }
 
   /// 다음 버튼 클릭.
-  void onPressedNextButton() {
-    Get.toNamed(RouteType.SIGN_UP);
+  Future<void> onPressedNextButton() async {
+    final passResult = await Get.toNamed(RouteType.PASS);
+
+    if (passResult != null) {
+      Get.toNamed(RouteType.SIGN_UP);
+    }
   }
 }

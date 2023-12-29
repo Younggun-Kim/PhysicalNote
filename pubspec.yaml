@@ -62,6 +62,9 @@ dependencies:
   table_calendar: ^3.0.9
   expansion_widget: ^0.0.3
   flutter_keyboard_visibility: ^6.0.0
+  webview_flutter: ^4.4.2
+  webview_flutter_wkwebview: ^3.10.0
+  webview_flutter_android: ^3.13.1
 
 
 dev_dependencies:
