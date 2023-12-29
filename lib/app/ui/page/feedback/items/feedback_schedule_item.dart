@@ -139,15 +139,17 @@ class _Content extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(bottom: 2),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "$fieldName - ",
                 style: textStyle,
               ),
-              Text(
+              Expanded(child: Text(
                 content ?? "",
                 style: textStyle,
-              ),
+                softWrap: true,
+              ),),
             ],
           ),
         ),
@@ -171,19 +173,15 @@ class _ImageList extends StatelessWidget {
 
     return SizedBox(
       height: 107,
-      child: ListView.separated(
-        shrinkWrap: true,
+      child: PageView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: list.length,
         itemBuilder: (BuildContext context, int index) {
           return Image.network(
             list[index],
-            height: 107,
-            fit: BoxFit.cover,
+            height: 120,
+            fit: BoxFit.contain,
           );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(width: 10);
         },
       ),
     );

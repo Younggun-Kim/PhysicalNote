@@ -97,6 +97,7 @@ class FeedbackController extends BaseController {
 
   /// API 조회.
   Future _loadApi() async {
+    setLoading(true);
     final feedbackApi = Get.find<FeedbackAPI>();
     final date =
         calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');

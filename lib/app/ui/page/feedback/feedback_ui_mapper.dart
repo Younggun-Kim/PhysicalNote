@@ -8,7 +8,6 @@ import 'package:physical_note/app/utils/extensions/color_extensions.dart';
 import 'items/feedback_schedule_item_ui_state.dart';
 
 extension FeedbackUiMapper on FeedbackController {
-
   void setFeedback(GetFeedbackResponseModel? remoteData) {
     todayFeedback.value = remoteData?.todayFeedBack ?? "";
 
