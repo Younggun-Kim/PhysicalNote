@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id_controller.dart';
-import 'package:physical_note/app/ui/widgets/buttons/round_button.dart';
 
 import '../../widgets/widgets.dart';
 
@@ -90,6 +89,7 @@ class NameField extends GetView<FindIdController> {
             fontSize: 16,
             fontWeight: FontWeight.w400,
             hint: StringRes.nameHint.tr,
+            readOnly: true,
           ),
         ],
       ).paddingSymmetric(horizontal: 30);
@@ -112,6 +112,7 @@ class PhoneNumberField extends GetView<FindIdController> {
             hint: StringRes.phoneHint.tr,
             keyboardType: TextInputType.phone,
             maxLength: 11,
+            readOnly: true,
           ),
         ],
       ).paddingSymmetric(horizontal: 30);

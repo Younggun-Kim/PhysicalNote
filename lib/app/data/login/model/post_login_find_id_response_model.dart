@@ -7,7 +7,7 @@ part 'post_login_find_id_response_model.g.dart';
 @JsonSerializable()
 class PostLoginFindIdResponseModel {
 
-  final SocialAccountsModel? accounts;
+  final List<SocialAccountsModel>? accounts;
   final bool? status;
   final int? userId;
 

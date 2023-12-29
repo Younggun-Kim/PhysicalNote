@@ -8,8 +8,8 @@ part of 'social_accounts_model.dart';
 
 SocialAccountsModel _$SocialAccountsModelFromJson(Map<String, dynamic> json) =>
     SocialAccountsModel(
-      type: json['type'] as String,
-      email: json['email'] as String,
+      type: json['type'] as String?,
+      email: json['email'] as String?,
     );
 
 Map<String, dynamic> _$SocialAccountsModelToJson(

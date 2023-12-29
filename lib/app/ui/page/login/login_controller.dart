@@ -3,9 +3,15 @@ import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_request_model.dart';
+import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
+import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
+import 'package:physical_note/app/ui/page/find_id/find_id_args.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
+
+import 'login_pass_model.dart';
 
 class LoginController extends BaseController {
   final LoginAPI api;
@@ -40,8 +46,27 @@ class LoginController extends BaseController {
   }
 
   /// 아이디 찾기 클릭.
-  void onPressedFindId() {
-    Get.toNamed(RouteType.FIND_ID);
+  Future onPressedFindId() async {
+    final data = await _pass();
+    if (data == null) {
+      return;
+    }
+    final name = data.response.passInfo?.utf8_name;
+
+    // TODO: 임시로 내 전화번호 박음
+    final phone = data.response.passInfo?.mobileno ?? "01049212480";
+
+    if (name == null || phone == null) {
+      return;
+    }
+
+    final args = FindIdArgs(
+      name: name,
+      phone: phone,
+      passToken: data.passToken,
+    );
+
+    Get.toNamed(RouteType.FIND_ID, arguments: args);
   }
 
   /// 비밀번호 찾기 클릭.
@@ -89,5 +114,35 @@ class LoginController extends BaseController {
   void dispose() {
     email.close();
     super.dispose();
+  }
+
+  /// 패스 정보 조회
+  Future<LoginPassModel?> _pass() async {
+    final passToken = await Get.toNamed(RouteType.PASS) as String?;
+
+    if (passToken == null) {
+      return null;
+    }
+
+    setLoading(true);
+    final loginApi = Get.find<LoginAPI>();
+    final requestData = PostPassRequestModel(
+      code: passToken,
+      loginType: UserSnsType.idPw.name,
+    );
+    final response = await loginApi.postLoginPass(requestData);
+    if (response is PostPassResponseModel) {
+      setLoading(false);
+      return LoginPassModel(
+        passToken: passToken,
+        response: response,
+      );
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+      setLoading(false);
+      return null;
+    }
   }
 }

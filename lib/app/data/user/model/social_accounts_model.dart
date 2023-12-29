@@ -6,8 +6,8 @@ part 'social_accounts_model.g.dart';
 /// 유저 소셜 타입 모델
 @JsonSerializable()
 class SocialAccountsModel {
-  final String type;
-  final String email;
+  final String? type;
+  final String? email;
 
   SocialAccountsModel({
     required this.type,

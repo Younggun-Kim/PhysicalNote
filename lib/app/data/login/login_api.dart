@@ -9,6 +9,8 @@ import 'package:physical_note/app/data/network/api.dart';
 
 import '../../utils/logger/logger.dart';
 import '../network/model/server_response_fail/server_response_fail_model.dart';
+import 'model/post_pass_request_model.dart';
+import 'model/post_pass_response_model.dart';
 
 class LoginAPI extends API {
   LoginAPI() : super(basePath: "/login");
@@ -64,21 +66,34 @@ class LoginAPI extends API {
   }
 
   /// 아이디 찾기.
-  // TODO: Response 모델에 name, email 추가 필요.
-  Future<PostLoginFindIdResponseModel?> postLoginFindId(
+  Future<dynamic> postLoginFindId(
       {required PostLoginFindIdRequestModel requestData}) async {
     final response = await post(
       requestUrl + "/find_id",
       requestData.toJson(),
     );
 
+    logger.i(response.bodyString);
+
     if (response.status.hasError) {
-      return null;
+      return ServerResponseFailModel.fromJson(response.body);
     } else {
-      final successResponse =
-          PostLoginFindIdResponseModel.fromJson(response.body);
-      logger.i("Success Response: ${successResponse.toJson()}");
-      return successResponse;
+      return PostLoginFindIdResponseModel.fromJson(response.body);
+    }
+  }
+
+  /// Pass 정보 확인.
+  Future<dynamic> postLoginPass(PostPassRequestModel requestData) async {
+    final response = await post(
+      requestUrl + "/pass",
+      requestData.toJson(),
+    );
+
+    logger.i(response.bodyString);
+    if (response.status.hasError) {
+      return ServerResponseFailModel.fromJson(response.body);
+    } else {
+      return PostPassResponseModel.fromJson(response.body);
     }
   }
 }

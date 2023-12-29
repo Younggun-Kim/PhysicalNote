@@ -9,10 +9,9 @@ part of 'post_login_find_id_response_model.dart';
 PostLoginFindIdResponseModel _$PostLoginFindIdResponseModelFromJson(
         Map<String, dynamic> json) =>
     PostLoginFindIdResponseModel(
-      accounts: json['accounts'] == null
-          ? null
-          : SocialAccountsModel.fromJson(
-              json['accounts'] as Map<String, dynamic>),
+      accounts: (json['accounts'] as List<dynamic>?)
+          ?.map((e) => SocialAccountsModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       status: json['status'] as bool?,
       userId: json['userId'] as int?,
     );
