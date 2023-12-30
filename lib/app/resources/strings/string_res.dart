@@ -16,6 +16,7 @@ class StringRes {
   static final email = _generateId();
   static final emailHint = _generateId();
   static final emailError = _generateId();
+  static final emailDuplicated = _generateId();
   static final password = _generateId();
   static final passwordHint = _generateId();
   static final passwordError = _generateId();

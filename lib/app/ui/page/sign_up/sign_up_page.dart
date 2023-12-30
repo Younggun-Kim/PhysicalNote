@@ -110,16 +110,6 @@ class NameField extends GetView<SignUpController> {
             hint: StringRes.nameHint.tr,
             readOnly: true,
           ),
-          const SizedBox(height: 8),
-          Obx(
-            () => Visibility(
-              visible: controller.isValidName.value,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: ErrorText(text: StringRes.nameError.tr),
-              ),
-            ),
-          ),
         ],
       ).paddingSymmetric(horizontal: 30);
 }
@@ -145,10 +135,14 @@ class EmailField extends GetView<SignUpController> {
           const SizedBox(height: 8),
           Obx(
             () => Visibility(
-              visible: controller.isValidEmail.value,
+              visible: controller.isValidEmail.value ||
+                  controller.isDuplicatedEmail.value,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: ErrorText(text: StringRes.emailError.tr),
+                child: ErrorText(
+                    text: controller.isDuplicatedEmail.value
+                        ? StringRes.emailDuplicated.tr
+                        : StringRes.emailError.tr),
               ),
             ),
           ),
@@ -175,16 +169,6 @@ class PhoneNumberField extends GetView<SignUpController> {
             keyboardType: TextInputType.phone,
             maxLength: 11,
             readOnly: true,
-          ),
-          const SizedBox(height: 8),
-          Obx(
-            () => Visibility(
-              visible: controller.isValidPhoneNumber.value,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: ErrorText(text: StringRes.phoneNumberError.tr),
-              ),
-            ),
           ),
         ],
       ).paddingSymmetric(horizontal: 30);

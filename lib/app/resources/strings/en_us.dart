@@ -8,6 +8,7 @@ final enUs = {
   StringRes.email: "이메일",
   StringRes.emailHint: "이메일 주소를 입력하세요.",
   StringRes.emailError: "바른 이메일 양식을 입력해주세요.",
+  StringRes.emailDuplicated: "중복된 이메일입니다.",
   StringRes.password: "비밀번호",
   StringRes.passwordHint: "영문+특수문자+숫자를 포함한 8자 이상",
   StringRes.passwordError: "영문+특수문자+숫자를 포함한 8자 이상",

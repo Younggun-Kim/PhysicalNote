@@ -1,3 +1,4 @@
+import 'package:physical_note/app/data/login/model/post_check_id_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_find_id_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_find_id_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_relogin_response_model.dart';
@@ -94,6 +95,25 @@ class LoginAPI extends API {
       return ServerResponseFailModel.fromJson(response.body);
     } else {
       return PostPassResponseModel.fromJson(response.body);
+    }
+  }
+
+  /// 아이디 중복 확인.
+  Future<dynamic> postLoginSignInCheckId({required String loginId}) async {
+    logger.i("postLoginSignInCheckId: $loginId");
+    final response = await post(
+      requestUrl + "/signin/check_id",
+      {
+        "loginId": loginId,
+      },
+    );
+
+    logger.i(response.bodyString);
+
+    if (response.status.hasError) {
+      return ServerResponseFailModel.fromJson(response.body);
+    } else {
+      return PostCheckIdResponseModel.fromJson(response.body);
     }
   }
 }
