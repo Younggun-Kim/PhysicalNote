@@ -10,6 +10,7 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id_args.dart';
 import 'package:physical_note/app/ui/page/find_password/find_password_args.dart';
+import 'package:physical_note/app/ui/page/term/term_args.dart';
 import 'package:physical_note/app/utils/sns/kakao_login.dart';
 import 'package:physical_note/app/utils/sns/naver_login.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -46,7 +47,8 @@ class LoginController extends BaseController {
 
   /// 간편 회원가입 클릭.
   void onPressedSimpleSignUp() {
-    Get.toNamed(RouteType.TERM);
+    final args = TermArgs(snsType: UserSnsType.idPw, token: "");
+    Get.toNamed(RouteType.TERM, arguments: args);
   }
 
   /// 아이디 찾기 클릭.
@@ -136,7 +138,7 @@ class LoginController extends BaseController {
     String? token;
 
     if (response is PostLoginResponseModel) {
-      token = response.token;
+      token = response.token ?? "";
     } else {
       final message =
           (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
@@ -189,20 +191,21 @@ class LoginController extends BaseController {
       return;
     }
 
-    final token = await _postLogin(
+    final apiToken = await _postLogin(
       snsType: UserSnsType.naver,
       id: null,
       password: accessToken,
     );
 
-    if (token == null) {
-      /// 약관 동의로 이동.
-      /// 이때 accessToken 넘겨주기?
-      /// snsType만 넘겨주고 나머지 프로세스는 알아서 하도록 할까?
-    } else {
-      /// 정보 저장 후 로그인 하기.
-      _login(token, UserSnsType.naver);
+    if (apiToken == null) {
+      return;
     }
+
+    _login(
+      apiToken: apiToken,
+      accessToken: accessToken,
+      snsType: UserSnsType.naver,
+    );
   }
 
   /// 카카오 로그인.
@@ -214,27 +217,43 @@ class LoginController extends BaseController {
       return;
     }
 
-    final apiToekn = await _postLogin(
+    final apiToken = await _postLogin(
       snsType: UserSnsType.kakao,
       id: null,
       password: accessToken,
     );
 
-    if (apiToekn == null) {
-      /// 약관 동의로 이동.
-      /// 이때 accessToken 넘겨주기?
-      /// snsType만 넘겨주고 나머지 프로세스는 알아서 하도록 할까?
-    } else {
-      /// 정보 저장 후 로그인 하기.
-      _login(apiToekn, UserSnsType.kakao);
+    if (apiToken == null) {
+      return;
     }
+
+    _login(
+      apiToken: apiToken,
+      accessToken: accessToken,
+      snsType: UserSnsType.kakao,
+    );
   }
 
   /// 로그인 성공.
-  void _login(String token, UserSnsType snsType) {
-    final userStorage = UserStorage();
-    userStorage.snsType.val = snsType.toString();
-    userStorage.apiKey.val = token;
-    Get.offAllNamed(RouteType.MAIN);
+  void _login({
+    required String? apiToken,
+    required String accessToken,
+    required UserSnsType snsType,
+  }) {
+    final token = apiToken;
+    if (token == null || token.isEmpty) {
+      /// 약관 이동.
+      if (snsType == UserSnsType.kakao || snsType == UserSnsType.naver) {
+        final termArgs = TermArgs(snsType: snsType, token: accessToken);
+        Get.toNamed(RouteType.TERM, arguments: termArgs);
+      } else if (snsType == UserSnsType.apple) {
+        /// 애플 처리.
+      }
+    } else {
+      final userStorage = UserStorage();
+      userStorage.snsType.val = snsType.toString();
+      userStorage.apiKey.val = token;
+      Get.offAllNamed(RouteType.MAIN);
+    }
   }
 }
