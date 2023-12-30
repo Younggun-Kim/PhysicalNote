@@ -88,7 +88,7 @@ class SignUpController extends BaseController {
       loginId: email.value,
       passCode: args.passToken,
       password: password.value,
-      type: UserSnsType.idPw.name,
+      type: UserSnsType.idPw.toString(),
     );
     final response = await loginApi.postLoginSignIn(requestData: requestData);
 
@@ -100,6 +100,7 @@ class SignUpController extends BaseController {
         // 토큰 저장 후 홈으로 이동.
         final userStorage = UserStorage();
         userStorage.apiKey.val = token;
+        userStorage.snsType.val = UserSnsType.idPw.toString();
         Get.offAllNamed(RouteType.MAIN);
       }
     } else {

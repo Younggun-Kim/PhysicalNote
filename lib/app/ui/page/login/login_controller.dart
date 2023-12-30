@@ -47,7 +47,7 @@ class LoginController extends BaseController {
 
   /// 간편 회원가입 클릭.
   void onPressedSimpleSignUp() {
-    final args = TermArgs(snsType: UserSnsType.idPw, token: "");
+    final args = TermArgs(snsType: UserSnsType.idPw, accessToken: "");
     Get.toNamed(RouteType.TERM, arguments: args);
   }
 
@@ -244,7 +244,7 @@ class LoginController extends BaseController {
     if (token == null || token.isEmpty) {
       /// 약관 이동.
       if (snsType == UserSnsType.kakao || snsType == UserSnsType.naver) {
-        final termArgs = TermArgs(snsType: snsType, token: accessToken);
+        final termArgs = TermArgs(snsType: snsType, accessToken: accessToken);
         Get.toNamed(RouteType.TERM, arguments: termArgs);
       } else if (snsType == UserSnsType.apple) {
         /// 애플 처리.

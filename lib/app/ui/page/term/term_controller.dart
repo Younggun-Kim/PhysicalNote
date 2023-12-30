@@ -2,8 +2,11 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
+import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
+import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
+import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up_args.dart';
 import 'package:physical_note/app/ui/page/term/term_args.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -12,7 +15,6 @@ import 'package:rxdart/rxdart.dart';
 import '../../../data/network/model/server_response_fail/server_response_fail_model.dart';
 
 class TermController extends LifecycleController {
-
   var args = Get.arguments as TermArgs;
 
   /// 서비스 이용 약관.
@@ -70,12 +72,18 @@ class TermController extends LifecycleController {
         return;
       }
 
-      final args = SignUpArgs(
-        passToken: passToken,
-        name: name,
-        phone: phone,
-      );
-      Get.toNamed(RouteType.SIGN_UP, arguments: args);
+      /// IdPw는 회원가입 화면으로 이동.
+      if (args.snsType == UserSnsType.idPw) {
+        final args = SignUpArgs(
+          passToken: passToken,
+          name: name,
+          phone: phone,
+        );
+        Get.toNamed(RouteType.SIGN_UP, arguments: args);
+      } else {
+        /// 네이버, 카카오는 회원가입 API.
+        _postLoginSignIn(passToken);
+      }
     }
   }
 
@@ -85,7 +93,7 @@ class TermController extends LifecycleController {
     final loginApi = Get.find<LoginAPI>();
     final requestData = PostPassRequestModel(
       code: passToken,
-      loginType: UserSnsType.idPw.name,
+      loginType: args.snsType.toString(),
     );
     final response = await loginApi.postLoginPass(requestData);
     late PostPassResponseModel? result;
@@ -100,5 +108,39 @@ class TermController extends LifecycleController {
 
     setLoading(false);
     return result;
+  }
+
+  /// API - 회원가입.
+  // TODO: - 회원가입 API 실패 Invalid Roles 에러.
+  Future<void> _postLoginSignIn(String passToken) async {
+    setLoading(true);
+    final loginApi = Get.find<LoginAPI>();
+    final requestData = PostLoginSignInRequestModel(
+      loginId: null,
+      passCode: passToken,
+      password: args.accessToken,
+      type: args.snsType.toString(),
+    );
+    final response = await loginApi.postLoginSignIn(requestData: requestData);
+
+    if (response is PostLoginSignInResponseModel) {
+      final token = response.token;
+      if (response.status == false || token == null) {
+        showToast(response.message ?? "서버 에러");
+      } else {
+        // 토큰 저장 후 홈으로 이동.
+        final userStorage = UserStorage();
+        userStorage.apiKey.val = token;
+        userStorage.snsType.val = args.snsType.toString();
+        Get.offAllNamed(RouteType.MAIN);
+      }
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
   }
 }
