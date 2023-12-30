@@ -173,7 +173,6 @@ class HomeController extends BaseController {
     isWeekly.value = weekly;
   }
 
-
   /// 스크롤 상단으로 이동.
   void scrollToTop() {
     scrollController.animateTo(

@@ -108,6 +108,7 @@ class NameField extends GetView<SignUpController> {
             fontSize: 16,
             fontWeight: FontWeight.w400,
             hint: StringRes.nameHint.tr,
+            readOnly: true,
           ),
           const SizedBox(height: 8),
           Obx(
@@ -173,6 +174,7 @@ class PhoneNumberField extends GetView<SignUpController> {
             hint: StringRes.phoneHint.tr,
             keyboardType: TextInputType.phone,
             maxLength: 11,
+            readOnly: true,
           ),
           const SizedBox(height: 8),
           Obx(

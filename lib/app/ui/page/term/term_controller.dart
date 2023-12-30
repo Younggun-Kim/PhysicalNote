@@ -1,8 +1,14 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/login/login_api.dart';
+import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
+import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up_args.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
+
+import '../../../data/network/model/server_response_fail/server_response_fail_model.dart';
 
 class TermController extends LifecycleController {
   /// 서비스 이용 약관.
@@ -51,8 +57,44 @@ class TermController extends LifecycleController {
     final passToken = await Get.toNamed(RouteType.PASS) as String?;
 
     if (passToken != null) {
-      final args = SignUpArgs(passToken: passToken);
+      final passInfo = await _postLoginPass(passToken);
+      final name = passInfo?.passInfo?.utf8_name;
+      final phone = passInfo?.passInfo?.mobileno;
+
+      if (name == null || phone == null) {
+        showToast("패스 정보 조회 실패.");
+        return;
+      }
+
+      final args = SignUpArgs(
+        passToken: passToken,
+        name: name,
+        phone: phone,
+      );
       Get.toNamed(RouteType.SIGN_UP, arguments: args);
     }
+  }
+
+  /// 패스 정보 조회.
+  Future<PostPassResponseModel?> _postLoginPass(String passToken) async {
+    setLoading(true);
+    final loginApi = Get.find<LoginAPI>();
+    final requestData = PostPassRequestModel(
+      code: passToken,
+      loginType: UserSnsType.idPw.name,
+    );
+    final response = await loginApi.postLoginPass(requestData);
+    late PostPassResponseModel? result;
+    if (response is PostPassResponseModel) {
+      result = response;
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+      result = null;
+    }
+
+    setLoading(false);
+    return result;
   }
 }

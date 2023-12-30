@@ -14,7 +14,7 @@ class SignUpController extends BaseController {
   final args = Get.arguments as SignUpArgs;
 
   /// 이름.
-  final name = "".obsWithController;
+  late final name = args.name.obsWithController;
 
   /// 이름 유효성 검사.
   late final _isValidName =
@@ -29,7 +29,7 @@ class SignUpController extends BaseController {
   late final isValidEmail = _isValidEmail.not().toObs(false);
 
   /// 전화번호.
-  final phoneNumber = "".obsWithController;
+  late final phoneNumber = args.phone.obsWithController;
 
   /// 전화번호 유효성 검사.
   late final _isValidPhoneNumber =
