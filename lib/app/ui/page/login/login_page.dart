@@ -205,7 +205,8 @@ class _SnsField extends GetView<LoginController> {
               children: [
                 InkWellOver(
                   onTap: controller.onPressedNaver,
-                  child: SvgPicture.asset(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
                     Assets.imgNaver,
                     width: 44,
                     height: 44,
@@ -215,14 +216,14 @@ class _SnsField extends GetView<LoginController> {
                 const SizedBox(width: 24),
                 InkWellOver(
                   onTap: controller.onPressedKakao,
-                  child: SvgPicture.asset(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
                     Assets.imgKakao,
                     width: 44,
                     height: 44,
                     fit: BoxFit.contain,
                   ),
                 ),
-                const SizedBox(width: 24),
                 Visibility(visible: Platform.isIOS, child: _apple())
               ],
             ),
@@ -236,7 +237,8 @@ class _SnsField extends GetView<LoginController> {
           const SizedBox(width: 24),
           InkWellOver(
             onTap: controller.onPressedApple,
-            child: SvgPicture.asset(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.asset(
               Assets.imgApple,
               width: 44,
               height: 44,

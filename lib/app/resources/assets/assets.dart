@@ -15,9 +15,9 @@ class Assets {
   static const String hand = 'assets/images/hand.svg';
   static const String hand2 = 'assets/images/hand2.png';
   static const String icChevronright = 'assets/images/ic_chevronright.svg';
-  static const String imgApple = 'assets/images/img_apple.svg';
-  static const String imgKakao = 'assets/images/img_kakao.svg';
-  static const String imgNaver = 'assets/images/img_naver.svg';
+  static const String imgApple = 'assets/images/img_apple.png';
+  static const String imgKakao = 'assets/images/img_kakao.png';
+  static const String imgNaver = 'assets/images/img_naver.png';
   static const String logo = 'assets/images/logo.svg';
   static const String navigationData = 'assets/navigation_data.svg';
   static const String navigationDataSelect = 'assets/navigation_data_select.svg';

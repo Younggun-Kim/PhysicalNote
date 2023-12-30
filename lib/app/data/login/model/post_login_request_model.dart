@@ -5,7 +5,7 @@ part 'post_login_request_model.g.dart';
 
 @JsonSerializable()
 class PostLoginRequestModel {
-  final String loginId;
+  final String? loginId;
   final String password;
   final String type;
 

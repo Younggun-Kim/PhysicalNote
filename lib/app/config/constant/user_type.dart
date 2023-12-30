@@ -1,11 +1,28 @@
+import 'package:get/get.dart';
+
 /// 유저 Sns 타입.
 enum UserSnsType {
-  idPw('IDPW'),
-  naver('NAVER'),
-  kakao('KAKAO'),
-  apple('APPLE');
+  idPw,
+  naver,
+  kakao,
+  apple;
 
-  const UserSnsType(this.name);
+  /// Key로 초기화
+  static UserSnsType? from(String? key) =>
+      values.firstWhereOrNull((element) => element.toString() == key);
 
-  final String name;
+  @override
+  String toString() {
+    super.toString();
+    switch (this) {
+      case idPw:
+        return "IDPW";
+      case naver:
+        return "NAVER";
+      case kakao:
+        return "KAKAO";
+      case apple:
+        return "APPLE";
+    }
+  }
 }

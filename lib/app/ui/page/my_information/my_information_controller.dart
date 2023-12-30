@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/config/constant/photo_model.dart';
+import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/common/common_api.dart';
 import 'package:physical_note/app/data/common/model/post_upload_response_model.dart';
@@ -229,6 +231,11 @@ class MyInformationController extends BaseController {
 
     /// 저장된 토근 삭제
     userStorage.apiKey.val = "";
+
+    /// 네이버 로그아웃.
+    if (userStorage.snsType.val == UserSnsType.naver.toString()) {
+      FlutterNaverLogin.logOut();
+    }
 
     /// 로그인으로 이동.
     Get.offAllNamed(RouteType.LOGIN);

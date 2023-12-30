@@ -9,7 +9,7 @@ part of 'post_login_request_model.dart';
 PostLoginRequestModel _$PostLoginRequestModelFromJson(
         Map<String, dynamic> json) =>
     PostLoginRequestModel(
-      loginId: json['loginId'] as String,
+      loginId: json['loginId'] as String?,
       password: json['password'] as String,
       type: json['type'] as String,
     );

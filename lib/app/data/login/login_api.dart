@@ -17,19 +17,20 @@ class LoginAPI extends API {
   LoginAPI() : super(basePath: "/login");
 
   /// 로그인 요청.
-  Future<PostLoginResponseModel?> postLogin(
-      PostLoginRequestModel requestData) async {
+  Future<dynamic> postLogin(PostLoginRequestModel requestData) async {
+    logger.w("postLogin: ${requestData.toJson()}");
+
     final response = await post(
       requestUrl,
       requestData.toJson(),
     );
 
+    logger.i(response.bodyString);
+
     if (response.status.hasError) {
-      return null;
+      return ServerResponseFailModel.fromJson(response.body);
     } else {
-      final successResponse = PostLoginResponseModel.fromJson(response.body);
-      logger.i("Success Response: ${successResponse.toJson()}");
-      return successResponse;
+      return PostLoginResponseModel.fromJson(response.body);
     }
   }
 
