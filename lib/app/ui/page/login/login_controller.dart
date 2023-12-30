@@ -52,9 +52,8 @@ class LoginController extends BaseController {
     if (data == null) {
       return;
     }
-    final name = data.response.passInfo?.utf8_name;
 
-    // TODO: 임시로 내 전화번호 박음
+    final name = data.response.passInfo?.utf8_name;
     final phone = data.response.passInfo?.mobileno;
 
     if (name == null || phone == null) {

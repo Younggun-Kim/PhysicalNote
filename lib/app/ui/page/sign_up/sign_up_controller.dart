@@ -100,7 +100,7 @@ class SignUpController extends BaseController {
         // 토큰 저장 후 홈으로 이동.
         final userStorage = UserStorage();
         userStorage.apiKey.val = token;
-        Get.offAllNamed(RouteType.HOME);
+        Get.offAllNamed(RouteType.MAIN);
       }
     } else {
       final message =
