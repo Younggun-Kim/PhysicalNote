@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="naver_client_id">oGV76_UU0fFmR6vzyVdz</string>
+    <string name="naver_client_secret">y7yXIKAAKR</string>
+    <string name="naver_client_name">피지컬노트</string>
+
+</resources>
