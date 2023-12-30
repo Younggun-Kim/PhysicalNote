@@ -11,6 +11,7 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id_args.dart';
 import 'package:physical_note/app/ui/page/find_password/find_password_args.dart';
+import 'package:physical_note/app/utils/sns/kakao_login.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -104,7 +105,7 @@ class LoginController extends BaseController {
 
   /// 카카오 클릭.
   void onPressedKakao() {
-    logger.i("카카오 로그인 클릭");
+    _kakaoLogin();
   }
 
   /// 애플 클릭.
@@ -209,7 +210,27 @@ class LoginController extends BaseController {
 
   /// 카카오 로그인.
   void _kakaoLogin() async {
+    final kakaoLogin = Get.find<KakaoLogin>();
+    final accessToken = await kakaoLogin.login();
+    if (accessToken == null) {
+      logger.e("카카오 액세스 토큰이 없습니다.");
+      return;
+    }
 
+    final apiToekn = await _postLogin(
+      snsType: UserSnsType.kakao,
+      id: null,
+      password: accessToken,
+    );
+
+    if (apiToekn == null) {
+      /// 약관 동의로 이동.
+      /// 이때 accessToken 넘겨주기?
+      /// snsType만 넘겨주고 나머지 프로세스는 알아서 하도록 할까?
+    } else {
+      /// 정보 저장 후 로그인 하기.
+      _login(apiToekn, UserSnsType.kakao);
+    }
   }
 
   /// 로그인 성공.
