@@ -99,7 +99,7 @@ class LoginController extends BaseController {
 
   /// 네이버 클릭.
   void onPressedNaver() {
-    naverLogin();
+    _naverLogin();
   }
 
   /// 카카오 클릭.
@@ -178,7 +178,8 @@ class LoginController extends BaseController {
     }
   }
 
-  void naverLogin() async {
+  /// 네이버 로그인
+  void _naverLogin() async {
     await FlutterNaverLogin.logOutAndDeleteToken();
     await FlutterNaverLogin.logIn();
     final accessToken = await FlutterNaverLogin.currentAccessToken;
@@ -204,6 +205,11 @@ class LoginController extends BaseController {
       /// 정보 저장 후 로그인 하기.
       _login(token, UserSnsType.naver);
     }
+  }
+
+  /// 카카오 로그인.
+  void _kakaoLogin() async {
+
   }
 
   /// 로그인 성공.

@@ -50,5 +50,9 @@
             android:name="com.naver.sdk.clientName"
             android:value="@string/client_name" />
 
+        <!-- 카카오 로그인 -->
+        <data android:scheme="kakaod41654df0b89d74f77469d7b21eaf295" android:host="oauth"/>
+
+
     </application>
 </manifest>
