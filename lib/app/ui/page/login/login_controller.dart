@@ -1,4 +1,3 @@
-import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
@@ -12,6 +11,7 @@ import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id_args.dart';
 import 'package:physical_note/app/ui/page/find_password/find_password_args.dart';
 import 'package:physical_note/app/utils/sns/kakao_login.dart';
+import 'package:physical_note/app/utils/sns/naver_login.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -181,13 +181,10 @@ class LoginController extends BaseController {
 
   /// 네이버 로그인
   void _naverLogin() async {
-    await FlutterNaverLogin.logOutAndDeleteToken();
-    await FlutterNaverLogin.logIn();
-    final accessToken = await FlutterNaverLogin.currentAccessToken;
+    final naverLogin = Get.find<NaverLogin>();
+    final accessToken = await naverLogin.login();
 
-    logger.i("Naver Access Token : $accessToken");
-
-    if (accessToken.accessToken.isEmpty) {
+    if (accessToken == null || accessToken.isEmpty) {
       logger.i("네이버 액세스 토큰이 없습니다.");
       return;
     }
@@ -195,7 +192,7 @@ class LoginController extends BaseController {
     final token = await _postLogin(
       snsType: UserSnsType.naver,
       id: null,
-      password: accessToken.accessToken,
+      password: accessToken,
     );
 
     if (token == null) {
