@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
+import 'package:physical_note/app/ui/page/find_id_complete/items/find_id_compete_item.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
 class FindIdCompletePage extends GetView<FindIdCompleteController> {
@@ -25,15 +26,33 @@ class FindIdCompletePage extends GetView<FindIdCompleteController> {
                 ),
               ),
               const SizedBox(height: 60),
-              const Spacer(),
-              LabelButton(
-                text: StringRes.findPw.tr,
-                textStyle: const TextStyle(
-                  color: ColorRes.fontDisable,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
+              Obx(
+                () => Expanded(
+                    child: ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    final uiState = controller.accounts.toList()[index];
+                    return FindIdCompleteItem(uiState: uiState);
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(height: 20);
+                  },
+                  itemCount: controller.accounts.length,
+                )),
+              ),
+              Obx(
+                () => Visibility(
+                  visible: controller.hasEmail.value,
+                  child: LabelButton(
+                    text: StringRes.findPw.tr,
+                    textStyle: const TextStyle(
+                      color: ColorRes.fontDisable,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    onPressed: controller.onPressedFindPassword,
+                  ),
                 ),
-                onPressed: controller.onPressedFindPassword,
               ),
               const SizedBox(height: 12),
               RoundButton(

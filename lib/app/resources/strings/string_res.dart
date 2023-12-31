@@ -170,6 +170,9 @@ class StringRes {
   static final noAccounts = _generateId();
   static final snsAccounts = _generateId();
   static final resultOfSignedInId = _generateId();
+  static final kakaoUser = _generateId();
+  static final naverUser = _generateId();
+  static final appleUser = _generateId();
 
 
 

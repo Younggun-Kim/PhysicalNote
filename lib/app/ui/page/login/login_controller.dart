@@ -10,7 +10,7 @@ import 'package:physical_note/app/data/login/model/post_pass_request_model.dart'
 import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
-import 'package:physical_note/app/ui/page/find_id/find_id_args.dart';
+import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/page/find_password/find_password_args.dart';
 import 'package:physical_note/app/ui/page/term/term_args.dart';
 import 'package:physical_note/app/utils/sns/apple_login.dart';
@@ -56,6 +56,9 @@ class LoginController extends BaseController {
 
   /// 아이디 찾기 클릭.
   Future onPressedFindId() async {
+    // Get.toNamed(RouteType.FIND_ID_COMPLETE, arguments: FindIdCompleteArgument(name: "김영건", phone: "01049212480"));
+    // return;
+
     final data = await _pass();
     if (data == null) {
       return;
@@ -68,13 +71,8 @@ class LoginController extends BaseController {
       return;
     }
 
-    final args = FindIdArgs(
-      name: name,
-      phone: phone,
-      passToken: data.passToken,
-    );
+    Get.toNamed(RouteType.FIND_ID_COMPLETE, arguments: FindIdCompleteArgument(name: name, phone: phone));
 
-    Get.toNamed(RouteType.FIND_ID, arguments: args);
   }
 
   /// 비밀번호 찾기 클릭.
