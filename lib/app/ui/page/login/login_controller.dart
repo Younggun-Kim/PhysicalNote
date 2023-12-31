@@ -16,7 +16,6 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/items/find_id_compete_item_ui_state.dart';
-import 'package:physical_note/app/ui/page/find_password/find_password_args.dart';
 import 'package:physical_note/app/ui/page/term/term_args.dart';
 import 'package:physical_note/app/utils/sns/apple_login.dart';
 import 'package:physical_note/app/utils/sns/kakao_login.dart';
@@ -61,9 +60,6 @@ class LoginController extends BaseController {
 
   /// 아이디 찾기 클릭.
   Future onPressedFindId() async {
-    // Get.toNamed(RouteType.FIND_ID_COMPLETE, arguments: FindIdCompleteArgument(name: "김영건", phone: "01049212480"));
-    // return;
-
     final data = await _pass();
     if (data == null) {
       return;
@@ -81,16 +77,7 @@ class LoginController extends BaseController {
 
     if (accounts == null || accounts.isEmpty) {
       /// 가입 내역 없음.
-      Get.dialog(
-        BaseDialog(
-            text: StringRes.noAccounts.tr,
-            yesText: StringRes.signUp.tr,
-            onPressedYes: () async {
-              Get.toNamed(RouteType.SIGN_UP);
-            },
-            noText: "",
-            onPressedNo: null),
-      );
+      _showNoAccountsDialog();
     } else {
       final uiStates = accounts
           .map((e) {
@@ -118,14 +105,34 @@ class LoginController extends BaseController {
   }
 
   /// 비밀번호 찾기 클릭.
-  void onPressedFindPw() {
-    Get.toNamed(
-      RouteType.FIND_PASSWORD,
-      arguments: FindPasswordArgs(
-        name: null,
-        email: null,
-      ),
-    );
+  void onPressedFindPw() async {
+    /// Pass 인증.
+    final data = await _pass();
+    if (data == null) {
+      return;
+    }
+
+    final name = data.response.passInfo?.utf8_name;
+    final phone = data.response.passInfo?.mobileno;
+
+    if (name == null || phone == null) {
+      logger.e("패스 정보에 이름 또는 전화번호가 없습니다.");
+      return;
+    }
+
+    /// 비밀번호 찾기 API.
+    final accounts = await _findPwStep1(data.passToken);
+    final emailAccount = accounts
+        ?.firstWhere((element) => element.type == UserSnsType.idPw.toString());
+
+    if (accounts == null || accounts.isEmpty) {
+      _showNoAccountsDialog();
+    } else if (emailAccount == null) {
+      /// SNS 계정.
+      _showSnsAccounts();
+    } else {
+      /// 비밀번호 재설정으로 이동.
+    }
   }
 
   /// 로그인 버튼 클릭.
@@ -164,7 +171,7 @@ class LoginController extends BaseController {
     super.dispose();
   }
 
-  /// API: 로그인 요청
+  /// API - 로그인 요청
   Future<String?> _postLogin({
     required UserSnsType snsType,
     required String? id,
@@ -384,5 +391,47 @@ class LoginController extends BaseController {
     await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
     return result;
+  }
+
+  /// API - 비밀번호 찾기.
+  Future<List<SocialAccountsModel>?> _findPwStep1(String passCode) async {
+    setLoading(true);
+    final loginApi = Get.find<LoginAPI>();
+    final response = await loginApi.postLoginFindPwStep1(code: passCode);
+
+    List<SocialAccountsModel>? result;
+    if (response is PostLoginFindIdResponseModel) {
+      result = response.accounts;
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
+    return result;
+  }
+
+  /// 가입 내역 없음 다이얼로그.
+  void _showNoAccountsDialog() {
+    Get.dialog(BaseDialog(
+        text: StringRes.noAccounts.tr,
+        yesText: StringRes.signUp.tr,
+        onPressedYes: () async {
+          Get.toNamed(RouteType.SIGN_UP);
+        },
+        noText: "",
+        onPressedNo: null));
+  }
+
+  /// SnS로 가입된 계정 다이얼로그..
+  void _showSnsAccounts() {
+    Get.dialog(BaseDialog(
+        text: StringRes.snsAccounts.tr,
+        yesText: StringRes.confirm.tr,
+        onPressedYes: () async {},
+        noText: "",
+        onPressedNo: null));
   }
 }

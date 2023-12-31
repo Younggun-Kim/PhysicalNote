@@ -82,6 +82,22 @@ class LoginAPI extends API {
     }
   }
 
+  /// 아이디 찾기.
+  Future<dynamic> postLoginFindPwStep1({required String code}) async {
+    final response = await post(
+      requestUrl + "/find_pw/step1",
+      {"code": code},
+    );
+
+    logger.i(response.bodyString);
+
+    if (response.status.hasError) {
+      return ServerResponseFailModel.fromJson(response.body);
+    } else {
+      return PostLoginFindIdResponseModel.fromJson(response.body);
+    }
+  }
+
   /// Pass 정보 확인.
   Future<dynamic> postLoginPass(PostPassRequestModel requestData) async {
     final response = await post(
