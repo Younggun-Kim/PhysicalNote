@@ -2,7 +2,7 @@
 abstract class SnsLogin {
 
   /// 로그인.
-  Future<String?> login();
+  Future<dynamic> login();
 
   /// 로그아웃.
   void logout();

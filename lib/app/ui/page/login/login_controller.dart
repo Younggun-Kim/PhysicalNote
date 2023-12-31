@@ -4,6 +4,8 @@ import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_response_model.dart';
+import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
+import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
@@ -11,6 +13,7 @@ import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/page/find_id/find_id_args.dart';
 import 'package:physical_note/app/ui/page/find_password/find_password_args.dart';
 import 'package:physical_note/app/ui/page/term/term_args.dart';
+import 'package:physical_note/app/utils/sns/apple_login.dart';
 import 'package:physical_note/app/utils/sns/kakao_login.dart';
 import 'package:physical_note/app/utils/sns/naver_login.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -112,7 +115,7 @@ class LoginController extends BaseController {
 
   /// 애플 클릭.
   void onPressedApple() {
-    logger.i("애플 로그인 클릭");
+    _appleLogin();
   }
 
   @override
@@ -205,6 +208,7 @@ class LoginController extends BaseController {
       apiToken: apiToken,
       accessToken: accessToken,
       snsType: UserSnsType.naver,
+      loginId: "",
     );
   }
 
@@ -231,7 +235,36 @@ class LoginController extends BaseController {
       apiToken: apiToken,
       accessToken: accessToken,
       snsType: UserSnsType.kakao,
+      loginId: "",
     );
+  }
+
+  /// 애플 로그인.
+  void _appleLogin() async {
+    final appleLogin = Get.find<AppleLogin>();
+    final appleResult = await appleLogin.login();
+
+    if (appleResult == null) {
+      logger.e("애플 로그인 실패.");
+      return null;
+    }
+
+    final apiToken = await _postLogin(
+      snsType: UserSnsType.apple,
+      id: appleResult.id,
+      password: appleResult.token,
+    );
+
+    if (apiToken == null) {
+      logger.e("로그인 실패");
+      return;
+    }
+
+    _login(
+        apiToken: apiToken,
+        accessToken: appleResult.token,
+        snsType: UserSnsType.apple,
+        loginId: appleResult.id);
   }
 
   /// 로그인 성공.
@@ -239,6 +272,7 @@ class LoginController extends BaseController {
     required String? apiToken,
     required String accessToken,
     required UserSnsType snsType,
+    required String loginId,
   }) {
     final token = apiToken;
     if (token == null || token.isEmpty) {
@@ -247,7 +281,9 @@ class LoginController extends BaseController {
         final termArgs = TermArgs(snsType: snsType, accessToken: accessToken);
         Get.toNamed(RouteType.TERM, arguments: termArgs);
       } else if (snsType == UserSnsType.apple) {
-        /// 애플 처리.
+        /// 애플 회원가입 처리.
+        /// 애플 회원가입 시 PassToken null.
+        _appleSignIn(loginId, accessToken);
       }
     } else {
       final userStorage = UserStorage();
@@ -255,5 +291,38 @@ class LoginController extends BaseController {
       userStorage.apiKey.val = token;
       Get.offAllNamed(RouteType.MAIN);
     }
+  }
+
+  /// API - 회원가입.
+  Future<void> _appleSignIn(String id, String password) async {
+    setLoading(true);
+    final loginApi = Get.find<LoginAPI>();
+    final requestData = PostLoginSignInRequestModel(
+      loginId: id,
+      passCode: null,
+      password: password,
+      type: UserSnsType.apple.toString(),
+    );
+    final response = await loginApi.postLoginSignIn(requestData: requestData);
+
+    if (response is PostLoginSignInResponseModel) {
+      final token = response.token;
+      if (response.status == false || token == null) {
+        showToast(response.message ?? "서버 에러");
+      } else {
+        // 토큰 저장 후 홈으로 이동.
+        final userStorage = UserStorage();
+        userStorage.apiKey.val = token;
+        userStorage.snsType.val = UserSnsType.apple.toString();
+        Get.offAllNamed(RouteType.MAIN);
+      }
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
   }
 }

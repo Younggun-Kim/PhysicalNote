@@ -10,7 +10,7 @@ PostLoginSignInRequestModel _$PostLoginSignInRequestModelFromJson(
         Map<String, dynamic> json) =>
     PostLoginSignInRequestModel(
       loginId: json['loginId'] as String?,
-      passCode: json['passCode'] as String,
+      passCode: json['passCode'] as String?,
       password: json['password'] as String,
       type: json['type'] as String,
     );
