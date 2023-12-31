@@ -1,5 +1,4 @@
 import 'package:physical_note/app/data/login/model/post_check_id_response_model.dart';
-import 'package:physical_note/app/data/login/model/post_login_find_id_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_find_id_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_relogin_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_request_model.dart';
@@ -68,11 +67,10 @@ class LoginAPI extends API {
   }
 
   /// 아이디 찾기.
-  Future<dynamic> postLoginFindId(
-      {required PostLoginFindIdRequestModel requestData}) async {
+  Future<dynamic> postLoginFindId({required String code}) async {
     final response = await post(
       requestUrl + "/find_id",
-      requestData.toJson(),
+      {"code": code},
     );
 
     logger.i(response.bodyString);
@@ -88,10 +86,11 @@ class LoginAPI extends API {
   Future<dynamic> postLoginPass(PostPassRequestModel requestData) async {
     final response = await post(
       requestUrl + "/pass",
-      requestData.toJson(),
+      {"code": requestData.code},
     );
 
     logger.i(response.bodyString);
+
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);
     } else {

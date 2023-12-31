@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
+import 'package:physical_note/app/data/login/model/post_login_find_id_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
@@ -9,8 +10,12 @@ import 'package:physical_note/app/data/login/model/post_login_sign_in_response_m
 import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
+import 'package:physical_note/app/data/user/model/social_accounts_model.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
+import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
+import 'package:physical_note/app/ui/page/find_id_complete/items/find_id_compete_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/find_password/find_password_args.dart';
 import 'package:physical_note/app/ui/page/term/term_args.dart';
 import 'package:physical_note/app/utils/sns/apple_login.dart';
@@ -71,8 +76,45 @@ class LoginController extends BaseController {
       return;
     }
 
-    Get.toNamed(RouteType.FIND_ID_COMPLETE, arguments: FindIdCompleteArgument(name: name, phone: phone));
+    /// 아이디 찾기API
+    final accounts = await _findId(data.passToken);
 
+    if (accounts == null || accounts.isEmpty) {
+      /// 가입 내역 없음.
+      Get.dialog(
+        BaseDialog(
+            text: StringRes.noAccounts.tr,
+            yesText: StringRes.signUp.tr,
+            onPressedYes: () async {
+              Get.toNamed(RouteType.SIGN_UP);
+            },
+            noText: "",
+            onPressedNo: null),
+      );
+    } else {
+      final uiStates = accounts
+          .map((e) {
+            final snsType = UserSnsType.from(e.type);
+            final id = e.email;
+
+            if (snsType == null || id == null) {
+              return null;
+            } else {
+              return FindIdCompleteItemUiState(snsType: snsType, id: id);
+            }
+          })
+          .whereType<FindIdCompleteItemUiState>()
+          .toList();
+
+      Get.toNamed(
+        RouteType.FIND_ID_COMPLETE,
+        arguments: FindIdCompleteArgument(
+          name: name,
+          phone: phone,
+          accounts: uiStates,
+        ),
+      );
+    }
   }
 
   /// 비밀번호 찾기 클릭.
@@ -322,5 +364,25 @@ class LoginController extends BaseController {
 
     await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
+  }
+
+  /// API - 아이디 찾기.
+  Future<List<SocialAccountsModel>?> _findId(String passCode) async {
+    setLoading(true);
+    final loginApi = Get.find<LoginAPI>();
+    final response = await loginApi.postLoginFindId(code: passCode);
+
+    List<SocialAccountsModel>? result;
+    if (response is PostLoginFindIdResponseModel) {
+      result = response.accounts;
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
+    return result;
   }
 }
