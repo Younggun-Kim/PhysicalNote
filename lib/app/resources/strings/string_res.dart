@@ -173,7 +173,8 @@ class StringRes {
   static final kakaoUser = _generateId();
   static final naverUser = _generateId();
   static final appleUser = _generateId();
-
+  static final changeCompleteAndLogin = _generateId();
+  static final identity = _generateId();
 
 
   /// DateTime 영역

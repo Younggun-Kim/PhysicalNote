@@ -15,6 +15,11 @@ class ChangePasswordPage extends GetView<ChangePasswordController> {
             children: [
               _Header(),
               const SizedBox(height: 20),
+              _UserInfo(
+                name: controller.args.name,
+                id: controller.args.id,
+              ),
+              const SizedBox(height: 60),
               FieldName(name: StringRes.password.tr)
                   .paddingSymmetric(horizontal: 30),
               const SizedBox(height: 10),
@@ -44,7 +49,7 @@ class ChangePasswordPage extends GetView<ChangePasswordController> {
               Obx(
                 () => RoundButton(
                   width: double.infinity,
-                  text: StringRes.next.tr,
+                  text: StringRes.changeCompleteAndLogin.tr,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   isEnabled: controller.errorMessage.value.isEmpty,
                   onPressed: controller.onPressedLogin,
@@ -109,4 +114,71 @@ class _ErrorText extends StatelessWidget {
           ),
         ),
       );
+}
+
+/// 유저 정보.
+class _UserInfo extends StatelessWidget {
+  final String name;
+  final String id;
+
+  const _UserInfo({
+    required this.name,
+    required this.id,
+  });
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    StringRes.name.tr,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    StringRes.identity.tr,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 26),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    id,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ).paddingSymmetric(horizontal: 30);
 }

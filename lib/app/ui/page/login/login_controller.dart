@@ -14,6 +14,7 @@ import 'package:physical_note/app/data/user/model/social_accounts_model.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/base_dialog.dart';
+import 'package:physical_note/app/ui/page/change_password/change_password_args.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/items/find_id_compete_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/term/term_args.dart';
@@ -122,16 +123,20 @@ class LoginController extends BaseController {
 
     /// 비밀번호 찾기 API.
     final accounts = await _findPwStep1(data.passToken);
-    final emailAccount = accounts
-        ?.firstWhere((element) => element.type == UserSnsType.idPw.toString());
+    final email = accounts
+        ?.firstWhere((element) => element.type == UserSnsType.idPw.toString())
+        .email;
 
     if (accounts == null || accounts.isEmpty) {
       _showNoAccountsDialog();
-    } else if (emailAccount == null) {
+    } else if (email == null) {
       /// SNS 계정.
       _showSnsAccounts();
     } else {
       /// 비밀번호 재설정으로 이동.
+      final args =
+          ChangePasswordArgs(name: name, id: email, passCode: data.passToken);
+      Get.toNamed(RouteType.CHANGE_PASSWORD, arguments: args);
     }
   }
 

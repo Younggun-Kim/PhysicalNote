@@ -9,6 +9,7 @@ import 'package:physical_note/app/data/network/api.dart';
 
 import '../../utils/logger/logger.dart';
 import '../network/model/server_response_fail/server_response_fail_model.dart';
+import 'model/post_change_password_response_model.dart';
 import 'model/post_pass_request_model.dart';
 import 'model/post_pass_response_model.dart';
 
@@ -82,7 +83,7 @@ class LoginAPI extends API {
     }
   }
 
-  /// 아이디 찾기.
+  /// 비밀번호 찾기.
   Future<dynamic> postLoginFindPwStep1({required String code}) async {
     final response = await post(
       requestUrl + "/find_pw/step1",
@@ -95,6 +96,28 @@ class LoginAPI extends API {
       return ServerResponseFailModel.fromJson(response.body);
     } else {
       return PostLoginFindIdResponseModel.fromJson(response.body);
+    }
+  }
+
+  /// 비밀번호 변경.
+  Future<dynamic> postLoginFindPwStep2({
+    required String passCode,
+    required String password,
+  }) async {
+    final response = await post(
+      requestUrl + "/find_pw/step2",
+      {
+        "code": passCode,
+        "password": password,
+      },
+    );
+
+    logger.i(response.bodyString);
+
+    if (response.status.hasError) {
+      return ServerResponseFailModel.fromJson(response.body);
+    } else {
+      return PostChangePasswordResponseModel.fromJson(response.body);
     }
   }
 

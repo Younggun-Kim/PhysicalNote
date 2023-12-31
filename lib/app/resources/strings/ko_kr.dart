@@ -185,4 +185,6 @@ final koKr = {
   StringRes.kakaoUser: "카카오회원",
   StringRes.naverUser: "네이버회원",
   StringRes.appleUser: "애플회원",
+  StringRes.changeCompleteAndLogin: "변경완료 후 로그인",
+  StringRes.identity: "아이디",
 };
