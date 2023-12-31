@@ -1,10 +1,10 @@
 class FindIdCompleteArgument {
   String name;
 
-  String email;
+  String phone;
 
   FindIdCompleteArgument({
     required this.name,
-    required this.email,
+    required this.phone,
   });
 }

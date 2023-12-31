@@ -238,7 +238,7 @@ class _SnsField extends GetView<LoginController> {
           InkWellOver(
             onTap: controller.onPressedApple,
             borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
+            child: SvgPicture.asset(
               Assets.imgApple,
               width: 44,
               height: 44,

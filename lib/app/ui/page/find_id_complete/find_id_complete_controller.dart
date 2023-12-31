@@ -11,14 +11,14 @@ class FindIdCompleteController extends BaseController {
   /// 이름.
   late final name = argument.name.obs;
 
-  /// 이메일.
-  late final email = argument.email.obs;
+  /// 전화번호.
+  late final phone = argument.phone.obs;
 
   /// 비밀번호 찾기 클릭.
   void onPressedFindPassword() {
     Get.until((route) => Get.currentRoute == RouteType.LOGIN);
 
-    final args = FindPasswordArgs(name: argument.name, email: argument.email);
+    final args = FindPasswordArgs(name: argument.name, email: argument.phone);
     Get.toNamed(RouteType.FIND_PASSWORD, arguments: args);
   }
 

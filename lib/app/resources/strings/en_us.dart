@@ -180,4 +180,5 @@ final enUs = {
   StringRes.noSchedule: "일정이 없습니다.",
   StringRes.noAccounts: "기입된 계정이 없습니다.",
   StringRes.snsAccounts: "SNS로 가입한 계정입니다.",
+  StringRes.resultOfSignedInId: "로 가입한 아이디 결과입니다.",
 };

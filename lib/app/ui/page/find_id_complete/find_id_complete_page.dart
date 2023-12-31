@@ -1,12 +1,9 @@
-import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-
 
 class FindIdCompletePage extends GetView<FindIdCompleteController> {
   const FindIdCompletePage({super.key});
@@ -16,35 +13,18 @@ class FindIdCompletePage extends GetView<FindIdCompleteController> {
         controller: controller,
         child: Container(
           height: double.infinity,
-          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
               _Header(),
-              const Spacer(),
-              SvgPicture.asset(Assets.check),
-              const SizedBox(height: 14),
+              const SizedBox(height: 40),
               Obx(
-                () => EasyRichText(
-                  StringRes.findIdResult.trParams({
-                    'name': controller.name.value,
-                    'email': controller.email.value,
-                  }),
-                  textAlign: TextAlign.center,
-                  defaultStyle: const TextStyle(
-                    color: ColorRes.fontBlack,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  patternList: [
-                    EasyRichTextPattern(
-                      targetString: controller.email.value,
-                      style: const TextStyle(
-                        color: ColorRes.primary,
-                      ),
-                    ),
-                  ],
+                () => _UserInfo(
+                  name: controller.name.value,
+                  phone: controller.phone.value,
                 ),
               ),
+              const SizedBox(height: 60),
               const Spacer(),
               LabelButton(
                 text: StringRes.findPw.tr,
@@ -75,6 +55,83 @@ class _Header extends GetView<FindIdCompleteController> {
   Widget build(BuildContext context) => Header(
         title: StringRes.findId.tr,
         showBack: true,
+        padding: EdgeInsets.zero,
         onPressed: controller.close,
+      );
+}
+
+/// 유저 정보.
+class _UserInfo extends StatelessWidget {
+  final String name;
+  final String phone;
+
+  const _UserInfo({
+    required this.name,
+    required this.phone,
+  });
+
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    StringRes.name.tr,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    StringRes.phoneNumber.tr,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 26),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    phone,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Text(
+            StringRes.resultOfSignedInId.tr,
+            style: const TextStyle(
+              fontSize: 14,
+              color: ColorRes.fontBlack,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
       );
 }

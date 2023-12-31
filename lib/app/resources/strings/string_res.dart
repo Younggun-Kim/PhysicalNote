@@ -169,6 +169,7 @@ class StringRes {
   static final noSchedule = _generateId();
   static final noAccounts = _generateId();
   static final snsAccounts = _generateId();
+  static final resultOfSignedInId = _generateId();
 
 
 
