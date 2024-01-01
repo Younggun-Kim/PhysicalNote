@@ -4,6 +4,7 @@ import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart
 import 'package:physical_note/app/ui/page/information_registration/information_registration.dart';
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check.dart';
+import 'package:physical_note/app/ui/page/inline_webview/inline_webview.dart';
 import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
@@ -122,6 +123,11 @@ class Routes {
       name: RouteType.PASS,
       page: () => const PassPage(),
       binding: PassBindings(),
+    ),
+    GetPage(
+      name: RouteType.INLINE_WEBVIEW,
+      page: () => const InlineWebviewPage(),
+      binding: InlineWebviewBindings(),
     ),
   ];
 }

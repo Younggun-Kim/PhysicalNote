@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/term_type.dart';
 import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/common/common_api.dart';
+import 'package:physical_note/app/data/common/model/get_term_response_model.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
+import 'package:physical_note/app/ui/page/inline_webview/inline_webview_args.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up_args.dart';
 import 'package:physical_note/app/ui/page/term/term_args.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -45,7 +49,7 @@ class TermController extends LifecycleController {
 
   /// 서비스 이용약관 웹 페이지 이동.
   void onPressedService() {
-    Get.find<OutLink>().moveServiceTerm();
+    _showTerm(TermType.service);
   }
 
   /// 개인정보 클릭.
@@ -55,7 +59,7 @@ class TermController extends LifecycleController {
 
   /// 서비스 이용약관 웹 페이지 이동.
   void onPressedPrivacy() {
-    Get.find<OutLink>().movePrivacyTerm();
+    _showTerm(TermType.privacy);
   }
 
   /// 다음 버튼 클릭.
@@ -142,5 +146,37 @@ class TermController extends LifecycleController {
 
     await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
+  }
+
+  /// API - 약관 조회.
+  Future<String?> _getTerm(TermType type) async {
+    setLoading(true);
+    final commonApi = Get.find<CommonAPI>();
+    final response = await commonApi.getTerms(type: type);
+    String? resultHtml;
+
+    if (response is GetTermResponseModel) {
+      resultHtml = response.content;
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
+
+    return resultHtml;
+  }
+
+  /// 약관 보기.
+  void _showTerm(TermType type) async {
+    final html = await _getTerm(type);
+    if(html == null) {
+      return;
+    }
+
+    final args = InlineWebviewArgs(html: html);
+    Get.toNamed(RouteType.INLINE_WEBVIEW, arguments: args);
   }
 }
