@@ -16,7 +16,7 @@ class SplashController extends BaseController {
   @override
   void onReady() async {
     unFocus();
-    // await nextPage();
+    await nextPage();
     super.onReady();
   }
 

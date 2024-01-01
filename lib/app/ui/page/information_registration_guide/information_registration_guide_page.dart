@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide.dart';
@@ -12,36 +13,51 @@ class InformationRegistrationGuidePage
   Widget build(BuildContext context) {
     return PageRoot(
       controller: controller,
-      isFullPage: true,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(Assets.splash),
-            fit: BoxFit.cover,
+      isFullPage: false,
+      safeStatusBar: false,
+      safeNavigationBar: false,
+      child: Stack(
+        alignment: Alignment.topLeft,
+        children: [
+          Positioned(
+            top: 0,
+            child: SvgPicture.asset(Assets.backgroundTop),
           ),
-        ),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 180),
-            Text(
-              StringRes.informationRegistrationGuide.tr,
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
-                color: ColorRes.fontBlack,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 200),
+              Text(
+                StringRes.informationRegistrationGuide.tr,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                  color: ColorRes.fontBlack,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            RoundButton(
-              text: StringRes.doInformationRegistration.tr,
-              onPressed: controller.onPressedButton,
-            ),
-          ],
-        ),
+              const SizedBox(height: 46),
+              BaseButton(
+                width: 180,
+                height: 56,
+                defaultBackgroundColor: ColorRes.primary,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                text: StringRes.doInformationRegistration.tr,
+                defaultTextStyle: const TextStyle(
+                  fontSize: 16,
+                  color: ColorRes.white,
+                  fontWeight: FontWeight.w500,
+                ),
+                onPressed: controller.onPressedButton,
+              ),
+            ],
+          ).paddingSymmetric(horizontal: 36),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: SvgPicture.asset(Assets.backgroundBottom),
+          ),
+        ],
       ),
     );
   }
