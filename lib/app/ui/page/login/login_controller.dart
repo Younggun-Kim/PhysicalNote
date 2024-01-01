@@ -100,6 +100,7 @@ class LoginController extends BaseController {
           name: name,
           phone: phone,
           accounts: uiStates,
+          passCode: data.passToken,
         ),
       );
     }

@@ -7,9 +7,12 @@ class FindIdCompleteArgument {
 
   List<FindIdCompleteItemUiState> accounts;
 
+  String passCode;
+
   FindIdCompleteArgument({
     required this.name,
     required this.phone,
     required this.accounts,
+    required this.passCode,
   });
 }
