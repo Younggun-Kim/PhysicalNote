@@ -65,9 +65,10 @@ class _Header extends GetView<MyInformationController> {
         title: StringRes.myInformation.tr,
         showBack: true,
         onPressed: controller.close,
-    menu: LabelButton(
-      text: StringRes.logout.tr, onPressed: controller.logout,
-    ),
+        menu: LabelButton(
+          text: StringRes.logout.tr,
+          onPressed: controller.logout,
+        ),
       );
 }
 
@@ -215,7 +216,7 @@ class _Team extends GetView<MyInformationController> {
           const SizedBox(height: 10),
           Obx(
             () => HintButton(
-              text: controller.team.value,
+              text: controller.teamUiState.value?.clubAndCoach ?? "",
               hint: StringRes.selectTeam.tr,
               onTap: () async {
                 controller.onPressedTeamName();

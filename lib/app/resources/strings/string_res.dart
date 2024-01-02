@@ -175,6 +175,8 @@ class StringRes {
   static final appleUser = _generateId();
   static final changeCompleteAndLogin = _generateId();
   static final identity = _generateId();
+  static final camera = _generateId();
+  static final album = _generateId();
 
 
   /// DateTime 영역

@@ -186,4 +186,6 @@ final enUs = {
   StringRes.appleUser: "애플회원",
   StringRes.changeCompleteAndLogin: "변경완료 후 로그인",
   StringRes.identity: "아이디",
+  StringRes.camera: "카메라",
+  StringRes.album: "앨범",
 };

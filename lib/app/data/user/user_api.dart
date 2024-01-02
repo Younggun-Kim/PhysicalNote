@@ -10,38 +10,36 @@ class UserAPI extends API {
 
   /// 로그인 요청.
   // TODO: API 수정 - positionId 필요, 팀 정보 필요.
-  Future<GetUserResponseModel?> getUser() async {
-    logger.i("call UserAPI.getUser");
+  Future<dynamic> getUser() async {
     final response = await get(requestUrl);
 
     logger.w(response.bodyString);
 
     if (response.status.hasError) {
-      final failResponse = ServerResponseFailModel.fromJson(response.body);
-      logger.i("Fail Message: ${failResponse.toJson()}");
-      return Future.error({failResponse.message});
+      return ServerResponseFailModel.fromJson(response.body);
     } else {
-      final successResponse = GetUserResponseModel.fromJson(response.body);
-      logger.i("Success Response: ${successResponse.toJson()}");
-      return successResponse;
+      return GetUserResponseModel.fromJson(response.body);
     }
   }
 
   /// 유저 정보 등록/수정.
   // TODO: API 확인 필요.
-  Future<GetUserResponseModel?> postUser(
-      {required PostUserRequestModel requestData}) async {
-    logger.i("request UserAPI.postUser: ${requestData.toJson()}");
-    final response = await post(requestUrl, requestData);
+  Future<dynamic> postUser({required PostUserRequestModel requestData}) async {
+    try {
+      logger.i("postUser: ${requestData.toJson()}");
 
-    logger.w(response.bodyString);
+      final response = await post(requestUrl, requestData);
 
-    if (response.status.hasError) {
+      logger.w(response.bodyString);
+
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return GetUserResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
       return null;
-    } else {
-      final successResponse = GetUserResponseModel.fromJson(response.body);
-      logger.i("Success Response: ${successResponse.toJson()}");
-      return successResponse;
     }
   }
 }

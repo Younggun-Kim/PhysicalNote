@@ -16,6 +16,9 @@ PostUserRequestModel _$PostUserRequestModelFromJson(
       teamId: json['teamId'] as int,
       positionIds:
           (json['positionIds'] as List<dynamic>).map((e) => e as int).toList(),
+      workoutId: json['workoutId'] as int,
+      userType: json['userType'] as String,
+      passCode: json['passCode'] as String?,
       profile: json['profile'] as String?,
     );
 
@@ -29,4 +32,7 @@ Map<String, dynamic> _$PostUserRequestModelToJson(
       'teamId': instance.teamId,
       'positionIds': instance.positionIds,
       'profile': instance.profile,
+      'workoutId': instance.workoutId,
+      'userType': instance.userType,
+      'passCode': instance.passCode,
     };

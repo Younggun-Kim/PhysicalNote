@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_cast
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:get/get.dart';
@@ -8,9 +10,12 @@ import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/common/common_api.dart';
 import 'package:physical_note/app/data/common/model/post_upload_response_model.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
+import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/data/workout/workout_api.dart';
+import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item_ui_state.dart';
@@ -34,10 +39,7 @@ class MyInformationController extends BaseController {
   var name = "".obsWithController;
 
   /// 팀 uistate.
-  SearchTeamsListItemUiState? teamUiState;
-
-  /// 팀명 / 코치 명.
-  var team = "".obs;
+  var teamUiState = (null as SearchTeamsListItemUiState?).obs;
 
   /// 엘리트 여부.
   late final isElite = (args?.isElite).obs;
@@ -58,6 +60,7 @@ class MyInformationController extends BaseController {
   final pagingController =
       PagingController<int, PositionListItemUiState>(firstPageKey: 0);
 
+  /// 포지션 Ids
   get positionIds =>
       pagingController.itemList
           ?.where((e) => e.isSelected)
@@ -75,7 +78,7 @@ class MyInformationController extends BaseController {
   late var isEnabledRegistrationButton = CombineLatestStream(
     [
       name.behaviorStream.map((event) => event.isNotEmpty),
-      team.behaviorStream.map((event) => event.isNotEmpty),
+      teamUiState.behaviorStream.map((event) => event?.id != null),
       height.behaviorStream.map((event) => event.isNotEmpty),
       weight.behaviorStream.map((event) => event.isNotEmpty),
       birth.behaviorStream.map((event) => event.length == 8),
@@ -91,6 +94,7 @@ class MyInformationController extends BaseController {
     pagingController.start((pageKey) => _loadWorkoutPositionData(pageKey));
   }
 
+  /// 생년월일 입력.
   void onInputBirth(String value) {
     birth.value = value;
   }
@@ -123,10 +127,9 @@ class MyInformationController extends BaseController {
 
   /// 팀명 클릭.
   Future<void> onPressedTeamName() async {
-    var uiState =
+    final uiState =
         await Get.toNamed(RouteType.SEARCH_TEAMS) as SearchTeamsListItemUiState;
-    teamUiState = uiState;
-    team.value = teamUiState?.clubAndCoach ?? "";
+    teamUiState.value = uiState;
   }
 
   /// 엘리트/아마추어 클릭.
@@ -137,13 +140,7 @@ class MyInformationController extends BaseController {
   /// 등록 클릭.
   void onPressedRegistration() async {
     unFocus();
-
-    _postUser().then((value) async {
-      await Future.delayed(const Duration(milliseconds: 300));
-      Get.until((route) => Get.currentRoute == RouteType.HOME);
-    }).catchError((error) {
-      logger.e(error);
-    });
+    await _postUser();
   }
 
   /// 유저 정보 조회.
@@ -151,7 +148,13 @@ class MyInformationController extends BaseController {
     final userApi = Get.find<UserAPI>();
     final response = await userApi.getUser();
 
-    setScreenData(response);
+    if (response is GetUserResponseModel) {
+      setScreenData(response);
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
   }
 
   /// 포지션 조회.
@@ -181,9 +184,29 @@ class MyInformationController extends BaseController {
   /// 유저 정보 등록/수정
   Future<void> _postUser() async {
     final userApi = Get.find<UserAPI>();
-    final imageUploadResult = await _postImageUpload();
-    logger.w(imageUploadResult?.toJson());
-    await userApi.postUser(requestData: getUserRequestData());
+    final uploadResponse = await _postImageUpload();
+    final profile = uploadResponse?.url?.first;
+    final workoutId = args?.workoutId;
+    final elite = isElite.value;
+
+    if (workoutId == null || elite == null) {
+      return;
+    }
+
+    final requestData = getUserRequestData(
+      profile: profile,
+      workoutId: workoutId,
+      itsElite: elite,
+    );
+    final response = await userApi.postUser(requestData: requestData);
+
+    if (response is GetUserResponseModel) {
+      Get.until((route) => Get.currentRoute == RouteType.HOME);
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
   }
 
   /// 이미지 업로드.
@@ -193,7 +216,19 @@ class MyInformationController extends BaseController {
       return null;
     }
     final commonApi = Get.find<CommonAPI>();
-    return await commonApi.postUpload("profile", profile.value);
+    final response = await commonApi.postUpload("profile", profile.value);
+
+    PostUploadResponseModel? result;
+
+    if (response is PostUploadResponseModel) {
+      result = response;
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+
+    return result;
   }
 
   /// 프로필 클릭.
@@ -201,8 +236,8 @@ class MyInformationController extends BaseController {
     final response = await Get.dialog(
       ListDialog(
         items: [
-          ListDialogItem(id: 1, name: "카메라"),
-          ListDialogItem(id: 2, name: "앨범"),
+          ListDialogItem(id: 1, name: StringRes.camera.tr),
+          ListDialogItem(id: 2, name: StringRes.album.tr),
         ],
       ),
     );

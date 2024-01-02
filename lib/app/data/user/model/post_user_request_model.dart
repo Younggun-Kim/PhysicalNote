@@ -13,6 +13,9 @@ class PostUserRequestModel {
   final int teamId;
   final List<int> positionIds;
   final String? profile;
+  final int workoutId;
+  final String userType;
+  final String? passCode;
 
   PostUserRequestModel({
     required this.height,
@@ -21,6 +24,9 @@ class PostUserRequestModel {
     required this.rightValue,
     required this.teamId,
     required this.positionIds,
+    required this.workoutId,
+    required this.userType,
+    this.passCode,
     this.profile,
   });
 

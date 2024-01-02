@@ -12,7 +12,7 @@ class CommonAPI extends API {
   CommonAPI() : super(basePath: "");
 
   /// 이미지 업로드
-  Future<PostUploadResponseModel?> postUpload(
+  Future<dynamic> postUpload(
       String dir, PhotoModel photoModel) async {
     final formData = FormData({
       'file': MultipartFile(photoModel.file?.path, filename: 'profile.jpg')
@@ -26,11 +26,9 @@ class CommonAPI extends API {
     logger.w(response.bodyString);
 
     if (response.status.hasError) {
-      return null;
+      return ServerResponseFailModel.fromJson(response.body);
     } else {
-      final successResponse = PostUploadResponseModel.fromJson(response.body);
-      logger.i("Success Response: ${successResponse.toJson()}");
-      return successResponse;
+      return PostUploadResponseModel.fromJson(response.body);
     }
   }
 
