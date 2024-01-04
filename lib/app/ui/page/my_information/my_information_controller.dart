@@ -188,8 +188,9 @@ class MyInformationController extends BaseController {
     final profile = uploadResponse?.url?.first;
     final workoutId = args?.workoutId;
     final elite = isElite.value;
+    final teamId = teamUiState.value?.id;
 
-    if (workoutId == null || elite == null) {
+    if (workoutId == null || elite == null || teamId == null) {
       return;
     }
 
@@ -197,6 +198,7 @@ class MyInformationController extends BaseController {
       profile: profile,
       workoutId: workoutId,
       itsElite: elite,
+      teamId: teamId,
     );
     final response = await userApi.postUser(requestData: requestData);
 

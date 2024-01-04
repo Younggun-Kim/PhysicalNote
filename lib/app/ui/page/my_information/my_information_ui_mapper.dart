@@ -64,10 +64,12 @@ extension MyInformationUiMapper on MyInformationController {
   }
 
   /// Screen의 유저 요청 데이터 가져오기.
-  PostUserRequestModel getUserRequestData(
-          {required String? profile,
-          required int workoutId,
-          required bool itsElite}) =>
+  PostUserRequestModel getUserRequestData({
+    required String? profile,
+    required int workoutId,
+    required bool itsElite,
+    required int teamId,
+  }) =>
       PostUserRequestModel(
         height: double.parse(height.value),
         weight: double.parse(weight.value),

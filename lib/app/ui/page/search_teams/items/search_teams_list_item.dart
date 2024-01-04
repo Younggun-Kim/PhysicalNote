@@ -88,6 +88,7 @@ class _SelectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWellOver(
+    borderRadius: BorderRadius.circular(10),
         child: Container(
           padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
           decoration: BoxDecoration(
