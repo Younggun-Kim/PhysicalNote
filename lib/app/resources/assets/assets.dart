@@ -22,6 +22,7 @@ class Assets {
   static const String imgKakao = 'assets/images/img_kakao.png';
   static const String imgNaver = 'assets/images/img_naver.png';
   static const String logo = 'assets/images/logo.svg';
+  static const String muscleFrontArmRight = 'assets/images/muscle_front_arm_right.svg';
   static const String navigationData = 'assets/navigation_data.svg';
   static const String navigationDataSelect = 'assets/navigation_data_select.svg';
   static const String navigationFeedback = 'assets/navigation_feedback.svg';

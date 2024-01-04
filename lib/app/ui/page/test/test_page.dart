@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/test/model/muscle_data.dart';
 import 'package:physical_note/app/ui/page/test/test.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
-
 
 class TestPage extends GetView<TestController> {
   const TestPage({super.key});
@@ -13,22 +12,20 @@ class TestPage extends GetView<TestController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
-        child: InteractiveViewer(
-            maxScale: 5,
-            minScale: 0.1,
-            scaleEnabled: true,
-            child: Obx(
-              () => Stack(
-                children: controller.muscleList.value.map(
-                  (muscleData) {
-                    return _getClippedImage(
-                      muscleData: muscleData,
-                      color: muscleData.isSelected ? Colors.grey.withOpacity(0.3) : Colors.pink,
-                    );
-                  },
-                ).toList(),
-              ),
-            )),
+        child: Obx(
+          () {
+            try {
+              // TODO: Bad state: Invalid SVG data 에러 대응 방법 생각해야함.
+              return SvgPicture.string(
+                controller.svgString.value,
+                height: 200,
+                width: 200,
+              );
+            } catch (e) {
+              return const SizedBox();
+            }
+          },
+        ),
       );
 
   Widget _getClippedImage({

@@ -46,7 +46,6 @@ class MainScreenPage extends GetView<MainScreenController> {
                   backgroundColor: ColorRes.white,
                   onTap: (index) {
                     final tabIndex = MainTabIndex.values[index];
-                    logger.w(tabIndex);
                     controller.setTabIndex(tabIndex);
                   },
                   currentIndex: controller.uiState.value.tabIndex.index,
