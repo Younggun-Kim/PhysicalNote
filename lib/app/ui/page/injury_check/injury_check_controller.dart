@@ -2,11 +2,13 @@
 
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
+import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 import 'package:physical_note/app/utils/utils.dart';
+import 'package:rxdart/rxdart.dart';
 
 class InjuryCheckController extends BaseController {
   final args = Get.arguments as InjuryCheckArgs;
@@ -26,6 +28,41 @@ class InjuryCheckController extends BaseController {
   /// 신체부위.
   final bodyPartsType = (null as InjuryCheckBodyPartsType?).obs;
 
+  /// 선택된 상세 근육.
+  final selectedMuscleType = (null as MuscleType?).obs;
+  /// 상세 근육.
+  late final muscles = CombineLatestStream([
+    directionType.behaviorStream,
+    bodyPartsType.behaviorStream,
+  ], (values) {
+    var direction = values[0];
+    var bodyPartsType = values[1];
+
+    if (direction == InjuryCheckDirectionType.front) {
+      if (bodyPartsType == InjuryCheckBodyPartsType.body) {
+        return MuscleType.getFrontBodyMuscles();
+      } else if (bodyPartsType == InjuryCheckBodyPartsType.leftArm ||
+          bodyPartsType == InjuryCheckBodyPartsType.rightArm) {
+        return MuscleType.getFrontArmMuscles();
+      } else if (bodyPartsType == InjuryCheckBodyPartsType.leftLeg ||
+          bodyPartsType == InjuryCheckBodyPartsType.rightLeg) {
+        return MuscleType.getFrontLegMuscles();
+      }
+    } else if (direction == InjuryCheckDirectionType.back) {
+      if (bodyPartsType == InjuryCheckBodyPartsType.body) {
+        return MuscleType.getBackBodyMuscles();
+      } else if (bodyPartsType == InjuryCheckBodyPartsType.leftArm ||
+          bodyPartsType == InjuryCheckBodyPartsType.rightArm) {
+        return MuscleType.getBackArmMuscles();
+      } else if (bodyPartsType == InjuryCheckBodyPartsType.leftLeg ||
+          bodyPartsType == InjuryCheckBodyPartsType.rightLeg) {
+        return MuscleType.getBackLegMuscles();
+      }
+    } else {}
+
+    return <MuscleType>[];
+  }).toObs([]);
+
   /// 부상 타입 클릭.
   void onPressedInjuryType(InjuryType type) {
     injuryType.value = type;
@@ -44,5 +81,10 @@ class InjuryCheckController extends BaseController {
   /// 신체부위 클릭.
   void onPressedBodyPartsType(InjuryCheckBodyPartsType type) {
     bodyPartsType.value = type;
+  }
+
+  /// 상세근육 클릭.
+  void onPressedMuscle(MuscleType type) {
+    selectedMuscleType.value = type;
   }
 }

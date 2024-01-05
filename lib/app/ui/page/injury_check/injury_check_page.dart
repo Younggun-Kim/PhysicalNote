@@ -84,6 +84,17 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
               ),
               _Disease(),
               _Contact(),
+              const SizedBox(height: 20),
+              Text(
+                "상세근육",
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: ColorRes.fontBlack,
+                ),
+              ),
+              const SizedBox(height: 20),
+              _Muscles(),
               const Spacer(),
               BaseButton(
                 width: double.infinity,
@@ -212,12 +223,12 @@ class _Contact extends GetView<InjuryCheckController> {
                     BaseButton(
                       text: StringRes.torso.tr,
                       isSelected: controller.bodyPartsType.value ==
-                          InjuryCheckBodyPartsType.toros,
+                          InjuryCheckBodyPartsType.body,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
                       onPressed: () {
                         controller.onPressedBodyPartsType(
-                            InjuryCheckBodyPartsType.toros);
+                            InjuryCheckBodyPartsType.body);
                       },
                     ),
                     const SizedBox(width: 10),
@@ -283,3 +294,30 @@ class _Contact extends GetView<InjuryCheckController> {
         ),
       );
 }
+
+/// 상세 근육.
+class _Muscles extends GetView<InjuryCheckController> {
+  @override
+  Widget build(BuildContext context) => Obx(
+        () => Visibility(
+          visible: controller.muscles.value.isNotEmpty,
+          child: Wrap(
+            direction: Axis.horizontal,
+            spacing: 5, // 좌우 간격
+            runSpacing: 5, // 상하
+            children: controller.muscles.value.map((muscleType) {
+              return FittedBox(child: BaseButton(
+                text: muscleType.toKor(),
+                isSelected: controller.selectedMuscleType.value == muscleType,
+                padding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                onPressed: () {
+                  controller.onPressedMuscle(muscleType);
+                },
+              ), fit: BoxFit.contain,);
+            }).toList(),
+          ),
+        ),
+      );
+}
+/// 위에 선택시 아래 초기화되게.
