@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
+import 'package:physical_note/app/config/constant/pain_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
@@ -24,22 +25,7 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
             children: [
               _Header(),
               const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    controller.args.date.toFormattedString("yyyy년 MM월 dd일"),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: ColorRes.fontBlack,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  SvgPicture.asset(Assets.codeBrowser),
-                ],
-              ),
+              _Date(),
               const SizedBox(height: 20),
               Text(
                 StringRes.injuryLocationSelection.tr,
@@ -50,51 +36,13 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
                 ),
               ),
               const SizedBox(height: 20),
-              Obx(
-                () => Row(
-                  children: [
-                    BaseButton(
-                      isSelected:
-                          controller.injuryType.value == InjuryType.nonContact,
-                      text: InjuryType.nonContact.toString(),
-                      onPressed: () {
-                        controller.onPressedInjuryType(InjuryType.nonContact);
-                      },
-                    ),
-                    const SizedBox(width: 10),
-                    BaseButton(
-                      isSelected:
-                          controller.injuryType.value == InjuryType.contact,
-                      text: InjuryType.contact.toString(),
-                      onPressed: () {
-                        controller.onPressedInjuryType(InjuryType.contact);
-                      },
-                    ),
-                    const SizedBox(width: 10),
-                    BaseButton(
-                      isSelected:
-                          controller.injuryType.value == InjuryType.disease,
-                      text: InjuryType.disease.toString(),
-                      onPressed: () {
-                        controller.onPressedInjuryType(InjuryType.disease);
-                      },
-                    ),
-                  ],
-                ),
-              ),
+              _InjuryType(),
               _Disease(),
               _Contact(),
               const SizedBox(height: 20),
-              Text(
-                "상세근육",
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: ColorRes.fontBlack,
-                ),
-              ),
-              const SizedBox(height: 20),
               _Muscles(),
+              const SizedBox(height: 40),
+              _Pain(),
               const Spacer(),
               BaseButton(
                 width: double.infinity,
@@ -126,6 +74,27 @@ class _Header extends GetView<InjuryCheckController> {
       );
 }
 
+/// 날짜.
+class _Date extends GetView<InjuryCheckController> {
+  @override
+  Widget build(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            controller.args.date.toFormattedString("yyyy년 MM월 dd일"),
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.fontBlack,
+            ),
+          ),
+          const SizedBox(width: 8),
+          SvgPicture.asset(Assets.codeBrowser),
+        ],
+      );
+}
+
 /// 질병.
 class _Disease extends GetView<InjuryCheckController> {
   @override
@@ -145,6 +114,40 @@ class _Disease extends GetView<InjuryCheckController> {
               LengthLimitingTextInputFormatter(40),
             ],
           ),
+        ),
+      );
+}
+
+/// 부상 타입.
+class _InjuryType extends GetView<InjuryCheckController> {
+  @override
+  Widget build(BuildContext context) => Obx(
+        () => Row(
+          children: [
+            BaseButton(
+              isSelected: controller.injuryType.value == InjuryType.nonContact,
+              text: InjuryType.nonContact.toString(),
+              onPressed: () {
+                controller.onPressedInjuryType(InjuryType.nonContact);
+              },
+            ),
+            const SizedBox(width: 10),
+            BaseButton(
+              isSelected: controller.injuryType.value == InjuryType.contact,
+              text: InjuryType.contact.toString(),
+              onPressed: () {
+                controller.onPressedInjuryType(InjuryType.contact);
+              },
+            ),
+            const SizedBox(width: 10),
+            BaseButton(
+              isSelected: controller.injuryType.value == InjuryType.disease,
+              text: InjuryType.disease.toString(),
+              onPressed: () {
+                controller.onPressedInjuryType(InjuryType.disease);
+              },
+            ),
+          ],
         ),
       );
 }
@@ -296,28 +299,169 @@ class _Contact extends GetView<InjuryCheckController> {
 }
 
 /// 상세 근육.
+// TODO : 위의 것들 클릭 시 초기화 되도록.
 class _Muscles extends GetView<InjuryCheckController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => Visibility(
           visible: controller.muscles.value.isNotEmpty,
-          child: Wrap(
-            direction: Axis.horizontal,
-            spacing: 5, // 좌우 간격
-            runSpacing: 5, // 상하
-            children: controller.muscles.value.map((muscleType) {
-              return FittedBox(child: BaseButton(
-                text: muscleType.toKor(),
-                isSelected: controller.selectedMuscleType.value == muscleType,
-                padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                onPressed: () {
-                  controller.onPressedMuscle(muscleType);
-                },
-              ), fit: BoxFit.contain,);
-            }).toList(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                StringRes.detailedMuscle.tr,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: ColorRes.fontBlack,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Wrap(
+                direction: Axis.horizontal,
+                alignment: WrapAlignment.start,
+                spacing: 5,
+                // 좌우 간격
+                runSpacing: 5,
+                // 상하
+                children: controller.muscles.value.map((muscleType) {
+                  return FittedBox(
+                    fit: BoxFit.contain,
+                    child: BaseButton(
+                      text: muscleType.toKor(),
+                      isSelected:
+                          controller.selectedMuscleType.value == muscleType,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
+                      onPressed: () {
+                        controller.onPressedMuscle(muscleType);
+                      },
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
           ),
         ),
       );
 }
-/// 위에 선택시 아래 초기화되게.
+
+/// 통증
+class _Pain extends GetView<InjuryCheckController> {
+  @override
+  Widget build(BuildContext context) => Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          border: Border.all(color: ColorRes.borderWhite),
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _FieldName(
+              text: StringRes.painLevel.tr,
+            ),
+            const SizedBox(height: 20),
+            Obx(
+              () => CustomSlider(
+                value: controller.painLevel.value.toLevel(),
+                color: controller.painLevel.value.toColor(),
+                minValue: 0,
+                maxValue: 5,
+                divisions: 5,
+                onChanged: (double value) {
+                  controller.onChangePainLevelSlide(value);
+                },
+              ),
+            ),
+            const SizedBox(height: 20),
+            Obx(
+              () => Text(
+                controller.painLevel.value.toString(),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: ColorRes.fontBlack,
+                ),
+              ),
+            ),
+            Obx(
+              () => Text(
+                ": ${controller.painLevel.value.toDescription()}",
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: ColorRes.fontBlack,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            _FieldName(text: StringRes.painSymptoms.tr),
+            Obx(
+              () => _PainSymptoms(
+                selectedType: controller.painSymptom.value,
+                onPressed: controller.onPressedPainSymptom,
+              ),
+            ),
+          ],
+        ),
+      );
+}
+
+/// 통증 양상
+class _PainSymptoms extends StatelessWidget {
+  final PainType? selectedType;
+
+  final Function(PainType) onPressed;
+
+  const _PainSymptoms({
+    required this.selectedType,
+    required this.onPressed,
+  });
+
+
+  /// 통증 양상 목록.
+  List<PainType> _painTypeList() {
+    var list = PainType.values;
+    return list.where((element) => element != PainType.none).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) => Wrap(
+    spacing: 10,
+        runSpacing: 7,
+        children: _painTypeList().map((PainType e) {
+          return FittedBox(
+            fit: BoxFit.contain,
+            child: BaseButton(
+              text: e.toString(),
+              isSelected: e == selectedType,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              onPressed: () {
+                onPressed(e);
+              },
+            ),
+          );
+        }).toList(),
+      );
+}
+
+/// 필드명.
+class _FieldName extends StatelessWidget {
+  final String text;
+
+  const _FieldName({required this.text});
+
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: double.infinity,
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: ColorRes.fontBlack,
+            fontSize: 16,
+          ),
+        ),
+      );
+}

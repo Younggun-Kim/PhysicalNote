@@ -116,7 +116,7 @@ final enUs = {
   StringRes.wellness: "웰리니스",
   StringRes.wellnessKorEng: "웰리니스 (Wellness)",
   StringRes.wellnessDescription:
-  "팀 내 피지컬 코치 및 운동코치 또는 선수 개인이 웰리니스 관련 데이터를 수집하고 분석함으로써 운동 컨디션 및 삶의 질을 관리하고, 부상을 보다 효과적으로 예방하는데 도움이 됩니다. 뿐만아니라, 경기력 향상 및 유지하는데 또한 도움이 됩니다.",
+      "팀 내 피지컬 코치 및 운동코치 또는 선수 개인이 웰리니스 관련 데이터를 수집하고 분석함으로써 운동 컨디션 및 삶의 질을 관리하고, 부상을 보다 효과적으로 예방하는데 도움이 됩니다. 뿐만아니라, 경기력 향상 및 유지하는데 또한 도움이 됩니다.",
   StringRes.injuryCheck: "부상체크",
   StringRes.close: "닫기",
   StringRes.open: "열기",
@@ -142,7 +142,7 @@ final enUs = {
   StringRes.intensityLevelEasyDescription: "몇시간은 운동 더 할 수 있음 숨쉬기 쉽고 대화가 가능",
   StringRes.intensityLevelNormal: "중간",
   StringRes.intensityLevelNormalDescription:
-  "숨이 거칠고, 짧은 대화가 가능함. 편안 하지만 더하면 힘들 것 같음",
+      "숨이 거칠고, 짧은 대화가 가능함. 편안 하지만 더하면 힘들 것 같음",
   StringRes.intensityLevelHard: "힘듦",
   StringRes.intensityLevelHardDescription: "불편은 하지만 문장으로 말할 수 있음음",
   StringRes.intensityLevelVeryHard: "매우 힘듦",
@@ -188,4 +188,6 @@ final enUs = {
   StringRes.identity: "아이디",
   StringRes.camera: "카메라",
   StringRes.album: "앨범",
+  StringRes.detailedMuscle: "상세 근육",
+  StringRes.painLevel: "통증정도",
 };

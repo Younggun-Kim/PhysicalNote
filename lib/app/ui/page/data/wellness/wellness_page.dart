@@ -349,61 +349,11 @@ class _SliderItem extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          _Slider(
+          CustomSlider(
             value: value,
             color: color,
             onChanged: onChanged,
           ),
         ],
-      );
-}
-
-/// 슬라이더.
-class _Slider extends StatelessWidget {
-  final double value;
-
-  final Color color;
-
-  final Function(double value) onChanged;
-
-  const _Slider({
-    required this.value,
-    required this.color,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.25),
-              spreadRadius: 2,
-              blurRadius: 10,
-              offset: const Offset(0, 2), // changes position of shadow
-            ),
-          ],
-        ),
-        child: SliderTheme(
-          data: SliderThemeData(
-            trackHeight: 10,
-            activeTrackColor: color,
-            inactiveTrackColor: ColorRes.white,
-            thumbColor: color,
-            thumbShape: BorderThumbShape(),
-            showValueIndicator: ShowValueIndicator.always,
-            overlayShape: SliderComponentShape.noOverlay,
-            overlayColor: Colors.blue.withOpacity(0.3),
-            tickMarkShape: CustomSliderTickMarkShape(),
-          ),
-          child: Slider(
-            value: value,
-            min: 1,
-            max: 7,
-            divisions: 6,
-            onChanged: onChanged,
-          ),
-        ),
       );
 }

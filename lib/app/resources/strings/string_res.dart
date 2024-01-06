@@ -177,6 +177,21 @@ class StringRes {
   static final identity = _generateId();
   static final camera = _generateId();
   static final album = _generateId();
+  static final detailedMuscle = _generateId();
+  static final painLevel = _generateId();
+  static final painLevel0 = _generateId();
+  static final painLevel0Description = _generateId();
+  static final painLevel1 = _generateId();
+  static final painLevel1Description = _generateId();
+  static final painLevel2 = _generateId();
+  static final painLevel2Description = _generateId();
+  static final painLevel3 = _generateId();
+  static final painLevel3Description = _generateId();
+  static final painLevel4 = _generateId();
+  static final painLevel4Description = _generateId();
+  static final painLevel5 = _generateId();
+  static final painLevel5Description = _generateId();
+  static final painSymptoms = _generateId();
 
 
   /// DateTime 영역
