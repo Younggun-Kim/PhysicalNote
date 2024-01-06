@@ -271,7 +271,7 @@ class MyInformationController extends BaseController {
 
     /// 네이버 로그아웃.
     if (userStorage.snsType.val == UserSnsType.naver.toString()) {
-      FlutterNaverLogin.logOut();
+      FlutterNaverLogin.logOutAndDeleteToken();
     }
 
     /// 로그인으로 이동.

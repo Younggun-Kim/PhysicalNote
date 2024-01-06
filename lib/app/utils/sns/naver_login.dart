@@ -23,6 +23,6 @@ class NaverLogin extends SnsLogin {
 
   @override
   void logout() {
-    FlutterNaverLogin.logOutAndDeleteToken();
+    FlutterNaverLogin.logOut();
   }
 }

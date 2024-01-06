@@ -8,7 +8,10 @@ class NaverLoginPage extends GetView<NaverLoginController> {
   const NaverLoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) => PageRoot(controller: controller, child: WebViewWidget(
-    controller: controller.webViewController,
-  ),);
+  Widget build(BuildContext context) => PageRoot(
+        controller: controller,
+        child: WebViewWidget(
+          controller: controller.webViewController,
+        ),
+      );
 }

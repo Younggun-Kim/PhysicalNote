@@ -47,21 +47,19 @@ class NaverLoginController extends BaseController {
             if (url != null &&
                 url.contains("${AppConstant.naverRedirectUrl}?code=") == true) {
               var result =
-              url.replaceAll("${AppConstant.naverRedirectUrl}?code=", "");
+                  url.replaceAll("${AppConstant.naverRedirectUrl}?code=", "");
 
               var uri = Uri.parse(url);
 
-
               logger.i("result: ${uri.queryParameters["code"]}");
+              webViewController.clearCache();
               close(result: result);
             }
           },
         ),
       )
       ..loadRequest(Uri.parse(
-          "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=ni1NgxkxZL4C9rRQxoed&redirect_uri=https://dev.hajinj.com/login&state=${DateTime
-              .now()
-              .millisecond}"));
+          "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=ni1NgxkxZL4C9rRQxoed&redirect_uri=https://dev.hajinj.com/login&state=${DateTime.now().millisecond}"));
 
     if (webViewController.platform is AndroidWebViewController) {
       AndroidWebViewController.enableDebugging(true);

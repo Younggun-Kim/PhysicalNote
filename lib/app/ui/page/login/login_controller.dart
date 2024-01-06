@@ -9,9 +9,6 @@ import 'package:physical_note/app/data/login/model/post_login_sign_in_request_mo
 import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
-import 'package:physical_note/app/data/naver/model/naver_access_token_fail_model.dart';
-import 'package:physical_note/app/data/naver/model/naver_access_token_success_model.dart';
-import 'package:physical_note/app/data/naver/naver_api.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/model/social_accounts_model.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
@@ -23,6 +20,7 @@ import 'package:physical_note/app/ui/page/find_id_complete/items/find_id_compete
 import 'package:physical_note/app/ui/page/term/term_args.dart';
 import 'package:physical_note/app/utils/sns/apple_login.dart';
 import 'package:physical_note/app/utils/sns/kakao_login.dart';
+import 'package:physical_note/app/utils/sns/naver_login.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -241,39 +239,30 @@ class LoginController extends BaseController {
 
   /// 네이버 로그인
   void _naverLogin() async {
-    final naverLoginCode = await Get.toNamed(RouteType.NAVER_LOGIN) as String?;
-    if (naverLoginCode == null) {
+    final naverLogin = Get.find<NaverLogin>();
+    final accessToken = await naverLogin.login();
+
+    if (accessToken == null || accessToken.isEmpty) {
+      logger.i("네이버 액세스 토큰이 없습니다.");
       return;
     }
 
-    final naverApi = Get.find<NaverAPI>();
-    final response = await naverApi.accessToken(code: naverLoginCode);
+    final apiToken = await _postLogin(
+      snsType: UserSnsType.naver,
+      id: null,
+      password: accessToken,
+    );
 
-    if (response is NaverAccessTokenSuccessModel) {
-      final apiToken = await _postLogin(
-        snsType: UserSnsType.naver,
-        id: null,
-        password: response.accessToken,
-      );
-
-      if (apiToken == null) {
-        return;
-      }
-
-      _login(
-        apiToken: apiToken,
-        accessToken: response.accessToken,
-        snsType: UserSnsType.naver,
-        loginId: "",
-      );
-    } else {
-      var failMessage = "네이버 액세스 토큰이 없습니다.";
-      if (response is NaverAccessTokenFailModel) {
-        failMessage = response.error;
-      }
-
-      logger.i(failMessage);
+    if (apiToken == null) {
+      return;
     }
+
+    _login(
+      apiToken: apiToken,
+      accessToken: accessToken,
+      snsType: UserSnsType.naver,
+      loginId: "",
+    );
   }
 
   /// 카카오 로그인.

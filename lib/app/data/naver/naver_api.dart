@@ -22,14 +22,14 @@ class NaverAPI extends API {
 
     logger.i(response.bodyString);
 
-
-    if(response.hasError) {
+    if (response.hasError) {
       return NaverAccessTokenFailModel.fromJson(response.body);
     } else {
       return NaverAccessTokenSuccessModel.fromJson(response.body);
     }
   }
 
+  /// 내 정보 가져오기.
   Future<void> getMe(String accessToken) async {
     const url = "https://openapi.naver.com/v1/nid/me";
 
