@@ -8,10 +8,14 @@ class OutlineTextField extends StatelessWidget {
   // Container
   final double? height;
 
+  final Border? border;
+
   /// null이면 높이/2 로 자동 설정.
   final BorderRadius? borderRadius;
 
   final EdgeInsets? margin;
+
+  final Color? color;
 
   // TextField
   final TextEditingController controller;
@@ -53,8 +57,10 @@ class OutlineTextField extends StatelessWidget {
   const OutlineTextField({
     Key? key,
     this.height = 56,
+    this.border,
     this.borderRadius,
     this.margin,
+    this.color = Colors.white,
     required this.controller,
     this.maxLength,
     this.maxLines = 1,
@@ -85,8 +91,8 @@ class OutlineTextField extends StatelessWidget {
       margin: margin,
       padding: contentPadding,
       decoration: BoxDecoration(
-        color: readOnly ? ColorRes.disable : ColorRes.white,
-        border: Border.all(color: ColorRes.borderWhite),
+        color: readOnly ? ColorRes.disable : color,
+        border: border ?? Border.all(color: ColorRes.borderWhite),
         borderRadius: borderRadius ?? defaultBorderRadius,
         boxShadow: [
           BoxShadow(

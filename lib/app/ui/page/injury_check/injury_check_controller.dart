@@ -25,13 +25,19 @@ class InjuryCheckController extends BaseController {
   final directionType = (null as InjuryCheckDirectionType?).obs;
 
   /// 몸 타입.
-  final bodyType = (null as InjuryCheckBodyType?).obs;
+  late final bodyType = (null as InjuryCheckBodyType?).obs
+    ..listen((p0) {
+      bodyPartsType.value = null;
+    });
 
   /// 신체부위.
-  final bodyPartsType = (null as InjuryCheckBodyPartsType?).obs;
+  late final bodyPartsType = (null as InjuryCheckBodyPartsType?).obs
+    ..listen((p0) {
+      selectedMuscleType.value = null;
+    });
 
   /// 선택된 상세 근육.
-  final selectedMuscleType = (null as MuscleType?).obs;
+  late final selectedMuscleType = (null as MuscleType?).obs;
 
   /// 상세 근육.
   late final muscles = CombineLatestStream([
@@ -71,6 +77,18 @@ class InjuryCheckController extends BaseController {
 
   /// 통증 양상.
   final painSymptom = PainType.none.obs;
+
+  /// 통증 시기 - 간헐적, 일정함
+  final painTimingIntermittent = (null as bool?).obs;
+
+  /// 통증 시기 - 휴식기
+  final painTimingRest = false.obs;
+
+  /// 통증 시기 - 운동중.
+  final painTimingWorkout = false.obs;
+
+  /// 통증시기 - 부상 경위.
+  final painTimingDescription = "".obsWithController;
 
   /// 부상 타입 클릭.
   void onPressedInjuryType(InjuryType type) {
@@ -118,5 +136,22 @@ class InjuryCheckController extends BaseController {
   /// 통증 양상 선택.
   void onPressedPainSymptom(PainType type) {
     painSymptom.value = type;
+  }
+
+  /// 통증시기 간헐적 클릭.
+  void onPressedPainTimingIntermittent(bool isIntermittent) {
+    painTimingIntermittent.value = isIntermittent;
+  }
+
+  /// 통증시기 휴식기 클릭.
+  void onPressedPainTimingRest() {
+    final newValue = !painTimingRest.value;
+    painTimingRest.value = newValue;
+  }
+
+  /// 통증시기 운동중 클릭.
+  void onPressedPainTimingWorkout() {
+    final newValue = !painTimingWorkout.value;
+    painTimingWorkout.value = newValue;
   }
 }

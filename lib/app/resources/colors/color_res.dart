@@ -164,6 +164,9 @@ class ColorRes {
   /// 피드백 태그 그린 - 0xffcad5eb.
   static const feedbackTagBlue = Color(0xffcad5eb);
 
+  /// 연한 그레이.
+  static const backgroundF9 = Color(0xfff9f9f9);
+
   static MaterialColor _createMaterialColor(Color color) {
     List strengths = <double>[.05];
     Map<int, Color> swatch = {};

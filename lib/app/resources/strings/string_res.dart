@@ -192,6 +192,13 @@ class StringRes {
   static final painLevel5 = _generateId();
   static final painLevel5Description = _generateId();
   static final painSymptoms = _generateId();
+  static final painTiming = _generateId();
+  static final intermittent = _generateId();
+  static final regular = _generateId();
+  static final restPeriod = _generateId();
+  static final duringWorkout = _generateId();
+  static final injuryCause = _generateId();
+  static final injuryCauseHint = _generateId();
 
 
   /// DateTime 영역

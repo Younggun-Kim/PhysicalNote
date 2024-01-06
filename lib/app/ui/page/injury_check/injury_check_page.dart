@@ -43,6 +43,7 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
               _Muscles(),
               const SizedBox(height: 40),
               _Pain(),
+              const SizedBox(height: 50),
               const Spacer(),
               BaseButton(
                 width: double.infinity,
@@ -299,12 +300,11 @@ class _Contact extends GetView<InjuryCheckController> {
 }
 
 /// 상세 근육.
-// TODO : 위의 것들 클릭 시 초기화 되도록.
 class _Muscles extends GetView<InjuryCheckController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => Visibility(
-          visible: controller.muscles.value.isNotEmpty,
+          visible: controller.muscles.value.isNotEmpty && controller.injuryType.value != InjuryType.disease,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -349,62 +349,98 @@ class _Muscles extends GetView<InjuryCheckController> {
 /// 통증
 class _Pain extends GetView<InjuryCheckController> {
   @override
-  Widget build(BuildContext context) => Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          border: Border.all(color: ColorRes.borderWhite),
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _FieldName(
-              text: StringRes.painLevel.tr,
-            ),
-            const SizedBox(height: 20),
-            Obx(
-              () => CustomSlider(
-                value: controller.painLevel.value.toLevel(),
-                color: controller.painLevel.value.toColor(),
-                minValue: 0,
-                maxValue: 5,
-                divisions: 5,
-                onChanged: (double value) {
-                  controller.onChangePainLevelSlide(value);
-                },
-              ),
-            ),
-            const SizedBox(height: 20),
-            Obx(
-              () => Text(
-                controller.painLevel.value.toString(),
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: ColorRes.fontBlack,
+  Widget build(BuildContext context) => Obx(
+        () => Visibility(
+          visible: controller.selectedMuscleType.value != null && controller.injuryType.value != InjuryType.disease,
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: ColorRes.white,
+              border: Border.all(color: ColorRes.borderWhite),
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.25),
+                  spreadRadius: 3,
+                  blurRadius: 5,
+                  offset: const Offset(0, 2), // changes position of shadow
                 ),
-              ),
+              ],
             ),
-            Obx(
-              () => Text(
-                ": ${controller.painLevel.value.toDescription()}",
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: ColorRes.fontBlack,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _FieldName(
+                  text: StringRes.painLevel.tr,
                 ),
-              ),
+                const SizedBox(height: 20),
+                Obx(
+                  () => CustomSlider(
+                    value: controller.painLevel.value.toLevel(),
+                    color: controller.painLevel.value.toColor(),
+                    minValue: 0,
+                    maxValue: 5,
+                    divisions: 5,
+                    onChanged: (double value) {
+                      controller.onChangePainLevelSlide(value);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Obx(
+                  () => Text(
+                    controller.painLevel.value.toString(),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                ),
+                Obx(
+                  () => Text(
+                    ": ${controller.painLevel.value.toDescription()}",
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _FieldName(text: StringRes.painSymptoms.tr),
+                Obx(
+                  () => _PainSymptoms(
+                    selectedType: controller.painSymptom.value,
+                    onPressed: controller.onPressedPainSymptom,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _FieldName(text: StringRes.painTiming.tr),
+                Obx(
+                  () => _PainTimingIntermittentOrRegular(
+                    isIntermittent: controller.painTimingIntermittent.value,
+                    onPressed: controller.onPressedPainTimingIntermittent,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Obx(
+                  () => _PainTimingRestAndWorkout(
+                    isRest: controller.painTimingRest.value,
+                    isWorkout: controller.painTimingWorkout.value,
+                    onPressedRest: controller.onPressedPainTimingRest,
+                    onPressedWorkout: controller.onPressedPainTimingWorkout,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _FieldName(text: StringRes.injuryCause.tr),
+                _PainTimingDescription(
+                  controller: controller.painTimingDescription.controller,
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            _FieldName(text: StringRes.painSymptoms.tr),
-            Obx(
-              () => _PainSymptoms(
-                selectedType: controller.painSymptom.value,
-                onPressed: controller.onPressedPainSymptom,
-              ),
-            ),
-          ],
+          ),
         ),
       );
 }
@@ -420,7 +456,6 @@ class _PainSymptoms extends StatelessWidget {
     required this.onPressed,
   });
 
-
   /// 통증 양상 목록.
   List<PainType> _painTypeList() {
     var list = PainType.values;
@@ -429,7 +464,7 @@ class _PainSymptoms extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Wrap(
-    spacing: 10,
+        spacing: 10,
         runSpacing: 7,
         children: _painTypeList().map((PainType e) {
           return FittedBox(
@@ -444,6 +479,107 @@ class _PainSymptoms extends StatelessWidget {
             ),
           );
         }).toList(),
+      );
+}
+
+/// 통증 시기 - 간헐적, 일정함
+class _PainTimingIntermittentOrRegular extends StatelessWidget {
+  final bool? isIntermittent;
+
+  final Function(bool) onPressed;
+
+  const _PainTimingIntermittentOrRegular({
+    required this.isIntermittent,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          Expanded(
+            child: BaseButton(
+              text: StringRes.intermittent.tr,
+              isSelected: isIntermittent == true,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              onPressed: () {
+                onPressed(true);
+              },
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: BaseButton(
+              text: StringRes.regular.tr,
+              isSelected: isIntermittent == false,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              onPressed: () {
+                onPressed(false);
+              },
+            ),
+          ),
+        ],
+      ).marginSymmetric(horizontal: 16);
+}
+
+/// 통증 시기 - 휴식기, 운동중
+class _PainTimingRestAndWorkout extends StatelessWidget {
+  final bool isRest;
+
+  final bool isWorkout;
+
+  final Function() onPressedRest;
+
+  final Function() onPressedWorkout;
+
+  const _PainTimingRestAndWorkout({
+    required this.isRest,
+    required this.isWorkout,
+    required this.onPressedRest,
+    required this.onPressedWorkout,
+  });
+
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          Expanded(
+            child: BaseButton(
+              text: StringRes.restPeriod.tr,
+              isSelected: isRest,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              onPressed: onPressedRest,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: BaseButton(
+              text: StringRes.duringWorkout.tr,
+              isSelected: isWorkout,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              onPressed: onPressedWorkout,
+            ),
+          ),
+        ],
+      ).marginSymmetric(horizontal: 16);
+}
+
+/// 통증 시 - 부상 경위
+class _PainTimingDescription extends StatelessWidget {
+  final TextEditingController controller;
+
+  const _PainTimingDescription({required this.controller});
+
+  @override
+  Widget build(BuildContext context) => OutlineTextField(
+        controller: controller,
+        height: 140,
+        border: Border.all(width: 0, color: Colors.transparent),
+        borderRadius: BorderRadius.circular(24),
+        margin: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+        color: ColorRes.backgroundF9,
+        maxLines: 10,
+        fontSize: 12,
+        hint: StringRes.injuryCauseHint.tr,
+        keyboardType: TextInputType.multiline,
       );
 }
 

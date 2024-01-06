@@ -204,4 +204,11 @@ final koKr = {
   StringRes.painLevel5: "부상 상태",
   StringRes.painLevel5Description: "의료 상담 필요",
   StringRes.painSymptoms: "통증 양상 (다수선택가능)",
+  StringRes.painTiming: "통증시기",
+  StringRes.intermittent: "간헐적",
+  StringRes.regular: "일정함",
+  StringRes.restPeriod: "휴식기",
+  StringRes.duringWorkout: "운동중",
+  StringRes.injuryCause: "부상경위",
+  StringRes.injuryCauseHint: "부상에 대한 기록을 더 자세히 작성 해주세요.",
 };
