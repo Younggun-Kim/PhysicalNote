@@ -80,9 +80,9 @@
 	<key>io.flutter.embedded_views_preview</key>
 	<string>YES</string>
 	<key>naverConsumerKey</key>
-	<string>oGV76_UU0fFmR6vzyVdz</string>
+	<string>ni1NgxkxZL4C9rRQxoed</string>
 	<key>naverConsumerSecret</key>
-	<string>y7yXIKAAKR</string>
+	<string>3R6IYHkr82</string>
 	<key>naverServiceAppName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>naverServiceAppUrlScheme</key>

@@ -12,5 +12,5 @@ class AppConstant {
   static const PASS_URL = 'https://dev.hajinj.com/page/pass/verify';
 
   /// Kakao native key.
-  static const kakaoNativeKey = "d41654df0b89d74f77469d7b21eaf295";
+  static const kakaoNativeKey = "fde38af09e56b42965bdf5b505f5a332";
 }
