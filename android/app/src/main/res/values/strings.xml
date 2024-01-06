@@ -3,5 +3,5 @@
 <resources>
     <string name="naver_client_id">ni1NgxkxZL4C9rRQxoed</string>
     <string name="naver_client_secret">3R6IYHkr82</string>
-    <string name="naver_client_name">피지컬노트</string>
+    <string name="naver_client_name">physicalNote</string>
 </resources>

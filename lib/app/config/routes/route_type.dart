@@ -24,4 +24,5 @@ abstract class RouteType {
   static const INJURY_CHECK = "/injury_check";
   static const PASS = "/pass";
   static const INLINE_WEBVIEW = "/inline_webview";
+  static const NAVER_LOGIN = "/naver_login";
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/ui/page/test/model/muscle_path.dart';
