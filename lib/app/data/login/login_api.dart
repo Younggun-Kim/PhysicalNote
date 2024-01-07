@@ -35,17 +35,21 @@ class LoginAPI extends API {
   }
 
   /// 리로그인 요청.
-  Future<PostLoginReloginResponseModel?> postLoginRelogin() async {
-    final fullUrl = "$server/api/login/relogin";
-    final response = await post(fullUrl, {});
+  Future<dynamic> postLoginRelogin() async {
+    try {
+      final fullUrl = "$server/api/login/relogin";
+      final response = await post(fullUrl, {});
 
-    if (response.status.hasError) {
+      logger.i(response.bodyString);
+
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return PostLoginReloginResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
       return null;
-    } else {
-      final successResponse =
-          PostLoginReloginResponseModel.fromJson(response.body);
-      logger.i("Success Response: ${successResponse.toJson()}");
-      return successResponse;
     }
   }
 

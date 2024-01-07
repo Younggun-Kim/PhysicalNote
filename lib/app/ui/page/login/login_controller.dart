@@ -20,6 +20,7 @@ import 'package:physical_note/app/ui/page/find_id_complete/items/find_id_compete
 import 'package:physical_note/app/ui/page/term/term_args.dart';
 import 'package:physical_note/app/utils/sns/apple_login.dart';
 import 'package:physical_note/app/utils/sns/kakao_login.dart';
+import 'package:physical_note/app/utils/sns/login_process.dart';
 import 'package:physical_note/app/utils/sns/naver_login.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
@@ -143,17 +144,18 @@ class LoginController extends BaseController {
 
   /// 로그인 버튼 클릭.
   Future<void> onPressedLogin() async {
-    final token = await _postLogin(
-        snsType: UserSnsType.idPw, id: email.value, password: password.value);
+    final loginProcess = Get.find<LoginProcess>();
+    setLoading(true);
+    final requestData = PostLoginRequestModel(
+      loginId: email.value,
+      password: password.value,
+      type: UserSnsType.idPw.toString(),
+    );
 
-    if (token == null) {
-    } else {
-      /// 정보 저장 후 로그인 하기.
-      final userStorage = UserStorage();
-      userStorage.apiKey.val = token;
-      userStorage.snsType.val = UserSnsType.idPw.toString();
-      Get.offAllNamed(RouteType.MAIN);
-    }
+    final moveType = await loginProcess.loginAndMove(requestData: requestData);
+
+    setLoading(false);
+    loginProcess.movePage(moveType);
   }
 
   /// 네이버 클릭.

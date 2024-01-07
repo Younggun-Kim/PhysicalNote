@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
-import 'dart:io';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 
 class PageRoot extends StatelessWidget {
@@ -47,12 +46,11 @@ class PageRoot extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Platform.isAndroid
-      ? PopScope(
-          onPopInvoked: onWillPop,
-          child: _createPage(),
-        )
-      : _createPage();
+  Widget build(BuildContext context) => PopScope(
+    onPopInvoked: onWillPop,
+    canPop: false,
+    child: _createPage(),
+  );
 
   /// 페이지의 기본적인 구조를 생성.
   Widget _createPage() => Stack(

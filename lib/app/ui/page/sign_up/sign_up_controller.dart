@@ -1,13 +1,10 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/user_type.dart';
-import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_check_id_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
-import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
-import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
-import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up_args.dart';
+import 'package:physical_note/app/utils/sns/login_process.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -52,7 +49,7 @@ class SignUpController extends BaseController {
       password.behaviorStream,
       passwordConfirm.behaviorStream,
     ],
-        (values) => Regex.isPassword(values[0]) && (values[0] == values[1]),
+    (values) => Regex.isPassword(values[0]) && (values[0] == values[1]),
   );
 
   late final isValidPassword = _isValidPassword.not().toObs(false);
@@ -63,7 +60,7 @@ class SignUpController extends BaseController {
       isValidEmail.behaviorStream,
       isValidPassword.behaviorStream,
     ],
-        (values) {
+    (values) {
       return values.every((element) => element == false);
     },
   ).toObs(false);
@@ -77,40 +74,20 @@ class SignUpController extends BaseController {
   void onPressedLoginButton() async {
     unFocus();
     await Future.delayed(const Duration(milliseconds: 300));
-    await postLogin();
-  }
 
-  /// 로그인 요청.
-  Future<void> postLogin() async {
     setLoading(true);
-    final loginApi = Get.find<LoginAPI>();
+    final loginProcess = Get.find<LoginProcess>();
     final requestData = PostLoginSignInRequestModel(
       loginId: email.value,
       passCode: args.passToken,
       password: password.value,
       type: UserSnsType.idPw.toString(),
     );
-    final response = await loginApi.postLoginSignIn(requestData: requestData);
 
-    if (response is PostLoginSignInResponseModel) {
-      final token = response.token;
-      if (response.status == false || token == null) {
-        showToast(response.message ?? "서버 에러");
-      } else {
-        // 토큰 저장 후 홈으로 이동.
-        final userStorage = UserStorage();
-        userStorage.apiKey.val = token;
-        userStorage.snsType.val = UserSnsType.idPw.toString();
-        Get.offAllNamed(RouteType.MAIN);
-      }
-    } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
-      showToast(message);
-    }
+    final moveType = await loginProcess.signInAndMove(requestData: requestData);
 
-    await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
+    loginProcess.movePage(moveType);
   }
 
   /// 아이디 중복 확인.

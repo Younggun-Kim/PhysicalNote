@@ -115,7 +115,6 @@ class TermController extends LifecycleController {
   }
 
   /// API - 회원가입.
-  // TODO: - 회원가입 API 실패 Invalid Roles 에러.
   Future<void> _postLoginSignIn(String passToken) async {
     setLoading(true);
     final loginApi = Get.find<LoginAPI>();

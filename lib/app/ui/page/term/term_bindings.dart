@@ -9,5 +9,6 @@ class TermBindings extends Bindings {
     Get.lazyPut(() => TermController());
     Get.lazyPut(() => CommonAPI());
     Get.lazyPut(() => LoginAPI());
+    Get.lazyPut(() => LoginAPI());
   }
 }
