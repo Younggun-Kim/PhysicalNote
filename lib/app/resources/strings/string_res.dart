@@ -199,6 +199,8 @@ class StringRes {
   static final duringWorkout = _generateId();
   static final injuryCause = _generateId();
   static final injuryCauseHint = _generateId();
+  static final noRegisteredTeam = _generateId();
+  static final teamSelect = _generateId();
 
 
   /// DateTime 영역

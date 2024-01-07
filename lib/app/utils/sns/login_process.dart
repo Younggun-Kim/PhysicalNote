@@ -9,6 +9,7 @@ import 'package:physical_note/app/data/login/model/post_login_sign_in_response_m
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
+import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide_args.dart';
 
 import '../../data/user/user_storage.dart';
 import '../utils.dart';
@@ -159,19 +160,25 @@ class LoginProcess {
   }
 
   /// 페이지 이동.
+  // TODO: 승인 요청 타입 추가하기.
   void movePage(LoginMoveType? moveType) {
     final type = moveType;
-    if(type == null) {
+    if (type == null) {
       return;
     }
     switch (type) {
       case LoginMoveType.home:
         Get.offAllNamed(RouteType.HOME);
+
       case LoginMoveType.information:
-        Get.offAllNamed(RouteType.INFORMATION_REGISTRATION_GUIDE);
+        final args = InformationRegistrationGuideArgs(hasWorkout: false);
+        Get.offAllNamed(RouteType.INFORMATION_REGISTRATION_GUIDE,
+            arguments: args);
 
       case LoginMoveType.team:
-        Get.offAllNamed(RouteType.INFORMATION_REGISTRATION_GUIDE);
+        final args = InformationRegistrationGuideArgs(hasWorkout: true);
+        Get.offAllNamed(RouteType.INFORMATION_REGISTRATION_GUIDE,
+            arguments: args);
 
       case LoginMoveType.login:
         Get.offAllNamed(RouteType.LOGIN);

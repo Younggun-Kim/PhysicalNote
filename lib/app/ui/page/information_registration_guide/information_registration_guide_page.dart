@@ -29,7 +29,9 @@ class InformationRegistrationGuidePage
             children: [
               const SizedBox(height: 200),
               Text(
-                StringRes.informationRegistrationGuide.tr,
+                controller.args.hasWorkout
+                    ? StringRes.noRegisteredTeam.tr
+                    : StringRes.informationRegistrationGuide.tr,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
@@ -42,7 +44,9 @@ class InformationRegistrationGuidePage
                 height: 56,
                 defaultBackgroundColor: ColorRes.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                text: StringRes.doInformationRegistration.tr,
+                text: controller.args.hasWorkout
+                    ? StringRes.teamSelect.tr
+                    : StringRes.doInformationRegistration.tr,
                 defaultTextStyle: const TextStyle(
                   fontSize: 16,
                   color: ColorRes.white,

@@ -18,7 +18,6 @@ class InformationRegistrationPage
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
             children: [
-              _Header(),
               const Spacer(),
               _FieldName(text: StringRes.category.tr),
               const SizedBox(height: 10),
@@ -98,17 +97,6 @@ class InformationRegistrationPage
             ],
           ),
         ),
-      );
-}
-
-/// 헤더.
-class _Header extends GetView<InformationRegistrationController> {
-  @override
-  Widget build(BuildContext context) => Header(
-        title: "",
-        showBack: true,
-        onPressed: controller.close,
-        padding: const EdgeInsets.symmetric(horizontal: 4),
       );
 }
 
