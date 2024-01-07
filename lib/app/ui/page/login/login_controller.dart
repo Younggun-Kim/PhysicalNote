@@ -4,14 +4,10 @@ import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_find_id_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_request_model.dart';
-import 'package:physical_note/app/data/login/model/post_login_response_model.dart';
-import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
-import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/model/social_accounts_model.dart';
-import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/page/change_password/change_password_args.dart';
@@ -179,36 +175,6 @@ class LoginController extends BaseController {
     super.dispose();
   }
 
-  /// API - 로그인 요청
-  Future<String?> _postLogin({
-    required UserSnsType snsType,
-    required String? id,
-    required String password,
-  }) async {
-    setLoading(true);
-    final requestData = PostLoginRequestModel(
-      loginId: id,
-      password: password,
-      type: snsType.toString(),
-    );
-
-    final response = await api.postLogin(requestData);
-    String? token;
-
-    if (response is PostLoginResponseModel) {
-      token = response.token ?? "";
-    } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
-      showToast(message);
-    }
-
-    await Future.delayed(const Duration(seconds: 1));
-    setLoading(false);
-
-    return token;
-  }
-
   /// 패스 정보 조회
   Future<LoginPassModel?> _pass() async {
     final passToken = await Get.toNamed(RouteType.PASS) as String?;
@@ -249,49 +215,46 @@ class LoginController extends BaseController {
       return;
     }
 
-    final apiToken = await _postLogin(
-      snsType: UserSnsType.naver,
-      id: null,
+    setLoading(true);
+    final loginProcess = Get.find<LoginProcess>();
+
+    final moveType = await loginProcess.loginAndMove(
+        requestData: PostLoginRequestModel(
+      loginId: null,
       password: accessToken,
-    );
+      type: UserSnsType.naver.toString(),
+    ));
 
-    if (apiToken == null) {
-      return;
-    }
-
-    _login(
-      apiToken: apiToken,
-      accessToken: accessToken,
-      snsType: UserSnsType.naver,
-      loginId: "",
-    );
+    final termArgs =
+        TermArgs(snsType: UserSnsType.naver, accessToken: accessToken);
+    loginProcess.movePage(moveType, args: termArgs);
+    setLoading(false);
   }
 
   /// 카카오 로그인.
   void _kakaoLogin() async {
     final kakaoLogin = Get.find<KakaoLogin>();
     final accessToken = await kakaoLogin.login();
+
     if (accessToken == null) {
       logger.e("카카오 액세스 토큰이 없습니다.");
       return;
     }
 
-    final apiToken = await _postLogin(
-      snsType: UserSnsType.kakao,
-      id: null,
+    setLoading(true);
+    final loginProcess = Get.find<LoginProcess>();
+
+    final moveType = await loginProcess.loginAndMove(
+        requestData: PostLoginRequestModel(
+      loginId: null,
       password: accessToken,
-    );
+      type: UserSnsType.kakao.toString(),
+    ));
 
-    if (apiToken == null) {
-      return;
-    }
-
-    _login(
-      apiToken: apiToken,
-      accessToken: accessToken,
-      snsType: UserSnsType.kakao,
-      loginId: "",
-    );
+    final termArgs =
+        TermArgs(snsType: UserSnsType.kakao, accessToken: accessToken);
+    loginProcess.movePage(moveType, args: termArgs);
+    setLoading(false);
   }
 
   /// 애플 로그인.
@@ -304,80 +267,17 @@ class LoginController extends BaseController {
       return null;
     }
 
-    final apiToken = await _postLogin(
-      snsType: UserSnsType.apple,
-      id: appleResult.id,
-      password: appleResult.token,
-    );
-
-    if (apiToken == null) {
-      logger.e("로그인 실패");
-      return;
-    }
-
-    _login(
-        apiToken: apiToken,
-        accessToken: appleResult.token,
-        snsType: UserSnsType.apple,
-        loginId: appleResult.id);
-  }
-
-  /// 로그인 성공.
-  void _login({
-    required String? apiToken,
-    required String accessToken,
-    required UserSnsType snsType,
-    required String loginId,
-  }) {
-    final token = apiToken;
-    if (token == null || token.isEmpty) {
-      /// 약관 이동.
-      if (snsType == UserSnsType.kakao || snsType == UserSnsType.naver) {
-        final termArgs = TermArgs(snsType: snsType, accessToken: accessToken);
-        Get.toNamed(RouteType.TERM, arguments: termArgs);
-      } else if (snsType == UserSnsType.apple) {
-        /// 애플 회원가입 처리.
-        /// 애플 회원가입 시 PassToken null.
-        _appleSignIn(loginId, accessToken);
-      }
-    } else {
-      final userStorage = UserStorage();
-      userStorage.snsType.val = snsType.toString();
-      userStorage.apiKey.val = token;
-      Get.offAllNamed(RouteType.MAIN);
-    }
-  }
-
-  /// API - 회원가입.
-  Future<void> _appleSignIn(String id, String password) async {
     setLoading(true);
-    final loginApi = Get.find<LoginAPI>();
-    final requestData = PostLoginSignInRequestModel(
-      loginId: id,
-      passCode: null,
-      password: password,
+    final loginProcess = Get.find<LoginProcess>();
+
+    final moveType = await loginProcess.loginAndMove(
+        requestData: PostLoginRequestModel(
+      loginId: appleResult.id,
+      password: appleResult.token,
       type: UserSnsType.apple.toString(),
-    );
-    final response = await loginApi.postLoginSignIn(requestData: requestData);
+    ));
 
-    if (response is PostLoginSignInResponseModel) {
-      final token = response.token;
-      if (response.status == false || token == null) {
-        showToast(response.message ?? "서버 에러");
-      } else {
-        // 토큰 저장 후 홈으로 이동.
-        final userStorage = UserStorage();
-        userStorage.apiKey.val = token;
-        userStorage.snsType.val = UserSnsType.apple.toString();
-        Get.offAllNamed(RouteType.MAIN);
-      }
-    } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
-      showToast(message);
-    }
-
-    await Future.delayed(const Duration(seconds: 1));
+    loginProcess.movePage(moveType);
     setLoading(false);
   }
 

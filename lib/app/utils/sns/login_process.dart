@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_relogin_response_model.dart';
@@ -47,6 +48,21 @@ class LoginProcess {
     if (isLoginSuccess) {
       return await _getUserAndMove();
     } else {
+      /// 약관 이동.
+      if (requestData.type == UserSnsType.naver.toString() ||
+          requestData.type == UserSnsType.kakao.toString()) {
+        return LoginMoveType.term;
+      } else if (requestData.type == UserSnsType.apple.toString()) {
+        /// 애플 회원가입.
+        await _signIn(
+          requestData: PostLoginSignInRequestModel(
+            loginId: requestData.loginId,
+            passCode: null,
+            password: requestData.password,
+            type: requestData.type,
+          ),
+        );
+      }
       return null;
     }
   }
@@ -161,7 +177,7 @@ class LoginProcess {
 
   /// 페이지 이동.
   // TODO: 승인 요청 타입 추가하기.
-  void movePage(LoginMoveType? moveType) {
+  void movePage(LoginMoveType? moveType, {dynamic args}) {
     final type = moveType;
     if (type == null) {
       return;
@@ -179,6 +195,9 @@ class LoginProcess {
         final args = InformationRegistrationGuideArgs(hasWorkout: true);
         Get.offAllNamed(RouteType.INFORMATION_REGISTRATION_GUIDE,
             arguments: args);
+
+      case LoginMoveType.term:
+        Get.offAllNamed(RouteType.TERM, arguments: args);
 
       case LoginMoveType.login:
         Get.offAllNamed(RouteType.LOGIN);
