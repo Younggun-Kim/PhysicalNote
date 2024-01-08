@@ -26,8 +26,20 @@ extension MyInformationUiMapper on MyInformationController {
     /// 성별.
     gender.value = response?.gender ?? "";
 
-    // TODO: 포지션 파싱.
     /// 포지션.
+    positions.value = response?.positions
+            ?.map((e) {
+              final id = e.id;
+              final name = e.name;
+              if (id == null || name == null) {
+                return null;
+              }
+              return PositionListItemUiState(
+                  id: id, name: name, isSelected: true);
+            })
+            .whereType<PositionListItemUiState>()
+            .toList() ??
+        [];
 
     /// 왼 발
     leftFoot.value = response?.leftValue ?? 0;
@@ -76,7 +88,7 @@ extension MyInformationUiMapper on MyInformationController {
         leftValue: leftFoot.value.toInt(),
         rightValue: rightFoot.value.toInt(),
         teamId: teamId,
-        positionIds: [],
+        positionIds: positions.map((element) => element.id).toList(),
         profile: profile,
         workoutId: workoutId,
         userType: itsElite ? "ELITE" : "AMATEUR",
