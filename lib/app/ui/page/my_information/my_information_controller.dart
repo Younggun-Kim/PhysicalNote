@@ -98,10 +98,24 @@ class MyInformationController extends BaseController {
       arguments: positionArgs,
     ) as List<PositionListItemUiState>;
 
-    if(positionList.isNotEmpty) {
-      positions.value = positionList;
+    if (positionList.isNotEmpty) {
       /// 기존 포지션과 비교해서 set 으로 하기.
+      final positionSet = <PositionListItemUiState>{
+        ...positions,
+        ...positionList
+      };
+      // final positionSet = Set<PositionListItemUiState>.from(positions.toList())..addAll(positionList);
+      positions.value = positionSet.toList();
     }
+  }
+
+  /// 포지션 삭제 클릭.
+  void onPressedPositionDeleteButton(PositionListItemUiState uiState) {
+    var list = positions.toList();
+
+    list.removeWhere((element) => element == uiState);
+
+    positions.value = list;
   }
 
   /// 왼쪽 발 변경.

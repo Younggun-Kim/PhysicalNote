@@ -49,7 +49,7 @@ class OutlineTextField extends StatelessWidget {
 
   final VoidCallback? onPressedSearch;
 
-  final Widget rightWidget;
+  final Widget? rightWidget;
 
   final bool readOnly;
 
@@ -75,7 +75,7 @@ class OutlineTextField extends StatelessWidget {
     this.fontWeight = FontWeight.w400,
     this.isShowSearch = false,
     this.onPressedSearch,
-    this.rightWidget = const SizedBox(),
+    this.rightWidget,
     this.readOnly = false,
   }) : super(key: key);
 
@@ -141,12 +141,12 @@ class OutlineTextField extends StatelessWidget {
               onTap: onPressedSearch,
               splashColor: null,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                padding: EdgeInsets.fromLTRB(0, 0, rightWidget == null ? 0 : 16, 0),
                 child: SvgPicture.asset(Assets.searchRefraction),
               ),
             ),
           ),
-          rightWidget
+          rightWidget ?? const SizedBox(),
         ],
       ),
     );

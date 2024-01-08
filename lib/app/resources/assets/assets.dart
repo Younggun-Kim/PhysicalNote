@@ -31,6 +31,7 @@ class Assets {
   static const String navigationHomeSelect = 'assets/navigation_home_select.svg';
   static const String noneWalkMan = 'assets/images/none_walk_man.svg';
   static const String phonePrimary = 'assets/images/phone_primary.svg';
+  static const String plusGreen = 'assets/images/plus_green.svg';
   static const String retiredMan = 'assets/images/retired_man.svg';
   static const String runningMan = 'assets/images/running_man.svg';
   static const String searchRefraction = 'assets/images/search-refraction.svg';

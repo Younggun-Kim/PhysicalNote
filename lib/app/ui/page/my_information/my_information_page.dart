@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/photo_model.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
+import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/buttons/hint_button.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
@@ -383,6 +384,15 @@ class _Position extends GetView<MyInformationController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              StringRes.positionMultipleSelectionPossible.tr,
+              style: const TextStyle(
+                fontSize: 16,
+                color: ColorRes.fontBlack,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 10),
             HintButton(
               hint: StringRes.pushSelect.tr,
               text: "",
@@ -393,35 +403,81 @@ class _Position extends GetView<MyInformationController> {
               () => Wrap(
                 spacing: 5,
                 runSpacing: 10,
-                children: controller.positions
-                    .map(
-                      (element) => FittedBox(
-                        child: Container(
-                          height: 40,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: ColorRes.primary,
-                            border: Border.all(color: ColorRes.border),
-                          ),
-                          child: Text(
-                            element.name,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: ColorRes.fontBlack,
-                            ),
-                          ),
-                        ),
+                children: [
+                  ..._positionList(controller.positions),
+                  Visibility(
+                    visible: controller.positions.isNotEmpty,
+                    child: InkWellOver(
+                      onTap: controller.onPressedSearchPosition,
+                      splashColor: Colors.transparent,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: SvgPicture.asset(Assets.plusGreen),
                       ),
-                    )
-                    .toList(),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
       );
+
+  List<Widget> _positionList(List<PositionListItemUiState> list) {
+    List<Widget> positionWidgets = list
+        .map(
+          (element) => FittedBox(
+            child: Stack(
+              children: [
+                Container(
+                  height: 36,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  alignment: Alignment.center,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: ColorRes.primary,
+                    border: Border.all(color: ColorRes.border),
+                  ),
+                  child: Text(
+                    element.name,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: InkWellOver(
+                    borderRadius: BorderRadius.circular(8),
+                    onTap: () {
+                      controller.onPressedPositionDeleteButton(element);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                      ),
+                      child: const Icon(
+                        Icons.clear,
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+        .toList();
+
+    return positionWidgets;
+  }
 }
 
 /// 주 발.

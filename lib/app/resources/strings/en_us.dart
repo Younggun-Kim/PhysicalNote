@@ -213,5 +213,5 @@ final enUs = {
   StringRes.noRegisteredTeam: "등록된 팀이 없습니다.\n팀을 재등록 해주세요.",
   StringRes.teamSelect: "팀 선택하기.",
   StringRes.complete: "완료",
-  StringRes.pushSelect: "눌러서 선택하기",
+  StringRes.pushSelect: "눌러서 선택하세요.",
 };
