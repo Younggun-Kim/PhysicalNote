@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/config/constant/photo_model.dart';
 import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
@@ -14,15 +13,13 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
-import 'package:physical_note/app/data/workout/workout_api.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
+import 'package:physical_note/app/ui/page/position/position.dart';
 import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/list_dialog/list_dialog.dart';
 import 'package:physical_note/app/ui/widgets/list_dialog/list_dialog_item.dart';
-import 'package:physical_note/app/utils/pagination/load_page.dart';
-import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/streams.dart';
 
@@ -56,17 +53,8 @@ class MyInformationController extends BaseController {
   /// 성별.
   var gender = "".obsWithController;
 
-  /// 포지션 페이지 컨트롤러.
-  final pagingController =
-      PagingController<int, PositionListItemUiState>(firstPageKey: 0);
-
-  /// 포지션 Ids
-  get positionIds =>
-      pagingController.itemList
-          ?.where((e) => e.isSelected)
-          .map((e) => e.id)
-          .toList() ??
-      [];
+  /// 포지션.
+  var positions = <PositionListItemUiState>[].obs;
 
   /// 왼쪽 발.
   var leftFoot = 0.0.obs;
@@ -91,7 +79,6 @@ class MyInformationController extends BaseController {
   void onInit() {
     super.onInit();
     _loadUserData();
-    pagingController.start((pageKey) => _loadWorkoutPositionData(pageKey));
   }
 
   /// 생년월일 입력.
@@ -99,18 +86,22 @@ class MyInformationController extends BaseController {
     birth.value = value;
   }
 
-  /// 포지션 선택.
-  void onTapPositionItem(PositionListItemUiState uiState) {
-    final items = pagingController.itemList as List<PositionListItemUiState>;
+  /// 포지션 찾기 버튼 클릭.
+  void onPressedSearchPosition() async {
+    final workoutId = args?.workoutId;
+    if (workoutId == null) {
+      return;
+    }
+    final positionArgs = PositionArgs(workoutId: workoutId);
+    final positionList = await Get.toNamed(
+      RouteType.POSITION,
+      arguments: positionArgs,
+    ) as List<PositionListItemUiState>;
 
-    final newItems = items.map((item) {
-      if (item.id == uiState.id) {
-        item.isSelected = !uiState.isSelected;
-      }
-      return item;
-    }).toList();
-
-    pagingController.itemList = newItems;
+    if(positionList.isNotEmpty) {
+      positions.value = positionList;
+      /// 기존 포지션과 비교해서 set 으로 하기.
+    }
   }
 
   /// 왼쪽 발 변경.
@@ -155,30 +146,6 @@ class MyInformationController extends BaseController {
           (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
       showToast(message);
     }
-  }
-
-  /// 포지션 조회.
-  Future<LoadPage<int, PositionListItemUiState>> _loadWorkoutPositionData(
-      int pageKey) async {
-    final workoutId = args?.workoutId;
-
-    if (workoutId == null) {
-      return LoadPage(items: [], isLastPage: true, nextPageKey: 1);
-    }
-    final workoutAPI = Get.find<WorkoutAPI>();
-    final response = await workoutAPI.getWorkoutPositionDetail(
-        pageKey: pageKey, workoutId: workoutId);
-
-    final isLastPage = response.last == true;
-    final toUiStates = response.content
-        .map((e) => positionListItemUiStateFrom(data: e))
-        .toList();
-
-    return LoadPage(
-      items: toUiStates,
-      isLastPage: isLastPage,
-      nextPageKey: pageKey + 1,
-    );
   }
 
   /// 유저 정보 등록/수정

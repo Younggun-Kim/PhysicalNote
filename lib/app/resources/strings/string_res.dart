@@ -201,6 +201,8 @@ class StringRes {
   static final injuryCauseHint = _generateId();
   static final noRegisteredTeam = _generateId();
   static final teamSelect = _generateId();
+  static final complete = _generateId();
+  static final pushSelect = _generateId();
 
 
   /// DateTime 영역

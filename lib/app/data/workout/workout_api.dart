@@ -14,7 +14,8 @@ class WorkoutAPI extends API {
   /// 운동 카테고리 목록 조회.
   Future<PaginateModel> getWorkoutCategory(
       {required int page, required String keyword}) async {
-    final response = await get(requestUrl + "/category?page=$page&keyword=$keyword");
+    final response =
+        await get(requestUrl + "/category?page=$page&keyword=$keyword");
 
     logger.i("API Response: ${response.bodyString}");
 
@@ -53,25 +54,25 @@ class WorkoutAPI extends API {
   }
 
   /// 운동 포지션 조회.
-  Future<PaginateModel> getWorkoutPositionDetail({
+  Future<dynamic> getWorkoutPositionDetail({
     required int pageKey,
     required int workoutId,
   }) async {
-    final response = await get(
-      requestUrl + "/position/$workoutId?page=$pageKey",
-    );
+    try {
+      final response = await get(
+        requestUrl + "/position/$workoutId?page=$pageKey",
+      );
 
-    logger.i("API Response: ${response.bodyString}");
+      logger.i("API Response: ${response.bodyString}");
 
-    if (response.status.hasError) {
-      final failResponse = ServerResponseFailModel.fromJson(response.body);
-      logger.i("Fail Message: ${failResponse.toJson()}");
-      return Future.error({failResponse.message});
-    } else {
-      final successResponse = PaginateModel.fromJson(
-          response.body, GetWorkoutPositionDetailResponseModel.fromJson);
-      logger.i("successResponse: ${successResponse.toJson()}");
-      return successResponse;
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return PaginateModel.fromJson(
+            response.body, GetWorkoutPositionDetailResponseModel.fromJson);
+      }
+    } catch (e) {
+      return null;
     }
   }
 }

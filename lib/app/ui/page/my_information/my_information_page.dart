@@ -3,12 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/config/constant/photo_model.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
-import 'package:physical_note/app/ui/page/my_information/position/position_list_item.dart';
-import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/buttons/hint_button.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
@@ -381,32 +378,50 @@ class _BirthAndGender extends StatelessWidget {
 /// 포지션.
 class _Position extends GetView<MyInformationController> {
   @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          FieldName(name: StringRes.positionMultipleSelectionPossible.tr),
-          const SizedBox(height: 10),
-          SizedBox(
-            height: 40,
-            child: PagedListView.separated(
-              scrollDirection: Axis.horizontal,
-              pagingController: controller.pagingController,
-              builderDelegate:
-                  PagedChildBuilderDelegate<PositionListItemUiState>(
-                itemBuilder: (context, item, index) => PositionListItem(
-                  uiState: item,
-                  onTap: (PositionListItemUiState uiState) {
-                    controller.onTapPositionItem(uiState);
-                  },
-                ),
-                noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
-              ),
-              separatorBuilder: (context, itemIndex) {
-                return const SizedBox(width: 5);
-              },
+  Widget build(BuildContext context) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            HintButton(
+              hint: StringRes.pushSelect.tr,
+              text: "",
+              onTap: controller.onPressedSearchPosition,
             ),
-          ),
-        ],
-      ).paddingSymmetric(horizontal: 30);
+            const SizedBox(height: 10),
+            Obx(
+              () => Wrap(
+                spacing: 5,
+                runSpacing: 10,
+                children: controller.positions
+                    .map(
+                      (element) => FittedBox(
+                        child: Container(
+                          height: 40,
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: ColorRes.primary,
+                            border: Border.all(color: ColorRes.border),
+                          ),
+                          child: Text(
+                            element.name,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: ColorRes.fontBlack,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+          ],
+        ),
+      );
 }
 
 /// 주 발.
