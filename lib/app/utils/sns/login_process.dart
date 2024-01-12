@@ -203,7 +203,7 @@ class LoginProcess {
         Get.offAllNamed(RouteType.TEAM_REQUEST);
 
       case LoginMoveType.term:
-        Get.offAllNamed(RouteType.TERM, arguments: args);
+        Get.toNamed(RouteType.TERM, arguments: args);
 
       case LoginMoveType.login:
         Get.offAllNamed(RouteType.LOGIN);

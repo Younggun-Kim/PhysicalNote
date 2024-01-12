@@ -178,13 +178,14 @@ class MyInformationController extends BaseController {
     final requestData = getUserRequestData(
       profile: profile,
       workoutId: workoutId,
-      itsElite: elite,
+      isElite: elite,
       teamId: teamId,
     );
     final response = await userApi.postUser(requestData: requestData);
 
+    // TODO: 진입점에 따라 처리 방식을 구분해야 함.
     if (response is GetUserResponseModel) {
-      Get.until((route) => Get.currentRoute == RouteType.HOME);
+      Get.offAllNamed(RouteType.TEAM_REQUEST);
     } else {
       final message =
           (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";

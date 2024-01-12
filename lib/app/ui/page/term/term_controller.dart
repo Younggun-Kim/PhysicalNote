@@ -6,13 +6,12 @@ import 'package:physical_note/app/data/common/common_api.dart';
 import 'package:physical_note/app/data/common/model/get_term_response_model.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
-import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
-import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/page/inline_webview/inline_webview_args.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up_args.dart';
 import 'package:physical_note/app/ui/page/term/term_args.dart';
+import 'package:physical_note/app/utils/sns/login_process.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -117,33 +116,15 @@ class TermController extends LifecycleController {
   /// API - 회원가입.
   Future<void> _postLoginSignIn(String passToken) async {
     setLoading(true);
-    final loginApi = Get.find<LoginAPI>();
+    final loginProcess = Get.find<LoginProcess>();
     final requestData = PostLoginSignInRequestModel(
       loginId: null,
       passCode: passToken,
       password: args.accessToken,
       type: args.snsType.toString(),
     );
-    final response = await loginApi.postLoginSignIn(requestData: requestData);
-
-    if (response is PostLoginSignInResponseModel) {
-      final token = response.token;
-      if (response.status == false || token == null) {
-        showToast(response.message ?? "서버 에러");
-      } else {
-        // 토큰 저장 후 홈으로 이동.
-        final userStorage = UserStorage();
-        userStorage.apiKey.val = token;
-        userStorage.snsType.val = args.snsType.toString();
-        Get.offAllNamed(RouteType.MAIN);
-      }
-    } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
-      showToast(message);
-    }
-
-    await Future.delayed(const Duration(seconds: 1));
+    final moveType = await loginProcess.signInAndMove(requestData: requestData);
+    loginProcess.movePage(moveType);
     setLoading(false);
   }
 
@@ -171,7 +152,7 @@ class TermController extends LifecycleController {
   /// 약관 보기.
   void _showTerm(TermType type) async {
     final html = await _getTerm(type);
-    if(html == null) {
+    if (html == null) {
       return;
     }
 

@@ -79,8 +79,9 @@ extension MyInformationUiMapper on MyInformationController {
   PostUserRequestModel getUserRequestData({
     required String? profile,
     required int workoutId,
-    required bool itsElite,
+    required bool isElite,
     required int teamId,
+    String? passCode,
   }) =>
       PostUserRequestModel(
         height: double.parse(height.value),
@@ -91,6 +92,7 @@ extension MyInformationUiMapper on MyInformationController {
         positionIds: positions.map((element) => element.id).toList(),
         // profile: profile,
         workoutId: workoutId,
-        userType: itsElite ? "ELITE" : "AMATEUR",
+        userType: isElite ? "ELITE" : "AMATEUR",
+        passCode: passCode,
       );
 }
