@@ -90,7 +90,7 @@ extension MyInformationUiMapper on MyInformationController {
         rightValue: rightFoot.value.toInt(),
         teamId: teamId,
         positionIds: positions.map((element) => element.id).toList(),
-        // profile: profile,
+        profile: profile,
         workoutId: workoutId,
         userType: isElite ? "ELITE" : "AMATEUR",
         passCode: passCode,
