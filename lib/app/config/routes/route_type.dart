@@ -26,4 +26,5 @@ abstract class RouteType {
   static const INLINE_WEBVIEW = "/inline_webview";
   static const NAVER_LOGIN = "/naver_login";
   static const POSITION = "/position";
+  static const TEAM_REQUEST = "/team_request";
 }

@@ -128,7 +128,11 @@ class LoginProcess {
     if (response is GetUserResponseModel) {
       final workoutId = response.workoutId;
       final teamId = response.teamId;
-      if (workoutId == null) {
+      final teamRequest = response.teamRequestYn;
+
+      if(teamRequest == true && workoutId == null && teamId == null) {
+        return LoginMoveType.teamRequest;
+      }  else if (workoutId == null) {
         return LoginMoveType.information;
       } else if (teamId == null) {
         return LoginMoveType.team;
@@ -176,7 +180,6 @@ class LoginProcess {
   }
 
   /// 페이지 이동.
-  // TODO: 승인 요청 타입 추가하기.
   void movePage(LoginMoveType? moveType, {dynamic args}) {
     final type = moveType;
     if (type == null) {
@@ -195,6 +198,9 @@ class LoginProcess {
         final args = InformationRegistrationGuideArgs(hasWorkout: true);
         Get.offAllNamed(RouteType.INFORMATION_REGISTRATION_GUIDE,
             arguments: args);
+
+      case LoginMoveType.teamRequest:
+        Get.offAllNamed(RouteType.TEAM_REQUEST);
 
       case LoginMoveType.term:
         Get.offAllNamed(RouteType.TERM, arguments: args);

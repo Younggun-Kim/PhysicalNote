@@ -8,6 +8,9 @@ enum LoginMoveType {
   /// 팀 재등록 가이드
   team,
 
+  /// 팀 승인요청 중.
+  teamRequest,
+
   /// 약관
   term,
 

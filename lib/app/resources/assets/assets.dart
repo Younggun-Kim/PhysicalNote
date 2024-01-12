@@ -37,6 +37,7 @@ class Assets {
   static const String searchRefraction = 'assets/images/search-refraction.svg';
   static const String splash = 'assets/images/splash.png';
   static const String starYellow = 'assets/images/star_yellow.svg';
+  static const String teamRequest = 'assets/images/team_request.png';
   static const String triangle = 'assets/images/triangle.png';
   static const String userDefault = 'assets/images/user_default.svg';
   static const String userDefaultBasic = 'assets/images/user_default_basic.svg';

@@ -16,6 +16,7 @@ import 'package:physical_note/app/ui/page/search_category/search_category.dart';
 import 'package:physical_note/app/ui/page/search_teams/search_teams.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up.dart';
 import 'package:physical_note/app/ui/page/splash/splash.dart';
+import 'package:physical_note/app/ui/page/team_request/team_request.dart';
 import 'package:physical_note/app/ui/page/term/term.dart';
 import 'package:physical_note/app/ui/page/test/test.dart';
 
@@ -25,7 +26,7 @@ class Routes {
   static final pages = [
     GetPage(
       name: RouteType.TEST,
-      page: () => TestPage(),
+      page: () => const TestPage(),
       binding: TestBindings(),
     ),
     GetPage(
@@ -140,6 +141,11 @@ class Routes {
       name: RouteType.POSITION,
       page: () => const PositionPage(),
       binding: PositionBindings(),
+    ),
+    GetPage(
+      name: RouteType.TEAM_REQUEST,
+      page: () => const TeamRequestPage(),
+      binding: TeamRequestBindings(),
     ),
   ];
 }

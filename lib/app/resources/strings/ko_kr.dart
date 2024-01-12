@@ -215,4 +215,5 @@ final koKr = {
   StringRes.teamSelect: "팀 선택하기.",
   StringRes.complete: "완료",
   StringRes.pushSelect: "눌러서 선택하세요.",
+  StringRes.teamRequest: "승인요청 중 입니다.\n잠시만 기다려 주세요.",
 };

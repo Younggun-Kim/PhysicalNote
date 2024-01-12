@@ -203,6 +203,7 @@ class StringRes {
   static final teamSelect = _generateId();
   static final complete = _generateId();
   static final pushSelect = _generateId();
+  static final teamRequest = _generateId();
 
 
   /// DateTime 영역
