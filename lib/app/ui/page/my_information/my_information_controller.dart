@@ -193,7 +193,7 @@ class MyInformationController extends BaseController {
     final response = await userApi.postUser(requestData: requestData);
 
     if (response is GetUserResponseModel) {
-      if(args.isEnteredFromHome) {
+      if (args.isEnteredFromHome) {
         /// 홈에서 진입 시.
         close();
       } else {
