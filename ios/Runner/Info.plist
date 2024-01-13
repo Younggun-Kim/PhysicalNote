@@ -56,6 +56,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MinimumOSVersion</key>
+	<string>16.0</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -87,7 +89,5 @@
 	<string>$(PRODUCT_NAME)</string>
 	<key>naverServiceAppUrlScheme</key>
 	<string>naverlogin</string>
-	<key>LSMinimumSystemVersion</key>
-	<string>16.0</string>
 </dict>
 </plist>
