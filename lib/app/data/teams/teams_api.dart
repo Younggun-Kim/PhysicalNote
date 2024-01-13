@@ -10,22 +10,26 @@ class TeamsAPI extends API {
   TeamsAPI() : super(basePath: "/api/teams");
 
   /// 팀 목록 조회 API.
-  // TODO: 키워드 추가.
-  Future<PaginateModel> getTeams({required int page}) async {
-    logger.w(requestUrl);
-    final response = await get(
-      requestUrl + "?page=$page",
-    );
+  Future<dynamic> getTeams({required int page, String? keyword}) async {
+    try {
+      var url = requestUrl + "?page=$page";
+      if (keyword != null) {
+        url += "&name=$keyword";
+      }
+      final response = await get(
+        url,
+      );
 
-    logger.i("API Response: ${response.bodyString}");
+      logger.i("${response.bodyString}");
 
-    if (response.status.hasError) {
-      final failResponse = ServerResponseFailModel.fromJson(response.body);
-      return Future.error({failResponse.message});
-    } else {
-      final successResponse =
-          PaginateModel.fromJson(response.body, TeamsResponseModel.fromJson);
-      return successResponse;
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return PaginateModel.fromJson(
+            response.body, TeamsResponseModel.fromJson);
+      }
+    } catch (e) {
+      logger.e(e);
     }
   }
 }

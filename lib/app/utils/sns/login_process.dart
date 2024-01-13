@@ -187,7 +187,7 @@ class LoginProcess {
     }
     switch (type) {
       case LoginMoveType.home:
-        Get.offAllNamed(RouteType.HOME);
+        Get.offAllNamed(RouteType.MAIN);
 
       case LoginMoveType.information:
         final args = InformationRegistrationGuideArgs(hasWorkout: false);

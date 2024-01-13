@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/config/constant/hooper_index_status.dart';
-import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
@@ -110,20 +109,8 @@ class HomeController extends BaseController {
 
   @override
   void onInit() {
-    moveInformationRegistration();
     super.onInit();
     loadHome();
-  }
-
-  /// 정보 등록 화면으로 이동.
-  Future<void> moveInformationRegistration() async {
-    final userStorage = UserStorage();
-
-    if (!userStorage.isRegisteredInformation.val) {
-      // 정보등록으로 이동
-      await 1.delay();
-      await Get.toNamed(RouteType.INFORMATION_REGISTRATION_GUIDE);
-    }
   }
 
   /// 유저 정보 편집 클릭.

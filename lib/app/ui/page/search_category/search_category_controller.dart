@@ -109,7 +109,6 @@ class SearchCategoryController extends BaseController {
 
     final api = Get.find<WorkoutAPI>();
 
-    // Todo: 검색어 추가 필요.
     final response = await api.getWorkoutDetail(
       pageKey: pageKey,
       categoryId: categoryId,

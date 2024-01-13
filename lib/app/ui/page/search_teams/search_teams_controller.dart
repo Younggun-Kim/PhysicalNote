@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:physical_note/app/data/network/model/base_list_model/paginate_model.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/teams/teams_api.dart';
 import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/search_teams/search_teams_list_ui_mapper.dart';
@@ -27,7 +29,6 @@ class SearchTeamsController extends BaseController {
   }
 
   /// 검색 버튼 클릭.
-  // TODO: 키워드 검색으로 변경하기.
   void onPressedSearchButton() {
     pagingController.refresh();
   }
@@ -41,12 +42,26 @@ class SearchTeamsController extends BaseController {
   Future<LoadPage<int, SearchTeamsListItemUiState>> _loadPage(
       int pageKey) async {
     final teamsApi = Get.find<TeamsAPI>();
-    final response = await teamsApi.getTeams(page: pageKey);
+    final response = await teamsApi.getTeams(page: pageKey, keyword: keyword.value);
 
-    final isLastPage = response.last == true;
-    final toUiStates =
-        response.content.map((e) => searchTeamsListItemUiStateFrom(e)).toList();
+    var isLastPage = true;
+    var toUiStates = <SearchTeamsListItemUiState>[];
+
+    if (response is PaginateModel) {
+      isLastPage = response.last;
+      toUiStates = response.content
+          .map((e) => searchTeamsListItemUiStateFrom(e))
+          .toList();
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+
     return LoadPage(
-        items: toUiStates, isLastPage: isLastPage, nextPageKey: pageKey + 1);
+      items: toUiStates,
+      isLastPage: isLastPage,
+      nextPageKey: pageKey + 1,
+    );
   }
 }
