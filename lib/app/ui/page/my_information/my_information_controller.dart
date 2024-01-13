@@ -5,7 +5,7 @@ import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:physical_note/app/config/constant/photo_model.dart';
-import 'package:physical_note/app/config/constant/user_type.dart';
+import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/common/common_api.dart';
 import 'package:physical_note/app/data/common/model/post_upload_response_model.dart';
@@ -27,7 +27,10 @@ import 'my_information_args.dart';
 
 class MyInformationController extends BaseController {
   /// args.
-  final args = Get.arguments as MyInformationArgs?;
+  final args = Get.arguments as MyInformationArgs;
+
+  /// 운동 Id.
+  late var workoutId = args.workoutId;
 
   /// 프로필 이미지.
   Rx<PhotoModel> profile = PhotoModel().obs;
@@ -39,7 +42,7 @@ class MyInformationController extends BaseController {
   var teamUiState = (null as SearchTeamsListItemUiState?).obs;
 
   /// 엘리트 여부.
-  late final isElite = (args?.isElite).obs;
+  late final isElite = (args.isElite).obs;
 
   /// 키.
   var height = "".obsWithController;
@@ -88,11 +91,11 @@ class MyInformationController extends BaseController {
 
   /// 포지션 찾기 버튼 클릭.
   void onPressedSearchPosition() async {
-    final workoutId = args?.workoutId;
-    if (workoutId == null) {
+    final id = workoutId;
+    if (id == null) {
       return;
     }
-    final positionArgs = PositionArgs(workoutId: workoutId);
+    final positionArgs = PositionArgs(workoutId: id);
     final positionList = await Get.toNamed(
       RouteType.POSITION,
       arguments: positionArgs,
@@ -104,7 +107,6 @@ class MyInformationController extends BaseController {
         ...positions,
         ...positionList
       };
-      // final positionSet = Set<PositionListItemUiState>.from(positions.toList())..addAll(positionList);
       positions.value = positionSet.toList();
     }
   }
@@ -150,6 +152,7 @@ class MyInformationController extends BaseController {
 
   /// 유저 정보 조회.
   Future<void> _loadUserData() async {
+    setLoading(true);
     final userApi = Get.find<UserAPI>();
     final response = await userApi.getUser();
 
@@ -160,37 +163,50 @@ class MyInformationController extends BaseController {
           (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
       showToast(message);
     }
+
+    await Future.delayed(const Duration(milliseconds: 500));
+    setLoading(false);
   }
 
   /// 유저 정보 등록/수정
   Future<void> _postUser() async {
+    setLoading(true);
     final userApi = Get.find<UserAPI>();
     final uploadResponse = await _postImageUpload();
     final profile = uploadResponse?.url?.first;
-    final workoutId = args?.workoutId;
+    final id = workoutId;
     final elite = isElite.value;
     final teamId = teamUiState.value?.id;
 
-    if (workoutId == null || elite == null || teamId == null) {
+    if (id == null || elite == null || teamId == null) {
+      setLoading(false);
       return;
     }
 
     final requestData = getUserRequestData(
       profile: profile,
-      workoutId: workoutId,
+      workoutId: id,
       isElite: elite,
       teamId: teamId,
     );
+
     final response = await userApi.postUser(requestData: requestData);
 
-    // TODO: 진입점에 따라 처리 방식을 구분해야 함.
     if (response is GetUserResponseModel) {
-      Get.offAllNamed(RouteType.TEAM_REQUEST);
+      if(args.isEnteredFromHome) {
+        /// 홈에서 진입 시.
+        close();
+      } else {
+        /// 정보등록에서 진입 시.
+        Get.offAllNamed(RouteType.TEAM_REQUEST);
+      }
     } else {
       final message =
           (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
       showToast(message);
     }
+
+    setLoading(false);
   }
 
   /// 이미지 업로드.
@@ -255,6 +271,8 @@ class MyInformationController extends BaseController {
     if (userStorage.snsType.val == UserSnsType.naver.toString()) {
       FlutterNaverLogin.logOutAndDeleteToken();
     }
+
+    userStorage.snsType.val = "";
 
     /// 로그인으로 이동.
     Get.offAllNamed(RouteType.LOGIN);

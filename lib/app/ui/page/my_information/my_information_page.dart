@@ -65,6 +65,11 @@ class _Header extends GetView<MyInformationController> {
         onPressed: controller.close,
         menu: LabelButton(
           text: StringRes.logout.tr,
+          textStyle: const TextStyle(
+            fontSize: 16,
+            color: ColorRes.fontDisable,
+            fontWeight: FontWeight.w400,
+          ),
           onPressed: controller.logout,
         ),
       );
@@ -160,7 +165,7 @@ class _ProfileImage extends StatelessWidget {
     if (photoData.imageUrl != null) {
       return Image.network(
         photoData.imageUrl ?? "",
-        fit: BoxFit.fitWidth,
+        fit: BoxFit.cover,
         errorBuilder: (
           BuildContext context,
           Object error,
@@ -172,7 +177,7 @@ class _ProfileImage extends StatelessWidget {
     } else if (photoData.file != null) {
       return Image.file(
         File(photoData.file?.path ?? ""),
-        fit: BoxFit.fitWidth,
+        fit: BoxFit.cover,
         errorBuilder: (
           BuildContext context,
           Object error,

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:physical_note/app/config/constant/user_type.dart';
+import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/resources/colors/color_res.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/items/find_id_compete_item_ui_state.dart';
 

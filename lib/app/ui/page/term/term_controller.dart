@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/term_type.dart';
-import 'package:physical_note/app/config/constant/user_type.dart';
+import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/common/common_api.dart';
 import 'package:physical_note/app/data/common/model/get_term_response_model.dart';

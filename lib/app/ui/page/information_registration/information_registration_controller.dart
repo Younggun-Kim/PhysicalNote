@@ -21,7 +21,7 @@ class InformationRegistrationController extends BaseController {
 
   /// 엘리트 선택 여부.
   // ignore: cast_from_null_always_fails
-  Rx<bool?>isElite = (null as bool?).obs;
+  Rx<bool?> isElite = (null as bool?).obs;
 
   /// 다음 버튼 활성화 여부.
   late var isEnabledNext = CombineLatestStream(
@@ -30,7 +30,7 @@ class InformationRegistrationController extends BaseController {
       sports.behaviorStream.map((event) => event != null),
       isElite.behaviorStream.map((event) => event != null),
     ],
-        (values) => values[0] && values[1] && values[2],
+    (values) => values[0] && values[1] && values[2],
   ).toObs(false);
 
   /// 종목 클릭.
@@ -95,7 +95,11 @@ class InformationRegistrationController extends BaseController {
       return;
     }
 
-    final args = MyInformationArgs(workoutId: workoutId, isElite: elite);
+    final args = MyInformationArgs(
+      workoutId: workoutId,
+      isElite: elite,
+      isEnteredFromHome: false,
+    );
     await Get.toNamed(RouteType.MY_INFORMATION, arguments: args);
   }
 }

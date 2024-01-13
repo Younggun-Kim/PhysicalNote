@@ -1,4 +1,4 @@
-import 'package:physical_note/app/config/constant/user_type.dart';
+import 'package:physical_note/app/config/constant/sns_type.dart';
 
 class FindIdCompleteItemUiState {
   final UserSnsType snsType;

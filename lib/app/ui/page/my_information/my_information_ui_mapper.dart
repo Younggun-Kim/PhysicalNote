@@ -1,3 +1,4 @@
+import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/model/post_user_request_model.dart';
 import 'package:physical_note/app/data/workout/model/get_workout_position_detail_response_model.dart';
@@ -8,11 +9,17 @@ import '../search_teams/items/search_teams_list_item_ui_state.dart';
 
 extension MyInformationUiMapper on MyInformationController {
   void setScreenData(GetUserResponseModel? response) {
+    /// 운동  Id.
+    workoutId = response?.workoutId;
+
     /// 이름.
     name.value = response?.name ?? "";
 
     /// 팀명 / 코치 명.
     teamUiState.value = _getTeam(response);
+
+    /// 엘리트 여부.
+    isElite.value = UserType.from(response?.userType)?.toBool();
 
     /// 키.
     height.value = response?.height?.toInt().toString() ?? "";

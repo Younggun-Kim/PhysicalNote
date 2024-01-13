@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/user_type.dart';
+import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_check_id_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';

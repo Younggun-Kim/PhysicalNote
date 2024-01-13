@@ -54,7 +54,8 @@ class PositionController extends BaseController {
     }).toList();
 
     pagingController.itemList = newItems;
-    isEnabledCompleteButton.value = newItems.where((element) => element.isSelected).isNotEmpty;
+    isEnabledCompleteButton.value =
+        newItems.where((element) => element.isSelected).isNotEmpty;
   }
 
   /// 완료 버튼 클릭.
@@ -76,6 +77,7 @@ class PositionController extends BaseController {
 
     var isLastPage = true;
     var toUiStates = <PositionListItemUiState>[];
+
     if (response is PaginateModel) {
       isLastPage = response.last;
       toUiStates =

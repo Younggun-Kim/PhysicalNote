@@ -10,6 +10,7 @@ import 'package:physical_note/app/ui/dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
+import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
@@ -21,17 +22,23 @@ class HomeController extends BaseController {
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
 
+  /// 운동 Id.
+  var workoutId = (null as int?);
+
+  /// 엘리트 여부.
+  var isElite = (null as bool?);
+
   /// 유저 이미지 URL
   var userImageUrl = "".obs;
 
   /// 유저 클럽 이름.
-  var userClub = "여기저기".obs;
+  var userClub = "".obs;
 
   /// 유저 클럽 코치 이름
-  var userClubCoach = "김코치".obs;
+  var userClubCoach = "".obs;
 
   /// 유저 이름.
-  var userName = "코너".obs;
+  var userName = "".obs;
 
   /// 나의 상태 날짜.
   var myStateDate = DateTime.now().obs;
@@ -115,8 +122,10 @@ class HomeController extends BaseController {
 
   /// 유저 정보 편집 클릭.
   void onPressedUserEdit() {
-    logger.i("유저 정보 편집 클릭");
-    Get.toNamed(RouteType.MY_INFORMATION);
+    final args = MyInformationArgs(
+      isEnteredFromHome: true,
+    );
+    Get.toNamed(RouteType.MY_INFORMATION, arguments: args);
   }
 
   /// 홈 다음 버튼 클릭.

@@ -24,6 +24,7 @@ class UserAPI extends API {
 
   /// 유저 정보 등록/수정.
   // TODO: API 확인 필요, PassVerify 확인 필요,, Passcode를 보내긴 해야한느데 - 애플일 때 보냄.
+  /// 프로필 url 이상함
   Future<dynamic> postUser({required PostUserRequestModel requestData}) async {
     try {
       logger.i("postUser: ${requestData.toJson()}");

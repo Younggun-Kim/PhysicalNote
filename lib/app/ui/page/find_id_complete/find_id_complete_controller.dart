@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/user_type.dart';
+import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/ui/page/change_password/change_password_args.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete_argument.dart';

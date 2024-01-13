@@ -1,4 +1,4 @@
-import 'package:physical_note/app/config/constant/user_type.dart';
+import 'package:physical_note/app/config/constant/sns_type.dart';
 
 /// 약관동의 Args.
 class TermArgs {
