@@ -195,7 +195,8 @@ class MyInformationController extends BaseController {
     if (response is GetUserResponseModel) {
       if (args.isEnteredFromHome) {
         /// 홈에서 진입 시.
-        close();
+        /// result - bool isChanged
+        close(result: true);
       } else {
         /// 정보등록에서 진입 시.
         Get.offAllNamed(RouteType.TEAM_REQUEST);

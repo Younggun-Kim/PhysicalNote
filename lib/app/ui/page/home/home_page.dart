@@ -134,11 +134,16 @@ class _UserInformation extends GetView<HomeController> {
   Widget build(BuildContext context) => Row(
         children: [
           Obx(
-            () => SizedBox(
+            () => Container(
               width: 54,
               height: 54,
+              clipBehavior: Clip.hardEdge,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+              ),
               child: Image.network(
                 controller.userImageUrl.value,
+                fit: BoxFit.cover,
                 errorBuilder: profileErrorBuilder,
               ),
             ),
@@ -197,7 +202,10 @@ class _UserInformation extends GetView<HomeController> {
     Object error,
     StackTrace? stackTrace,
   ) =>
-      SvgPicture.asset(Assets.userDefault);
+      SvgPicture.asset(
+        Assets.userDefault,
+        fit: BoxFit.cover,
+      );
 }
 
 /// 나의상태 헤더.

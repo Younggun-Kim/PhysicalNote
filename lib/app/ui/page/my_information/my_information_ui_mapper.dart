@@ -1,3 +1,4 @@
+import 'package:physical_note/app/config/constant/photo_model.dart';
 import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/model/post_user_request_model.dart';
@@ -11,6 +12,11 @@ extension MyInformationUiMapper on MyInformationController {
   void setScreenData(GetUserResponseModel? response) {
     /// 운동  Id.
     workoutId = response?.workoutId;
+
+    /// 프로필.
+    profile.value = PhotoModel(
+        imageUrl: response?.profile,
+    );
 
     /// 이름.
     name.value = response?.name ?? "";

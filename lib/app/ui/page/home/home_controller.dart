@@ -121,11 +121,15 @@ class HomeController extends BaseController {
   }
 
   /// 유저 정보 편집 클릭.
-  void onPressedUserEdit() {
+  void onPressedUserEdit() async {
     final args = MyInformationArgs(
       isEnteredFromHome: true,
     );
-    Get.toNamed(RouteType.MY_INFORMATION, arguments: args);
+    final result = await Get.toNamed(RouteType.MY_INFORMATION, arguments: args);
+
+    if (result is bool && result == true) {
+      loadHome();
+    }
   }
 
   /// 홈 다음 버튼 클릭.
