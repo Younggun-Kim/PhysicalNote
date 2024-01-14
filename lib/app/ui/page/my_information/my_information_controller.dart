@@ -4,11 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:physical_note/app/config/constant/gender_type.dart';
 import 'package:physical_note/app/config/constant/photo_model.dart';
 import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/common/common_api.dart';
 import 'package:physical_note/app/data/common/model/post_upload_response_model.dart';
+import 'package:physical_note/app/data/login/login_api.dart';
+import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
+import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
@@ -79,9 +83,10 @@ class MyInformationController extends BaseController {
   ).toObs(false);
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    _loadUserData();
+    await _loadUserData();
+    await _getPassInfo();
   }
 
   /// 생년월일 입력.
@@ -168,6 +173,36 @@ class MyInformationController extends BaseController {
     setLoading(false);
   }
 
+  /// PaccCode 정보 확인.
+  Future<void> _getPassInfo() async {
+    final passCode = args.passCode;
+    if (passCode == null) {
+      return;
+    }
+
+    setLoading(true);
+
+    final loginApi = Get.find<LoginAPI>();
+    final response = await loginApi.postLoginPass(
+      PostPassRequestModel(
+        code: passCode,
+        loginType: UserSnsType.apple.toString(),
+      ),
+    );
+
+    if (response is PostPassResponseModel) {
+      birth.value = response.passInfo?.birthdate ?? "";
+      gender.value = GenderType.from(response.passInfo?.gender).toString();
+      name.value = response.passInfo?.utf8_name ?? "";
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+
+    setLoading(false);
+  }
+
   /// 유저 정보 등록/수정
   Future<void> _postUser() async {
     setLoading(true);
@@ -188,6 +223,7 @@ class MyInformationController extends BaseController {
       workoutId: id,
       isElite: elite,
       teamId: teamId,
+      passCode: args.passCode,
     );
 
     final response = await userApi.postUser(requestData: requestData);

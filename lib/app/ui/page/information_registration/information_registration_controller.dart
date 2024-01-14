@@ -1,6 +1,10 @@
 // ignore_for_file: unnecessary_cast
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
+import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
+import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item_ui_state.dart';
@@ -95,11 +99,56 @@ class InformationRegistrationController extends BaseController {
       return;
     }
 
+    final passVerify = await _loadUser();
+    String? passCode;
+    if (passVerify == false) {
+      passCode = await Get.toNamed(RouteType.PASS) as String?;
+
+      if (passCode == null) {
+        return;
+      }
+    }
+
+    moveMyInformation(workoutId, elite, passCode);
+  }
+
+  /// 내 정보 화면으로 이동.
+  void moveMyInformation(int workoutId, bool isElite, String? passCode) {
     final args = MyInformationArgs(
-      workoutId: workoutId,
-      isElite: elite,
-      isEnteredFromHome: false,
-    );
-    await Get.toNamed(RouteType.MY_INFORMATION, arguments: args);
+        workoutId: workoutId,
+        isElite: isElite,
+        isEnteredFromHome: false,
+        passCode: passCode);
+    Get.toNamed(RouteType.MY_INFORMATION, arguments: args);
+  }
+
+  /// 유저 정보 조회.
+  Future<bool> _loadUser() async {
+    setLoading(true);
+    final userApi = Get.find<UserAPI>();
+    final response = await userApi.getUser();
+    var result = true;
+
+    if (response is GetUserResponseModel) {
+      /// Apple 유저 PassVerify 검사.
+      final apple = response.socialAccounts?.firstWhereOrNull(
+        (element) => element.type == UserSnsType.apple.toString(),
+      );
+
+      if (apple != null && response.passVerify == false) {
+        result = false;
+      }
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+
+    await Future.delayed(const Duration(milliseconds: 500));
+    setLoading(false);
+
+    return result;
   }
 }
+
+/// user = apple이고 passVerify : false이면 Pass 인증 후 넘어가야 함,

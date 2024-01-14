@@ -11,11 +11,14 @@ import '../search_teams/items/search_teams_list_item_ui_state.dart';
 extension MyInformationUiMapper on MyInformationController {
   void setScreenData(GetUserResponseModel? response) {
     /// 운동  Id.
-    workoutId = response?.workoutId;
+    workoutId ??= response?.workoutId;
+
+    /// 엘리트 여부.
+    isElite.value ??= UserType.from(response?.userType)?.toBool();
 
     /// 프로필.
     profile.value = PhotoModel(
-        imageUrl: response?.profile,
+      imageUrl: response?.profile,
     );
 
     /// 이름.
@@ -23,9 +26,6 @@ extension MyInformationUiMapper on MyInformationController {
 
     /// 팀명 / 코치 명.
     teamUiState.value = _getTeam(response);
-
-    /// 엘리트 여부.
-    isElite.value = UserType.from(response?.userType)?.toBool();
 
     /// 키.
     height.value = response?.height?.toInt().toString() ?? "";
