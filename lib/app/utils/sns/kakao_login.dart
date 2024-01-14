@@ -29,7 +29,7 @@ class KakaoLogin extends SnsLogin {
       logger.e(e);
       return null;
     } finally {
-      logout();
+      // logout();
     }
   }
 
