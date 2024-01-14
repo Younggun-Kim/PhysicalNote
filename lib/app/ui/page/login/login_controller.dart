@@ -268,14 +268,20 @@ class LoginController extends BaseController {
     }
 
     setLoading(true);
-    final loginProcess = Get.find<LoginProcess>();
 
-    final moveType = await loginProcess.loginAndMove(
-        requestData: PostLoginRequestModel(
+    final loginRequestData = PostLoginRequestModel(
       loginId: appleResult.id,
       password: appleResult.token,
       type: UserSnsType.apple.toString(),
-    ));
+    );
+
+    final loginProcess = Get.find<LoginProcess>();
+
+    final moveType = await loginProcess.loginAndMove(
+      requestData: loginRequestData,
+    );
+
+    logger.i('moveType: ${moveType?.name}');
 
     loginProcess.movePage(moveType);
     setLoading(false);

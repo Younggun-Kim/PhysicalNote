@@ -54,7 +54,7 @@ class LoginProcess {
         return LoginMoveType.term;
       } else if (requestData.type == UserSnsType.apple.toString()) {
         /// 애플 회원가입.
-        await _signIn(
+        return await signInAndMove(
           requestData: PostLoginSignInRequestModel(
             loginId: requestData.loginId,
             passCode: null,
@@ -63,8 +63,10 @@ class LoginProcess {
           ),
         );
       }
-      return null;
     }
+
+    /// Email 로그인이면 동작 없음.
+    return null;
   }
 
   /// 리로그인 & 화면 이동.
@@ -111,7 +113,7 @@ class LoginProcess {
     } else {
       final message =
           (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
-      showToast(message);
+      logger.e(message);
     }
 
     return false;
@@ -130,9 +132,9 @@ class LoginProcess {
       final teamId = response.teamId;
       final teamRequest = response.teamRequestYn;
 
-      if(teamRequest == true && workoutId == null && teamId == null) {
+      if (teamRequest == true && workoutId == null && teamId == null) {
         return LoginMoveType.teamRequest;
-      }  else if (workoutId == null) {
+      } else if (workoutId == null) {
         return LoginMoveType.information;
       } else if (teamId == null) {
         return LoginMoveType.team;
