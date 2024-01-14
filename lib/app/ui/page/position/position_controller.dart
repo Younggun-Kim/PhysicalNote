@@ -36,7 +36,6 @@ class PositionController extends BaseController {
   }
 
   /// 검색 버튼 클릭.
-  // TODO: 키워드 검색으로 변경하기.
   void onPressedSearchButton() {
     pagingController.refresh();
   }
@@ -73,6 +72,7 @@ class PositionController extends BaseController {
     final response = await workoutAPI.getWorkoutPositionDetail(
       pageKey: pageKey,
       workoutId: workoutId,
+      keyword: keyword.value,
     );
 
     var isLastPage = true;

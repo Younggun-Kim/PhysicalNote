@@ -30,7 +30,6 @@ class WorkoutAPI extends API {
   }
 
   /// 운동 목록 조회.
-  // TODO: API 수정 - 검색어 필요.
   Future<PaginateModel> getWorkoutDetail({
     required int pageKey,
     required int categoryId,
@@ -57,11 +56,16 @@ class WorkoutAPI extends API {
   Future<dynamic> getWorkoutPositionDetail({
     required int pageKey,
     required int workoutId,
+    String? keyword,
   }) async {
     try {
-      final response = await get(
-        requestUrl + "/position/$workoutId?page=$pageKey",
-      );
+      var apiUrl = "$requestUrl/position/$workoutId?page=$pageKey";
+
+      if(keyword != null) {
+        apiUrl += "&keyword=$keyword";
+      }
+
+      final response = await get(apiUrl);
 
       logger.i("API Response: ${response.bodyString}");
 

@@ -126,7 +126,7 @@ extension HomeUiMapper on HomeController {
       final physicalChartData = _weeklyRawToHomeHomeStatisticsModel(
           remoteData: data,
           type: StringRes.physical.tr,
-          color: ColorRes.homePhysicalPurple);
+          color: ColorRes.homePhysicalPurple,);
 
       var result = <HomeStatisticsChartModel>[];
 

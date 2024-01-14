@@ -216,4 +216,11 @@ final koKr = {
   StringRes.complete: "완료",
   StringRes.pushSelect: "눌러서 선택하세요.",
   StringRes.teamRequest: "승인요청 중 입니다.\n잠시만 기다려 주세요.",
+  StringRes.weekDaySun: "일",
+  StringRes.weekDayMon: "월",
+  StringRes.weekDayTue: "화",
+  StringRes.weekDayWed: "수",
+  StringRes.weekDayThu: "목",
+  StringRes.weekDayFri: "금",
+  StringRes.weekDaySat: "토",
 };

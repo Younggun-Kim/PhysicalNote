@@ -228,4 +228,13 @@ class StringRes {
   static final injuryTypeContact = _generateId();
   static final injuryTypeNonContact = _generateId();
   static final injuryTypeDisease = _generateId();
+
+  /// 요일.
+  static final weekDaySun = _generateId();
+  static final weekDayMon = _generateId();
+  static final weekDayTue = _generateId();
+  static final weekDayWed = _generateId();
+  static final weekDayThu = _generateId();
+  static final weekDayFri = _generateId();
+  static final weekDaySat = _generateId();
 }

@@ -11,10 +11,7 @@ import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_
 import 'package:physical_note/app/ui/page/home/item/home_training_balance_item/home_training_balance_type.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
 import 'package:physical_note/app/ui/page/home/model/home_urine_model.dart';
-import 'package:physical_note/app/ui/widgets/buttons/label_button.dart';
-import 'package:physical_note/app/ui/widgets/buttons/outline_round_button.dart';
-import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
-import 'package:physical_note/app/ui/widgets/page_root.dart';
+import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
 import '../../../resources/resources.dart';
@@ -162,7 +159,7 @@ class _UserInformation extends GetView<HomeController> {
               const SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Obx(
                     () => Text(
@@ -250,11 +247,10 @@ class _MyStateHeader extends StatelessWidget {
                 child: SvgPicture.asset(Assets.codeBrowser),
               ),
               const Spacer(),
-              OutlineRoundButton(
+              BaseButton(
                 text: buttonName,
-                hint: "",
                 height: 24,
-                radius: 12,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 onPressed: onPressedNextButton,
               ),
             ],
@@ -910,13 +906,15 @@ class _StatisticsChart extends StatelessWidget {
         rightTitles: const AxisTitles(),
         topTitles: const AxisTitles(),
         bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 24,
-          interval: 1,
-          getTitlesWidget:
-              isWeekly ? _weeklyBottomTitleWidgets : _monthlyBottomTitleWidgets,
-        )),
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 24,
+            interval: 1,
+            getTitlesWidget: isWeekly
+                ? _weeklyBottomTitleWidgets
+                : _monthlyBottomTitleWidgets,
+          ),
+        ),
       );
 
   /// 주간 X Axis 매핑
@@ -930,7 +928,16 @@ class _StatisticsChart extends StatelessWidget {
 
     int xValue = value.toInt();
     if (xValue <= HomeConstant.weeklyMaxXLength) {
-      const weekdays = ["일", "월", "화", "수", "목", "금", " 토"];
+      final weekdays = [
+        StringRes.weekDaySun.tr,
+        StringRes.weekDayMon.tr,
+        StringRes.weekDayTue.tr,
+        StringRes.weekDayWed.tr,
+        StringRes.weekDayThu.tr,
+        StringRes.weekDayFri.tr,
+        StringRes.weekDaySat.tr,
+      ];
+
       weekday = weekdays[xValue];
     }
 
