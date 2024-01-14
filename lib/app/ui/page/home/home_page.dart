@@ -282,8 +282,8 @@ class _MyStateContainer extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           color: ColorRes.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: ColorRes.borderDeselect),
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: ColorRes.borderWhite),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.25),
@@ -293,57 +293,64 @@ class _MyStateContainer extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  _MyStateTitle(
-                      title: StringRes.hooperIndex.tr, onPressed: () {}),
-                  const SizedBox(height: 10),
-                  if (hooperIndexData == null)
-                    _EmptyDataText()
-                  else
-                    _MyStateHooperIndex(hooperIndexData: hooperIndexData!),
-                  const SizedBox(height: 16),
-                  _MyStateTitle(
-                      title: StringRes.injuryRisk.tr, onPressed: () {}),
-                  const SizedBox(height: 10),
-                  if (urineData == null)
-                    _EmptyDataText()
-                  else
-                    _MyStateList(risk: risk ?? 0),
-                ],
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    _MyStateTitle(
+                        title: StringRes.hooperIndex.tr, onPressed: () {}),
+                    const SizedBox(height: 10),
+                    if (hooperIndexData == null)
+                      _EmptyDataText()
+                    else
+                      _MyStateHooperIndex(hooperIndexData: hooperIndexData!),
+                    const SizedBox(height: 16),
+                    _MyStateTitle(
+                        title: StringRes.injuryRisk.tr, onPressed: () {}),
+                    const SizedBox(height: 10),
+                    if (urineData == null)
+                      _EmptyDataText()
+                    else
+                      _MyStateList(risk: risk ?? 0),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: 32),
-            Expanded(
-              child: Column(
-                children: [
-                  _MyStateTitle(
-                      title: StringRes.urinalysis.tr, onPressed: () {}),
-                  const SizedBox(height: 10),
-                  if (urineData == null)
-                    _EmptyDataText()
-                  else
-                    _MyStateUrinalysis(
-                      urineData: urineData!,
-                    ),
-                  const SizedBox(height: 16),
-                  _MyStateTitle(
-                      title: StringRes.workoutIntensity.tr, onPressed: () {}),
-                  const SizedBox(height: 20),
-                  if (workoutIntensityData.isEmpty)
-                    _EmptyDataText()
-                  else
-                    _MyStateWorkoutIntensity(
-                      uiStates: workoutIntensityData,
-                    ),
-                ],
+              // TODO: 점선으로 변경.
+              Container(
+                width: 1,
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                color: ColorRes.borderWhite,
               ),
-            ),
-          ],
+              Expanded(
+                child: Column(
+                  children: [
+                    _MyStateTitle(
+                        title: StringRes.urinalysis.tr, onPressed: () {}),
+                    const SizedBox(height: 10),
+                    if (urineData == null)
+                      _EmptyDataText()
+                    else
+                      _MyStateUrinalysis(
+                        urineData: urineData!,
+                      ),
+                    const SizedBox(height: 16),
+                    _MyStateTitle(
+                        title: StringRes.workoutIntensity.tr, onPressed: () {}),
+                    const SizedBox(height: 20),
+                    if (workoutIntensityData.isEmpty)
+                      _EmptyDataText()
+                    else
+                      _MyStateWorkoutIntensity(
+                        uiStates: workoutIntensityData,
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
 }
