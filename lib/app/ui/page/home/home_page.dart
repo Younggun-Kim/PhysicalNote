@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:dotted_border/dotted_border.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -318,11 +319,17 @@ class _MyStateContainer extends StatelessWidget {
                   ],
                 ),
               ),
-              // TODO: 점선으로 변경.
-              Container(
-                width: 1,
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                color: ColorRes.borderWhite,
+              DottedBorder(
+                borderType: BorderType.Rect,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                dashPattern: const [6, 4],
+                color: ColorRes.disable,
+                customPath: (size) {
+                  return Path()
+                    ..moveTo(0, 0)
+                    ..lineTo(0, size.height);
+                },
+                child: Container(),
               ),
               Expanded(
                 child: Column(
