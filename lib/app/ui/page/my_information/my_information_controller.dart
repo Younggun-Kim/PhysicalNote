@@ -84,8 +84,8 @@ class MyInformationController extends BaseController {
   ).toObs(false);
 
   @override
-  void onInit() async {
-    super.onInit();
+  void onReady() async {
+    super.onReady();
     await _loadUserData();
     await _getPassInfo();
   }

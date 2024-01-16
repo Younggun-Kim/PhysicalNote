@@ -11,9 +11,9 @@ class MyInformationBindings extends Bindings {
   void dependencies() {
     Get.lazyPut(() => CommonAPI());
     Get.lazyPut(() => LoginAPI());
-    Get.lazyPut(() => KakaoLogin());
     Get.lazyPut(() => UserAPI());
     Get.lazyPut(() => WorkoutAPI());
+    Get.lazyPut(() => KakaoLogin());
     Get.lazyPut(() => MyInformationController());
   }
 }

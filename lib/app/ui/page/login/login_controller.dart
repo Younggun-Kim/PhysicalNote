@@ -332,11 +332,11 @@ class LoginController extends BaseController {
     Get.dialog(BaseDialog(
         text: StringRes.noAccounts.tr,
         yesText: StringRes.signUp.tr,
-        onPressedYes: () async {
+        onPressedYes: () {
           Get.toNamed(RouteType.SIGN_UP);
         },
         noText: "",
-        onPressedNo: null));
+        onPressedNo: () {}));
   }
 
   /// SnS로 가입된 계정 다이얼로그..
@@ -344,8 +344,8 @@ class LoginController extends BaseController {
     Get.dialog(BaseDialog(
         text: StringRes.snsAccounts.tr,
         yesText: StringRes.confirm.tr,
-        onPressedYes: () async {},
+        onPressedYes: () {},
         noText: "",
-        onPressedNo: null));
+        onPressedNo: () {}));
   }
 }

@@ -10,11 +10,11 @@ class BaseDialog extends StatelessWidget {
 
   final String yesText;
 
-  final Future Function()? onPressedYes;
+  final Function() onPressedYes;
 
   final String noText;
 
-  final Future Function()? onPressedNo;
+  final Function() onPressedNo;
 
   const BaseDialog({
     super.key,
@@ -25,6 +25,12 @@ class BaseDialog extends StatelessWidget {
     required this.onPressedNo,
   });
 
+  void close<T>({
+    T? result,
+  }) {
+    Get.back(result: result, closeOverlays: true);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.transparent,
@@ -32,7 +38,7 @@ class BaseDialog extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Get.back();
+                close();
               },
               child: Container(
                 width: double.infinity,
@@ -46,7 +52,8 @@ class BaseDialog extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 20),
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
                   color: ColorRes.white,
@@ -59,7 +66,7 @@ class BaseDialog extends StatelessWidget {
                       child: InkWellOver(
                         child: SvgPicture.asset(Assets.xClose),
                         onTap: () {
-                          Get.back();
+                          close();
                         },
                       ),
                     ),
@@ -87,12 +94,7 @@ class BaseDialog extends StatelessWidget {
                                 color: ColorRes.white,
                               ),
                               text: yesText,
-                              onPressed: () async {
-                                if (onPressedYes != null) {
-                                  await onPressedYes!();
-                                }
-                                Get.back();
-                              },
+                              onPressed: () => onPressedYes(),
                             ),
                           ),
                         if (noText.isNotEmpty)
@@ -105,12 +107,7 @@ class BaseDialog extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                                 color: ColorRes.fontBlack,
                               ),
-                              onPressed: () async {
-                                if (onPressedNo != null) {
-                                  await onPressedYes!();
-                                }
-                                Get.back();
-                              },
+                              onPressed: () => onPressedNo(),
                             ),
                           ),
                       ],

@@ -215,4 +215,12 @@ final enUs = {
   StringRes.complete: "완료",
   StringRes.pushSelect: "눌러서 선택하세요.",
   StringRes.teamRequest: "승인요청 중 입니다.\n잠시만 기다려 주세요.",
+  StringRes.weekDaySun: "일",
+  StringRes.weekDayMon: "월",
+  StringRes.weekDayTue: "화",
+  StringRes.weekDayWed: "수",
+  StringRes.weekDayThu: "목",
+  StringRes.weekDayFri: "금",
+  StringRes.weekDaySat: "토",
+  StringRes.appleNeedPass: "소셜계정으로 로그인하신 경우 원활한\n이용을 위해 최초 1회의 본인인증이\n필요합니다.",
 };

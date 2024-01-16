@@ -6,12 +6,14 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item_ui_state.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/streams.dart';
 
 import '../search_category/search_category_args.dart';
+import '../term/term_args.dart';
 
 /// 정보등록 컨트롤러.
 class InformationRegistrationController extends BaseController {
@@ -115,10 +117,11 @@ class InformationRegistrationController extends BaseController {
   /// 내 정보 화면으로 이동.
   void moveMyInformation(int workoutId, bool isElite, String? passCode) {
     final args = MyInformationArgs(
-        workoutId: workoutId,
-        isElite: isElite,
-        isEnteredFromHome: false,
-        passCode: passCode);
+      workoutId: workoutId,
+      isElite: isElite,
+      isEnteredFromHome: false,
+      passCode: passCode,
+    );
     Get.toNamed(RouteType.MY_INFORMATION, arguments: args);
   }
 
@@ -149,6 +152,31 @@ class InformationRegistrationController extends BaseController {
 
     return result;
   }
-}
 
-/// user = apple이고 passVerify : false이면 Pass 인증 후 넘어가야 함,
+  /// 애플 소셜가입 팝업
+  Future<bool?> applePassDialog() async {
+    return await Get.dialog<bool>(
+      BaseDialog(
+        text: StringRes.appleNeedPass.tr,
+        yesText: StringRes.confirm.tr,
+        onPressedYes: () {
+          return Get.back(result: true);
+        },
+        noText: "",
+        onPressedNo: () {
+          return Get.back(result: false);
+        },
+      ),
+    );
+  }
+
+  /// 애플 패스 인증.
+  Future<String?> applePassProcess() async {
+    final termArgs = TermArgs(
+      snsType: UserSnsType.apple,
+      accessToken: "",
+    );
+
+    return await Get.toNamed(RouteType.TERM, arguments: termArgs);
+  }
+}

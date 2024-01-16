@@ -83,6 +83,8 @@ class TermController extends LifecycleController {
           phone: phone,
         );
         Get.toNamed(RouteType.SIGN_UP, arguments: args);
+      } else if (args.snsType == UserSnsType.apple) {
+        close(result: passToken);
       } else {
         /// 네이버, 카카오는 회원가입 API.
         _postLoginSignIn(passToken);

@@ -204,6 +204,7 @@ class StringRes {
   static final complete = _generateId();
   static final pushSelect = _generateId();
   static final teamRequest = _generateId();
+  static final appleNeedPass = _generateId();
 
 
   /// DateTime 영역
