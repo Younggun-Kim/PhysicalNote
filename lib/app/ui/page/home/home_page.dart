@@ -747,8 +747,8 @@ class _MyStateRisk extends StatelessWidget {
               Positioned(
                 top: 6,
                 left: 6,
-                child: SvgPicture.asset(
-                  isWhiteImage ? Assets.walkMan : Assets.retiredMan,
+                child: Image.asset(
+                  isWhiteImage ? Assets.retiredManWhite : Assets.retiredManGray,
                   width: 10,
                   height: 17,
                 ),

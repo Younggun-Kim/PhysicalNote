@@ -34,6 +34,8 @@ class Assets {
   static const String phonePrimary = 'assets/images/phone_primary.svg';
   static const String plusGreen = 'assets/images/plus_green.svg';
   static const String retiredMan = 'assets/images/retired_man.svg';
+  static const String retiredManGray = 'assets/images/retired_man_gray.png';
+  static const String retiredManWhite = 'assets/images/retired_man_white.png';
   static const String runningMan = 'assets/images/running_man.svg';
   static const String searchRefraction = 'assets/images/search-refraction.svg';
   static const String splash = 'assets/images/splash.png';
