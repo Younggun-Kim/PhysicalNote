@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/config/constant/hooper_index_status.dart';
+import 'package:physical_note/app/data/home/model/get_home_response_model.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
@@ -54,6 +56,8 @@ class HomeController extends BaseController {
 
   /// 부상 위험도.
   var risk = (null as int?).obs;
+
+  var riskPercent = (null as int?).obs;
 
   /// 소변검사.
   Rx<HomeUrineModel?> urineData = (null as HomeUrineModel?).obs;
@@ -149,7 +153,14 @@ class HomeController extends BaseController {
     final recordDate = myStateDate.value.toFormattedString("yyyy-MM-dd");
     final response = await homeApi.getHome(recordDate);
 
-    setScreenData(response);
+    if (response is GetHomeResponseModel) {
+      setScreenData(response);
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+      setScreenData(null);
+    }
   }
 
   /// 나의상태 - 달력 클릭.

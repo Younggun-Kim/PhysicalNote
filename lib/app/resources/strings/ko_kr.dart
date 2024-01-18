@@ -224,4 +224,5 @@ final koKr = {
   StringRes.weekDayFri: "금",
   StringRes.weekDaySat: "토",
   StringRes.appleNeedPass: "소셜계정으로 로그인하신 경우 원활한\n이용을 위해 최초 1회의 본인인증이\n필요합니다.",
+  StringRes.managementRequired: "관리요망",
 };

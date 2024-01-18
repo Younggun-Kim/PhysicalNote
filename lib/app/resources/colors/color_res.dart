@@ -44,6 +44,9 @@ class ColorRes {
   /// 0xffff0000.
   static const fontError = Color(0xffff0000);
 
+  /// 0xffff2738.
+  static const fontRed = Color(0xffff2738);
+
   /// disabl.
   static const fontDisable = disable;
 

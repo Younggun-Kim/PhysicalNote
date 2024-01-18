@@ -18,9 +18,17 @@ sealed class HooperIndexStatus {
     } else if (remoteString?.contains("적정") == true) {
       return HooperIndexStatusNormal();
     } else {
-      return null;
+      return HooperIndexStatusNone();
     }
   }
+}
+/// 후퍼인덱스 상태값 - 정보없음
+class HooperIndexStatusNone extends HooperIndexStatus {
+  @override
+  Color toColor() => ColorRes.disable;
+
+  @override
+  String toString() => "정보없음";
 }
 
 /// 후퍼인덱스 상태값 - 위험

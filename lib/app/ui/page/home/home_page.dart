@@ -73,6 +73,7 @@ class _FirstBody extends GetView<HomeController> {
               () => _MyStateContainer(
                 hooperIndexData: controller.hooperIndexData.value,
                 risk: controller.risk.value,
+                riskPercent: controller.riskPercent.value,
                 urineData: controller.urineData.value,
                 workoutIntensityData: controller.workoutIntensityList.value,
               ),
@@ -266,6 +267,8 @@ class _MyStateContainer extends StatelessWidget {
 
   final int? risk;
 
+  final int? riskPercent;
+
   final HomeUrineModel? urineData;
 
   final List<HomeWorkoutIntensityChartUiState> workoutIntensityData;
@@ -273,6 +276,7 @@ class _MyStateContainer extends StatelessWidget {
   const _MyStateContainer({
     required this.hooperIndexData,
     required this.risk,
+    required this.riskPercent,
     required this.urineData,
     required this.workoutIntensityData,
   });
@@ -311,17 +315,20 @@ class _MyStateContainer extends StatelessWidget {
                     const SizedBox(height: 16),
                     _MyStateTitle(
                         title: StringRes.injuryRisk.tr, onPressed: () {}),
-                    const SizedBox(height: 10),
+                    if (urineData == null) const SizedBox(height: 10),
                     if (urineData == null)
                       _EmptyDataText()
                     else
-                      _MyStateList(risk: risk ?? 0),
+                      _MyStateRisk(
+                        risk: risk ?? 0,
+                        percent: riskPercent ?? 0,
+                      ),
                   ],
                 ),
               ),
+              const SizedBox(width: 16),
               DottedBorder(
                 borderType: BorderType.Rect,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
                 dashPattern: const [6, 4],
                 color: ColorRes.disable,
                 customPath: (size) {
@@ -331,6 +338,7 @@ class _MyStateContainer extends StatelessWidget {
                 },
                 child: Container(),
               ),
+              const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   children: [
@@ -346,7 +354,7 @@ class _MyStateContainer extends StatelessWidget {
                     const SizedBox(height: 16),
                     _MyStateTitle(
                         title: StringRes.workoutIntensity.tr, onPressed: () {}),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     if (workoutIntensityData.isEmpty)
                       _EmptyDataText()
                     else
@@ -392,7 +400,7 @@ class _MyStateTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             title,
@@ -405,6 +413,7 @@ class _MyStateTitle extends StatelessWidget {
           const SizedBox(width: 5),
           InkWellOver(
             onTap: onPressed,
+            borderRadius: BorderRadius.circular(20),
             child: SvgPicture.asset(
               Assets.edit03,
             ),
@@ -472,7 +481,7 @@ class _MyStateHooperIndexItem extends StatelessWidget {
             ),
           ),
           Text(
-            status.toString(),
+            status?.toString() ?? "",
             style: const TextStyle(
               fontSize: 14,
               color: ColorRes.disable,
@@ -596,15 +605,19 @@ class _MyStateWorkoutIntensity extends StatelessWidget {
 }
 
 /// 나의 상태 - 부상위험도.
-class _MyStateList extends StatelessWidget {
+class _MyStateRisk extends StatelessWidget {
   final int risk;
 
-  const _MyStateList({
+  final int percent;
+
+  const _MyStateRisk({
     required this.risk,
+    required this.percent,
   });
 
   @override
   Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             StringRes.unitPercent.tr,
@@ -664,6 +677,29 @@ class _MyStateList extends StatelessWidget {
               _numberText(21),
               const Spacer(),
               _numberText(28),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                StringRes.managementRequired.tr,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: ColorRes.fontRed,
+                ),
+              ),
+              const SizedBox(width: 3),
+              Text(
+                "$percent%",
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: ColorRes.fontBlack,
+                ),
+              ),
             ],
           )
         ],

@@ -14,7 +14,6 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_item_model.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 
 import 'home_constant.dart';
 import 'item/home_injury_check_item/home_injury_check_item_ui_state.dart';
@@ -23,38 +22,39 @@ import 'item/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.
 import 'model/home_urine_model.dart';
 
 extension HomeUiMapper on HomeController {
-  void setScreenData(GetHomeResponseModel data) {
-    userName.value = data.userSimpleInfo?.name ?? "";
-    userClub.value = data.userSimpleInfo?.teamName ?? "";
-    userClubCoach.value = data.userSimpleInfo?.teamCoachName ?? "";
-    userImageUrl.value = data.userSimpleInfo?.profile ?? Assets.userDefault;
-    hooperIndexData.value = setHooperIndexDataFrom(data.hooperIndexInfo);
-    risk.value = data.riskInfo?.injuryLevel;
-    urineData.value = setHomeUrineModelFrom(data.urineInfo);
+  void setScreenData(GetHomeResponseModel? data) {
+    userName.value = data?.userSimpleInfo?.name ?? "";
+    userClub.value = data?.userSimpleInfo?.teamName ?? "";
+    userClubCoach.value = data?.userSimpleInfo?.teamCoachName ?? "";
+    userImageUrl.value = data?.userSimpleInfo?.profile ?? Assets.userDefault;
+    hooperIndexData.value = setHooperIndexDataFrom(data?.hooperIndexInfo);
+    risk.value = data?.riskInfo?.injuryLevel;
+    riskPercent.value = data?.riskInfo?.injuryPercent;
+    urineData.value = setHomeUrineModelFrom(data?.urineInfo);
     workoutIntensityList.value =
-        setHomeWorkoutIntensityChartUiStateFrom(data.intensityInfo);
+        setHomeWorkoutIntensityChartUiStateFrom(data?.intensityInfo);
     weeklyDataList.value =
-        setHomeStatisticsWeeklyDataFrom(data.weekIntensityGraph);
+        setHomeStatisticsWeeklyDataFrom(data?.weekIntensityGraph);
     monthlyDataList.value =
-        setHomeStatisticsMonthlyFrom(data.monthIntensityGraph);
-    workoutTodayTime.value = data.workoutInfo?.todayWorkoutTime ?? "";
+        setHomeStatisticsMonthlyFrom(data?.monthIntensityGraph);
+    workoutTodayTime.value = data?.workoutInfo?.todayWorkoutTime ?? "";
     workoutYesterdayCompareTime.value =
-        data.workoutInfo?.yesterdayCompareTime ?? "";
-    workoutThisWeek.value = data.workoutInfo?.thisWeekWorkoutRoad ?? 0;
+        data?.workoutInfo?.yesterdayCompareTime ?? "";
+    workoutThisWeek.value = data?.workoutInfo?.thisWeekWorkoutRoad ?? 0;
     workoutThisWeekStatus.value = HomeTrainingBalanceType.from(
-        data.workoutInfo?.thisWeekWorkoutRoadString);
-    workoutLastWeek.value = data.workoutInfo?.lastWeekWorkoutRoad ?? 0;
+        data?.workoutInfo?.thisWeekWorkoutRoadString);
+    workoutLastWeek.value = data?.workoutInfo?.lastWeekWorkoutRoad ?? 0;
     workoutLastWeekStatus.value = HomeTrainingBalanceType.from(
-        data.workoutInfo?.lastWeekWorkoutRoadString);
-    workoutLastFourWeek.value = data.workoutInfo?.lastFourWeekWorkoutRoad ?? 0;
+        data?.workoutInfo?.lastWeekWorkoutRoadString);
+    workoutLastFourWeek.value = data?.workoutInfo?.lastFourWeekWorkoutRoad ?? 0;
     workoutLastFourWeekStatus.value = HomeTrainingBalanceType.from(
-        data.workoutInfo?.lastFourWeekWorkoutRoadString);
+        data?.workoutInfo?.lastFourWeekWorkoutRoadString);
     workoutLastEightWeek.value =
-        data.workoutInfo?.lastEightWeekWorkoutRoad ?? 0;
+        data?.workoutInfo?.lastEightWeekWorkoutRoad ?? 0;
     workoutLastEightWeekStatus.value = HomeTrainingBalanceType.from(
-        data.workoutInfo?.lastEightWeekWorkoutRoadString);
+        data?.workoutInfo?.lastEightWeekWorkoutRoadString);
     injuryCheckList.value =
-        setHomeInjuryCheckItemUiStateFrom(remoteData: data.injuryInfo);
+        setHomeInjuryCheckItemUiStateFrom(remoteData: data?.injuryInfo);
   }
 
   /// 후퍼인덱스 매핑
@@ -77,8 +77,6 @@ extension HomeUiMapper on HomeController {
   HomeUrineModel? setHomeUrineModelFrom(UrineInfoModel? remoteData) {
     final data = remoteData;
     final urineId = data?.id;
-
-    logger.w("remoteData : $remoteData");
 
     if (data == null || urineId == null) {
       return null;
