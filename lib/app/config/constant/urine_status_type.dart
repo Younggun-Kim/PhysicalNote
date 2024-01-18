@@ -20,7 +20,7 @@ enum UrineStatusType {
     } else if (urineString == StringRes.urineGood.tr) {
       return UrineStatusType.veryGood;
     } else if (urineString == StringRes.urineAppropriate.tr) {
-      return UrineStatusType.veryGood;
+      return UrineStatusType.appropriate;
     } else if (urineString == StringRes.urineDemand.tr) {
       return UrineStatusType.demand;
     } else if (urineString == StringRes.urineRecommended.tr) {

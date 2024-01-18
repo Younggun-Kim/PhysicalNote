@@ -315,8 +315,8 @@ class _MyStateContainer extends StatelessWidget {
                     const SizedBox(height: 16),
                     _MyStateTitle(
                         title: StringRes.injuryRisk.tr, onPressed: () {}),
-                    if (urineData == null) const SizedBox(height: 10),
-                    if (urineData == null)
+                    if (risk == null) const SizedBox(height: 10),
+                    if (risk == null)
                       _EmptyDataText()
                     else
                       _MyStateRisk(
@@ -506,7 +506,11 @@ class _MyStateUrinalysis extends StatelessWidget {
 
   late final isPositiveWeight = urineData.differenceFat > 0;
 
-  late final differenceFatColor = isPositiveWeight ? Colors.red : Colors.blue;
+  late final checkImagePath =
+      isPositiveWeight ? Assets.checkRed : Assets.checkBlue;
+
+  late final differenceFatColor =
+      isPositiveWeight ? Colors.red : ColorRes.fontBlue;
 
   late final weightWord = isPositiveWeight
       ? StringRes.emptyWeightGood.tr
@@ -520,9 +524,8 @@ class _MyStateUrinalysis extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Text(
                 StringRes.emptyWeightParams.trParams(
@@ -535,10 +538,11 @@ class _MyStateUrinalysis extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
+              const SizedBox(width: 2),
               Text(
                 "(${urineData.differenceFat}%)",
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400,
                   color: differenceFatColor,
                 ),
@@ -552,6 +556,7 @@ class _MyStateUrinalysis extends StatelessWidget {
                 child: Container(
                   height: 14,
                   color: urineData.urine.toColor(),
+                  // color: ColorRes.urine3,
                 ),
               ),
               Text(
@@ -564,14 +569,30 @@ class _MyStateUrinalysis extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          Text(
-            weightWord,
-            softWrap: true,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 10,
-              color: differenceFatColor,
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 3),
+                child: SvgPicture.asset(
+                  checkImagePath,
+                  width: 9,
+                  height: 9,
+                ),
+              ),
+              const SizedBox(width: 4),
+              Expanded(
+                child: Text(
+                  weightWord,
+                  softWrap: true,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: differenceFatColor,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       );

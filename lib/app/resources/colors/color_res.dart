@@ -47,6 +47,9 @@ class ColorRes {
   /// 0xffff2738.
   static const fontRed = Color(0xffff2738);
 
+  //0xff00aff
+  static const fontBlue = Color(0xff000aff);
+
   /// disabl.
   static const fontDisable = disable;
 
