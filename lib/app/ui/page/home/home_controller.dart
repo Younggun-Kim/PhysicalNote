@@ -6,7 +6,7 @@ import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/config/constant/hooper_index_status.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/dialog/calendar_dialog.dart';
+import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
@@ -156,7 +156,8 @@ class HomeController extends BaseController {
   Future<void> onPressedCalendar() async {
     final response = await Get.dialog(
       CalendarDialog(
-        initialDate: myStateDate.value,
+        currentDate: myStateDate.value,
+        focusedDate: myStateDate.value,
       ),
     );
 
