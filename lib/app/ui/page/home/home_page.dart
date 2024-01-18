@@ -1145,7 +1145,7 @@ class _SecondState extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
-                    color: isPositiveYesterdayTime ? Colors.blue : Colors.red,
+                    color: isPositiveYesterdayTime ? ColorRes.fontBlue : ColorRes.fontRed,
                   ),
                 )
               ],
@@ -1210,10 +1210,10 @@ class _SecondState extends StatelessWidget {
 
             /// 부상체크.
             const SizedBox(height: 16),
-            const Text(
-              "부상체크",
+            Text(
+              StringRes.injuryCheck.tr,
               textAlign: TextAlign.left,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: ColorRes.fontBlack,

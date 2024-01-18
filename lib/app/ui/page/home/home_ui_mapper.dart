@@ -14,6 +14,7 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_item_model.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
 import 'home_constant.dart';
 import 'item/home_injury_check_item/home_injury_check_item_ui_state.dart';
@@ -37,7 +38,7 @@ extension HomeUiMapper on HomeController {
         setHomeStatisticsWeeklyDataFrom(data?.weekIntensityGraph);
     monthlyDataList.value =
         setHomeStatisticsMonthlyFrom(data?.monthIntensityGraph);
-    workoutTodayTime.value = data?.workoutInfo?.todayWorkoutTime ?? "";
+    workoutTodayTime.value = _parseWorkoutTodayTime(data?.workoutInfo?.todayWorkoutTime);
     workoutYesterdayCompareTime.value =
         data?.workoutInfo?.yesterdayCompareTime ?? "";
     workoutThisWeek.value = data?.workoutInfo?.thisWeekWorkoutRoad ?? 0;
@@ -273,5 +274,17 @@ extension HomeUiMapper on HomeController {
           ),
         )
         .toList();
+  }
+
+  /// 운동시간 - 오늘 운동 시간 파싱
+  String _parseWorkoutTodayTime(String? time) {
+    final value = time;
+
+    if(value == null) {
+      return "";
+    } else {
+      final date = DateFormat("HH:mm:ss").parse(value);
+      return date.toFormattedString("H시간 m분");
+    }
   }
 }

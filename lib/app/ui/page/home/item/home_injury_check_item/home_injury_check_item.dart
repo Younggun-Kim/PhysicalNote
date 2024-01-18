@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:physical_note/app/config/constant/injury_level_type.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
@@ -31,15 +32,14 @@ class HomeInjuryCheckItem extends StatelessWidget {
                 Flexible(
                   fit: FlexFit.loose,
                   child: Text(
-                    uiState.muscleType?.rawValue ?? "",
+                    uiState.muscleType?.toKor() ?? "",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                )
-              else
-                const SizedBox(width: 10),
+                ),
+              const SizedBox(width: 7),
               Text(
                 uiState.recordDate ?? "",
                 style: const TextStyle(
@@ -50,8 +50,11 @@ class HomeInjuryCheckItem extends StatelessWidget {
               const SizedBox(width: 10),
               InkWellOver(
                 onTap: () {},
+                borderRadius: BorderRadius.circular(20),
                 child: SvgPicture.asset(
                   Assets.edit03,
+                  width: 17,
+                  height: 17,
                 ),
               ),
             ],
@@ -62,7 +65,7 @@ class HomeInjuryCheckItem extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "${uiState.injuryType?.toString() ?? ""}(${uiState.injuryLevelTypeString})",
+                  uiState.injuryType?.toString() ?? "",
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -100,8 +103,10 @@ class HomeInjuryCheckItem extends StatelessWidget {
 
   /// 코멘트 문자열.
   String _comment() {
-    final comment = uiState.comment ?? "";
-    final colons = uiState.injuryType == InjuryType.disease ? "" : ": ";
+    final isDisease = uiState.injuryType == InjuryType.disease;
+    final comment =
+        isDisease ? uiState.comment : uiState.injuryLevelTypeString ?? "";
+    final colons = isDisease ? "" : ": ";
     return "$colons$comment";
   }
 }
@@ -122,6 +127,14 @@ class _Level extends StatelessWidget {
             color: injuryLevelType?.toBorderColor() ?? ColorRes.borderDeselect,
           ),
           color: injuryLevelType?.toBackgroundColor() ?? ColorRes.disable,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.25),
+              spreadRadius: 3,
+              blurRadius: 5,
+              offset: const Offset(0, 2), // changes position of shadow
+            ),
+          ],
         ),
         child: Text(
           levelString(),
