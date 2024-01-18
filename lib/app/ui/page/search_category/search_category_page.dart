@@ -72,6 +72,7 @@ class _SearchList extends GetView<SearchCategoryController> {
         child: Stack(
           children: [
             RefreshIndicator(
+              color: Colors.black,
               onRefresh: controller.onRefresh,
               child: PagedListView<int, SearchCategoryListItemUiState>(
                 padding: const EdgeInsets.symmetric(horizontal: 30),

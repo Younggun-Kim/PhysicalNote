@@ -232,11 +232,14 @@ extension HomeUiMapper on HomeController {
     final dataList = remoteData
         .where((element) => element.type == type)
         .map((data) {
+          final year = myStateDate.value.year;
           final month = myStateDate.value.month;
           final remoteDataDate = DateFormat('yyyy-MM').parse(data.xvalue ?? "");
+          final remoteDataYear = remoteDataDate.year;
           final remoteDataMonth = remoteDataDate.month;
+          final yearOffset = year - remoteDataYear > 0 ? 12 : 0;
           final index =
-              max(0, remoteDataMonth - month + HomeConstant.monthMaxXLength);
+              max(0, remoteDataMonth - month - yearOffset + HomeConstant.monthMaxXLength);
 
           return HomeStatisticsChartItemModel(
               id: 0,
