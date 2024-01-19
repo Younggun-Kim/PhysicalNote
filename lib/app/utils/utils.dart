@@ -10,3 +10,6 @@ export 'regex/regex.dart';
 
 // Link
 export 'link/link.dart';
+
+// Muscle
+export 'muscle_utils.dart';

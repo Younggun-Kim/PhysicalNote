@@ -300,7 +300,6 @@ enum MuscleType {
     return [
       trapezius,
       pectoralisMajor,
-      latissimusDorsi,
       externalOblique,
       rectusAbdominis,
     ];

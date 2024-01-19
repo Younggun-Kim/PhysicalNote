@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_cast
 
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/config/constant/muscle_type.dart';
@@ -43,7 +42,10 @@ class InjuryCheckController extends BaseController {
     });
 
   /// 선택된 상세 근육.
-  late final selectedMuscleType = (null as MuscleType?).obs;
+  late final selectedMuscleType = (null as MuscleType?).obs
+    ..listen((p0) {
+      _setMuscleSvgStringFrom();
+    });
 
   /// 근육 이미지.
   final muscleImage = "".obs;
@@ -164,11 +166,6 @@ class InjuryCheckController extends BaseController {
     painTimingWorkout.value = newValue;
   }
 
-  /// SVG 파일 로드.
-  Future<String> loadSvgFile(String asset) async {
-    return await rootBundle.loadString(asset);
-  }
-
   /// Svg Path 색상 변경. - Path가 한줄일 때
   String changeSvgPathColor(String svgString, String pathId, String color) {
     var svgList = svgString.split("\n");
@@ -225,11 +222,20 @@ class InjuryCheckController extends BaseController {
       }
     }
 
+    var muscleImageString = "";
+
     if (asset.isNotEmpty) {
-      final svg = await loadSvgFile(asset);
-      muscleImage.value = svg;
-    } else {
-      muscleImage.value = "";
+      var svgString = await MuscleUtils.loadSvgFile(asset);
+      final muscleId = selectedMuscleType.value?.name;
+
+      if (muscleId != null) {
+        svgString =
+            MuscleUtils.changeSvgPathColor(svgString, muscleId, "ff0000");
+      }
+
+      muscleImageString = svgString;
     }
+
+    muscleImage.value = muscleImageString;
   }
 }
