@@ -40,6 +40,8 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
               _Disease(),
               _Contact(),
               const SizedBox(height: 20),
+              _MuscleImage(),
+              const SizedBox(height: 20),
               _Muscles(),
               const SizedBox(height: 40),
               _Pain(),
@@ -299,12 +301,25 @@ class _Contact extends GetView<InjuryCheckController> {
       );
 }
 
+/// 근육 이미지.
+class _MuscleImage extends GetView<InjuryCheckController> {
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => controller.muscleImage.value.isEmpty
+          ? const SizedBox()
+          : SvgPicture.string(controller.muscleImage.value),
+    );
+  }
+}
+
 /// 상세 근육.
 class _Muscles extends GetView<InjuryCheckController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => Visibility(
-          visible: controller.muscles.value.isNotEmpty && controller.injuryType.value != InjuryType.disease,
+          visible: controller.muscles.value.isNotEmpty &&
+              controller.injuryType.value != InjuryType.disease,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -351,7 +366,8 @@ class _Pain extends GetView<InjuryCheckController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => Visibility(
-          visible: controller.selectedMuscleType.value != null && controller.injuryType.value != InjuryType.disease,
+          visible: controller.selectedMuscleType.value != null &&
+              controller.injuryType.value != InjuryType.disease,
           child: Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),

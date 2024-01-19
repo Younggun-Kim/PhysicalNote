@@ -1,9 +1,11 @@
 // ignore_for_file: unnecessary_cast
 
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/constant/pain_type.dart';
+import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
@@ -22,7 +24,10 @@ class InjuryCheckController extends BaseController {
   final diseaseController = "".obsWithController;
 
   /// 앞/뒤.
-  final directionType = (null as InjuryCheckDirectionType?).obs;
+  late final directionType = (null as InjuryCheckDirectionType?).obs
+    ..listen((p0) {
+      _setMuscleSvgStringFrom();
+    });
 
   /// 몸 타입.
   late final bodyType = (null as InjuryCheckBodyType?).obs
@@ -34,10 +39,14 @@ class InjuryCheckController extends BaseController {
   late final bodyPartsType = (null as InjuryCheckBodyPartsType?).obs
     ..listen((p0) {
       selectedMuscleType.value = null;
+      _setMuscleSvgStringFrom();
     });
 
   /// 선택된 상세 근육.
   late final selectedMuscleType = (null as MuscleType?).obs;
+
+  /// 근육 이미지.
+  final muscleImage = "".obs;
 
   /// 상세 근육.
   late final muscles = CombineLatestStream([
@@ -106,7 +115,7 @@ class InjuryCheckController extends BaseController {
   }
 
   /// 신체부위 클릭.
-  void onPressedBodyPartsType(InjuryCheckBodyPartsType type) {
+  void onPressedBodyPartsType(InjuryCheckBodyPartsType type) async {
     bodyPartsType.value = type;
   }
 
@@ -153,5 +162,74 @@ class InjuryCheckController extends BaseController {
   void onPressedPainTimingWorkout() {
     final newValue = !painTimingWorkout.value;
     painTimingWorkout.value = newValue;
+  }
+
+  /// SVG 파일 로드.
+  Future<String> loadSvgFile(String asset) async {
+    return await rootBundle.loadString(asset);
+  }
+
+  /// Svg Path 색상 변경. - Path가 한줄일 때
+  String changeSvgPathColor(String svgString, String pathId, String color) {
+    var svgList = svgString.split("\n");
+
+    logger.i(svgList);
+    var pathIndex =
+        svgList.indexWhere((element) => element.contains('id="$pathId"'));
+    var pathString = svgList[pathIndex];
+    var colorIndex = pathString.indexOf('fill="#');
+
+    if (colorIndex == -1) {
+      return "";
+    }
+
+    final startIndex = colorIndex + 7;
+    final endIndex = colorIndex + 13;
+    final colorChangedPath =
+        pathString.replaceRange(startIndex, endIndex, color);
+    svgList[pathIndex] = colorChangedPath;
+
+    return svgList.join("\n");
+  }
+
+  /// 근육 Svg String 설정.
+  void _setMuscleSvgStringFrom() async {
+    final direction = directionType.value;
+    final partsType = bodyPartsType.value;
+
+    var asset = "";
+
+    if (direction == InjuryCheckDirectionType.front) {
+      if (partsType == InjuryCheckBodyPartsType.body) {
+        asset = Assets.muscleFrontBody;
+      } else if (partsType == InjuryCheckBodyPartsType.leftArm) {
+        asset = Assets.muscleFrontLeftArm;
+      } else if (partsType == InjuryCheckBodyPartsType.rightArm) {
+        asset = Assets.muscleFrontRightArm;
+      } else if (partsType == InjuryCheckBodyPartsType.leftLeg) {
+        asset = Assets.muscleFrontLeftLeg;
+      } else if (partsType == InjuryCheckBodyPartsType.rightLeg) {
+        asset = Assets.muscleFrontRightLeg;
+      }
+    } else if (direction == InjuryCheckDirectionType.back) {
+      if (partsType == InjuryCheckBodyPartsType.body) {
+        asset = Assets.muscleBackBody;
+      } else if (partsType == InjuryCheckBodyPartsType.leftArm) {
+        asset = Assets.muscleBackLeftArm;
+      } else if (partsType == InjuryCheckBodyPartsType.rightArm) {
+        asset = Assets.muscleBackRightArm;
+      } else if (partsType == InjuryCheckBodyPartsType.leftLeg) {
+        asset = Assets.muscleBackLeftLeg;
+      } else if (partsType == InjuryCheckBodyPartsType.rightLeg) {
+        asset = Assets.muscleBackRightLeg;
+      }
+    }
+
+    if (asset.isNotEmpty) {
+      final svg = await loadSvgFile(asset);
+      muscleImage.value = svg;
+    } else {
+      muscleImage.value = "";
+    }
   }
 }

@@ -23,7 +23,17 @@ class Assets {
   static const String imgKakao = 'assets/images/img_kakao.png';
   static const String imgNaver = 'assets/images/img_naver.png';
   static const String logo = 'assets/images/logo.svg';
+  static const String muscleBackBody = 'assets/images/muscle_back_body.svg';
+  static const String muscleBackLeftArm = 'assets/images/muscle_back_left_arm.svg';
+  static const String muscleBackLeftLeg = 'assets/images/muscle_back_left_leg.svg';
+  static const String muscleBackRightArm = 'assets/images/muscle_back_right_arm.svg';
+  static const String muscleBackRightLeg = 'assets/images/muscle_back_right_leg.svg';
   static const String muscleFrontArmRight = 'assets/images/muscle_front_arm_right.svg';
+  static const String muscleFrontBody = 'assets/images/muscle_front_body.svg';
+  static const String muscleFrontLeftArm = 'assets/images/muscle_front_left_arm.svg';
+  static const String muscleFrontLeftLeg = 'assets/images/muscle_front_left_leg.svg';
+  static const String muscleFrontRightArm = 'assets/images/muscle_front_right_arm.svg';
+  static const String muscleFrontRightLeg = 'assets/images/muscle_front_right_leg.svg';
   static const String navigationData = 'assets/navigation_data.svg';
   static const String navigationDataSelect = 'assets/navigation_data_select.svg';
   static const String navigationFeedback = 'assets/navigation_feedback.svg';

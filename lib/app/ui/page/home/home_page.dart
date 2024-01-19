@@ -141,6 +141,7 @@ class _UserInformation extends GetView<HomeController> {
                 shape: BoxShape.circle,
               ),
               child: Image.network(
+                // TODO: 여기 버그 고치기 userDefaultImage 버그.
                 controller.userImageUrl.value,
                 fit: BoxFit.cover,
                 errorBuilder: profileErrorBuilder,
