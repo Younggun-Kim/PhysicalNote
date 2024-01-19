@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 /// 근육 타입.
-// TODO: 근육 한글로 변경 작업 필요.
 enum MuscleType {
   /// 장내전근
   adductorLongus("ADDUCTOR_LONGUS"),
