@@ -233,13 +233,13 @@ enum MuscleType {
   /// 앞 - 하체 - 다리 목록.
   static List<MuscleType> getFrontLegMuscles() {
     return [
-      gluteus,
       tensorFasciaeLatae,
       teresMajor,
       lateralGastrocnemius,
       largeRetirement,
       semimembranosus,
       extensorDigitorumLongus,
+      tibialisAnterior,
       peroneusBrevis,
       extensorDigitorumBrevis,
       iliacus,
