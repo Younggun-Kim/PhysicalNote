@@ -139,7 +139,7 @@ enum MuscleType {
       values.firstWhereOrNull((e) => e.serverKey == rawValue);
 
   String toKor() {
-    switch(this) {
+    switch (this) {
       case adductorLongus:
         return "장내전근";
       case adductorMagnus:

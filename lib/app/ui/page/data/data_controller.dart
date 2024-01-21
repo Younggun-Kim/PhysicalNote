@@ -16,6 +16,7 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
+import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/data_ui_mapper.dart';
@@ -23,11 +24,18 @@ import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
+import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 class DataController extends BaseController {
+  @override
+  void onInit() async {
+    super.onInit();
+    await _loadHumanMuscleImage();
+  }
+
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
 
@@ -467,11 +475,26 @@ class DataController extends BaseController {
    * 부상체크
    */
 
-  var injuryList = <HomeInjuryCheckItemUiState>[].obs;
+  late var injuryList = <HomeInjuryCheckItemUiState>[].obs
+  ..listen((p0) {
+    _setHumanMuscleColor();
+  });
 
-  void onPressedAdd() {
+  var _humanFrontOriginImage = "";
+
+  var _humanBackOriginImage = "";
+
+  final Rx<String> humanFrontImage = "".obs;
+
+  final Rx<String> humanBackImage = "".obs;
+
+  void onPressedAdd() async {
     final args = InjuryCheckArgs(date: calendarUiState.value.focusedDate);
-    Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
+    final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
+
+    if (result is bool && result == true) {
+      _loadApi();
+    }
   }
 
   /// 부상체크 조회.
@@ -489,5 +512,61 @@ class DataController extends BaseController {
       showToast(message);
       setInjury(null); // 값 초기화
     }
+  }
+
+  /// 사람 근육 이미지 로딩.
+  Future _loadHumanMuscleImage() async {
+    _humanFrontOriginImage = await MuscleUtils.loadSvgFile(Assets.humanFront);
+    _humanBackOriginImage = await MuscleUtils.loadSvgFile(Assets.humanBack);
+
+    humanFrontImage.value = _humanFrontOriginImage;
+    humanBackImage.value = _humanBackOriginImage;
+  }
+
+  /// 사람 근육 선택
+  void _setHumanMuscleColor() {
+    final list = injuryList.toList();
+    if (list.isEmpty) {
+      humanFrontImage.value = _humanFrontOriginImage;
+      humanBackImage.value = _humanBackOriginImage;
+      return;
+    }
+
+    final frontImages = list
+        .where((element) => element.direction == InjuryCheckDirectionType.front)
+        .toList();
+    final backImages = list
+        .where((element) => element.direction == InjuryCheckDirectionType.back)
+        .toList();
+
+    if (frontImages.isEmpty) {
+      humanFrontImage.value = _humanFrontOriginImage;
+    } else {
+      var svgString = _humanFrontOriginImage;
+
+      for (var element in frontImages) {
+        final color = element.injuryLevelType
+            ?.toInjuryLevelColor();
+        final bodyPart = element.bodyPart?.serverKey;
+        final muscleType = element.muscleType?.serverKey;
+
+        if (color == null || bodyPart == null || muscleType == null) {
+        } else {
+          final pathId = "${bodyPart}_$muscleType".toLowerCase();
+          logger.i("$pathId: $color");
+          svgString = MuscleUtils.changeSvgPathColor(
+            svgString,
+            pathId,
+            color,
+          );
+        }
+      }
+
+      humanFrontImage.value = svgString;
+    }
+
+    if (backImages.isEmpty) {
+      humanBackImage.value = _humanBackOriginImage;
+    } else {}
   }
 }

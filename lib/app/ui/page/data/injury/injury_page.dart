@@ -10,12 +10,20 @@ class InjuryPage extends StatelessWidget {
   /// 부상 목록.
   final List<HomeInjuryCheckItemUiState> uiStates;
 
+  /// 사람 앞 모습.
+  final String humanFrontImage;
+
+  /// 사람 뒷 모습.
+  final String humanBackImage;
+
   /// 추가 버튼 클릭.
   final VoidCallback onPressedAdd;
 
   const InjuryPage({
     super.key,
     required this.uiStates,
+    required this.humanFrontImage,
+    required this.humanBackImage,
     required this.onPressedAdd,
   });
 
@@ -58,13 +66,13 @@ class InjuryPage extends StatelessWidget {
                 Expanded(
                   child: AspectRatio(
                     aspectRatio: 528 / 1205,
-                    child: SvgPicture.asset(Assets.humanFront),
+                    child: SvgPicture.string(humanFrontImage),
                   ),
                 ),
                 Expanded(
                   child: AspectRatio(
                     aspectRatio: 528 / 1205,
-                    child: SvgPicture.asset(Assets.humanBack),
+                    child: SvgPicture.string(humanBackImage),
                   ),
                 ),
               ],

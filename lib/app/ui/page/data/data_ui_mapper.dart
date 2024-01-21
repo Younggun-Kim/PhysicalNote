@@ -9,6 +9,8 @@ import 'package:physical_note/app/data/wellness/model/get_wellness_response_mode
 import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
+import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
+import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 
 extension DataUiMapper on DataController {
@@ -74,8 +76,9 @@ extension DataUiMapper on DataController {
               final injuryType = InjuryType.from(e.injuryType);
               final injuryLevel = InjuryLevelType.from(e.injuryLevelType);
               final muscleType = MuscleType.from(e.muscleType);
+              final bodyPart = InjuryCheckBodyPartsType.from(e.bodyPart);
 
-              if (injuryType == null) {
+              if (injuryType == null || bodyPart == null) {
                 return null;
               }
               return HomeInjuryCheckItemUiState(
@@ -85,6 +88,8 @@ extension DataUiMapper on DataController {
                 recordDate: e.recordDate,
                 comment: e.comment,
                 muscleType: muscleType,
+                bodyPart: bodyPart,
+                direction: InjuryCheckDirectionType.from(e.distinctionType),
               );
             })
             .whereType<HomeInjuryCheckItemUiState>()

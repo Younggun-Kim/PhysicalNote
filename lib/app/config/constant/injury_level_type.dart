@@ -48,6 +48,23 @@ enum InjuryLevelType {
     }
   }
 
+  String toInjuryLevelColor() {
+    switch (this) {
+      case InjuryLevelType.veryHighPain:
+        return "ff0000";
+      case InjuryLevelType.highPain:
+        return "f27c21";
+      case InjuryLevelType.injured:
+        return "ffc808";
+      case InjuryLevelType.mildDiscomfort:
+        return "fbdd73";
+      case InjuryLevelType.moderatePain:
+        return "b7d487";
+      case InjuryLevelType.noPain:
+        return "8dbe3d";
+    }
+  }
+
   Color toBackgroundColor() {
     switch (this) {
       case InjuryLevelType.veryHighPain:

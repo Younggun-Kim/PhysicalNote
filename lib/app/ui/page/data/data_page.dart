@@ -92,6 +92,8 @@ class DataPage extends GetView<DataController> {
                   child: Obx(
                     () => InjuryPage(
                       uiStates: controller.injuryList.toList(),
+                      humanFrontImage: controller.humanFrontImage.value,
+                      humanBackImage: controller.humanBackImage.value,
                       onPressedAdd: controller.onPressedAdd,
                     ),
                   ),

@@ -271,6 +271,9 @@ extension HomeUiMapper on HomeController {
             recordDate: e.recordDate,
             comment: e.comment,
             muscleType: MuscleType.from(e.muscleType),
+            // bodyPart: InjuryCheckBodyPartsType.from(e.bodyPart),
+            bodyPart: null,
+            direction: null,
           ),
         )
         .toList();

@@ -268,7 +268,7 @@ class InjuryCheckController extends BaseController {
 
     if (response is PostInjuryResponseModel) {
       if (response.id != null) {
-        close();
+        close(result: true);
       }
     } else {
       final message =

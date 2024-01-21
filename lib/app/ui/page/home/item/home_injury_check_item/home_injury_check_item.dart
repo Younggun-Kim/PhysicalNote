@@ -22,7 +22,7 @@ class HomeInjuryCheckItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         margin: isShowBorder ? const EdgeInsets.only(bottom: 10) : null,
-        padding: isShowBorder ? const EdgeInsets.all(16) : null,
+        padding: isShowBorder ? const EdgeInsets.fromLTRB(16, 16, 16, 0) : null,
         decoration: isShowBorder
             ? BoxDecoration(
                 color: ColorRes.white,
