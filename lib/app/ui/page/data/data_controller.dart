@@ -145,15 +145,15 @@ class DataController extends BaseController {
     /// API 로드
     switch (type) {
       case DataMenuType.wellness:
-        if(isLoadWellness == false) {
+        if (isLoadWellness == false) {
           _loadApi();
         }
       case DataMenuType.intensity:
-        if(isLoadIntensity == false) {
+        if (isLoadIntensity == false) {
           _loadApi();
         }
       case DataMenuType.injury:
-        if(isLoadInjury == false) {
+        if (isLoadInjury == false) {
           _loadApi();
         }
     }
