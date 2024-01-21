@@ -17,6 +17,7 @@ class Assets {
   static const String foot = 'assets/images/foot.svg';
   static const String hand = 'assets/images/hand.svg';
   static const String hand2 = 'assets/images/hand2.png';
+  static const String humanFront = 'assets/images/human_front.svg';
   static const String icChevronright = 'assets/images/ic_chevronright.svg';
   static const String imgApple = 'assets/images/img_apple.png';
   static const String imgEmail = 'assets/images/img_email.png';
