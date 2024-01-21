@@ -225,12 +225,13 @@ class InjuryCheckController extends BaseController {
     var muscleImageString = "";
 
     if (asset.isNotEmpty) {
-      var svgString = await MuscleUtils.loadSvgFile(asset);
+      const selectedMuscleColor = "E4FAC1";
       final muscleId = selectedMuscleType.value?.name;
+      var svgString = await MuscleUtils.loadSvgFile(asset);
 
       if (muscleId != null) {
         svgString =
-            MuscleUtils.changeSvgPathColor(svgString, muscleId, "ff0000");
+            MuscleUtils.changeSvgPathColor(svgString, muscleId, selectedMuscleColor);
       }
 
       muscleImageString = svgString;

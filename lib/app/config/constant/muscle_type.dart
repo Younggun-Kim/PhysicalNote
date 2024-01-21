@@ -147,7 +147,7 @@ enum MuscleType {
       case biceps:
         return "이두근";
       case bicepsFemoris:
-        return "반건반막양근";
+        return "반건,반막양근";
       case brachialis:
         return "상완근";
       case brachioradialis:
