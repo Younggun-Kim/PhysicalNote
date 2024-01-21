@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
-import 'package:physical_note/app/config/constant/pain_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check.dart';
+import 'package:physical_note/app/ui/page/injury_check/injury_check_pain_symptom_ui_state.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
@@ -429,7 +429,7 @@ class _Pain extends GetView<InjuryCheckController> {
                 const SizedBox(height: 10),
                 Obx(
                   () => _PainSymptoms(
-                    selectedType: controller.painSymptom.value,
+                    painSymptoms: controller.painSymptoms.toList(),
                     onPressed: controller.onPressedPainSymptom,
                   ),
                 ),
@@ -466,31 +466,25 @@ class _Pain extends GetView<InjuryCheckController> {
 
 /// 통증 양상
 class _PainSymptoms extends StatelessWidget {
-  final PainType? selectedType;
+  final List<InjuryCheckPainSymptomUiState> painSymptoms;
 
-  final Function(PainType) onPressed;
+  final Function(InjuryCheckPainSymptomUiState) onPressed;
 
   const _PainSymptoms({
-    required this.selectedType,
+    required this.painSymptoms,
     required this.onPressed,
   });
-
-  /// 통증 양상 목록.
-  List<PainType> _painTypeList() {
-    var list = PainType.values;
-    return list.where((element) => element != PainType.none).toList();
-  }
 
   @override
   Widget build(BuildContext context) => Wrap(
         spacing: 10,
         runSpacing: 7,
-        children: _painTypeList().map((PainType e) {
+        children: painSymptoms.map((InjuryCheckPainSymptomUiState e) {
           return FittedBox(
             fit: BoxFit.contain,
             child: BaseButton(
-              text: e.toString(),
-              isSelected: e == selectedType,
+              text: e.type.toString(),
+              isSelected: e.isSelected,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               onPressed: () {
                 onPressed(e);

@@ -1,97 +1,74 @@
+import 'package:get/get.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
+
 /// 통증양상 타입.
 enum PainType {
-  /// 알 수 없음.
-  none,
-
   /// 통증양상 : 찌릿함
-  tingling,
+  tingling("TINGLING"),
 
   /// 통증양상 : 압박감
-  pressure,
+  pressure("PRESSURE"),
 
   /// 통증양상 : 힘이 빠짐
-  weakness,
+  weakness("WEAKNESS"),
 
   /// 통증양상 : 저리거나 둔해짐
-  numbness,
+  numbness("NUMBNESS"),
 
   /// 통증양상 : 뭉치거나 올라올 것 같은
-  tightness,
+  tightness("TIGHTNESS"),
 
   /// 통증양상 : 특정자세에 민감
-  postureSensitive,
+  postureSensitive("POSTURE_SENSITIVE"),
 
   /// 통증양상 : 쑤시는
-  aching,
+  aching("ACHING"),
 
   /// 통증양상 : 타이트
-  stiff,
+  stiff("STIFF"),
 
   /// 통증양상 : 뻐근함
-  soreness,
+  soreness("SORENESS"),
 
   /// 통증양상 : 날카로운 통증
-  sharpPain,
+  sharpPain("SHARP_PAIN"),
 
   /// 통증양상 : 통증이 주변으로 확산
-  radiatingPain;
+  radiatingPain("RADIATING_PAIN");
+
+  final String serverKey;
+
+  const PainType(this.serverKey);
+
+  /// Key로 초기화
+  static PainType? from(String? key) =>
+      values.firstWhereOrNull((element) => element.serverKey == key);
 
   @override
   String toString() {
     switch (this) {
       case PainType.tingling:
-        return "짜릿함";
+        return StringRes.tingling.tr;
       case pressure:
-        return "압박감";
+        return StringRes.pressure.tr;
       case weakness:
-        return "힘이 빠짐";
+        return StringRes.weakness.tr;
       case numbness:
-        return "저리거나 둔해짐";
+        return StringRes.numbness.tr;
       case tightness:
-        return "뭉치거나 올라올 것 같은";
+        return StringRes.tightness.tr;
       case postureSensitive:
-        return "특정자세에 민감";
+        return StringRes.postureSensitive.tr;
       case aching:
-        return "쑤시는";
+        return StringRes.aching.tr;
       case stiff:
-        return "타이트";
+        return StringRes.stiff.tr;
       case soreness:
-        return "뻐근함";
+        return StringRes.soreness.tr;
       case sharpPain:
-        return "날카로운 통증";
+        return StringRes.sharpPain.tr;
       case radiatingPain:
-        return "통증이 주변으로 확산";
-      default:
-        return "";
-    }
-  }
-
-  static PainType from(String? type) {
-    switch (type) {
-      case "TINGLING":
-        return PainType.tingling;
-      case "PRESSURE":
-        return PainType.pressure;
-      case "WEAKNESS":
-        return PainType.weakness;
-      case "NUMBNESS":
-        return PainType.numbness;
-      case "TIGHTNESS":
-        return PainType.tightness;
-      case "POSTURE_SENSITIVE":
-        return PainType.postureSensitive;
-      case "ACHING":
-        return PainType.aching;
-      case "STIFF":
-        return PainType.stiff;
-      case "SORENESS":
-        return PainType.soreness;
-      case "SHARP_PAIN":
-        return PainType.sharpPain;
-      case "RADIATING_PAIN":
-        return PainType.radiatingPain;
-      default:
-        return PainType.none;
+        return StringRes.radiatingPain.tr;
     }
   }
 }

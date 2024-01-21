@@ -241,4 +241,17 @@ class StringRes {
   static final injuryLevelMildDiscomfortDescription = _generateId();
   static final injuryLevelModeratePainDescription = _generateId();
   static final injuryLevelNoPainDescription = _generateId();
+
+  /// 통증 양상.
+  static final tingling = _generateId();
+  static final pressure = _generateId();
+  static final weakness = _generateId();
+  static final numbness = _generateId();
+  static final tightness = _generateId();
+  static final postureSensitive = _generateId();
+  static final aching = _generateId();
+  static final stiff = _generateId();
+  static final soreness = _generateId();
+  static final sharpPain = _generateId();
+  static final radiatingPain = _generateId();
 }

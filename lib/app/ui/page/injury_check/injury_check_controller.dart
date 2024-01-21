@@ -13,6 +13,8 @@ import 'package:physical_note/app/ui/page/injury_check/type/injury_check_directi
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'injury_check_pain_symptom_ui_state.dart';
+
 class InjuryCheckController extends BaseController {
   final args = Get.arguments as InjuryCheckArgs;
 
@@ -87,7 +89,10 @@ class InjuryCheckController extends BaseController {
   final painLevel = InjuryLevelType.noPain.obs;
 
   /// 통증 양상.
-  final painSymptom = PainType.none.obs;
+  final painSymptoms = PainType.values
+      .map((e) => InjuryCheckPainSymptomUiState(type: e))
+      .toList()
+      .obs;
 
   /// 통증 시기 - 간헐적, 일정함
   final painTimingIntermittent = (null as bool?).obs;
@@ -132,9 +137,16 @@ class InjuryCheckController extends BaseController {
         InjuryLevelType.fromLevel(value.toInt()) ?? InjuryLevelType.noPain;
   }
 
-  /// 통증 양상 선택.
-  void onPressedPainSymptom(PainType type) {
-    painSymptom.value = type;
+  /// 통증 양상 선택(다중 선택 가능).
+  void onPressedPainSymptom(InjuryCheckPainSymptomUiState selectedItem) {
+    final list = painSymptoms.toList();
+
+    painSymptoms.value = list.map((e) {
+      if (e.type == selectedItem.type) {
+        e.isSelected = !e.isSelected;
+      }
+      return e;
+    }).toList();
   }
 
   /// 통증시기 간헐적 클릭.
