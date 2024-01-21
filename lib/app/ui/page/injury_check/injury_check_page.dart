@@ -393,8 +393,8 @@ class _Pain extends GetView<InjuryCheckController> {
                 const SizedBox(height: 20),
                 Obx(
                   () => CustomSlider(
-                    value: controller.painLevel.value.toLevel(),
-                    color: controller.painLevel.value.toColor(),
+                    value: controller.painLevel.value.level.toDouble(),
+                    color: controller.painLevel.value.toBackgroundColor(),
                     minValue: 0,
                     maxValue: 5,
                     divisions: 5,
@@ -426,6 +426,7 @@ class _Pain extends GetView<InjuryCheckController> {
                 ),
                 const SizedBox(height: 20),
                 _FieldName(text: StringRes.painSymptoms.tr),
+                const SizedBox(height: 10),
                 Obx(
                   () => _PainSymptoms(
                     selectedType: controller.painSymptom.value,
@@ -434,6 +435,7 @@ class _Pain extends GetView<InjuryCheckController> {
                 ),
                 const SizedBox(height: 20),
                 _FieldName(text: StringRes.painTiming.tr),
+                const SizedBox(height: 10),
                 Obx(
                   () => _PainTimingIntermittentOrRegular(
                     isIntermittent: controller.painTimingIntermittent.value,
@@ -451,6 +453,7 @@ class _Pain extends GetView<InjuryCheckController> {
                 ),
                 const SizedBox(height: 20),
                 _FieldName(text: StringRes.injuryCause.tr),
+                const SizedBox(height: 10),
                 _PainTimingDescription(
                   controller: controller.painTimingDescription.controller,
                 ),
@@ -590,7 +593,7 @@ class _PainTimingDescription extends StatelessWidget {
         height: 140,
         border: Border.all(width: 0, color: Colors.transparent),
         borderRadius: BorderRadius.circular(24),
-        margin: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+        margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
         color: ColorRes.backgroundF9,
         maxLines: 10,
         fontSize: 12,

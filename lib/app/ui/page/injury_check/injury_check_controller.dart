@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_cast
 
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/injury_level_type.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/constant/pain_type.dart';
@@ -9,7 +10,6 @@ import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
-import 'package:physical_note/app/ui/page/injury_check/type/injury_pain_level.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -84,7 +84,7 @@ class InjuryCheckController extends BaseController {
   }).toObs([]);
 
   /// 통증 정도.
-  final painLevel = InjuryPainLevel.level0.obs;
+  final painLevel = InjuryLevelType.noPain.obs;
 
   /// 통증 양상.
   final painSymptom = PainType.none.obs;
@@ -128,20 +128,8 @@ class InjuryCheckController extends BaseController {
 
   /// 통증 정도 변경.
   void onChangePainLevelSlide(double value) {
-    switch (value) {
-      case 0:
-        painLevel.value = InjuryPainLevel.level0;
-      case 1:
-        painLevel.value = InjuryPainLevel.level1;
-      case 2:
-        painLevel.value = InjuryPainLevel.level2;
-      case 3:
-        painLevel.value = InjuryPainLevel.level3;
-      case 4:
-        painLevel.value = InjuryPainLevel.level4;
-      case 5:
-        painLevel.value = InjuryPainLevel.level5;
-    }
+    painLevel.value =
+        InjuryLevelType.fromLevel(value.toInt()) ?? InjuryLevelType.noPain;
   }
 
   /// 통증 양상 선택.
@@ -230,8 +218,8 @@ class InjuryCheckController extends BaseController {
       var svgString = await MuscleUtils.loadSvgFile(asset);
 
       if (muscleId != null) {
-        svgString =
-            MuscleUtils.changeSvgPathColor(svgString, muscleId, selectedMuscleColor);
+        svgString = MuscleUtils.changeSvgPathColor(
+            svgString, muscleId, selectedMuscleColor);
       }
 
       muscleImageString = svgString;
@@ -239,4 +227,6 @@ class InjuryCheckController extends BaseController {
 
     muscleImage.value = muscleImageString;
   }
+
+  /// 부상 체크 등록.
 }

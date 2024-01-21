@@ -179,18 +179,6 @@ class StringRes {
   static final album = _generateId();
   static final detailedMuscle = _generateId();
   static final painLevel = _generateId();
-  static final painLevel0 = _generateId();
-  static final painLevel0Description = _generateId();
-  static final painLevel1 = _generateId();
-  static final painLevel1Description = _generateId();
-  static final painLevel2 = _generateId();
-  static final painLevel2Description = _generateId();
-  static final painLevel3 = _generateId();
-  static final painLevel3Description = _generateId();
-  static final painLevel4 = _generateId();
-  static final painLevel4Description = _generateId();
-  static final painLevel5 = _generateId();
-  static final painLevel5Description = _generateId();
   static final painSymptoms = _generateId();
   static final painTiming = _generateId();
   static final intermittent = _generateId();
@@ -239,4 +227,18 @@ class StringRes {
   static final weekDayThu = _generateId();
   static final weekDayFri = _generateId();
   static final weekDaySat = _generateId();
+
+  /// 부상 레벨
+  static final injuryLevelVeryHighPain = _generateId();
+  static final injuryLevelHighPain = _generateId();
+  static final injuryLevelInjured = _generateId();
+  static final injuryLevelMildDiscomfort = _generateId();
+  static final injuryLevelModeratePain = _generateId();
+  static final injuryLevelNoPain = _generateId();
+  static final injuryLevelVeryHighPainDescription = _generateId();
+  static final injuryLevelHighPainDescription = _generateId();
+  static final injuryLevelInjuredDescription = _generateId();
+  static final injuryLevelMildDiscomfortDescription = _generateId();
+  static final injuryLevelModeratePainDescription = _generateId();
+  static final injuryLevelNoPainDescription = _generateId();
 }

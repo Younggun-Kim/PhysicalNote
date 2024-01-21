@@ -147,7 +147,7 @@ class _Level extends StatelessWidget {
       );
 
   String levelString() {
-    final level = injuryLevelType?.toLevel();
+    final level = injuryLevelType?.level;
 
     if (level == null) {
       return "질병";

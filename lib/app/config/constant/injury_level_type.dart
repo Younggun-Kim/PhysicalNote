@@ -4,54 +4,47 @@ import 'package:physical_note/app/resources/resources.dart';
 
 /// 부상 세기 타입.
 enum InjuryLevelType {
-  veryHighPain("VERY_HIGH_PAIN"),
-  highPain("HIGH_PAIN"),
-  injured("INJURED"),
-  mildDiscomfort("MILD_DISCOMFORT"),
-  moderatePain("MODERATE_PAIN"),
-  noPain("NO_PAIN");
+  veryHighPain("VERY_HIGH_PAIN", 5),
+  highPain("HIGH_PAIN", 4),
+  injured("INJURED", 3),
+  mildDiscomfort("MILD_DISCOMFORT", 2),
+  moderatePain("MODERATE_PAIN", 1),
+  noPain("NO_PAIN", 0);
 
-  final String? rawValue;
+  /// 서버 키.
+  final String serverKey;
 
-  const InjuryLevelType(this.rawValue);
+  /// 고통 수치.
+  final int level;
+
+  const InjuryLevelType(
+    this.serverKey,
+    this.level,
+  );
 
   /// Key로 초기화
-  static InjuryLevelType? from(String? rawValue) =>
-      values.firstWhereOrNull((element) => element.rawValue == rawValue);
+  static InjuryLevelType? from(String? key) =>
+      values.firstWhereOrNull((element) => element.serverKey == key);
+
+  /// Level로 초기화.
+  static InjuryLevelType? fromLevel(int? level) =>
+      values.firstWhereOrNull((element) => element.level == level);
 
   @override
   String toString() {
     switch (this) {
       case InjuryLevelType.veryHighPain:
-        return "매우 심한 통증";
+        return StringRes.injuryLevelVeryHighPain.tr;
       case InjuryLevelType.highPain:
-        return "심한 통증";
+        return StringRes.injuryLevelHighPain.tr;
       case InjuryLevelType.injured:
-        return "부상 상태";
+        return StringRes.injuryLevelInjured.tr;
       case InjuryLevelType.mildDiscomfort:
-        return "보통 통증";
+        return StringRes.injuryLevelMildDiscomfort.tr;
       case InjuryLevelType.moderatePain:
-        return "가벼운 통증";
+        return StringRes.injuryLevelModeratePain.tr;
       case InjuryLevelType.noPain:
-        return "통증 없음";
-    }
-  }
-
-  /// 고통 레벨.
-  int toLevel() {
-    switch (this) {
-      case InjuryLevelType.veryHighPain:
-        return 5;
-      case InjuryLevelType.highPain:
-        return 4;
-      case InjuryLevelType.injured:
-        return 3;
-      case InjuryLevelType.mildDiscomfort:
-        return 2;
-      case InjuryLevelType.moderatePain:
-        return 1;
-      case InjuryLevelType.noPain:
-        return 0;
+        return StringRes.injuryLevelNoPain.tr;
     }
   }
 
@@ -104,6 +97,24 @@ enum InjuryLevelType {
         return ColorRes.fontBlack;
       case InjuryLevelType.noPain:
         return ColorRes.fontBlack;
+    }
+  }
+
+  /// 설명.
+  String toDescription() {
+    switch (this) {
+      case InjuryLevelType.veryHighPain:
+        return StringRes.injuryLevelVeryHighPainDescription.tr;
+      case InjuryLevelType.highPain:
+        return StringRes.injuryLevelHighPainDescription.tr;
+      case InjuryLevelType.injured:
+        return StringRes.injuryLevelInjuredDescription.tr;
+      case InjuryLevelType.mildDiscomfort:
+        return StringRes.injuryLevelMildDiscomfortDescription.tr;
+      case InjuryLevelType.moderatePain:
+        return StringRes.injuryLevelModeratePainDescription.tr;
+      case InjuryLevelType.noPain:
+        return StringRes.injuryLevelNoPainDescription.tr;
     }
   }
 }
