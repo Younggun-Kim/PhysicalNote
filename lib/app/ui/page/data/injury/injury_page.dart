@@ -1,14 +1,21 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item.dart';
+import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
 class InjuryPage extends StatelessWidget {
+  /// 부상 목록.
+  final List<HomeInjuryCheckItemUiState> uiStates;
+
   /// 추가 버튼 클릭.
   final VoidCallback onPressedAdd;
 
   const InjuryPage({
     super.key,
+    required this.uiStates,
     required this.onPressedAdd,
   });
 
@@ -45,6 +52,34 @@ class InjuryPage extends StatelessWidget {
                 color: ColorRes.fontDisable,
               ),
             ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 528 / 1205,
+                    child: SvgPicture.asset(Assets.humanFront),
+                  ),
+                ),
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 528 / 1205,
+                    child: SvgPicture.asset(Assets.humanBack),
+                  ),
+                ),
+              ],
+            ),
+            if (uiStates.isEmpty)
+              const SizedBox()
+            else
+              Column(
+                children: List<Widget>.generate(uiStates.length, (index) {
+                  return HomeInjuryCheckItem(
+                    uiState: uiStates[index],
+                    isShowBorder: true,
+                  );
+                }).toList(),
+              ),
           ],
         ),
       );

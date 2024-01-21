@@ -1,9 +1,15 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/injury_level_type.dart';
+import 'package:physical_note/app/config/constant/injury_type.dart';
+import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
+import 'package:physical_note/app/data/injury/model/get_injury_response_model.dart';
 import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
+import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
+import 'package:physical_note/app/utils/logger/logger.dart';
 
 extension DataUiMapper on DataController {
   /// 웰리니스 매퍼
@@ -38,15 +44,18 @@ extension DataUiMapper on DataController {
       originSportsUiState.id = sportsData?.id;
       originSportsUiState.level = sportsData?.intensityType;
       originSportsUiState.hour = _convertTimeToHour(sportsData?.workoutTime);
-      originSportsUiState.minute = _convertTimeToMinute(sportsData?.workoutTime);
+      originSportsUiState.minute =
+          _convertTimeToMinute(sportsData?.workoutTime);
       intensitySportsUiState.value = originSportsUiState;
       intensitySportsUiState.refresh();
 
       var originPhysicalUiState = intensityPhysicalUiState.value;
       originPhysicalUiState.id = physicalData?.id;
       originPhysicalUiState.level = physicalData?.intensityType;
-      originPhysicalUiState.hour = _convertTimeToHour(physicalData?.workoutTime);
-      originPhysicalUiState.minute = _convertTimeToMinute(physicalData?.workoutTime);
+      originPhysicalUiState.hour =
+          _convertTimeToHour(physicalData?.workoutTime);
+      originPhysicalUiState.minute =
+          _convertTimeToMinute(physicalData?.workoutTime);
       intensityPhysicalUiState.value = originPhysicalUiState;
       intensityPhysicalUiState.refresh();
 
@@ -54,6 +63,33 @@ extension DataUiMapper on DataController {
       intensityWorkoutType.refresh();
       updateIntensityWorkoutTime();
     }
+  }
+
+  /// 부상체크 매퍼
+  void setInjury(GetInjuryResponseModel? data) {
+    logger.i("부상체크 매퍼: ${data?.list}");
+
+    injuryList.value = data?.list
+            .map((e) {
+              final injuryType = InjuryType.from(e.injuryType);
+              final injuryLevel = InjuryLevelType.from(e.injuryLevelType);
+              final muscleType = MuscleType.from(e.muscleType);
+
+              if (injuryType == null) {
+                return null;
+              }
+              return HomeInjuryCheckItemUiState(
+                injuryType: injuryType,
+                injuryLevelType: injuryLevel,
+                injuryLevelTypeString: e.injuryLevelString,
+                recordDate: e.recordDate,
+                comment: e.comment,
+                muscleType: muscleType,
+              );
+            })
+            .whereType<HomeInjuryCheckItemUiState>()
+            .toList() ??
+        [];
   }
 
   /// 슬라이더에 맞게 변환

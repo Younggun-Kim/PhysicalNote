@@ -158,6 +158,9 @@ class ColorRes {
   /// 0xff7B4DFF.
   static const homePhysicalPurple = Color(0xff7B4DFF);
 
+  /// 0xffcbcccd.
+  static const gray3 = Color(0xffcbcccd);
+
   /// 0xff98999C.
   static const gray5 = Color(0xff98999C);
 

@@ -89,8 +89,11 @@ class DataPage extends GetView<DataController> {
                   ),
                 ),
                 SizedBox.expand(
-                  child: InjuryPage(
-                    onPressedAdd: controller.onPressedAdd,
+                  child: Obx(
+                    () => InjuryPage(
+                      uiStates: controller.injuryList.toList(),
+                      onPressedAdd: controller.onPressedAdd,
+                    ),
                   ),
                 ),
               ],

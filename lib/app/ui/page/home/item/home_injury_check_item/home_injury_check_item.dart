@@ -11,94 +11,116 @@ import 'home_injury_check_item_ui_state.dart';
 class HomeInjuryCheckItem extends StatelessWidget {
   final HomeInjuryCheckItemUiState uiState;
 
+  final bool isShowBorder;
+
   const HomeInjuryCheckItem({
     super.key,
     required this.uiState,
+    this.isShowBorder = false,
   });
 
   @override
-  Widget build(BuildContext context) => Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _Level(
-                injuryLevelType: uiState.injuryLevelType,
-              ),
-              const SizedBox(width: 10),
-              if (uiState.muscleType != null)
-                Flexible(
-                  fit: FlexFit.loose,
-                  child: Text(
-                    uiState.muscleType?.toKor() ?? "",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+  Widget build(BuildContext context) => Container(
+        margin: isShowBorder ? const EdgeInsets.only(bottom: 10) : null,
+        padding: isShowBorder ? const EdgeInsets.all(16) : null,
+        decoration: isShowBorder
+            ? BoxDecoration(
+                color: ColorRes.white,
+                border: Border.all(color: ColorRes.gray3),
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.25),
+                    spreadRadius: 3,
+                    blurRadius: 5,
+                    offset: const Offset(0, 2), // changes position of shadow
+                  ),
+                ],
+              )
+            : null,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _Level(
+                  injuryLevelType: uiState.injuryLevelType,
+                ),
+                const SizedBox(width: 10),
+                if (uiState.muscleType != null)
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Text(
+                      uiState.muscleType?.toKor() ?? "",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                ),
-              const SizedBox(width: 7),
-              Text(
-                uiState.recordDate ?? "",
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              const SizedBox(width: 10),
-              InkWellOver(
-                onTap: () {},
-                borderRadius: BorderRadius.circular(20),
-                child: SvgPicture.asset(
-                  Assets.edit03,
-                  width: 17,
-                  height: 17,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Visibility(
-            visible: uiState.injuryType != InjuryType.disease,
-            child: Row(
-              children: [
+                const SizedBox(width: 7),
                 Text(
-                  uiState.injuryType?.toString() ?? "",
+                  uiState.recordDate ?? "",
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    color: ColorRes.fontBlack,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                InkWellOver(
+                  onTap: () {},
+                  borderRadius: BorderRadius.circular(20),
+                  child: SvgPicture.asset(
+                    Assets.edit03,
+                    width: 17,
+                    height: 17,
                   ),
                 ),
               ],
             ),
-          ),
-          Visibility(
-            visible: uiState.injuryType != InjuryType.disease,
-            child: Row(
-              children: [
-                Text(
-                  uiState.injuryLevelType.toString(),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorRes.fontBlack,
+            const SizedBox(height: 8),
+            Visibility(
+              visible: uiState.injuryType != InjuryType.disease,
+              child: Row(
+                children: [
+                  Text(
+                    uiState.injuryType?.toString() ?? "",
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Text(
-            _comment(),
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
+            Visibility(
+              visible: uiState.injuryType != InjuryType.disease,
+              child: Row(
+                children: [
+                  Text(
+                    uiState.injuryLevelType.toString(),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
-        ],
+            Text(
+              _comment(),
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
       );
 
   /// 코멘트 문자열.

@@ -4,7 +4,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'post_injury_response_model.g.dart';
 
-/// 운동 카테고리 조회 목록 아이템 모델.
 @JsonSerializable()
 class PostInjuryResponseModel {
   final int? id;

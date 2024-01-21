@@ -6,6 +6,8 @@ import 'package:physical_note/app/config/constant/app_constant.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/injury/injury_api.dart';
+import 'package:physical_note/app/data/injury/model/get_injury_response_model.dart';
 import 'package:physical_note/app/data/intensity/intensity_api.dart';
 import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
 import 'package:physical_note/app/data/intensity/model/post_intensity_request_model.dart';
@@ -19,6 +21,7 @@ import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/data_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
+import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
@@ -40,6 +43,15 @@ class DataController extends BaseController {
 
   /// 메뉴.
   var menu = DataMenuType.wellness.obs;
+
+  /// 웰리니스 Load 여부.
+  var isLoadWellness = false;
+
+  /// 운동강도 Load 여부.
+  var isLoadIntensity = false;
+
+  /// 부상체크 Load 여부.
+  var isLoadInjury = false;
 
   /// 웰리니스 Id
   var wellnessId = (null as int?).obs;
@@ -69,6 +81,11 @@ class DataController extends BaseController {
   void onChangedDate(DateTime newDate) {
     calendarUiState.value.focusedDate = newDate;
     calendarUiState.refresh();
+
+    /// 다시 로딩할 수 있게 초기화.
+    isLoadWellness = false;
+    isLoadIntensity = false;
+    isLoadInjury = false;
 
     _loadApi();
   }
@@ -124,6 +141,22 @@ class DataController extends BaseController {
   void onTapMenu(DataMenuType type) {
     menu.value = type;
     pageController.value.jumpToPage(type.index);
+
+    /// API 로드
+    switch (type) {
+      case DataMenuType.wellness:
+        if(isLoadWellness == false) {
+          _loadApi();
+        }
+      case DataMenuType.intensity:
+        if(isLoadIntensity == false) {
+          _loadApi();
+        }
+      case DataMenuType.injury:
+        if(isLoadInjury == false) {
+          _loadApi();
+        }
+    }
   }
 
   /// 웰리니스 - 후퍼인덱스 슬라이드 변경 이벤트.
@@ -179,10 +212,14 @@ class DataController extends BaseController {
     switch (currentMenu) {
       case DataMenuType.wellness:
         await _loadWellness();
+        isLoadWellness = true;
       case DataMenuType.intensity:
         await _loadIntensity();
+        isLoadIntensity = true;
         break;
       case DataMenuType.injury:
+        await _loadInjury();
+        isLoadInjury = true;
         break;
     }
 
@@ -429,8 +466,28 @@ class DataController extends BaseController {
   /**
    * 부상체크
    */
+
+  var injuryList = <HomeInjuryCheckItemUiState>[].obs;
+
   void onPressedAdd() {
     final args = InjuryCheckArgs(date: calendarUiState.value.focusedDate);
     Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
+  }
+
+  /// 부상체크 조회.
+  Future _loadInjury() async {
+    final injuryApi = Get.find<InjuryAPI>();
+    final date =
+        calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
+    final response = await injuryApi.getInjury(recordDate: date);
+
+    if (response is GetInjuryResponseModel) {
+      setInjury(response);
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+      setInjury(null); // 값 초기화
+    }
   }
 }
