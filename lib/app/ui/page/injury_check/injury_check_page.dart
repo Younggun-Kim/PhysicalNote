@@ -47,17 +47,20 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
               _Pain(),
               const SizedBox(height: 50),
               const Spacer(),
-              BaseButton(
-                width: double.infinity,
-                height: 56,
-                isEnabled: false,
-                text: StringRes.save.tr,
-                defaultTextStyle: const TextStyle(
-                  fontSize: 16,
-                  color: ColorRes.fontBlack,
-                  fontWeight: FontWeight.w500,
+              Obx(
+                () => BaseButton(
+                  width: double.infinity,
+                  height: 56,
+                  isEnabled: controller.isEnabledSubmit.value,
+                  text: StringRes.save.tr,
+                  defaultTextStyle: const TextStyle(
+                    fontSize: 16,
+                    color: ColorRes.fontBlack,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  defaultBackgroundColor: ColorRes.primary,
+                  onPressed: () {},
                 ),
-                onPressed: () {},
               ),
               const SizedBox(height: 20),
             ],

@@ -106,6 +106,19 @@ class InjuryCheckController extends BaseController {
   /// 통증시기 - 부상 경위.
   final painTimingDescription = "".obsWithController;
 
+  late final isEnabledSubmit = CombineLatestStream(
+    [
+      directionType.behaviorStream.map((event) => event != null),
+      bodyType.behaviorStream.map((event) => event != null),
+      bodyPartsType.behaviorStream.map((event) => event != null),
+      selectedMuscleType.behaviorStream.map((event) => event != null),
+      painSymptoms.behaviorStream
+          .map((event) => event.any((element) => element.isSelected == true)),
+      painTimingIntermittent.behaviorStream.map((event) => event != null),
+    ],
+    (values) => values.every((element) => element == true),
+  ).toObs(false);
+
   /// 부상 타입 클릭.
   void onPressedInjuryType(InjuryType type) {
     injuryType.value = type;
