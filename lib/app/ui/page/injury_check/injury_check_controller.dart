@@ -5,11 +5,16 @@ import 'package:physical_note/app/config/constant/injury_level_type.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/constant/pain_type.dart';
+import 'package:physical_note/app/data/injury/injury_api.dart';
+import 'package:physical_note/app/data/injury/model/post_injury_request_model.dart';
+import 'package:physical_note/app/data/injury/model/post_injury_response_model.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -254,4 +259,71 @@ class InjuryCheckController extends BaseController {
   }
 
   /// 부상 체크 등록.
+  Future<void> onPressedSubmit() async {
+    setLoading(true);
+    final requestData = _getRequestData();
+    final injuryApi = Get.find<InjuryAPI>();
+
+    final response = await injuryApi.postInjury(requestData: requestData);
+
+    if (response is PostInjuryResponseModel) {
+      if (response.id != null) {
+        close();
+      }
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+
+    setLoading(false);
+  }
+
+  /// 등록/수정 RequestData
+  PostInjuryRequestModel _getRequestData() {
+    final injuryTypeKey = injuryType.value.serverKey;
+    final distinctionType = directionType.value?.serverKey;
+    final bodyTypeKey = bodyType.value?.serverKey;
+    final bodyPart = bodyPartsType.value?.serverKey;
+    final muscleType = selectedMuscleType.value?.serverKey;
+    final injuryLevel = painLevel.value.serverKey;
+    final symptoms = painSymptoms
+        .where((e) => e.isSelected == true)
+        .map((e) => e.type.serverKey)
+        .toList();
+    final comment = injuryType.value == InjuryType.disease
+        ? diseaseController.value
+        : painTimingDescription.value;
+
+    var painTime = <String>[];
+
+    var intermittent = painTimingIntermittent.value;
+    if (intermittent == true) {
+      painTime.add("INTERMITTENT");
+    } else if (intermittent == false) {
+      painTime.add("CONSTANT");
+    }
+    if (painTimingRest.value == true) {
+      painTime.add("REST");
+    }
+
+    if (painTimingWorkout.value == true) {
+      painTime.add("DURING_EXERCISE");
+    }
+
+    final requestData = PostInjuryRequestModel(
+      injuryType: injuryTypeKey,
+      distinctionType: distinctionType,
+      bodyType: bodyTypeKey,
+      bodyPart: bodyPart,
+      muscleType: muscleType,
+      injuryLevel: injuryLevel,
+      painCharacteristicList: symptoms,
+      painTimes: painTime,
+      comment: comment,
+      recordDate: args.date.toFormattedString("yyyy-MM-dd"),
+    );
+
+    return requestData;
+  }
 }

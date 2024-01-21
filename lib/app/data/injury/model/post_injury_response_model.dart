@@ -15,7 +15,7 @@ class PostInjuryResponseModel {
   final String? muscleType;
   final String? injuryLevel;
   final List<String>? painCharacteristicList;
-  final String? painTime;
+  final List<String>? painTime;
   final String? comment;
   final String? recordDate;
 

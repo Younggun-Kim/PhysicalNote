@@ -19,7 +19,9 @@ PostInjuryResponseModel _$PostInjuryResponseModelFromJson(
       painCharacteristicList: (json['painCharacteristicList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      painTime: json['painTime'] as String?,
+      painTime: (json['painTime'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       comment: json['comment'] as String?,
       recordDate: json['recordDate'] as String?,
     );

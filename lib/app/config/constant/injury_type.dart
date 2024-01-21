@@ -11,12 +11,12 @@ enum InjuryType {
   disease(_disease),
   nonContact(_nonContact);
 
-  final String rawValue;
+  final String serverKey;
 
-  const InjuryType(this.rawValue);
+  const InjuryType(this.serverKey);
 
   static InjuryType? from(String? rawValue) =>
-      values.firstWhereOrNull((e) => e.rawValue == rawValue);
+      values.firstWhereOrNull((e) => e.serverKey == rawValue);
 
   @override
   String toString() {

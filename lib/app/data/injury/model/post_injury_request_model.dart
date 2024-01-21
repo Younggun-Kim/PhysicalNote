@@ -12,7 +12,7 @@ class PostInjuryRequestModel {
   final String? muscleType;
   final String? injuryLevel;
   final List<String>? painCharacteristicList;
-  final String? painTime;
+  final List<String>? painTimes;
   final String? comment;
   final String? recordDate;
 
@@ -24,7 +24,7 @@ class PostInjuryRequestModel {
     required this.muscleType,
     required this.injuryLevel,
     required this.painCharacteristicList,
-    required this.painTime,
+    required this.painTimes,
     required this.comment,
     required this.recordDate,
   });

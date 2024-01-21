@@ -59,7 +59,7 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
                     fontWeight: FontWeight.w500,
                   ),
                   defaultBackgroundColor: ColorRes.primary,
-                  onPressed: () {},
+                  onPressed: controller.onPressedSubmit,
                 ),
               ),
               const SizedBox(height: 20),

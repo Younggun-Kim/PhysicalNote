@@ -18,7 +18,9 @@ PostInjuryRequestModel _$PostInjuryRequestModelFromJson(
       painCharacteristicList: (json['painCharacteristicList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      painTime: json['painTime'] as String?,
+      painTimes: (json['painTimes'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       comment: json['comment'] as String?,
       recordDate: json['recordDate'] as String?,
     );
@@ -33,7 +35,7 @@ Map<String, dynamic> _$PostInjuryRequestModelToJson(
       'muscleType': instance.muscleType,
       'injuryLevel': instance.injuryLevel,
       'painCharacteristicList': instance.painCharacteristicList,
-      'painTime': instance.painTime,
+      'painTimes': instance.painTimes,
       'comment': instance.comment,
       'recordDate': instance.recordDate,
     };

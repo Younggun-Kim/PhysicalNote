@@ -131,12 +131,12 @@ enum MuscleType {
   /// 삼두근
   triceps("TRICEPS");
 
-  final String rawValue;
+  final String serverKey;
 
-  const MuscleType(this.rawValue);
+  const MuscleType(this.serverKey);
 
   static MuscleType? from(String? rawValue) =>
-      values.firstWhereOrNull((e) => e.rawValue == rawValue);
+      values.firstWhereOrNull((e) => e.serverKey == rawValue);
 
   String toKor() {
     switch(this) {
