@@ -553,7 +553,6 @@ class DataController extends BaseController {
         if (color == null || bodyPart == null || muscleType == null) {
         } else {
           final pathId = "${bodyPart}_$muscleType".toLowerCase();
-          logger.i("$pathId: $color");
           svgString = MuscleUtils.changeSvgPathColor(
             svgString,
             pathId,
