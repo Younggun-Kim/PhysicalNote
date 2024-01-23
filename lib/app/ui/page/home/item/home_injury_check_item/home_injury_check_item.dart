@@ -13,10 +13,13 @@ class HomeInjuryCheckItem extends StatelessWidget {
 
   final bool isShowBorder;
 
+  final Function() onPressedEdit;
+
   const HomeInjuryCheckItem({
     super.key,
     required this.uiState,
     this.isShowBorder = false,
+    required this.onPressedEdit,
   });
 
   @override
@@ -70,7 +73,7 @@ class HomeInjuryCheckItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 InkWellOver(
-                  onTap: () {},
+                  onTap: onPressedEdit,
                   borderRadius: BorderRadius.circular(20),
                   child: SvgPicture.asset(
                     Assets.edit03,

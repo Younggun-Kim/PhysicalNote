@@ -95,6 +95,7 @@ class DataPage extends GetView<DataController> {
                       humanFrontImage: controller.humanFrontImage.value,
                       humanBackImage: controller.humanBackImage.value,
                       onPressedAdd: controller.onPressedAdd,
+                      onPressedEdit: controller.onPressedEdit,
                     ),
                   ),
                 ),

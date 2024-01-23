@@ -6,6 +6,7 @@ import 'package:physical_note/app/ui/page/injury_check/type/injury_check_directi
 
 /// 홈 부상체크 아이템 UIState.
 class HomeInjuryCheckItemUiState {
+  final int id;
   final String? injuryLevelTypeString;
   final InjuryLevelType? injuryLevelType;
   final InjuryType? injuryType;
@@ -16,6 +17,7 @@ class HomeInjuryCheckItemUiState {
   final String? comment;
 
   HomeInjuryCheckItemUiState({
+    required this.id,
     required this.injuryType,
     required this.injuryLevelType,
     required this.injuryLevelTypeString,

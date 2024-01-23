@@ -73,15 +73,17 @@ extension DataUiMapper on DataController {
 
     injuryList.value = data?.list
             .map((e) {
+              final injuryId = e.id;
               final injuryType = InjuryType.from(e.injuryType);
               final injuryLevel = InjuryLevelType.from(e.injuryLevelType);
               final muscleType = MuscleType.from(e.muscleType);
               final bodyPart = InjuryCheckBodyPartsType.from(e.bodyPart);
 
-              if (injuryType == null || bodyPart == null) {
+              if (injuryId == null || injuryType == null || bodyPart == null) {
                 return null;
               }
               return HomeInjuryCheckItemUiState(
+                id: injuryId,
                 injuryType: injuryType,
                 injuryLevelType: injuryLevel,
                 injuryLevelTypeString: e.injuryLevelString,

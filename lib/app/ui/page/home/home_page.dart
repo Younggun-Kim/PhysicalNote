@@ -1146,7 +1146,9 @@ class _SecondState extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
-                    color: isPositiveYesterdayTime ? ColorRes.fontBlue : ColorRes.fontRed,
+                    color: isPositiveYesterdayTime
+                        ? ColorRes.fontBlue
+                        : ColorRes.fontRed,
                   ),
                 )
               ],
@@ -1227,6 +1229,7 @@ class _SecondState extends StatelessWidget {
                     List<Widget>.generate(injuryCheckList!.length, (index) {
                   return HomeInjuryCheckItem(
                     uiState: injuryCheckList![index],
+                    onPressedEdit: () {},
                   );
                 }).toList(),
               )

@@ -2,5 +2,10 @@
 class InjuryCheckArgs {
   final DateTime date;
 
-  InjuryCheckArgs({required this.date});
+  final int? id;
+
+  InjuryCheckArgs({
+    required this.date,
+    this.id,
+  });
 }

@@ -236,4 +236,5 @@ final koKr = {
   StringRes.soreness: "뻐근함",
   StringRes.sharpPain: "날카로운 통증",
   StringRes.radiatingPain: "통증이 주변으로 확산",
+  StringRes.delete: "삭제",
 };

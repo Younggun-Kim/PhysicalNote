@@ -476,9 +476,9 @@ class DataController extends BaseController {
    */
 
   late var injuryList = <HomeInjuryCheckItemUiState>[].obs
-  ..listen((p0) {
-    _setHumanMuscleColor();
-  });
+    ..listen((p0) {
+      _setHumanMuscleColor();
+    });
 
   var _humanFrontOriginImage = "";
 
@@ -545,8 +545,7 @@ class DataController extends BaseController {
       var svgString = _humanFrontOriginImage;
 
       for (var element in frontImages) {
-        final color = element.injuryLevelType
-            ?.toInjuryLevelColor();
+        final color = element.injuryLevelType?.toInjuryLevelColor();
         final bodyPart = element.bodyPart?.serverKey;
         final muscleType = element.muscleType?.serverKey;
 
@@ -567,5 +566,14 @@ class DataController extends BaseController {
     if (backImages.isEmpty) {
       humanBackImage.value = _humanBackOriginImage;
     } else {}
+  }
+
+  /// 부상 체크 편집 클릭.
+  void onPressedEdit(HomeInjuryCheckItemUiState uiState) async {
+    final args = InjuryCheckArgs(date: calendarUiState.value.focusedDate, id: uiState.id);
+    final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
+    if (result is bool && result == true) {
+      _loadApi();
+    }
   }
 }

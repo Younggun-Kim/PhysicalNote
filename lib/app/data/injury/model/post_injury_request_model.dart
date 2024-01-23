@@ -17,13 +17,13 @@ class PostInjuryRequestModel {
 
   PostInjuryRequestModel({
     required this.injuryType,
-    required this.distinctionType,
-    required this.bodyType,
-    required this.bodyPart,
-    required this.muscleType,
-    required this.injuryLevel,
-    required this.painCharacteristicList,
-    required this.painTimes,
+    this.distinctionType,
+    this.bodyType,
+    this.bodyPart,
+    this.muscleType,
+    this.injuryLevel,
+    this.painCharacteristicList,
+    this.painTimes,
     required this.comment,
     required this.recordDate,
   });

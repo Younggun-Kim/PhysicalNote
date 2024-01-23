@@ -260,11 +260,13 @@ extension HomeUiMapper on HomeController {
   }
 
   /// 부상체크 목록 매핑.
+  // TODO: 변경.
   List<HomeInjuryCheckItemUiState>? setHomeInjuryCheckItemUiStateFrom(
       {required List<InjuryInfoModel>? remoteData}) {
     return remoteData
         ?.map(
           (e) => HomeInjuryCheckItemUiState(
+            id: 1,
             injuryType: InjuryType.from(e.injuryType),
             injuryLevelType: InjuryLevelType.from(e.injuryLevelType),
             injuryLevelTypeString: e.injuryLevelString,

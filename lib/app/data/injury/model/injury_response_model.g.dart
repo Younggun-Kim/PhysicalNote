@@ -19,7 +19,7 @@ InjuryResponseModel _$InjuryResponseModelFromJson(Map<String, dynamic> json) =>
       painCharacteristicList: (json['painCharacteristicList'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      painTime: (json['painTime'] as List<dynamic>?)
+      painTimes: (json['painTimes'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
       comment: json['comment'] as String?,
@@ -38,7 +38,7 @@ Map<String, dynamic> _$InjuryResponseModelToJson(
       'injuryLevelType': instance.injuryLevelType,
       'injuryLevelString': instance.injuryLevelString,
       'painCharacteristicList': instance.painCharacteristicList,
-      'painTime': instance.painTime,
+      'painTimes': instance.painTimes,
       'comment': instance.comment,
       'recordDate': instance.recordDate,
     };

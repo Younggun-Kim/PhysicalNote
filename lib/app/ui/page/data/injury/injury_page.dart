@@ -19,12 +19,16 @@ class InjuryPage extends StatelessWidget {
   /// 추가 버튼 클릭.
   final VoidCallback onPressedAdd;
 
+  /// 편집 버튼 클릭.
+  final Function(HomeInjuryCheckItemUiState uiState) onPressedEdit;
+
   const InjuryPage({
     super.key,
     required this.uiStates,
     required this.humanFrontImage,
     required this.humanBackImage,
     required this.onPressedAdd,
+    required this.onPressedEdit,
   });
 
   @override
@@ -83,9 +87,11 @@ class InjuryPage extends StatelessWidget {
               Column(
                 children: List<Widget>.generate(uiStates.length, (index) {
                   return HomeInjuryCheckItem(
-                    uiState: uiStates[index],
-                    isShowBorder: true,
-                  );
+                      uiState: uiStates[index],
+                      isShowBorder: true,
+                      onPressedEdit: () {
+                        onPressedEdit(uiStates[index]);
+                      });
                 }).toList(),
               ),
           ],

@@ -48,18 +48,50 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
               const SizedBox(height: 50),
               const Spacer(),
               Obx(
-                () => BaseButton(
-                  width: double.infinity,
-                  height: 56,
-                  isEnabled: controller.isEnabledSubmit.value,
-                  text: StringRes.save.tr,
-                  defaultTextStyle: const TextStyle(
-                    fontSize: 16,
-                    color: ColorRes.fontBlack,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  defaultBackgroundColor: ColorRes.primary,
-                  onPressed: controller.onPressedSubmit,
+                () => Row(
+                  children: [
+                    Visibility(
+                      visible: controller.args.id != null,
+                      child: Expanded(
+                        child: BaseButton(
+                          width: double.infinity,
+                          height: 56,
+                          text: StringRes.delete.tr,
+                          defaultTextStyle: const TextStyle(
+                            fontSize: 16,
+                            color: ColorRes.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          defaultBackgroundColor: ColorRes.disable,
+                          onPressed: controller.onPressedDelete,
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: controller.args.id != null,
+                      child: const SizedBox(
+                        width: 10,
+                      ),
+                    ),
+                    Expanded(
+                      child: BaseButton(
+                        width: double.infinity,
+                        height: 56,
+                        isEnabled:
+                            controller.injuryType.value == InjuryType.disease
+                                ? controller.isEnabledDiseaseSubmit.value
+                                : controller.isEnabledSubmit.value,
+                        text: StringRes.save.tr,
+                        defaultTextStyle: const TextStyle(
+                          fontSize: 16,
+                          color: ColorRes.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        defaultBackgroundColor: ColorRes.primary,
+                        onPressed: controller.onPressedSubmit,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
@@ -309,7 +341,8 @@ class _MuscleImage extends GetView<InjuryCheckController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => controller.muscleImage.value.isEmpty
+      () => controller.muscleImage.value.isEmpty ||
+              controller.injuryType.value == InjuryType.disease
           ? const SizedBox()
           : SvgPicture.string(controller.muscleImage.value),
     );

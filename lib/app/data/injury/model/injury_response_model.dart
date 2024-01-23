@@ -13,7 +13,7 @@ class InjuryResponseModel {
   final String? injuryLevelType;
   final String? injuryLevelString;
   final List<String>? painCharacteristicList;
-  final List<String>? painTime;
+  final List<String>? painTimes;
   final String? comment;
   final String? recordDate;
 
@@ -27,7 +27,7 @@ class InjuryResponseModel {
     required this.injuryLevelType,
     required this.injuryLevelString,
     required this.painCharacteristicList,
-    required this.painTime,
+    required this.painTimes,
     required this.comment,
     required this.recordDate,
   });
