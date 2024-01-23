@@ -12,6 +12,7 @@ import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
+import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -115,13 +116,24 @@ class HomeController extends BaseController {
   var workoutLastEightWeekStatus = HomeTrainingBalanceType.none.obs;
 
   /// 부상 체크 목록.
-  Rx<List<HomeInjuryCheckItemUiState>?> injuryCheckList =
-      (null as List<HomeInjuryCheckItemUiState>?).obs;
+  late var injuryCheckList = <HomeInjuryCheckItemUiState>[].obs
+    ..listen((p0) {
+      _setHumanMuscleColor();
+    });
+
+  /// 사람 근육 앞모습.
+  var _humanFrontOriginImage = "";
+  var humanFrontImage = "".obs;
+
+  /// 사람 근육 뒷모습.
+  var _humanBackOriginImage = "";
+  var humanBackImage = "".obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    loadHome();
+    await _loadHumanMuscleImage();
+    await loadHome();
   }
 
   /// 유저 정보 편집 클릭.
@@ -192,5 +204,59 @@ class HomeController extends BaseController {
       duration: const Duration(milliseconds: 200),
       curve: Curves.ease,
     );
+  }
+
+  /// 사람 근육 이미지 로딩.
+  Future _loadHumanMuscleImage() async {
+    _humanFrontOriginImage = await MuscleUtils.loadSvgFile(Assets.humanFront);
+    _humanBackOriginImage = await MuscleUtils.loadSvgFile(Assets.humanBack);
+
+    humanFrontImage.value = _humanFrontOriginImage;
+    humanBackImage.value = _humanBackOriginImage;
+  }
+
+  /// 사람 근육 선택
+  void _setHumanMuscleColor() {
+    final list = injuryCheckList.toList();
+    if (list.isEmpty) {
+      humanFrontImage.value = _humanFrontOriginImage;
+      humanBackImage.value = _humanBackOriginImage;
+      return;
+    }
+
+    final frontImages = list
+        .where((element) => element.direction == InjuryCheckDirectionType.front)
+        .toList();
+    final backImages = list
+        .where((element) => element.direction == InjuryCheckDirectionType.back)
+        .toList();
+
+    if (frontImages.isEmpty) {
+      humanFrontImage.value = _humanFrontOriginImage;
+    } else {
+      var svgString = _humanFrontOriginImage;
+
+      for (var element in frontImages) {
+        final color = element.injuryLevelType?.toInjuryLevelColor();
+        final bodyPart = element.bodyPart?.serverKey;
+        final muscleType = element.muscleType?.serverKey;
+
+        if (color == null || bodyPart == null || muscleType == null) {
+        } else {
+          final pathId = "${bodyPart}_$muscleType".toLowerCase();
+          svgString = MuscleUtils.changeSvgPathColor(
+            svgString,
+            pathId,
+            color,
+          );
+        }
+      }
+
+      humanFrontImage.value = svgString;
+    }
+
+    if (backImages.isEmpty) {
+      humanBackImage.value = _humanBackOriginImage;
+    } else {}
   }
 }

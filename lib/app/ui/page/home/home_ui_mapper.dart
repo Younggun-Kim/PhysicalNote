@@ -14,6 +14,8 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_item_model.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
+import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
+import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
 import 'home_constant.dart';
@@ -27,7 +29,7 @@ extension HomeUiMapper on HomeController {
     userName.value = data?.userSimpleInfo?.name ?? "";
     userClub.value = data?.userSimpleInfo?.teamName ?? "";
     userClubCoach.value = data?.userSimpleInfo?.teamCoachName ?? "";
-    userImageUrl.value = data?.userSimpleInfo?.profile ?? Assets.userDefault;
+    userImageUrl.value = data?.userSimpleInfo?.profile ?? "";
     hooperIndexData.value = setHooperIndexDataFrom(data?.hooperIndexInfo);
     risk.value = data?.riskInfo?.injuryLevel;
     riskPercent.value = data?.riskInfo?.injuryPercent;
@@ -38,7 +40,8 @@ extension HomeUiMapper on HomeController {
         setHomeStatisticsWeeklyDataFrom(data?.weekIntensityGraph);
     monthlyDataList.value =
         setHomeStatisticsMonthlyFrom(data?.monthIntensityGraph);
-    workoutTodayTime.value = _parseWorkoutTodayTime(data?.workoutInfo?.todayWorkoutTime);
+    workoutTodayTime.value =
+        _parseWorkoutTodayTime(data?.workoutInfo?.todayWorkoutTime);
     workoutYesterdayCompareTime.value =
         data?.workoutInfo?.yesterdayCompareTime ?? "";
     workoutThisWeek.value = data?.workoutInfo?.thisWeekWorkoutRoad ?? 0;
@@ -55,7 +58,7 @@ extension HomeUiMapper on HomeController {
     workoutLastEightWeekStatus.value = HomeTrainingBalanceType.from(
         data?.workoutInfo?.lastEightWeekWorkoutRoadString);
     injuryCheckList.value =
-        setHomeInjuryCheckItemUiStateFrom(remoteData: data?.injuryInfo);
+        setHomeInjuryCheckItemUiStateFrom(remoteData: data?.injuryInfo) ?? [];
   }
 
   /// 후퍼인덱스 매핑
@@ -123,9 +126,10 @@ extension HomeUiMapper on HomeController {
           type: StringRes.sports.tr,
           color: ColorRes.intensityLine1);
       final physicalChartData = _weeklyRawToHomeHomeStatisticsModel(
-          remoteData: data,
-          type: StringRes.physical.tr,
-          color: ColorRes.homePhysicalPurple,);
+        remoteData: data,
+        type: StringRes.physical.tr,
+        color: ColorRes.homePhysicalPurple,
+      );
 
       var result = <HomeStatisticsChartModel>[];
 
@@ -237,8 +241,12 @@ extension HomeUiMapper on HomeController {
           final remoteDataYear = remoteDataDate.year;
           final remoteDataMonth = remoteDataDate.month;
           final yearOffset = year - remoteDataYear > 0 ? 12 : 0;
-          final index =
-              max(0, remoteDataMonth - month - yearOffset + HomeConstant.monthMaxXLength);
+          final index = max(
+              0,
+              remoteDataMonth -
+                  month -
+                  yearOffset +
+                  HomeConstant.monthMaxXLength);
 
           return HomeStatisticsChartItemModel(
               id: 0,
@@ -264,20 +272,31 @@ extension HomeUiMapper on HomeController {
   List<HomeInjuryCheckItemUiState>? setHomeInjuryCheckItemUiStateFrom(
       {required List<InjuryInfoModel>? remoteData}) {
     return remoteData
-        ?.map(
-          (e) => HomeInjuryCheckItemUiState(
-            id: 1,
-            injuryType: InjuryType.from(e.injuryType),
-            injuryLevelType: InjuryLevelType.from(e.injuryLevelType),
+        ?.map((e) {
+          final injuryId = e.id;
+          final injuryType = InjuryType.from(e.injuryType);
+          final injuryLevel = InjuryLevelType.from(e.injuryLevelType);
+          final muscleType = MuscleType.from(e.muscleType);
+          // final bodyPart = InjuryCheckBodyPartsType.from(e.bodyPart);
+          final bodyPart = InjuryCheckBodyPartsType.leftArm;
+
+          if (injuryId == null || injuryType == null || bodyPart == null) {
+            return null;
+          }
+          return HomeInjuryCheckItemUiState(
+            id: injuryId,
+            injuryType: injuryType,
+            injuryLevelType: injuryLevel,
             injuryLevelTypeString: e.injuryLevelString,
             recordDate: e.recordDate,
             comment: e.comment,
-            muscleType: MuscleType.from(e.muscleType),
-            // bodyPart: InjuryCheckBodyPartsType.from(e.bodyPart),
-            bodyPart: null,
-            direction: null,
-          ),
-        )
+            muscleType: muscleType,
+            bodyPart: bodyPart,
+            // direction: InjuryCheckDirectionType.from(e.distinctionType),
+            direction: InjuryCheckDirectionType.front,
+          );
+        })
+        .whereType<HomeInjuryCheckItemUiState>()
         .toList();
   }
 
@@ -285,7 +304,7 @@ extension HomeUiMapper on HomeController {
   String _parseWorkoutTodayTime(String? time) {
     final value = time;
 
-    if(value == null) {
+    if (value == null) {
       return "";
     } else {
       final date = DateFormat("HH:mm:ss").parse(value);

@@ -120,6 +120,25 @@ class _SecondBody extends GetView<HomeController> {
               ),
             ),
             const SizedBox(height: 20),
+            Obx(
+              () => Row(
+                children: [
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 528 / 1205,
+                      child:
+                          SvgPicture.string(controller.humanFrontImage.value),
+                    ),
+                  ),
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 528 / 1205,
+                      child: SvgPicture.string(controller.humanBackImage.value),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       );
@@ -134,19 +153,22 @@ class _UserInformation extends GetView<HomeController> {
         children: [
           Obx(
             () => Container(
-              width: 54,
-              height: 54,
-              clipBehavior: Clip.hardEdge,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-              ),
-              child: Image.network(
-                // TODO: 여기 버그 고치기 userDefaultImage 버그.
-                controller.userImageUrl.value,
-                fit: BoxFit.cover,
-                errorBuilder: profileErrorBuilder,
-              ),
-            ),
+                width: 54,
+                height: 54,
+                clipBehavior: Clip.hardEdge,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: controller.userImageUrl.value.isEmpty
+                    ? SvgPicture.asset(
+                        Assets.userDefault,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.network(
+                        controller.userImageUrl.value,
+                        fit: BoxFit.cover,
+                        errorBuilder: profileErrorBuilder,
+                      )),
           ),
           const SizedBox(width: 12),
           Column(
@@ -1078,7 +1100,7 @@ class _SecondState extends StatelessWidget {
 
   final String yesterdayCompareTime;
 
-  final List<HomeInjuryCheckItemUiState>? injuryCheckList;
+  final List<HomeInjuryCheckItemUiState> injuryCheckList;
 
   final int thisWeek;
   final HomeTrainingBalanceType thisWeekLoad;
@@ -1223,7 +1245,7 @@ class _SecondState extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            if (injuryCheckList?.isNotEmpty == true)
+            if (injuryCheckList.isNotEmpty)
               Column(
                 children:
                     List<Widget>.generate(injuryCheckList!.length, (index) {
