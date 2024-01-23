@@ -11,7 +11,7 @@ class InjuryInfoModel {
   final String? recordDate;
   final String? injuryLevelType;
   final String? injuryLevelString;
-  final String comment;
+  final String? comment;
 
   InjuryInfoModel({
     required this.id,

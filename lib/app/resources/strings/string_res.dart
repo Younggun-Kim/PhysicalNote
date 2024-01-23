@@ -214,6 +214,7 @@ class StringRes {
   static final intensityLevelOverDescription = _generateId();
   static final managementRequired = _generateId();
   static final delete = _generateId();
+  static final painPosition = _generateId();
 
   /// 부상 타입.
   static final injuryTypeContact = _generateId();

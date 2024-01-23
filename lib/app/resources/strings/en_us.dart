@@ -225,4 +225,5 @@ final enUs = {
   StringRes.injuryLevelModeratePainDescription: "주로 뻣뻣함과 뻐근함이 느껴짐",
   StringRes.injuryLevelNoPainDescription: "활동 제약 없음",
   StringRes.delete: "삭제",
+  StringRes.painPosition: "통증위치",
 };

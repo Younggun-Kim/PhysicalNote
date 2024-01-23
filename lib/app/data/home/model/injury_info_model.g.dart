@@ -14,7 +14,7 @@ InjuryInfoModel _$InjuryInfoModelFromJson(Map<String, dynamic> json) =>
       recordDate: json['recordDate'] as String?,
       injuryLevelType: json['injuryLevelType'] as String?,
       injuryLevelString: json['injuryLevelString'] as String?,
-      comment: json['comment'] as String,
+      comment: json['comment'] as String?,
     );
 
 Map<String, dynamic> _$InjuryInfoModelToJson(InjuryInfoModel instance) =>

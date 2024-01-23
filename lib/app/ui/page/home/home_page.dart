@@ -110,9 +110,9 @@ class _SecondBody extends GetView<HomeController> {
             Container(
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: const Text(
-                "통증위치",
-                style: TextStyle(
+              child: Text(
+                StringRes.painPosition.tr,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                   color: ColorRes.fontBlack,
