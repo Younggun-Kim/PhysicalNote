@@ -1248,9 +1248,9 @@ class _SecondState extends StatelessWidget {
             if (injuryCheckList.isNotEmpty)
               Column(
                 children:
-                    List<Widget>.generate(injuryCheckList!.length, (index) {
+                    List<Widget>.generate(injuryCheckList.length, (index) {
                   return HomeInjuryCheckItem(
-                    uiState: injuryCheckList![index],
+                    uiState: injuryCheckList[index],
                     onPressedEdit: () {},
                   );
                 }).toList(),
