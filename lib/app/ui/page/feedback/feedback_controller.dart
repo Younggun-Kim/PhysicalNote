@@ -45,7 +45,6 @@ class FeedbackController extends BaseController {
   void syncDate(DateTime date) {
     calendarUiState.value.focusedDate = date;
     calendarUiState.refresh();
-    loadFeedback();
   }
 
   /// 날짜 업데이트.

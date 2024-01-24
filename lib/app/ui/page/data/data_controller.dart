@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/app_constant.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
+import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/injury/injury_api.dart';
@@ -16,7 +17,6 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
-import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/data_ui_mapper.dart';
@@ -31,12 +31,6 @@ import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 class DataController extends BaseController {
-  @override
-  void onInit() async {
-    super.onInit();
-    await _loadHumanMuscleImage();
-  }
-
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
 
@@ -95,8 +89,6 @@ class DataController extends BaseController {
     isLoadWellness = false;
     isLoadIntensity = false;
     isLoadInjury = false;
-
-    loadApi();
   }
 
   /// 날짜 업데이트 요청.
@@ -161,21 +153,7 @@ class DataController extends BaseController {
     menu.value = type;
     pageController.value.jumpToPage(type.index);
 
-    /// API 로드
-    switch (type) {
-      case DataMenuType.wellness:
-        if (isLoadWellness == false) {
-          loadApi();
-        }
-      case DataMenuType.intensity:
-        if (isLoadIntensity == false) {
-          loadApi();
-        }
-      case DataMenuType.injury:
-        if (isLoadInjury == false) {
-          loadApi();
-        }
-    }
+    loadApi();
   }
 
   /// 웰리니스 - 후퍼인덱스 슬라이드 변경 이벤트.
@@ -526,9 +504,9 @@ class DataController extends BaseController {
   }
 
   /// 사람 근육 이미지 로딩.
-  Future _loadHumanMuscleImage() async {
-    _humanFrontOriginImage = await MuscleUtils.loadSvgFile(Assets.humanFront);
-    _humanBackOriginImage = await MuscleUtils.loadSvgFile(Assets.humanBack);
+  void initHumanMuscleImage(String frontImage, String backImage) {
+    _humanFrontOriginImage = frontImage;
+    _humanBackOriginImage = backImage;
 
     humanFrontImage.value = _humanFrontOriginImage;
     humanBackImage.value = _humanBackOriginImage;
@@ -576,7 +554,33 @@ class DataController extends BaseController {
 
     if (backImages.isEmpty) {
       humanBackImage.value = _humanBackOriginImage;
-    } else {}
+    } else {
+      var svgString = _humanBackOriginImage;
+
+      for (var element in backImages) {
+        final color = element.injuryLevelType?.toInjuryLevelColor();
+        final bodyPart = element.bodyPart?.serverKey;
+        final muscleType = element.muscleType?.serverKey;
+
+        if (color == null || bodyPart == null || muscleType == null) {
+        } else {
+          var pathId = "${bodyPart}_$muscleType".toLowerCase();
+
+          /// 둔근은 하나로 되어 있음.
+          if (element.muscleType == MuscleType.gluteus) {
+            pathId = muscleType.toLowerCase();
+          }
+
+          svgString = MuscleUtils.changeSvgPathColor(
+            svgString,
+            pathId,
+            color,
+          );
+        }
+      }
+
+      humanBackImage.value = svgString;
+    }
   }
 
   /// 부상 체크 편집 클릭.

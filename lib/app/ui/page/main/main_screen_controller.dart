@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/ui/page/data/data_controller.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
@@ -7,13 +8,26 @@ import 'package:physical_note/app/ui/page/main/main_ui_state.dart';
 import 'package:physical_note/app/utils/getx/base_main_controller.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
 
+import '../../../utils/muscle_utils.dart';
 import '../data/data_menu_type.dart';
 import 'main_tab_index.dart';
 
 class MainScreenController extends BaseMainController<MainUiState> {
+  @override
+  void onInit() async {
+    super.onInit();
+    await _loadHumanMuscleImage();
+    await loadApi();
+  }
 
   @override
   final Rx<MainUiState> uiState = MainUiState().obs;
+
+  /// 사람 앞모습.
+  var humanFrontOriginImage = "";
+
+  /// 사람 뒷모습.
+  var humanBackOriginImage = "";
 
   /// 메인 탭 인덱스 변경.
   void setTabIndex(MainTabIndex tabIndex) async {
@@ -107,6 +121,8 @@ class MainScreenController extends BaseMainController<MainUiState> {
     homeController.syncDate(date);
     dataController.syncDate(date);
     feedbackController.syncDate(date);
+
+    loadApi();
   }
 
   /// API - Get
@@ -124,5 +140,23 @@ class MainScreenController extends BaseMainController<MainUiState> {
         final feedbackController = Get.find<FeedbackController>();
         await feedbackController.loadFeedback();
     }
+  }
+
+  /// 사람 근육 이미지 로딩.
+  Future _loadHumanMuscleImage() async {
+    humanFrontOriginImage = await MuscleUtils.loadSvgFile(Assets.humanFront);
+    humanBackOriginImage = await MuscleUtils.loadSvgFile(Assets.humanBack);
+
+    final dataController = Get.find<DataController>();
+    dataController.initHumanMuscleImage(
+      humanFrontOriginImage,
+      humanBackOriginImage,
+    );
+
+    final homeController = Get.find<HomeController>();
+    homeController.initHumanMuscleImage(
+      humanFrontOriginImage,
+      humanBackOriginImage,
+    );
   }
 }

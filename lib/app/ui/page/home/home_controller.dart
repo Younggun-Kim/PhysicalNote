@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/config/constant/hooper_index_status.dart';
@@ -130,12 +131,6 @@ class HomeController extends BaseController {
   var _humanBackOriginImage = "";
   var humanBackImage = "".obs;
 
-  @override
-  void onInit() async {
-    super.onInit();
-    await _loadHumanMuscleImage();
-  }
-
   /// 유저 정보 편집 클릭.
   void onPressedUserEdit() async {
     final args = MyInformationArgs(
@@ -209,13 +204,12 @@ class HomeController extends BaseController {
   /// 날짜 싱크 맞추기.
   void syncDate(DateTime date) async {
     myStateDate.value = date;
-    await loadHome();
   }
 
   /// 사람 근육 이미지 로딩.
-  Future _loadHumanMuscleImage() async {
-    _humanFrontOriginImage = await MuscleUtils.loadSvgFile(Assets.humanFront);
-    _humanBackOriginImage = await MuscleUtils.loadSvgFile(Assets.humanBack);
+  void initHumanMuscleImage(String frontImage, String backImage) {
+    _humanFrontOriginImage = frontImage;
+    _humanBackOriginImage = backImage;
 
     humanFrontImage.value = _humanFrontOriginImage;
     humanBackImage.value = _humanBackOriginImage;
@@ -263,7 +257,33 @@ class HomeController extends BaseController {
 
     if (backImages.isEmpty) {
       humanBackImage.value = _humanBackOriginImage;
-    } else {}
+    } else {
+      var svgString = _humanBackOriginImage;
+
+      for (var element in backImages) {
+        final color = element.injuryLevelType?.toInjuryLevelColor();
+        final bodyPart = element.bodyPart?.serverKey;
+        final muscleType = element.muscleType?.serverKey;
+
+        if (color == null || bodyPart == null || muscleType == null) {
+        } else {
+          var pathId = "${bodyPart}_$muscleType".toLowerCase();
+
+          /// 둔근은 하나로 되어 있음.
+          if (element.muscleType == MuscleType.gluteus) {
+            pathId = muscleType.toLowerCase();
+          }
+
+          svgString = MuscleUtils.changeSvgPathColor(
+            svgString,
+            pathId,
+            color,
+          );
+        }
+      }
+
+      humanBackImage.value = svgString;
+    }
   }
 
   /// 후퍼인덱스 편집 클릭.
