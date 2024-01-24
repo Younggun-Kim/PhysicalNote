@@ -25,6 +25,7 @@ import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_ind
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
+import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -85,9 +86,9 @@ class DataController extends BaseController {
     );
   }
 
-  /// 날짜 변경.
-  void onChangedDate(DateTime newDate) {
-    calendarUiState.value.focusedDate = newDate;
+  /// 날짜 싱크 맞추기.
+  void syncDate(DateTime date) {
+    calendarUiState.value.focusedDate = date;
     calendarUiState.refresh();
 
     /// 다시 로딩할 수 있게 초기화.
@@ -96,6 +97,17 @@ class DataController extends BaseController {
     isLoadInjury = false;
 
     _loadApi();
+  }
+
+  /// 날짜 업데이트 요청.
+  void _updateDate(DateTime date) {
+    final mainController = Get.find<MainScreenController>();
+    mainController.syncDate(date);
+  }
+
+  /// 날짜 변경.
+  void onChangedDate(DateTime newDate) {
+    _updateDate(newDate);
   }
 
   /// 년 클릭
@@ -112,14 +124,13 @@ class DataController extends BaseController {
 
     if (newDateTime != null &&
         calendarUiState.value.focusedDate != newDateTime) {
-      onChangedDate(newDateTime);
+      _updateDate(newDateTime);
     }
   }
 
   /// 달력 - 월 변경.
   void onPageChanged(DateTime newFocusDate) {
-    calendarUiState.value.focusedDate = newFocusDate;
-    calendarUiState.refresh();
+    _updateDate(newFocusDate);
   }
 
   /// 달력 - 폴딩
@@ -132,17 +143,17 @@ class DataController extends BaseController {
   /// 달력 - 이전 달 클릭.
   void onPressedCalendarPrev() {
     final currentFocusedDate = calendarUiState.value.focusedDate;
-    calendarUiState.value.focusedDate = DateTime(currentFocusedDate.year,
+    final newDate = DateTime(currentFocusedDate.year,
         currentFocusedDate.month - 1, currentFocusedDate.day);
-    calendarUiState.refresh();
+    _updateDate(newDate);
   }
 
   /// 달력 - 다음 달 클릭.
   void onPressedCalendarNext() {
     final currentFocusedDate = calendarUiState.value.focusedDate;
-    calendarUiState.value.focusedDate = DateTime(currentFocusedDate.year,
+    final newDate = DateTime(currentFocusedDate.year,
         currentFocusedDate.month + 1, currentFocusedDate.day);
-    calendarUiState.refresh();
+    _updateDate(newDate);
   }
 
   /// 메뉴 선택.
@@ -570,7 +581,8 @@ class DataController extends BaseController {
 
   /// 부상 체크 편집 클릭.
   void onPressedEdit(HomeInjuryCheckItemUiState uiState) async {
-    final args = InjuryCheckArgs(date: calendarUiState.value.focusedDate, id: uiState.id);
+    final args = InjuryCheckArgs(
+        date: calendarUiState.value.focusedDate, id: uiState.id);
     final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
     if (result is bool && result == true) {
       _loadApi();

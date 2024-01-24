@@ -188,8 +188,8 @@ class HomeController extends BaseController {
     final newDateTime = response as DateTime?;
 
     if (newDateTime != null && myStateDate.value != newDateTime) {
-      myStateDate.value = newDateTime;
-      await loadHome();
+      final mainController = Get.find<MainScreenController>();
+      mainController.syncDate(newDateTime);
     }
   }
 
@@ -205,6 +205,12 @@ class HomeController extends BaseController {
       duration: const Duration(milliseconds: 200),
       curve: Curves.ease,
     );
+  }
+
+  /// 날짜 싱크 맞추기.
+  void syncDate(DateTime date) async {
+    myStateDate.value = date;
+    await loadHome();
   }
 
   /// 사람 근육 이미지 로딩.
@@ -296,4 +302,5 @@ class HomeController extends BaseController {
     final mainController = Get.find<MainScreenController>();
     mainController.moveDataInjuryDetail(uiState);
   }
+
 }

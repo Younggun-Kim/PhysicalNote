@@ -95,4 +95,15 @@ class MainScreenController extends BaseMainController<MainUiState> {
     /// 부상체크 상세 화면으로 이동.
     dataController.onPressedEdit(uiState);
   }
+
+  /// 날짜 싱크 맞추기.
+  void syncDate(DateTime date) {
+    final homeController = Get.find<HomeController>();
+    final dataController = Get.find<DataController>();
+    final feedbackController = Get.find<FeedbackController>();
+
+    homeController.syncDate(date);
+    dataController.syncDate(date);
+    feedbackController.syncDate(date);
+  }
 }
