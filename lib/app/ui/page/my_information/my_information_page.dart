@@ -437,8 +437,7 @@ class _Position extends GetView<MyInformationController> {
               children: [
                 Container(
                   height: 36,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   alignment: Alignment.center,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(

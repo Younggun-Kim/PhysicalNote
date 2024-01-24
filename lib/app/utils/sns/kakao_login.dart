@@ -2,7 +2,6 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 import 'package:physical_note/app/utils/sns/sns_login.dart';
 
-
 /// 카카오 로그인.
 class KakaoLogin extends SnsLogin {
   late final _userApi = UserApi.instance;
