@@ -29,23 +29,7 @@ class SearchTeamsListItem extends StatelessWidget {
               alignment: Alignment.center,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  uiState.imageUrl ?? "",
-                  width: 40,
-                  height: 40,
-                  fit: BoxFit.fill,
-                  errorBuilder: (
-                    BuildContext context,
-                    Object error,
-                    StackTrace? stackTrace,
-                  ) {
-                    return Container(
-                      padding: const EdgeInsets.all(8),
-                      color: ColorRes.disable,
-                      child: SvgPicture.asset(Assets.userDefaultBasic),
-                    );
-                  },
-                ),
+                child: _Image(imageUrl: uiState.imageUrl),
               ),
             ),
           ),
@@ -76,6 +60,40 @@ class SearchTeamsListItem extends StatelessWidget {
       );
 }
 
+class _Image extends StatelessWidget {
+  final String? imageUrl;
+
+  const _Image({this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    final url = imageUrl;
+    if (url == null || url.isEmpty) {
+      return defaultImage();
+    } else {
+      return Image.network(
+        url,
+        width: 40,
+        height: 40,
+        fit: BoxFit.fill,
+        errorBuilder: (
+          BuildContext context,
+          Object error,
+          StackTrace? stackTrace,
+        ) {
+          return defaultImage();
+        },
+      );
+    }
+  }
+
+  Widget defaultImage() => Container(
+        padding: const EdgeInsets.all(8),
+        color: ColorRes.disable,
+        child: SvgPicture.asset(Assets.userDefaultBasic),
+      );
+}
+
 class _SelectButton extends StatelessWidget {
   final SearchTeamsListItemUiState uiState;
 
@@ -88,7 +106,7 @@ class _SelectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWellOver(
-    borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10),
         child: Container(
           padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
           decoration: BoxDecoration(

@@ -35,7 +35,7 @@ class MyInformationPage extends GetView<MyInformationController> {
               _Position(),
               const SizedBox(height: 20),
               _MainFooted(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               Obx(
                 () => RoundButton(
                   width: double.infinity,
@@ -406,7 +406,7 @@ class _Position extends GetView<MyInformationController> {
             const SizedBox(height: 10),
             Obx(
               () => Wrap(
-                spacing: 5,
+                spacing: 10,
                 runSpacing: 10,
                 children: [
                   ..._positionList(controller.positions),
@@ -433,6 +433,7 @@ class _Position extends GetView<MyInformationController> {
         .map(
           (element) => FittedBox(
             child: Stack(
+              clipBehavior: Clip.none,
               children: [
                 Container(
                   height: 36,
@@ -455,23 +456,17 @@ class _Position extends GetView<MyInformationController> {
                   ),
                 ),
                 Positioned(
-                  top: 0,
-                  right: 0,
+                  top: -6,
+                  right: -6,
                   child: InkWellOver(
                     borderRadius: BorderRadius.circular(8),
                     onTap: () {
                       controller.onPressedPositionDeleteButton(element);
                     },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
-                      ),
-                      child: const Icon(
-                        Icons.clear,
-                        size: 16,
-                      ),
+                    child: SvgPicture.asset(
+                      Assets.delete,
+                      width: 24,
+                      height: 24,
                     ),
                   ),
                 ),

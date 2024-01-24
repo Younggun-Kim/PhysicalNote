@@ -9,7 +9,6 @@ class UserAPI extends API {
   UserAPI() : super(basePath: "/api/user");
 
   /// 로그인 요청.
-  // TODO: API 수정 - positionId 필요, 팀 정보 필요.
   Future<dynamic> getUser() async {
     final response = await get(requestUrl);
 
@@ -23,8 +22,6 @@ class UserAPI extends API {
   }
 
   /// 유저 정보 등록/수정.
-  // TODO: API 확인 필요, PassVerify 확인 필요,, Passcode를 보내긴 해야한느데 - 애플일 때 보냄.
-  /// 프로필 url 이상함
   Future<dynamic> postUser({required PostUserRequestModel requestData}) async {
     try {
       logger.i("postUser: ${requestData.toJson()}");

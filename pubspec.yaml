@@ -117,4 +117,4 @@ flutter:
 flutter_assets_generator:
   # Optional. Sets the directory of generated localization files. Provided value should be a valid path on lib dir. Default: generated
   output_dir: app/resources/assets/
-  named_with_parent: false # 앞에 Images 붙느거 제거
+  named_with_parent: false # 앞에 Images 붙는거 제거
