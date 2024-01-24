@@ -95,6 +95,23 @@ flutter:
   assets:
     - assets/
     - assets/images/
+  fonts:
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/noto_sans/NotoSans-Thin.otf
+          weight: 100
+        - asset: assets/fonts/noto_sans/NotoSans-DemiLight.otf
+          weight: 200
+        - asset: assets/fonts/noto_sans/NotoSans-Light.otf
+          weight: 300
+        - asset: assets/fonts/noto_sans/NotoSans-Regular.otf
+          weight: 400
+        - asset: assets/fonts/noto_sans/NotoSans-Medium.otf
+          weight: 500
+        - asset: assets/fonts/noto_sans/NotoSans-Bold.otf
+          weight: 700
+        - asset: assets/fonts/noto_sans/NotoSans-Black.otf
+          weight: 900
 
 # Asset 관리.
 flutter_assets_generator:

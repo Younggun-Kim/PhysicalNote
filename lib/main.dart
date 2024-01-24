@@ -48,6 +48,9 @@ void run() async {
         Locale('en', 'US'),
       ],
       locale: Get.deviceLocale,
+      theme: ThemeData(
+        fontFamily: "NotoSans",
+      ),
     ),
   );
 }
