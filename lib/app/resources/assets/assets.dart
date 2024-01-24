@@ -50,7 +50,7 @@ class Assets {
   static const String retiredManWhite = 'assets/images/retired_man_white.png';
   static const String runningMan = 'assets/images/running_man.svg';
   static const String searchRefraction = 'assets/images/search-refraction.svg';
-  static const String splash = 'assets/images/splash.png';
+  static const String splashImage = 'assets/images/splash_image.png';
   static const String starYellow = 'assets/images/star_yellow.svg';
   static const String teamRequest = 'assets/images/team_request.png';
   static const String triangle = 'assets/images/triangle.png';
