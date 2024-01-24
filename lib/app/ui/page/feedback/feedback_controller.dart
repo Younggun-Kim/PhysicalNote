@@ -45,7 +45,7 @@ class FeedbackController extends BaseController {
   void syncDate(DateTime date) {
     calendarUiState.value.focusedDate = date;
     calendarUiState.refresh();
-    _loadApi();
+    loadFeedback();
   }
 
   /// 날짜 업데이트.
@@ -106,7 +106,7 @@ class FeedbackController extends BaseController {
   }
 
   /// API 조회.
-  Future _loadApi() async {
+  Future loadFeedback() async {
     setLoading(true);
     final feedbackApi = Get.find<FeedbackAPI>();
     final date =

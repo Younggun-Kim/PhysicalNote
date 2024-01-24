@@ -134,7 +134,6 @@ class HomeController extends BaseController {
   void onInit() async {
     super.onInit();
     await _loadHumanMuscleImage();
-    await loadHome();
   }
 
   /// 유저 정보 편집 클릭.
@@ -161,7 +160,7 @@ class HomeController extends BaseController {
   }
 
   /// 홈 로딩.
-  Future<void> loadHome() async {
+  Future loadHome() async {
     final homeApi = Get.find<HomeAPI>();
     final recordDate = myStateDate.value.toFormattedString("yyyy-MM-dd");
     final response = await homeApi.getHome(recordDate);
@@ -302,5 +301,4 @@ class HomeController extends BaseController {
     final mainController = Get.find<MainScreenController>();
     mainController.moveDataInjuryDetail(uiState);
   }
-
 }

@@ -96,7 +96,7 @@ class DataController extends BaseController {
     isLoadIntensity = false;
     isLoadInjury = false;
 
-    _loadApi();
+    loadApi();
   }
 
   /// 날짜 업데이트 요청.
@@ -165,15 +165,15 @@ class DataController extends BaseController {
     switch (type) {
       case DataMenuType.wellness:
         if (isLoadWellness == false) {
-          _loadApi();
+          loadApi();
         }
       case DataMenuType.intensity:
         if (isLoadIntensity == false) {
-          _loadApi();
+          loadApi();
         }
       case DataMenuType.injury:
         if (isLoadInjury == false) {
-          _loadApi();
+          loadApi();
         }
     }
   }
@@ -224,7 +224,7 @@ class DataController extends BaseController {
   }
 
   /// 화면 정보 로딩.
-  Future _loadApi() async {
+  Future loadApi() async {
     final currentMenu = menu.value;
 
     setLoading(true);
@@ -504,7 +504,7 @@ class DataController extends BaseController {
     final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
 
     if (result is bool && result == true) {
-      _loadApi();
+      loadApi();
     }
   }
 
@@ -585,7 +585,7 @@ class DataController extends BaseController {
         date: calendarUiState.value.focusedDate, id: uiState.id);
     final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
     if (result is bool && result == true) {
-      _loadApi();
+      loadApi();
     }
   }
 }

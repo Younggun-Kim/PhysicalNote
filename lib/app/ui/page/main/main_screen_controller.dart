@@ -11,17 +11,19 @@ import '../data/data_menu_type.dart';
 import 'main_tab_index.dart';
 
 class MainScreenController extends BaseMainController<MainUiState> {
+
   @override
   final Rx<MainUiState> uiState = MainUiState().obs;
 
   /// 메인 탭 인덱스 변경.
-  void setTabIndex(MainTabIndex tabIndex) {
+  void setTabIndex(MainTabIndex tabIndex) async {
     unFocus();
     if (uiState.value.tabIndex == tabIndex) {
       scrollToTop(tabIndex);
     } else {
       uiState.value.tabIndex = tabIndex;
       uiState.refresh();
+      await loadApi();
     }
   }
 
@@ -105,5 +107,22 @@ class MainScreenController extends BaseMainController<MainUiState> {
     homeController.syncDate(date);
     dataController.syncDate(date);
     feedbackController.syncDate(date);
+  }
+
+  /// API - Get
+  Future loadApi() async {
+    final tab = uiState.value.tabIndex;
+
+    switch (tab) {
+      case MainTabIndex.data:
+        final dataController = Get.find<DataController>();
+        await dataController.loadApi();
+      case MainTabIndex.home:
+        final homeController = Get.find<HomeController>();
+        await homeController.loadHome();
+      case MainTabIndex.feedback:
+        final feedbackController = Get.find<FeedbackController>();
+        await feedbackController.loadFeedback();
+    }
   }
 }
