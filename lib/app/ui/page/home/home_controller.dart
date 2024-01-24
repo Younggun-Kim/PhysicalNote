@@ -13,6 +13,7 @@ import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
+import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -258,5 +259,41 @@ class HomeController extends BaseController {
     if (backImages.isEmpty) {
       humanBackImage.value = _humanBackOriginImage;
     } else {}
+  }
+
+  /// 후퍼인덱스 편집 클릭.
+  void onPressedHooperIndex() {
+    final mainController = Get.find<MainScreenController>();
+    mainController.moveDataWellness();
+  }
+
+  /// 소변검사 편집 클릭.
+  void onPressedUrine() {
+    final mainController = Get.find<MainScreenController>();
+    mainController.moveDataWellness();
+  }
+
+  /// 부상위험도 편집 클릭.
+  void onPressedRisk() {
+    final mainController = Get.find<MainScreenController>();
+    mainController.moveDataWellness();
+  }
+
+  /// 운동강도 편집 클릭.
+  void onPressedWorkoutIntensity() {
+    final mainController = Get.find<MainScreenController>();
+    mainController.moveDataIntensity();
+  }
+
+  /// 운동시간 편집 클릭.
+  void onPressedWorkoutTime() {
+    final mainController = Get.find<MainScreenController>();
+    mainController.moveDataIntensity();
+  }
+
+  /// 부상체크 편집 클릭.
+  void onPressedInjuryCheckEdit(HomeInjuryCheckItemUiState uiState) {
+    final mainController = Get.find<MainScreenController>();
+    mainController.moveDataInjuryDetail(uiState);
   }
 }

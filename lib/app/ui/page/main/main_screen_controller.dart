@@ -2,10 +2,12 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/data/data_controller.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
+import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/main/main_ui_state.dart';
 import 'package:physical_note/app/utils/getx/base_main_controller.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
 
+import '../data/data_menu_type.dart';
 import 'main_tab_index.dart';
 
 class MainScreenController extends BaseMainController<MainUiState> {
@@ -53,5 +55,44 @@ class MainScreenController extends BaseMainController<MainUiState> {
   /// 홈으로 이동.
   void moveHome() {
     setTabIndex(MainTabIndex.home);
+  }
+
+  /// 데이터탭으로 이동.
+  void moveData() {
+    /// 데이터 탭으로 이동.
+    setTabIndex(MainTabIndex.data);
+  }
+
+  /// 데이터탭으로 이동.
+  void moveDataWellness() {
+    /// 데이터 탭으로 이동.
+    setTabIndex(MainTabIndex.data);
+
+    /// 데이터 탭에서 웰리니스 메뉴로 이동.
+    final dataController = Get.find<DataController>();
+    dataController.onTapMenu(DataMenuType.wellness);
+  }
+
+  /// 데이터탭으로 이동.
+  void moveDataIntensity() {
+    /// 데이터 탭으로 이동.
+    setTabIndex(MainTabIndex.data);
+
+    /// 데이터 탭에서 운동강도 메뉴로 이동.
+    final dataController = Get.find<DataController>();
+    dataController.onTapMenu(DataMenuType.intensity);
+  }
+
+  /// 데이터 탭으로 이동 및 부상체크 상세 화면으로 이동.
+  void moveDataInjuryDetail(HomeInjuryCheckItemUiState uiState) {
+    /// 데이터 탭으로 이동.
+    setTabIndex(MainTabIndex.data);
+
+    /// 데이터 탭에서 메뉴이동
+    final dataController = Get.find<DataController>();
+    dataController.onTapMenu(DataMenuType.injury);
+
+    /// 부상체크 상세 화면으로 이동.
+    dataController.onPressedEdit(uiState);
   }
 }

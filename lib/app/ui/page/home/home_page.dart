@@ -76,6 +76,10 @@ class _FirstBody extends GetView<HomeController> {
                 riskPercent: controller.riskPercent.value,
                 urineData: controller.urineData.value,
                 workoutIntensityData: controller.workoutIntensityList.value,
+                onPressedHooperIndex: controller.onPressedHooperIndex,
+                onPressedUrine: controller.onPressedUrine,
+                onPressedRisk: controller.onPressedRisk,
+                onPressedWorkoutIntensity: controller.onPressedWorkoutIntensity,
               ),
             ),
             const SizedBox(height: 20),
@@ -104,6 +108,8 @@ class _SecondBody extends GetView<HomeController> {
                 lastFourWeekLoad: controller.workoutLastFourWeekStatus.value,
                 lastEightWeek: controller.workoutLastEightWeek.value,
                 lastEightWeekLoad: controller.workoutLastEightWeekStatus.value,
+                onPressedWorkoutTime: controller.onPressedWorkoutTime,
+                onPressedInjuryCheckEdit: controller.onPressedInjuryCheckEdit,
               ),
             ),
             const SizedBox(height: 20),
@@ -296,12 +302,21 @@ class _MyStateContainer extends StatelessWidget {
 
   final List<HomeWorkoutIntensityChartUiState> workoutIntensityData;
 
+  final VoidCallback onPressedHooperIndex;
+  final VoidCallback onPressedUrine;
+  final VoidCallback onPressedRisk;
+  final VoidCallback onPressedWorkoutIntensity;
+
   const _MyStateContainer({
     required this.hooperIndexData,
     required this.risk,
     required this.riskPercent,
     required this.urineData,
     required this.workoutIntensityData,
+    required this.onPressedHooperIndex,
+    required this.onPressedUrine,
+    required this.onPressedRisk,
+    required this.onPressedWorkoutIntensity,
   });
 
   @override
@@ -329,7 +344,9 @@ class _MyStateContainer extends StatelessWidget {
                 child: Column(
                   children: [
                     _MyStateTitle(
-                        title: StringRes.hooperIndex.tr, onPressed: () {}),
+                      title: StringRes.hooperIndex.tr,
+                      onPressed: onPressedHooperIndex,
+                    ),
                     const SizedBox(height: 10),
                     if (hooperIndexData == null)
                       _EmptyDataText()
@@ -337,7 +354,8 @@ class _MyStateContainer extends StatelessWidget {
                       _MyStateHooperIndex(hooperIndexData: hooperIndexData!),
                     const SizedBox(height: 16),
                     _MyStateTitle(
-                        title: StringRes.injuryRisk.tr, onPressed: () {}),
+                        title: StringRes.injuryRisk.tr,
+                        onPressed: onPressedRisk),
                     if (risk == null) const SizedBox(height: 10),
                     if (risk == null)
                       _EmptyDataText()
@@ -366,7 +384,8 @@ class _MyStateContainer extends StatelessWidget {
                 child: Column(
                   children: [
                     _MyStateTitle(
-                        title: StringRes.urinalysis.tr, onPressed: () {}),
+                        title: StringRes.urinalysis.tr,
+                        onPressed: onPressedUrine),
                     const SizedBox(height: 10),
                     if (urineData == null)
                       _EmptyDataText()
@@ -376,7 +395,8 @@ class _MyStateContainer extends StatelessWidget {
                       ),
                     const SizedBox(height: 16),
                     _MyStateTitle(
-                        title: StringRes.workoutIntensity.tr, onPressed: () {}),
+                        title: StringRes.workoutIntensity.tr,
+                        onPressed: onPressedWorkoutIntensity),
                     const SizedBox(height: 10),
                     if (workoutIntensityData.isEmpty)
                       _EmptyDataText()
@@ -1111,6 +1131,9 @@ class _SecondState extends StatelessWidget {
   final int lastEightWeek;
   final HomeTrainingBalanceType lastEightWeekLoad;
 
+  final VoidCallback onPressedWorkoutTime;
+  final Function(HomeInjuryCheckItemUiState) onPressedInjuryCheckEdit;
+
   const _SecondState({
     required this.todayTime,
     required this.yesterdayCompareTime,
@@ -1123,6 +1146,8 @@ class _SecondState extends StatelessWidget {
     required this.lastFourWeekLoad,
     required this.lastEightWeek,
     required this.lastEightWeekLoad,
+    required this.onPressedWorkoutTime,
+    required this.onPressedInjuryCheckEdit,
   });
 
   bool get isPositiveYesterdayTime => yesterdayCompareTime.contains("+");
@@ -1149,7 +1174,7 @@ class _SecondState extends StatelessWidget {
           children: [
             _MyStateTitle(
               title: StringRes.workoutTime.tr,
-              onPressed: () {},
+              onPressed: onPressedWorkoutTime,
             ),
             const SizedBox(height: 16),
             Row(
@@ -1251,7 +1276,9 @@ class _SecondState extends StatelessWidget {
                     List<Widget>.generate(injuryCheckList.length, (index) {
                   return HomeInjuryCheckItem(
                     uiState: injuryCheckList[index],
-                    onPressedEdit: () {},
+                    onPressedEdit: () {
+                      onPressedInjuryCheckEdit(injuryCheckList[index]);
+                    },
                   );
                 }).toList(),
               )
