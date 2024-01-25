@@ -268,7 +268,6 @@ extension HomeUiMapper on HomeController {
   }
 
   /// 부상체크 목록 매핑.
-  // TODO: 변경.
   List<HomeInjuryCheckItemUiState>? setHomeInjuryCheckItemUiStateFrom(
       {required List<InjuryInfoModel>? remoteData}) {
     return remoteData
@@ -277,8 +276,7 @@ extension HomeUiMapper on HomeController {
           final injuryType = InjuryType.from(e.injuryType);
           final injuryLevel = InjuryLevelType.from(e.injuryLevelType);
           final muscleType = MuscleType.from(e.muscleType);
-          // final bodyPart = InjuryCheckBodyPartsType.from(e.bodyPart);
-          final bodyPart = InjuryCheckBodyPartsType.leftArm;
+          final bodyPart = InjuryCheckBodyPartsType.from(e.bodyPart);
 
           if (injuryId == null || injuryType == null || bodyPart == null) {
             return null;
@@ -292,8 +290,7 @@ extension HomeUiMapper on HomeController {
             comment: e.comment,
             muscleType: muscleType,
             bodyPart: bodyPart,
-            // direction: InjuryCheckDirectionType.from(e.distinctionType),
-            direction: InjuryCheckDirectionType.front,
+            direction: InjuryCheckDirectionType.from(e.distinctionType),
           );
         })
         .whereType<HomeInjuryCheckItemUiState>()

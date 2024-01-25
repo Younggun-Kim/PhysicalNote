@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/config/constant/hooper_index_status.dart';
@@ -13,7 +12,6 @@ import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
-import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
@@ -217,73 +215,17 @@ class HomeController extends BaseController {
 
   /// 사람 근육 선택
   void _setHumanMuscleColor() {
-    final list = injuryCheckList.toList();
-    if (list.isEmpty) {
-      humanFrontImage.value = _humanFrontOriginImage;
-      humanBackImage.value = _humanBackOriginImage;
-      return;
-    }
+    humanFrontImage.value = MuscleUtils.setHumanMuscleColor(
+      injuryCheckList.toList(),
+      _humanFrontOriginImage,
+      true,
+    );
 
-    final frontImages = list
-        .where((element) => element.direction == InjuryCheckDirectionType.front)
-        .toList();
-    final backImages = list
-        .where((element) => element.direction == InjuryCheckDirectionType.back)
-        .toList();
-
-    if (frontImages.isEmpty) {
-      humanFrontImage.value = _humanFrontOriginImage;
-    } else {
-      var svgString = _humanFrontOriginImage;
-
-      for (var element in frontImages) {
-        final color = element.injuryLevelType?.toInjuryLevelColor();
-        final bodyPart = element.bodyPart?.serverKey;
-        final muscleType = element.muscleType?.serverKey;
-
-        if (color == null || bodyPart == null || muscleType == null) {
-        } else {
-          final pathId = "${bodyPart}_$muscleType".toLowerCase();
-          svgString = MuscleUtils.changeSvgPathColor(
-            svgString,
-            pathId,
-            color,
-          );
-        }
-      }
-
-      humanFrontImage.value = svgString;
-    }
-
-    if (backImages.isEmpty) {
-      humanBackImage.value = _humanBackOriginImage;
-    } else {
-      var svgString = _humanBackOriginImage;
-
-      for (var element in backImages) {
-        final color = element.injuryLevelType?.toInjuryLevelColor();
-        final bodyPart = element.bodyPart?.serverKey;
-        final muscleType = element.muscleType?.serverKey;
-
-        if (color == null || bodyPart == null || muscleType == null) {
-        } else {
-          var pathId = "${bodyPart}_$muscleType".toLowerCase();
-
-          /// 둔근은 하나로 되어 있음.
-          if (element.muscleType == MuscleType.gluteus) {
-            pathId = muscleType.toLowerCase();
-          }
-
-          svgString = MuscleUtils.changeSvgPathColor(
-            svgString,
-            pathId,
-            color,
-          );
-        }
-      }
-
-      humanBackImage.value = svgString;
-    }
+    humanBackImage.value = MuscleUtils.setHumanMuscleColor(
+      injuryCheckList.toList(),
+      _humanBackOriginImage,
+      false,
+    );
   }
 
   /// 후퍼인덱스 편집 클릭.

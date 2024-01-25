@@ -7,6 +7,9 @@ part 'injury_info_model.g.dart';
 class InjuryInfoModel {
   final int? id;
   final String? injuryType;
+  final String? distinctionType;
+  final String? bodyType;
+  final String? bodyPart;
   final String? muscleType;
   final String? recordDate;
   final String? injuryLevelType;
@@ -16,6 +19,9 @@ class InjuryInfoModel {
   InjuryInfoModel({
     required this.id,
     required this.injuryType,
+    required this.distinctionType,
+    required this.bodyType,
+    required this.bodyPart,
     required this.muscleType,
     required this.recordDate,
     required this.injuryLevelType,
