@@ -55,10 +55,10 @@ extension MyInformationUiMapper on MyInformationController {
         [];
 
     /// 왼 발
-    leftFoot.value = response?.leftValue ?? 0;
+    leftFoot.value = (response?.leftValue ?? 0).toInt();
 
     /// 오른쪽 발.
-    rightFoot.value = response?.rightValue ?? 0;
+    rightFoot.value = (response?.rightValue ?? 0).toInt();
   }
 
   /// 포지션 UiState Mapper.
@@ -99,8 +99,8 @@ extension MyInformationUiMapper on MyInformationController {
       PostUserRequestModel(
         height: double.parse(height.value),
         weight: double.parse(weight.value),
-        leftValue: leftFoot.value.toInt(),
-        rightValue: rightFoot.value.toInt(),
+        leftValue: leftFoot.value,
+        rightValue: rightFoot.value,
         teamId: teamId,
         positionIds: positions.map((element) => element.id).toList(),
         profile: profile,

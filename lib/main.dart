@@ -33,8 +33,8 @@ void run() async {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // initialRoute: RouteType.SPLASH,
-      initialRoute: RouteType.TEST,
+      initialRoute: RouteType.SPLASH,
+      // initialRoute: RouteType.TEST,
       defaultTransition: Transition.fade,
       getPages: Routes.pages,
       translations: AppTranslations(),

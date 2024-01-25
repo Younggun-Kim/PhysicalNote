@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/test/model/muscle_data.dart';
 import 'package:physical_note/app/ui/page/test/test.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
-import 'package:physical_note/app/ui/widgets/slider/thumb_image_slider.dart';
 import 'package:svg_path_parser/svg_path_parser.dart';
 
 class TestPage extends GetView<TestController> {
@@ -13,21 +12,19 @@ class TestPage extends GetView<TestController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
-        child: const ThumbImageSlider(totalStep: 10, thumbAsset: Assets.foot),
-        // child: Obx(
-        //   () {
-        //     try {
-        //       // TODO: Bad state: Invalid SVG data 에러 대응 방법 생각해야함.
-        //       return SvgPicture.string(
-        //         controller.svgString.value,
-        //         height: 200,
-        //         width: 200,
-        //       );
-        //     } catch (e) {
-        //       return const SizedBox();
-        //     }
-        //   },
-        // ),
+        child: Obx(
+          () {
+            try {
+              return SvgPicture.string(
+                controller.svgString.value,
+                height: 200,
+                width: 200,
+              );
+            } catch (e) {
+              return const SizedBox();
+            }
+          },
+        ),
       );
 
   Widget _getClippedImage({

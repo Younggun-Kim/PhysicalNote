@@ -65,10 +65,10 @@ class MyInformationController extends BaseController {
   var positions = <PositionListItemUiState>[].obs;
 
   /// 왼쪽 발.
-  var leftFoot = 0.0.obs;
+  var leftFoot = 0.obs;
 
   /// 왼쪽 발.
-  var rightFoot = 0.0.obs;
+  var rightFoot = 0.obs;
 
   /// 등록 버튼 enabled 여부;
   late var isEnabledRegistrationButton = CombineLatestStream(
@@ -127,15 +127,15 @@ class MyInformationController extends BaseController {
   }
 
   /// 왼쪽 발 변경.
-  void onChangeLeftFoot(newValue) {
+  void onChangeLeftFoot(int newValue) {
     leftFoot.value = newValue;
-    rightFoot.value = 10.0 - newValue;
+    rightFoot.value = 10 - newValue;
   }
 
   /// 오른쪽 발 변경.
-  void onChangeRightFoot(newValue) {
+  void onChangeRightFoot(int newValue) {
     rightFoot.value = newValue;
-    leftFoot.value = 10.0 - newValue;
+    leftFoot.value = 10 - newValue;
   }
 
   /// 팀명 클릭.
