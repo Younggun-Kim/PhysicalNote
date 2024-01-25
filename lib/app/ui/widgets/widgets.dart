@@ -7,6 +7,7 @@ export 'buttons/round_button.dart';
 export 'slider/border_thumb_shape.dart';
 export 'slider/custom_slider_tick_mark_shape.dart';
 export 'slider/custom_slider.dart';
+export 'slider/thumb_image_slider.dart';
 
 export 'bottom_sheet_list/bottom_sheet_list.dart';
 export 'list_dialog/list_dialog.dart';
