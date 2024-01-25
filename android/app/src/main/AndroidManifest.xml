@@ -16,7 +16,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="physical_note">
+        android:label="피지컬노트">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -35,6 +35,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <!-- 카카오 로그인 -->
+                <data android:scheme="kakaod41654df0b89d74f77469d7b21eaf295" android:host="oauth"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
@@ -46,17 +49,13 @@
         <!-- 네이버 로그인 -->
         <meta-data
             android:name="com.naver.sdk.clientId"
-            android:value="@string/client_id" />
+            android:value="@string/naver_client_id" />
         <meta-data
             android:name="com.naver.sdk.clientSecret"
-            android:value="@string/client_secret" />
+            android:value="@string/naver_client_secret" />
         <meta-data
             android:name="com.naver.sdk.clientName"
-            android:value="@string/client_name" />
-
-        <!-- 카카오 로그인 -->
-        <data android:scheme="kakaod41654df0b89d74f77469d7b21eaf295" android:host="oauth"/>
-
+            android:value="@string/naver_client_name" />
 
     </application>
 </manifest>
