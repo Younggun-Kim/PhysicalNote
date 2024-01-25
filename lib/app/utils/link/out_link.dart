@@ -20,6 +20,12 @@ class OutLink extends GetxService {
     }
   }
 
+  /// 전화걸기..
+  Future<bool> moveDial({required String number}) {
+    final url = "tel:$number";
+    return moveUrl(url);
+  }
+
   /// 개인정보 처리 방침 약관.
   Future<bool> movePrivacyTerm() async {
     return moveUrl("https://www.naver.com");

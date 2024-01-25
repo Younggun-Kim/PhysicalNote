@@ -16,6 +16,8 @@ extension FeedbackUiMapper on FeedbackController {
 
     todaySchedule.value =
         _parseTodaySchedule(remoteData?.todayWorkoutList) ?? [];
+
+    coachPhoneNo = remoteData?.coachPhoneNo ?? "";
   }
 
   /// 월간 주요 일정 파싱

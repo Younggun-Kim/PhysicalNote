@@ -32,6 +32,9 @@ class FeedbackController extends BaseController {
   /// 오늘 일정.
   var todaySchedule = <FeedbackScheduleItemUiState>[].obs;
 
+  /// 코치 전화번호.
+  var coachPhoneNo = "";
+
   /// 스크롤 상단으로 이동.
   void scrollToTop() {
     scrollController.animateTo(
@@ -115,7 +118,6 @@ class FeedbackController extends BaseController {
     if (response is GetFeedbackResponseModel) {
       setFeedback(response);
     } else {
-      // wellnessId.value = null;
       final message =
           (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
       showToast(message);
@@ -124,5 +126,15 @@ class FeedbackController extends BaseController {
 
     await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
+  }
+
+  /// 코치에게 전화걸기.
+  void onPressedCallCoach() async {
+    if (coachPhoneNo.isEmpty) {
+      return;
+    }
+
+    final outLink = Get.find<OutLink>();
+    await outLink.moveDial(number: coachPhoneNo);
   }
 }

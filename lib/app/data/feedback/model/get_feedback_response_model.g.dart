@@ -12,6 +12,7 @@ GetFeedbackResponseModel _$GetFeedbackResponseModelFromJson(
       id: json['id'] as int?,
       date: json['date'] as String?,
       todayFeedBack: json['todayFeedBack'] as String?,
+      coachPhoneNo: json['coachPhoneNo'] as String?,
       importantInfo: (json['importantInfo'] as List<dynamic>?)
           ?.map((e) => FeedbackImportantInfoItemModel.fromJson(
               e as Map<String, dynamic>))
@@ -28,6 +29,7 @@ Map<String, dynamic> _$GetFeedbackResponseModelToJson(
       'id': instance.id,
       'date': instance.date,
       'todayFeedBack': instance.todayFeedBack,
+      'coachPhoneNo': instance.coachPhoneNo,
       'importantInfo': instance.importantInfo,
       'todayWorkoutList': instance.todayWorkoutList,
     };

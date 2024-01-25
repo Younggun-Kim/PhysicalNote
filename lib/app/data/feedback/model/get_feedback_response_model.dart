@@ -10,6 +10,7 @@ class GetFeedbackResponseModel {
   final int? id;
   final String? date;
   final String? todayFeedBack;
+  final String? coachPhoneNo;
   final List<FeedbackImportantInfoItemModel>? importantInfo;
   final List<TodayWorkoutItemModel>? todayWorkoutList;
 
@@ -17,6 +18,7 @@ class GetFeedbackResponseModel {
     required this.id,
     required this.date,
     required this.todayFeedBack,
+    required this.coachPhoneNo,
     required this.importantInfo,
     required this.todayWorkoutList,
   });

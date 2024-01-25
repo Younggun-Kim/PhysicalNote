@@ -180,7 +180,7 @@ class _ContactDedicatedCoach extends GetView<FeedbackController> {
   @override
   Widget build(BuildContext context) => InkWellOver(
         borderRadius: BorderRadius.circular(4),
-        onTap: () {},
+        onTap: controller.onPressedCallCoach,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Row(
