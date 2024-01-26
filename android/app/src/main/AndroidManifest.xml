@@ -35,7 +35,8 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-
+            </intent-filter>
+            <intent-filter>
                 <!-- 카카오 로그인 -->
                 <data android:scheme="kakaod41654df0b89d74f77469d7b21eaf295" android:host="oauth"/>
             </intent-filter>
