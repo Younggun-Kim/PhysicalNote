@@ -1,0 +1,537 @@
+// ignore_for_file: unnecessary_cast
+
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/config/constant/hooper_index_type.dart';
+import 'package:physical_note/app/config/constant/workout_type.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/injury/injury_api.dart';
+import 'package:physical_note/app/data/injury/model/get_injury_response_model.dart';
+import 'package:physical_note/app/data/intensity/intensity_api.dart';
+import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
+import 'package:physical_note/app/data/intensity/model/post_intensity_request_model.dart';
+import 'package:physical_note/app/data/intensity/model/post_intensity_response_model.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
+import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
+import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
+import 'package:physical_note/app/data/wellness/wellness_api.dart';
+import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
+import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
+import 'package:physical_note/app/ui/page/data/data_ui_mapper.dart';
+import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
+import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
+import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
+import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
+import 'package:physical_note/app/ui/page/main/main_screen.dart';
+import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
+import 'package:physical_note/app/utils/utils.dart';
+
+class DataController extends BaseController {
+  /// 스크롤 컨트롤러.
+  final scrollController = ScrollController();
+
+  /// 페이지 컨트롤러.
+  var pageController = PageController(initialPage: 0).obs;
+
+  /// 캘린더 Ui State.
+  late var calendarUiState = ExpansionCalendarUiState(
+    isExpanded: false,
+    currentDate: DateTime.now(),
+    focusedDate: DateTime.now(),
+  ).obs;
+
+  /// 메뉴.
+  var menu = DataMenuType.wellness.obs;
+
+  /// 웰리니스 Load 여부.
+  var isLoadWellness = false;
+
+  /// 운동강도 Load 여부.
+  var isLoadIntensity = false;
+
+  /// 부상체크 Load 여부.
+  var isLoadInjury = false;
+
+  /// 웰리니스 Id
+  var wellnessId = (null as int?).obs;
+
+  /// 웰리니스 - 후퍼인덱스 Ui State.
+  var wellnessHooperIndexUiState = DataWellnessHooperIndexUiState().obs;
+
+  /// 웰리니스 - 소변검사표.
+  var wellnessUrineTable = 1.0.obs;
+
+  /// 웰리니스 - 소변검사 몸무게.
+  var wellnessUrineWeight = "".obsWithController;
+
+  /// 웰리니스 - 소변검사 Bmi.
+  var wellnessUrineBmi = "".obsWithController;
+
+  /// 스크롤 상단으로 이동.
+  void scrollToTop() {
+    scrollController.animateTo(
+      0.0,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.ease,
+    );
+  }
+
+  /// 날짜 싱크 맞추기.
+  void syncDate(DateTime date) {
+    calendarUiState.value.focusedDate = date;
+    calendarUiState.refresh();
+
+    /// 다시 로딩할 수 있게 초기화.
+    isLoadWellness = false;
+    isLoadIntensity = false;
+    isLoadInjury = false;
+  }
+
+  /// 날짜 업데이트 요청.
+  void _updateDate(DateTime date) {
+    final mainController = Get.find<MainScreenController>();
+    mainController.syncDate(date);
+  }
+
+  /// 날짜 변경.
+  void onChangedDate(DateTime newDate) {
+    _updateDate(newDate);
+  }
+
+  /// 년 클릭
+  Future onPressedYear() async {
+    final response = await Get.dialog(
+      DateYearMonthPickerDialog(
+        initialDate: calendarUiState.value.currentDate,
+        minimumDate: AppConstant.CALENDAR_MIN_DATE,
+        maximumDate: AppConstant.CALENDAR_MAX_DATE,
+      ),
+    );
+
+    final newDateTime = response as DateTime?;
+
+    if (newDateTime != null &&
+        calendarUiState.value.focusedDate != newDateTime) {
+      _updateDate(newDateTime);
+    }
+  }
+
+  /// 달력 - 월 변경.
+  void onPageChanged(DateTime newFocusDate) {
+    _updateDate(newFocusDate);
+  }
+
+  /// 달력 - 폴딩
+  void onToggleCalendarExpanded() {
+    final isExpanded = !calendarUiState.value.isExpanded;
+    calendarUiState.value.isExpanded = isExpanded;
+    calendarUiState.refresh();
+  }
+
+  /// 달력 - 이전 달 클릭.
+  void onPressedCalendarPrev() {
+    final currentFocusedDate = calendarUiState.value.focusedDate;
+    final newDate = DateTime(currentFocusedDate.year,
+        currentFocusedDate.month - 1, currentFocusedDate.day);
+    _updateDate(newDate);
+  }
+
+  /// 달력 - 다음 달 클릭.
+  void onPressedCalendarNext() {
+    final currentFocusedDate = calendarUiState.value.focusedDate;
+    final newDate = DateTime(currentFocusedDate.year,
+        currentFocusedDate.month + 1, currentFocusedDate.day);
+    _updateDate(newDate);
+  }
+
+  /// 메뉴 선택.
+  void onTapMenu(DataMenuType type) {
+    menu.value = type;
+    pageController.value.jumpToPage(type.index);
+
+    loadApi();
+  }
+
+  /// 웰리니스 - 후퍼인덱스 슬라이드 변경 이벤트.
+  void onChangeHooperIndex(HooperIndexType type, double value) {
+    switch (type) {
+      case HooperIndexType.sleep:
+        wellnessHooperIndexUiState.value.sleep = value;
+
+      case HooperIndexType.stress:
+        wellnessHooperIndexUiState.value.stress = value;
+      case HooperIndexType.fatigue:
+        wellnessHooperIndexUiState.value.fatigue = value;
+      case HooperIndexType.muscleSoreness:
+        wellnessHooperIndexUiState.value.muscleSoreness = value;
+    }
+    wellnessHooperIndexUiState.refresh();
+  }
+
+  /// 웰리니스 - 소변검사 슬라이드 변경 이벤트.
+  void onChangedUrine(double value) {
+    wellnessUrineTable.value = value;
+  }
+
+  /// 웰리니스 - 저장하기 클릭.
+  Future<void> onPressedWellnessSave() async {
+    final requestData = PostWellnessRequestModel(
+      sleep: wellnessHooperIndexUiState.value.sleep.toInt(),
+      stress: wellnessHooperIndexUiState.value.stress.toInt(),
+      fatigue: wellnessHooperIndexUiState.value.fatigue.toInt(),
+      muscleSoreness: wellnessHooperIndexUiState.value.muscleSoreness.toInt(),
+      urine: wellnessUrineTable.value.toInt(),
+      bodyFat: double.tryParse(wellnessUrineBmi.value) ?? 0.0,
+      emptyStomachWeight: double.tryParse(wellnessUrineWeight.value) ?? 0.0,
+      recordDate:
+          calendarUiState.value.focusedDate.toFormattedString("yyyy-MM-dd"),
+    );
+
+    logger.w("requestData: ${requestData.toJson()}");
+
+    final id = wellnessId.value;
+    if (id == null) {
+      _postWellness(requestData);
+    } else {
+      _putWellnessDetail(id, requestData);
+    }
+  }
+
+  /// 화면 정보 로딩.
+  Future loadApi() async {
+    final currentMenu = menu.value;
+
+    setLoading(true);
+    switch (currentMenu) {
+      case DataMenuType.wellness:
+        await _loadWellness();
+        isLoadWellness = true;
+      case DataMenuType.intensity:
+        await _loadIntensity();
+        isLoadIntensity = true;
+        break;
+      case DataMenuType.injury:
+        await _loadInjury();
+        isLoadInjury = true;
+        break;
+    }
+
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
+  }
+
+  /// 웰리니스 불러오기.
+  Future<void> _loadWellness() async {
+    final wellnessApi = Get.find<WellnessAPI>();
+    final date =
+        calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
+    final response = await wellnessApi.getWellness(date);
+
+    if (response is GetWellnessResponseModel) {
+      wellnessId.value = response.id;
+      setWellness(response);
+    } else {
+      wellnessId.value = null;
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+      setWellness(null); // 값 초기화
+    }
+  }
+
+  /// 웰리니스 저장하기.
+  Future<void> _postWellness(PostWellnessRequestModel requestData) async {
+    final wellnessApi = Get.find<WellnessAPI>();
+
+    setLoading(true);
+    final response = await wellnessApi.postWellness(requestData: requestData);
+
+    if (response is GetWellnessResponseModel) {
+      wellnessId.value = response.id;
+      showToast("웰리니스 저장 성공.");
+    } else {
+      wellnessId.value = null;
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
+  }
+
+  /// 웰리니스 수정하기.
+  Future<void> _putWellnessDetail(
+      int id, PostWellnessRequestModel requestData) async {
+    final wellnessApi = Get.find<WellnessAPI>();
+
+    setLoading(true);
+
+    final response = await wellnessApi.putWellnessDetail(
+      wellnessId: id,
+      requestData: requestData,
+    );
+
+    if (response is GetWellnessResponseModel) {
+      wellnessId.value = response.id;
+      showToast("웰리니스 수정 성공.");
+    } else {
+      wellnessId.value = null;
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
+  }
+
+  /**
+   * 운동 강도 Intensity.
+   */
+
+  /// 운동 강도 - 스포츠 선택 여부.
+  var intensityWorkoutType = (null as WorkoutType?).obs;
+
+  /// 운동 강도 - UiState
+  var intensityUiState = (null as IntensityPageUiState?).obs;
+
+  /// 운동 강도 - 시간 컨트롤러.
+  final intensityHourController = FixedExtentScrollController(
+    initialItem: 0,
+  );
+
+  /// 운동 강도 - 분 컨트롤러.
+  final intensityMinuteController = FixedExtentScrollController(
+    initialItem: 0,
+  );
+
+  /// 운동 강도 - 스포츠 Ui State.
+  final intensitySportsUiState =
+      IntensityPageUiState(type: WorkoutType.sports).obs;
+
+  /// 운동 강도 - 피지컬 Ui State.
+  final intensityPhysicalUiState =
+      IntensityPageUiState(type: WorkoutType.physical).obs;
+
+  /// 운동 강도 - 종류 선택.
+  void onPressedWorkout(WorkoutType type) {
+    intensityWorkoutType.value = type;
+    updateIntensityWorkoutTime();
+  }
+
+  /// 운동 강도 - 시간 변경.
+  void onSelectedHourChanged(int value) {
+    final type = intensityWorkoutType.value;
+    if (type == WorkoutType.sports) {
+      intensitySportsUiState.value.hour = value;
+      intensitySportsUiState.refresh();
+    } else if (type == WorkoutType.physical) {
+      intensityPhysicalUiState.value.hour = value;
+      intensityPhysicalUiState.refresh();
+    } else {}
+  }
+
+  /// 운동 강도 - 시간 변경.
+  void onSelectedMinChanged(int value) {
+    final type = intensityWorkoutType.value;
+    if (type == WorkoutType.sports) {
+      intensitySportsUiState.value.minute = value;
+      intensitySportsUiState.refresh();
+    } else if (type == WorkoutType.physical) {
+      intensityPhysicalUiState.value.minute = value;
+      intensityPhysicalUiState.refresh();
+    } else {}
+  }
+
+  /// 운동강도 - 레벨 선택.
+  void onPressedLevel(int level) {
+    final type = intensityWorkoutType.value;
+    if (type == WorkoutType.sports) {
+      intensitySportsUiState.value.level = level;
+      intensitySportsUiState.refresh();
+    } else if (type == WorkoutType.physical) {
+      intensityPhysicalUiState.value.level = level;
+      intensityPhysicalUiState.refresh();
+    } else {
+      showToast("운동 종류를 선택해주세요.");
+    }
+  }
+
+  /// 운동강도 - api 조회.
+  Future _loadIntensity() async {
+    final intensityApi = Get.find<IntensityAPI>();
+    final date =
+        calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
+    final response = await intensityApi.getIntensity(date);
+
+    if (response is GetIntensityListResponseModel) {
+      setIntensity(response);
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+      setIntensity(null); // 값 초기화
+    }
+  }
+
+  void updateIntensityWorkoutTime() {
+    final type = intensityWorkoutType.value;
+
+    /// 시간 설정.
+    if (type == WorkoutType.sports) {
+      intensityHourController.jumpToItem(intensitySportsUiState.value.hour);
+      intensityMinuteController.jumpToItem(intensitySportsUiState.value.minute);
+    } else if (type == WorkoutType.physical) {
+      intensityHourController.jumpToItem(intensityPhysicalUiState.value.hour);
+      intensityMinuteController
+          .jumpToItem(intensityPhysicalUiState.value.minute);
+    } else {}
+  }
+
+  /// 운동 강도 저장 버튼 클릭.
+  Future<void> onPressedSaveButton() async {
+    final type = intensityWorkoutType.value;
+
+    if (type == null) {
+      showToast("운동을 선택해주세요.");
+      return;
+    }
+
+    final level = type == WorkoutType.sports
+        ? intensitySportsUiState.value.level
+        : intensityPhysicalUiState.value.level;
+    final time = type == WorkoutType.sports
+        ? intensitySportsUiState.value.time
+        : intensityPhysicalUiState.value.time;
+    final intensityId = type == WorkoutType.sports
+        ? intensitySportsUiState.value.id
+        : intensityPhysicalUiState.value.id;
+    final requestData = PostIntensityRequestModel(
+      intensityLevel: level,
+      workoutTime: time,
+      workoutType: type.remote,
+      recordDate:
+          calendarUiState.value.focusedDate.toFormattedString("yyyy-MM-dd"),
+    );
+
+    if (intensityId == null) {
+      _postIntensity(requestData);
+    } else {
+      _putIntensityDetail(requestData, intensityId);
+    }
+  }
+
+  /// 운동 강도 저장.
+  Future<void> _postIntensity(PostIntensityRequestModel requestData) async {
+    setLoading(true);
+    final intensityApi = Get.find<IntensityAPI>();
+    final response = await intensityApi.postIntensity(requestData);
+
+    if (response is PostIntensityResponseModel) {
+      showToast("운동 강도 저장 성공.");
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
+  }
+
+  /// 운동 강도 수정.
+  Future<void> _putIntensityDetail(
+      PostIntensityRequestModel requestData, int intensityId) async {
+    setLoading(true);
+    final intensityApi = Get.find<IntensityAPI>();
+    final response = await intensityApi.putIntensity(requestData, intensityId);
+
+    if (response is PostIntensityResponseModel) {
+      showToast("운동 강도 저장 성공.");
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    setLoading(false);
+  }
+
+  // ignore: slash_for_doc_comments
+  /**
+   * 부상체크
+   */
+
+  late var injuryList = <HomeInjuryCheckItemUiState>[].obs
+    ..listen((p0) {
+      _setHumanMuscleColor();
+    });
+
+  var _humanFrontOriginImage = "";
+
+  var _humanBackOriginImage = "";
+
+  final Rx<String> humanFrontImage = "".obs;
+
+  final Rx<String> humanBackImage = "".obs;
+
+  void onPressedAdd() async {
+    final args = InjuryCheckArgs(date: calendarUiState.value.focusedDate);
+    final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
+
+    if (result is bool && result == true) {
+      loadApi();
+    }
+  }
+
+  /// 부상체크 조회.
+  Future _loadInjury() async {
+    final injuryApi = Get.find<InjuryAPI>();
+    final date =
+        calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
+    final response = await injuryApi.getInjury(recordDate: date);
+
+    if (response is GetInjuryResponseModel) {
+      setInjury(response);
+    } else {
+      final message =
+          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      showToast(message);
+      setInjury(null); // 값 초기화
+    }
+  }
+
+  /// 사람 근육 이미지 로딩.
+  void initHumanMuscleImage(String frontImage, String backImage) {
+    _humanFrontOriginImage = frontImage;
+    _humanBackOriginImage = backImage;
+
+    humanFrontImage.value = _humanFrontOriginImage;
+    humanBackImage.value = _humanBackOriginImage;
+  }
+
+  /// 사람 근육 선택
+  void _setHumanMuscleColor() {
+    humanFrontImage.value = MuscleUtils.setHumanMuscleColor(
+      injuryList.toList(),
+      _humanFrontOriginImage,
+      true,
+    );
+
+    humanBackImage.value = MuscleUtils.setHumanMuscleColor(
+      injuryList.toList(),
+      _humanBackOriginImage,
+      false,
+    );
+  }
+
+  /// 부상 체크 편집 클릭.
+  void onPressedEdit(HomeInjuryCheckItemUiState uiState) async {
+    final args = InjuryCheckArgs(
+        date: calendarUiState.value.focusedDate, id: uiState.id);
+    final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
+    if (result is bool && result == true) {
+      loadApi();
+    }
+  }
+}
