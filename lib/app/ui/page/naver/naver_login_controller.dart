@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -45,9 +45,9 @@ class NaverLoginController extends BaseController {
           onUrlChange: (UrlChange change) async {
             final url = change.url;
             if (url != null &&
-                url.contains("${AppConstant.naverRedirectUrl}?code=") == true) {
+                url.contains("${Constants.naverRedirectUrl}?code=") == true) {
               var result =
-                  url.replaceAll("${AppConstant.naverRedirectUrl}?code=", "");
+                  url.replaceAll("${Constants.naverRedirectUrl}?code=", "");
 
               var uri = Uri.parse(url);
 

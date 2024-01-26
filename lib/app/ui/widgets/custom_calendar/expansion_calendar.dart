@@ -1,7 +1,7 @@
 import 'package:expansion_widget/expansion_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
@@ -216,8 +216,8 @@ class _CalendarBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) => TableCalendar(
         headerVisible: false,
-        firstDay: AppConstant.CALENDAR_MIN_DATE,
-        lastDay: AppConstant.CALENDAR_MAX_DATE,
+        firstDay: Constants.CALENDAR_MIN_DATE,
+        lastDay: Constants.CALENDAR_MAX_DATE,
         // 달력 스크롤 잡아 주는 역할
         focusedDay: uiState.focusedDate,
         currentDay: uiState.currentDate,

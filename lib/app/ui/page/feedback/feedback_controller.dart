@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/data/feedback/feedback_api.dart';
 import 'package:physical_note/app/data/feedback/model/get_feedback_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
@@ -66,8 +66,8 @@ class FeedbackController extends BaseController {
     final response = await Get.dialog(
       DateYearMonthPickerDialog(
         initialDate: calendarUiState.value.currentDate,
-        minimumDate: AppConstant.CALENDAR_MIN_DATE,
-        maximumDate: AppConstant.CALENDAR_MAX_DATE,
+        minimumDate: Constants.CALENDAR_MIN_DATE,
+        maximumDate: Constants.CALENDAR_MAX_DATE,
       ),
     );
 

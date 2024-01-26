@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
-class AppConstant {
+class Constants {
   /// 달력 최소 날짜.
   static final CALENDAR_MIN_DATE = DateTime(2000, 1, 1);
 

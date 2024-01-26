@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/naver/naver_api.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
@@ -14,7 +14,7 @@ class LoginBindings extends Bindings {
   void dependencies() {
     Get.lazyPut(() => LoginAPI());
     Get.lazyPut(() => UserAPI());
-    Get.lazyPut(() => KakaoLogin().init(AppConstant.kakaoNativeKey));
+    Get.lazyPut(() => KakaoLogin().init(Constants.kakaoNativeKey));
     Get.lazyPut(() => NaverLogin());
     Get.lazyPut(() => NaverAPI());
     Get.lazyPut(() => AppleLogin());
