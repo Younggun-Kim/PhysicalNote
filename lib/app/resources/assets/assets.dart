@@ -4,6 +4,7 @@ class Assets {
 
   static const String backgroundBottom = 'assets/images/background_bottom.svg';
   static const String backgroundTop = 'assets/images/background_top.svg';
+  static const String build = 'android/build.gradle';
   static const String camera = 'assets/images/camera.svg';
   static const String check = 'assets/images/check.svg';
   static const String checkBlue = 'assets/images/check_blue.svg';

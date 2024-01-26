@@ -22,12 +22,15 @@
             android:exported="true">
             <intent-filter android:label="flutter_web_auth">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- "kakao${YOUR_NATIVE_APP_KEY}://oauth" 형식의 앱 실행 스킴 설정 -->
                 <!-- 카카오 로그인 Redirect URI -->
-                <data android:scheme="kakaofde38af09e56b42965bdf5b505f5a332" android:host="oauth"/>
+                <data
+                    android:host="oauth"
+                    android:scheme="kakaofde38af09e56b42965bdf5b505f5a332" />
             </intent-filter>
         </activity>
 
