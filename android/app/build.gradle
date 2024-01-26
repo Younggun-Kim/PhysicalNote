@@ -71,12 +71,12 @@ android {
 
     productFlavors {
         dev {
-            dimensions "version"
+            dimension "version"
             applicationIdSuffix ".dev"
             versionNameSuffix ".debug"
         }
         prod {
-            dimensions "version"
+            dimension "version"
         }
     }
 
@@ -85,7 +85,7 @@ android {
             signingConfig signingConfigs.release
             debuggable false
             minifyEnabled true
-            shrinkR / esources true
+            shrinkResources true
             proguardFiles(
                 getDefaultProguardFile('proguard-android.txt'),
                 'proguard-rules.pro'
@@ -96,7 +96,7 @@ android {
             minifyEnabled false
             shrinkResources false
 
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
 
             versionNameSuffix = "-debug"
             applicationIdSuffix = ".debug"
@@ -106,7 +106,7 @@ android {
             minifyEnabled true
             shrinkResources true
 
-            signingConfig signingConfigs.profile
+            signingConfig signingConfigs.release
 
             versionNameSuffix = "-profile"
             applicationIdSuffix = ".profile"
