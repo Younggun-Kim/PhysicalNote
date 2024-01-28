@@ -15,7 +15,7 @@ class Constants {
   /// Kakao native key.
   static final kakaoNativeKey = Config.isProd
       ? "fde38af09e56b42965bdf5b505f5a332"
-      : "d41654df0b89d74f77469d7b21eaf295";
+      : "fde38af09e56b42965bdf5b505f5a332";
 
   /// 네이버 아이디 로그인 - 리다이렉트 Url.
   static const naverRedirectUrl = "https://dev.hajinj.com/login";

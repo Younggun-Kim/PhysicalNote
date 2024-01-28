@@ -2,15 +2,18 @@
 
 A new Flutter project.
 
-## Getting Started
+# 배포
 
-This project is a starting point for a Flutter application.
+## 내부 배포
 
-A few resources to get you started if this is your first Flutter project:
+### Android
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. APK 추출
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- flutter build apk --release --flavor prod -t lib/app/config/env/prod.dart
+
+2. Firebase App Distribution 배포
+
+### iOS
+
+deploy_dev 브랜치에 머지 -> Xcode Cloud 배포
