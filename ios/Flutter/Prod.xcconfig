@@ -1,0 +1,7 @@
+/// 환경설정
+FLUTTER_TARGET = lib/app/config/env/prod.dart
+
+/// 앱설정
+APP_NAME = 피지컬노트
+APP_BUNDLE_IDENTIFIER = com.conner.physicalNote
+KAKAO_URL_SCHEME = kakaofde38af09e56b42965bdf5b505f5a332

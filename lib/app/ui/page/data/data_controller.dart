@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
@@ -105,8 +105,8 @@ class DataController extends BaseController {
     final response = await Get.dialog(
       DateYearMonthPickerDialog(
         initialDate: calendarUiState.value.currentDate,
-        minimumDate: AppConstant.CALENDAR_MIN_DATE,
-        maximumDate: AppConstant.CALENDAR_MAX_DATE,
+        minimumDate: Constants.CALENDAR_MIN_DATE,
+        maximumDate: Constants.CALENDAR_MAX_DATE,
       ),
     );
 

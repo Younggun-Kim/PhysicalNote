@@ -1,4 +1,4 @@
-import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/data/naver/model/naver_access_token_fail_model.dart';
 import 'package:physical_note/app/data/naver/model/naver_access_token_success_model.dart';
 import 'package:physical_note/app/data/network/api.dart';
@@ -11,9 +11,9 @@ class NaverAPI extends API {
     var url = "https://nid.naver.com/oauth2.0/token";
 
     url += "?grant_type=authorization_code";
-    url += "&client_id=${AppConstant.naverClientId}";
-    url += "&client_secret=${AppConstant.naverClientSecret}";
-    url += "&redirect_uri=${AppConstant.naverRedirectUrl}";
+    url += "&client_id=${Constants.naverClientId}";
+    url += "&client_secret=${Constants.naverClientSecret}";
+    url += "&redirect_uri=${Constants.naverRedirectUrl}";
     url += "&code=$code";
 
     logger.i("Request Naver Token: $url");

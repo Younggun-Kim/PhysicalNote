@@ -4,23 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:physical_note/app/config/env/environment.dart';
 import 'package:physical_note/app/config/initializer/app_initializer.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 
+import 'app/config/env/config.dart';
 import 'app/resources/resources.dart';
 
-void main() {
-  run();
-}
-
-void run() async {
-  // Config.environment = environment;
-
-  // FlutterNativeSplash.preserve(
-  //   widgetsBinding: WidgetsFlutterBinding.ensureInitialized(),
-  // );
-
-  // initTheme();
+void run({required Environment environment}) async {
+  /// 빌드 환경 설정.
+  Config.environment = environment;
 
   await AppInitializer.init();
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -48,7 +48,7 @@ class PassController extends BaseController {
           close(result: token);
         }
       })
-      ..loadRequest(Uri.parse(AppConstant.PASS_URL));
+      ..loadRequest(Uri.parse(Constants.PASS_URL));
 
     if (webViewController.platform is AndroidWebViewController) {
       AndroidWebViewController.enableDebugging(true);

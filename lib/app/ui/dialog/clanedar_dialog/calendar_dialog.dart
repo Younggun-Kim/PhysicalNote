@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/app_constant.dart';
+import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
@@ -103,8 +103,8 @@ class _CalendarDialogState extends State<CalendarDialog> {
     final response = await Get.dialog(
       DateYearMonthPickerDialog(
         initialDate: currentDate,
-        minimumDate: AppConstant.CALENDAR_MIN_DATE,
-        maximumDate: AppConstant.CALENDAR_MAX_DATE,
+        minimumDate: Constants.CALENDAR_MIN_DATE,
+        maximumDate: Constants.CALENDAR_MAX_DATE,
       ),
     );
 
@@ -249,8 +249,8 @@ class _CalendarBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) => TableCalendar(
         headerVisible: false,
-        firstDay: AppConstant.CALENDAR_MIN_DATE,
-        lastDay: AppConstant.CALENDAR_MAX_DATE,
+        firstDay: Constants.CALENDAR_MIN_DATE,
+        lastDay: Constants.CALENDAR_MAX_DATE,
         // 달력 스크롤 잡아 주는 역할
         focusedDay: focusedDate,
         currentDay: currentDate,

@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>피지컬노트</string>
+	<string>$(APP_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -37,7 +37,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaofde38af09e56b42965bdf5b505f5a332</string>
+				<string>$(KAKAO_URL_SCHEME)</string>
 			</array>
 		</dict>
 	</array>
@@ -88,5 +88,7 @@
 	<string>$(PRODUCT_NAME)</string>
 	<key>naverServiceAppUrlScheme</key>
 	<string>naverlogin</string>
+	<key>flavor</key>
+	<string>$(FLAVOR)</string>
 </dict>
 </plist>

@@ -70,6 +70,18 @@ android {
         versionName flutterVersionName
     }
 
+    flavorDimensions "version"
+    productFlavors {
+        dev {
+            dimension "version"
+            applicationIdSuffix ".dev"
+        }
+        prod {
+            dimension "version"
+        }
+    }
+
+
     buildTypes {
         release {
             debuggable false
