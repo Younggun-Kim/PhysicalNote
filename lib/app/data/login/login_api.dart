@@ -144,19 +144,24 @@ class LoginAPI extends API {
   /// 아이디 중복 확인.
   Future<dynamic> postLoginSignInCheckId({required String loginId}) async {
     logger.i("postLoginSignInCheckId: $loginId");
-    final response = await post(
-      requestUrl + "/signin/check_id",
-      {
-        "loginId": loginId,
-      },
-    );
+    try {
+      final response = await post(
+        requestUrl + "/signin/check_id",
+        {
+          "loginId": loginId,
+        },
+      );
 
-    logger.i(response.bodyString);
+      logger.i(response.bodyString);
 
-    if (response.status.hasError) {
-      return ServerResponseFailModel.fromJson(response.body);
-    } else {
-      return PostCheckIdResponseModel.fromJson(response.body);
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return PostCheckIdResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
+      return null;
     }
   }
 }

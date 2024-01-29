@@ -10,8 +10,25 @@ class InlineWebviewPage extends GetView<InlineWebviewController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
-        child: WebViewWidget(
-          controller: controller.webViewController,
+        child: Column(
+          children: [
+            _Header(),
+            Expanded(
+              child: WebViewWidget(
+                controller: controller.webViewController,
+              ),
+            ),
+          ],
         ),
+      );
+}
+
+/// 헤더.
+class _Header extends GetView<InlineWebviewController> {
+  @override
+  Widget build(BuildContext context) => Header(
+        title: "",
+        showBack: true,
+        onPressed: controller.close,
       );
 }

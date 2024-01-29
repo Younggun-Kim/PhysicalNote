@@ -122,9 +122,6 @@ class LoginProcess {
   /// 유저 정보 조회해서 페이지 이동.
   Future<LoginMoveType?> _getUserAndMove() async {
     /// 로그인
-    /// 1. workoutId = null -> 정보등록 가이드
-    /// 2. workoutId != null && teamId == null -> 팀 재등록 가이드
-    /// 3. 둘 아 있으면 home.
 
     final response = await userApi.getUser();
     if (response is GetUserResponseModel) {
@@ -132,12 +129,16 @@ class LoginProcess {
       final teamId = response.teamId;
       final teamRequest = response.teamRequestYn;
 
-      if (teamRequest == true && workoutId == null && teamId == null) {
-        return LoginMoveType.teamRequest;
-      } else if (workoutId == null) {
+      /// 1. 정보등록 안내 화면  : workoudId = null
+      /// 2. 팀 재등록 안내 화면  : workoutId != null && teamId = null && teamRequestYn = false
+      /// 3. 승인요청중 안내 화면 :  : workoutId != null && teamId = null && teamRequestYn = true
+      /// 4. 홈 화면 : workoutId != null && teamId != null && teamRequestYn = false
+      if (workoutId == null) {
         return LoginMoveType.information;
-      } else if (teamId == null) {
+      } else if (teamId == null && teamRequest == false) {
         return LoginMoveType.team;
+      } else if (teamId == null && teamRequest == true) {
+        return LoginMoveType.teamRequest;
       } else {
         return LoginMoveType.home;
       }
