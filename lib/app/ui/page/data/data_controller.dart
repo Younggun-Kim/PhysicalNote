@@ -203,6 +203,12 @@ class DataController extends BaseController {
   Future loadApi() async {
     final currentMenu = menu.value;
 
+    final canLoadApi = _canLoadApi();
+
+    if (!canLoadApi) {
+      return;
+    }
+
     setLoading(true);
     switch (currentMenu) {
       case DataMenuType.wellness:
@@ -211,15 +217,26 @@ class DataController extends BaseController {
       case DataMenuType.intensity:
         await _loadIntensity();
         isLoadIntensity = true;
-        break;
       case DataMenuType.injury:
         await _loadInjury();
         isLoadInjury = true;
-        break;
     }
 
     await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
+  }
+
+  /// API Load 가능 여부 체크
+  bool _canLoadApi() {
+    final currentMenu = menu.value;
+    switch (currentMenu) {
+      case DataMenuType.wellness:
+        return !isLoadWellness;
+      case DataMenuType.intensity:
+        return !isLoadIntensity;
+      case DataMenuType.injury:
+        return !isLoadInjury;
+    }
   }
 
   /// 웰리니스 불러오기.

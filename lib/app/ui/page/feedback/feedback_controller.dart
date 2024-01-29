@@ -23,6 +23,8 @@ class FeedbackController extends BaseController {
     focusedDate: DateTime.now(),
   ).obs;
 
+  var isLoaded = false;
+
   /// 오늘의 피드백.
   var todayFeedback = "".obs;
 
@@ -48,6 +50,7 @@ class FeedbackController extends BaseController {
   void syncDate(DateTime date) {
     calendarUiState.value.focusedDate = date;
     calendarUiState.refresh();
+    isLoaded = false;
   }
 
   /// 날짜 업데이트.
@@ -109,6 +112,10 @@ class FeedbackController extends BaseController {
 
   /// API 조회.
   Future loadFeedback() async {
+    if (isLoaded) {
+      return;
+    }
+
     setLoading(true);
     final feedbackApi = Get.find<FeedbackAPI>();
     final date =
@@ -116,6 +123,7 @@ class FeedbackController extends BaseController {
     final response = await feedbackApi.getFeedback(date);
 
     if (response is GetFeedbackResponseModel) {
+      isLoaded = true;
       setFeedback(response);
     } else {
       final message =
