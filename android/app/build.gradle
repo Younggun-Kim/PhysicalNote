@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 // start of Gradle 서명 구성
 def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file('app/key.properties')
+def keystorePropertiesFile = rootProject.file('app/keystore/key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
@@ -92,7 +92,7 @@ android {
 
             proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                    "./keystore/proguard-rules.pro"
             )
         }
         debug {

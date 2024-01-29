@@ -14,7 +14,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="physical_note">
+        android:label="@string/app_name">
 
         <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
         <activity
@@ -30,7 +30,7 @@
                 <!-- 카카오 로그인 Redirect URI -->
                 <data
                     android:host="oauth"
-                    android:scheme="kakaofde38af09e56b42965bdf5b505f5a332" />
+                    android:scheme="@string/kakao_scheme" />
             </intent-filter>
         </activity>
 

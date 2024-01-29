@@ -1,4 +1,5 @@
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:physical_note/app/utils/getx/toast_message.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 import 'package:physical_note/app/utils/sns/sns_login.dart';
 
@@ -26,6 +27,7 @@ class KakaoLogin extends SnsLogin {
       return oAuthToken.accessToken;
     } catch (e) {
       logger.e(e);
+      showToast(e.toString());
       return null;
     } finally {
       // logout();
