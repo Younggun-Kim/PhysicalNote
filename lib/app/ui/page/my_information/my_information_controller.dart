@@ -208,8 +208,7 @@ class MyInformationController extends BaseController {
   Future<void> _postUser() async {
     setLoading(true);
     final userApi = Get.find<UserAPI>();
-    final uploadResponse = await _postImageUpload();
-    final profile = uploadResponse?.url?.first;
+    final profile = await _postImageUpload();
     final id = workoutId;
     final elite = isElite.value;
     final teamId = teamUiState.value?.id;
@@ -248,25 +247,23 @@ class MyInformationController extends BaseController {
   }
 
   /// 이미지 업로드.
-  Future<PostUploadResponseModel?> _postImageUpload() async {
+  Future<String?> _postImageUpload() async {
     final file = profile.value.file;
     if (file == null) {
-      return null;
+      return profile.value.imageUrl;
     }
     final commonApi = Get.find<CommonAPI>();
     final response = await commonApi.postUpload("profile", profile.value);
 
-    PostUploadResponseModel? result;
-
     if (response is PostUploadResponseModel) {
-      result = response;
+      return response.url?.first;
     } else {
       final message =
           (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
       showToast(message);
     }
 
-    return result;
+    return null;
   }
 
   /// 프로필 클릭.
