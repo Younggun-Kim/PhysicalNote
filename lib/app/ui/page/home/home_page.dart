@@ -84,6 +84,7 @@ class _FirstBody extends GetView<HomeController> {
             ),
             const SizedBox(height: 20),
             _Statistics(),
+            const SizedBox(height: 40),
           ],
         ),
       );
@@ -1286,6 +1287,7 @@ class _SecondState extends StatelessWidget {
               Center(
                 child: _EmptyDataText(),
               ),
+            const SizedBox(height: 40),
           ],
         ),
       );

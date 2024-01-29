@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 
 class DateYearMonthPickerDialog extends StatefulWidget {
   const DateYearMonthPickerDialog({
-    Key? key,
+    super.key,
     required this.initialDate,
     this.minimumDate,
     this.maximumDate,
-  }) : super(key: key);
+  });
 
   final DateTime initialDate;
   final DateTime? minimumDate;
@@ -69,7 +68,6 @@ class _DateYearMonthPickerDialogState extends State<DateYearMonthPickerDialog> {
                         onDateTimeChanged: (DateTime date) {
                           setState(
                             () {
-                              logger.w(date);
                               initialDate = DateTime(
                                   date.year, date.month, initialDate.day);
                             },

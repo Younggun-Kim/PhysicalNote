@@ -492,15 +492,6 @@ class DataController extends BaseController {
 
   final Rx<String> humanBackImage = "".obs;
 
-  void onPressedAdd() async {
-    final args = InjuryCheckArgs(date: calendarUiState.value.focusedDate);
-    final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
-
-    if (result is bool && result == true) {
-      loadApi();
-    }
-  }
-
   /// 부상체크 조회.
   Future _loadInjury() async {
     final injuryApi = Get.find<InjuryAPI>();
@@ -542,12 +533,23 @@ class DataController extends BaseController {
     );
   }
 
+  /// 부상체크 추가 클릭.
+  void onPressedAdd() async {
+    await _moveInjuryDetail(null);
+  }
+
   /// 부상 체크 편집 클릭.
   void onPressedEdit(HomeInjuryCheckItemUiState uiState) async {
-    final args = InjuryCheckArgs(
-        date: calendarUiState.value.focusedDate, id: uiState.id);
+    await _moveInjuryDetail(uiState.id);
+  }
+
+  /// 부상 체크 상세로 이동.
+  Future _moveInjuryDetail(int? injuryId) async {
+    final args =
+        InjuryCheckArgs(date: calendarUiState.value.focusedDate, id: injuryId);
     final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
     if (result is bool && result == true) {
+      isLoadInjury = false;
       loadApi();
     }
   }
