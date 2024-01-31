@@ -979,7 +979,7 @@ class _StatisticsChart extends StatelessWidget {
       );
 
   LineChartData get lineChartData => LineChartData(
-        // lineTouchData: lineTouchData1,
+        lineTouchData: lineTouchData,
         gridData: gridData,
         borderData: borderData,
         titlesData: titlesData,
@@ -990,9 +990,23 @@ class _StatisticsChart extends StatelessWidget {
         maxY: 10,
       );
 
+  /// 마커(툴팁).
+  get lineTouchData => const LineTouchData(
+      touchTooltipData: LineTouchTooltipData(
+        tooltipBgColor: ColorRes.white,
+        tooltipBorder: BorderSide(color: ColorRes.disable),
+      )
+  );
+
   /// Bar 데이터.
   List<LineChartBarData> get lineBarData =>
       chartData.map((e) => makeBarData(data: e)).toList();
+
+  /// Bar Empty Data
+  List<LineChartBarData> get lineBarEmptyData =>
+      <LineChartBarData>[LineChartBarData(
+        color: Colors.transparent,
+      )];
 
   /// Bar 데이터 생성.
   LineChartBarData makeBarData({
