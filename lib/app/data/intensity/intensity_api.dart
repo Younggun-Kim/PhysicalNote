@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
 import 'package:physical_note/app/data/intensity/model/post_intensity_request_model.dart';
 import 'package:physical_note/app/data/intensity/model/post_intensity_response_model.dart';
@@ -10,19 +12,20 @@ class IntensityAPI extends API {
 
   /// 운동 강도 조회
   Future<dynamic> getIntensity(String date) async {
-    final response = await get("$requestUrl?recordDate=$date");
+    try {
+      final response = await get("$requestUrl?recordDate=$date");
 
-    logger.w(response.bodyString);
+      log("${response.bodyString}");
 
-    if (response.status.hasError) {
-      final failResponse = ServerResponseFailModel.fromJson(response.body);
-      return failResponse;
-    } else {
-      /// 파싱하기 위해 data: [] 형식으로 만들어 줌
-      final successResponse =
-          GetIntensityListResponseModel.fromJson({"data": response.body});
-      logger.i("Success Response: ${successResponse.toJson()}");
-      return successResponse;
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        /// 파싱하기 위해 data: [] 형식으로 만들어 줌
+        return GetIntensityListResponseModel.fromJson({"data": response.body});
+      }
+    } catch(e) {
+      logger.e(e);
+      return null;
     }
   }
 
@@ -48,7 +51,7 @@ class IntensityAPI extends API {
     logger.i("putIntensity: ${requestData.toJson()}");
     final response = await put("$requestUrl/$intensityId", requestData.toJson());
 
-    logger.w(response.bodyString);
+    log("${response.bodyString}");
 
     if (response.status.hasError) {
       final failResponse = ServerResponseFailModel.fromJson(response.body);

@@ -355,14 +355,14 @@ class _TableCellNormal extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               _TableRadio(
-                isSelected: level == 4,
+                isSelected: level == 5,
                 onPressed: () {
                   onPressed(4);
                 },
               ),
               const SizedBox(height: 32),
               _TableRadio(
-                isSelected: level == 5,
+                isSelected: level == 4,
                 onPressed: () {
                   onPressed(5);
                 },
