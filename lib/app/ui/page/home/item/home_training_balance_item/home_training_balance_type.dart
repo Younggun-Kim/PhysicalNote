@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/resources/resources.dart';
 
 /// 홈 트레이닝 밸런스 타입.
@@ -32,7 +30,7 @@ enum HomeTrainingBalanceType {
     } else if (this == HomeTrainingBalanceType.over) {
       return Assets.retiredMan;
     } else {
-      return Assets.noneWalkMan;
+      return Assets.walkManBlack;
     }
   }
 
