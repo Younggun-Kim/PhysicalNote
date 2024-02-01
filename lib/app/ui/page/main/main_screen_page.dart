@@ -7,7 +7,6 @@ import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/ui/page/main/main_screen_controller.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 
 import 'main_tab_index.dart';
 
@@ -46,7 +45,7 @@ class MainScreenPage extends GetView<MainScreenController> {
                   backgroundColor: ColorRes.white,
                   onTap: (index) {
                     final tabIndex = MainTabIndex.values[index];
-                    controller.setTabIndex(tabIndex);
+                    controller.setTabIndex(tabIndex: tabIndex);
                   },
                   currentIndex: controller.uiState.value.tabIndex.index,
                   selectedLabelStyle: const TextStyle(

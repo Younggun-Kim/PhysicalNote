@@ -69,6 +69,9 @@ class DataController extends BaseController {
   /// 웰리니스 - 소변검사 Bmi.
   var wellnessUrineBmi = "".obsWithController;
 
+  /// 이동할 탭.
+  DataMenuType? willMoveTab;
+
   /// 스크롤 상단으로 이동.
   void scrollToTop() {
     scrollController.animateTo(
@@ -147,11 +150,18 @@ class DataController extends BaseController {
   }
 
   /// 메뉴 선택.
-  void onTapMenu(DataMenuType type) {
+  Future onTapMenu(DataMenuType type) async {
     menu.value = type;
-    pageController.value.jumpToPage(type.index);
 
-    loadApi();
+    if (pageController.value.hasClients) {
+      pageController.value.jumpToPage(type.index);
+
+      await loadApi();
+      return;
+    } else {
+      /// 초기화가 다시.
+      pageController.value = PageController(initialPage: type.index);
+    }
   }
 
   /// 웰리니스 - 후퍼인덱스 슬라이드 변경 이벤트.
@@ -159,7 +169,6 @@ class DataController extends BaseController {
     switch (type) {
       case HooperIndexType.sleep:
         wellnessHooperIndexUiState.value.sleep = value;
-
       case HooperIndexType.stress:
         wellnessHooperIndexUiState.value.stress = value;
       case HooperIndexType.fatigue:

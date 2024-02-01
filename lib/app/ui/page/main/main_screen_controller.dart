@@ -30,13 +30,20 @@ class MainScreenController extends BaseMainController<MainUiState> {
   var humanBackOriginImage = "";
 
   /// 메인 탭 인덱스 변경.
-  void setTabIndex(MainTabIndex tabIndex) async {
+  Future setTabIndex({
+    required MainTabIndex tabIndex,
+    bool canLoad = true,
+  }) async {
     unFocus();
     if (uiState.value.tabIndex == tabIndex) {
       scrollToTop(tabIndex);
     } else {
       uiState.value.tabIndex = tabIndex;
       uiState.refresh();
+
+      if(!canLoad) {
+        return;
+      }
       await loadApi();
     }
   }
@@ -70,19 +77,19 @@ class MainScreenController extends BaseMainController<MainUiState> {
 
   /// 홈으로 이동.
   void moveHome() {
-    setTabIndex(MainTabIndex.home);
+    setTabIndex(tabIndex: MainTabIndex.home);
   }
 
   /// 데이터탭으로 이동.
   void moveData() {
     /// 데이터 탭으로 이동.
-    setTabIndex(MainTabIndex.data);
+    setTabIndex(tabIndex: MainTabIndex.data);
   }
 
   /// 데이터탭으로 이동.
   void moveDataWellness() {
     /// 데이터 탭으로 이동.
-    setTabIndex(MainTabIndex.data);
+    setTabIndex(tabIndex: MainTabIndex.data, canLoad: false);
 
     /// 데이터 탭에서 웰리니스 메뉴로 이동.
     final dataController = Get.find<DataController>();
@@ -92,7 +99,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
   /// 데이터탭으로 이동.
   void moveDataIntensity() {
     /// 데이터 탭으로 이동.
-    setTabIndex(MainTabIndex.data);
+    setTabIndex(tabIndex: MainTabIndex.data, canLoad: false);
 
     /// 데이터 탭에서 운동강도 메뉴로 이동.
     final dataController = Get.find<DataController>();
@@ -100,13 +107,13 @@ class MainScreenController extends BaseMainController<MainUiState> {
   }
 
   /// 데이터 탭으로 이동 및 부상체크 상세 화면으로 이동.
-  void moveDataInjuryDetail(HomeInjuryCheckItemUiState uiState) {
+  void moveDataInjuryDetail(HomeInjuryCheckItemUiState uiState) async {
     /// 데이터 탭으로 이동.
-    setTabIndex(MainTabIndex.data);
+    await setTabIndex(tabIndex: MainTabIndex.data, canLoad: false);
 
     /// 데이터 탭에서 메뉴이동
     final dataController = Get.find<DataController>();
-    dataController.onTapMenu(DataMenuType.injury);
+    await dataController.onTapMenu(DataMenuType.injury);
 
     /// 부상체크 상세 화면으로 이동.
     dataController.onPressedEdit(uiState);
