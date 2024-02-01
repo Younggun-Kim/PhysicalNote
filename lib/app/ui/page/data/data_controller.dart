@@ -157,10 +157,10 @@ class DataController extends BaseController {
       pageController.value.jumpToPage(type.index);
 
       await loadApi();
-      return;
     } else {
       /// 초기화가 다시.
       pageController.value = PageController(initialPage: type.index);
+      await loadApi();
     }
   }
 

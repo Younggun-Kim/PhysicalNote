@@ -11,7 +11,7 @@ import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_ind
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
+
 
 extension DataUiMapper on DataController {
   /// 웰리니스 매퍼
@@ -69,8 +69,6 @@ extension DataUiMapper on DataController {
 
   /// 부상체크 매퍼
   void setInjury(GetInjuryResponseModel? data) {
-    logger.i("부상체크 매퍼: ${data?.list}");
-
     injuryList.value = data?.list
             .map((e) {
               final injuryId = e.id;
@@ -79,9 +77,14 @@ extension DataUiMapper on DataController {
               final muscleType = MuscleType.from(e.muscleType);
               final bodyPart = InjuryCheckBodyPartsType.from(e.bodyPart);
 
-              if (injuryId == null || injuryType == null || bodyPart == null) {
+              if (injuryId == null || injuryType == null) {
                 return null;
               }
+
+              if (injuryType != InjuryType.disease && bodyPart == null) {
+                return null;
+              }
+
               return HomeInjuryCheckItemUiState(
                 id: injuryId,
                 injuryType: injuryType,
