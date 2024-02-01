@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
@@ -34,7 +38,24 @@ class PassController extends BaseController {
           onPageStarted: (String url) {},
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
+          onNavigationRequest: (NavigationRequest request) async {
+            logger.i(request.url);
+            // 2 채널이용
+            if (!request.url.startsWith('http') &&
+                !request.url.startsWith('https')) {
+              if (Platform.isAndroid) {
+                return NavigationDecision.prevent;
+              } else if (Platform.isIOS) {
+                if (await canLaunchUrl(Uri.parse(request.url))) {
+                  await launchUrl(
+                    Uri.parse(request.url),
+                  );
+
+                  return NavigationDecision.prevent;
+                }
+              }
+            }
+
             return NavigationDecision.navigate;
           },
         ),

@@ -10,6 +10,7 @@ class PassPage extends GetView<PassController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
+        canPop: true,
         child: WebViewWidget(
           controller: controller.webViewController,
         ),

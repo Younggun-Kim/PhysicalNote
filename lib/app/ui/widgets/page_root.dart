@@ -28,6 +28,9 @@ class PageRoot extends StatelessWidget {
   /// 자식 위젯.
   final Widget child;
 
+  /// 뒤로가기 허용 여부.
+  final bool canPop;
+
   /// 뒤로가기 콜백.
   final Future<bool> Function(bool didPop)? onWillPop;
 
@@ -42,13 +45,14 @@ class PageRoot extends StatelessWidget {
     this.resize = true,
     this.isFullPage = false,
     required this.child,
+    this.canPop = false,
     this.onWillPop,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => PopScope(
     onPopInvoked: onWillPop,
-    canPop: false,
+    canPop: canPop,
     child: _createPage(),
   );
 
