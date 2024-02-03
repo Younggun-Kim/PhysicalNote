@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/dialog/base_dialog_body.dart';
 import 'package:physical_note/app/ui/page/information_registration/information_registration.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
@@ -12,8 +13,11 @@ class InformationRegistrationPage
 
   @override
   Widget build(BuildContext context) => PageRoot(
-        controller: controller,
-        child: Container(
+    isFullPage: true,
+    controller: controller,
+    child: Stack(
+      children: [
+        Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
@@ -22,7 +26,7 @@ class InformationRegistrationPage
               _FieldName(text: StringRes.category.tr),
               const SizedBox(height: 10),
               Obx(
-                () => _ListSearchButton(
+                    () => _ListSearchButton(
                   text: controller.category.value?.name ?? "",
                   onTap: controller.onPressedCategory,
                 ),
@@ -31,7 +35,7 @@ class InformationRegistrationPage
               _FieldName(text: StringRes.sports.tr),
               const SizedBox(height: 10),
               Obx(
-                () => _ListSearchButton(
+                    () => _ListSearchButton(
                   text: controller.sports.value?.name ?? "",
                   onTap: controller.onPressedSports,
                 ),
@@ -41,7 +45,7 @@ class InformationRegistrationPage
                 children: [
                   Expanded(
                     child: Obx(
-                      () => RoundButton(
+                          () => RoundButton(
                         text: StringRes.amateur.tr,
                         isSelected: controller.isElite.value == false,
                         backgroundColor: ColorRes.white,
@@ -62,7 +66,7 @@ class InformationRegistrationPage
                   const SizedBox(width: 20),
                   Expanded(
                     child: Obx(
-                      () => RoundButton(
+                          () => RoundButton(
                         text: StringRes.elite.tr,
                         isEnabled: true,
                         isSelected: controller.isElite.value == true,
@@ -85,7 +89,7 @@ class InformationRegistrationPage
               ),
               const Spacer(),
               Obx(
-                () => RoundButton(
+                    () => RoundButton(
                   width: double.infinity,
                   text: StringRes.next.tr,
                   isEnabled: controller.isEnabledNext.value,
@@ -97,7 +101,10 @@ class InformationRegistrationPage
             ],
           ),
         ),
-      );
+        _Dialog(),
+      ],
+    )
+  );
 }
 
 /// 필드명.
@@ -168,6 +175,24 @@ class _ListSearchButton extends GetView<InformationRegistrationController> {
               SvgPicture.asset(Assets.searchRefraction),
             ],
           ),
+        ),
+      );
+}
+
+/// Dialog
+class _Dialog extends GetView<InformationRegistrationController> {
+  @override
+  Widget build(BuildContext context) => Obx(
+        () => Visibility(
+          visible: controller.isVisibilityAppleSnsPopup.value,
+          child: BaseDialogBody(
+              text: StringRes.appleNeedPass.tr,
+              backgroundColor: ColorRes.dimmed,
+              yesText: StringRes.confirm.tr,
+              onPressedYes: controller.onPressedAppleSnsPopupYes,
+              noText: "",
+              onPressedNo: () {},
+              close: controller.onPressedAppleSnsPopupClose),
         ),
       );
 }

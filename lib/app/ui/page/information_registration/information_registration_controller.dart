@@ -6,7 +6,6 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item_ui_state.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -38,6 +37,9 @@ class InformationRegistrationController extends BaseController {
     ],
     (values) => values[0] && values[1] && values[2],
   ).toObs(false);
+
+  /// 애플 소셜 팝업 노출 여부.
+  var isVisibilityAppleSnsPopup = false.obs;
 
   /// 종목 클릭.
   void onPressedCategory() async {
@@ -103,16 +105,11 @@ class InformationRegistrationController extends BaseController {
 
     /// 애플 유저면 Pass 검사 필요.
     final passVerify = await _loadUser();
-    String? passCode;
     if (passVerify == false) {
-      passCode = await Get.toNamed(RouteType.PASS) as String?;
-
-      if (passCode == null) {
-        return;
-      }
+      isVisibilityAppleSnsPopup.value = true;
+    } else {
+      moveMyInformation(workoutId, elite, null);
     }
-
-    moveMyInformation(workoutId, elite, passCode);
   }
 
   /// 내 정보 화면으로 이동.
@@ -153,24 +150,6 @@ class InformationRegistrationController extends BaseController {
 
     return result;
   }
-
-  /// 애플 소셜가입 팝업
-  Future<bool?> applePassDialog() async {
-    return await Get.dialog<bool>(
-      BaseDialog(
-        text: StringRes.appleNeedPass.tr,
-        yesText: StringRes.confirm.tr,
-        onPressedYes: () {
-          return Get.back(result: true);
-        },
-        noText: "",
-        onPressedNo: () {
-          return Get.back(result: false);
-        },
-      ),
-    );
-  }
-
   /// 애플 패스 인증.
   Future<String?> applePassProcess() async {
     final termArgs = TermArgs(
@@ -179,5 +158,29 @@ class InformationRegistrationController extends BaseController {
     );
 
     return await Get.toNamed(RouteType.TERM, arguments: termArgs);
+  }
+
+  /// 애플 소셜 가입 팝업 - 확인 클릭.
+  void onPressedAppleSnsPopupYes() async {
+    isVisibilityAppleSnsPopup.value = false;
+
+    final workoutId = sports.value?.id;
+    final elite = isElite.value;
+
+    if (workoutId == null || elite == null) {
+      return;
+    }
+
+    final passCode = await Get.toNamed(RouteType.PASS) as String?;
+
+    if (passCode == null) {
+      return;
+    }
+    moveMyInformation(workoutId, elite, passCode);
+  }
+
+  /// 애플 소셜 가입 팝업 - 닫기 클릭.
+  void onPressedAppleSnsPopupClose() {
+    isVisibilityAppleSnsPopup.value = false;
   }
 }
