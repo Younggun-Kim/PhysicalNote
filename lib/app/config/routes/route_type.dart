@@ -6,7 +6,6 @@ abstract class RouteType {
   static const TEST = '/test';
   static const SPLASH = '/splash';
   static const MAIN = '/main';
-  static const DIALOG_PAGE = '/dialog_page';
   static const LOCALIZATION = "/localization";
   static const LOGIN = "/login";
   static const FIND_ID = "/find_id";

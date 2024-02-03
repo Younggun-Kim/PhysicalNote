@@ -7,7 +7,6 @@ import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/base_dialog.dart';
-import 'package:physical_note/app/ui/page/dialog_page/dialog_page_args.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item_ui_state.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -106,24 +105,6 @@ class InformationRegistrationController extends BaseController {
     final passVerify = await _loadUser();
     String? passCode;
     if (passVerify == false) {
-      
-      final isAgree = await Get.toNamed(
-        RouteType.DIALOG_PAGE,
-        arguments: DialogPageArgs(
-          text: StringRes.appleNeedPass.tr,
-          yesText: StringRes.confirm.tr,
-          onPressedYes: () => true,
-          noText: "",
-          onPressedNo: () => false,
-        ),
-      );
-
-      logger.i(isAgree);
-
-      if (isAgree is! bool || !isAgree) {
-        return;
-      }
-
       passCode = await Get.toNamed(RouteType.PASS) as String?;
 
       if (passCode == null) {
