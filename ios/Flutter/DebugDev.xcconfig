@@ -1,2 +1,3 @@
 #include "Debug.xcconfig"
 #include "Dev.xcconfig"
+APP_NAME = 피지컬노트-DebugDev

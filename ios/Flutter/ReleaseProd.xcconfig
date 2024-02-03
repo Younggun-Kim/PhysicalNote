@@ -1,2 +1,3 @@
 #include "Release.xcconfig"
 #include "Prod.xcconfig"
+APP_NAME = 피지컬노트-ReleaseProd
