@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/change_password/change_password.dart';
+import 'package:physical_note/app/ui/page/dialog_page/dialog_page.dart';
 import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart';
 import 'package:physical_note/app/ui/page/information_registration/information_registration.dart';
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide.dart';
@@ -38,6 +39,11 @@ class Routes {
       name: RouteType.MAIN,
       page: () => const MainScreenPage(),
       binding: MainScreenBindings(),
+    ),
+    GetPage(
+      name: RouteType.DIALOG_PAGE,
+      page: () => const DialogPagePage(),
+      binding: DialogPageBindings(),
     ),
     GetPage(
       name: RouteType.LOCALIZATION,
