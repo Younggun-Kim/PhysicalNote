@@ -16,6 +16,7 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/data_ui_mapper.dart';
@@ -260,8 +261,8 @@ class DataController extends BaseController {
       setWellness(response);
     } else {
       wellnessId.value = null;
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
       setWellness(null); // 값 초기화
     }
@@ -279,8 +280,8 @@ class DataController extends BaseController {
       showToast("웰리니스 저장 성공.");
     } else {
       wellnessId.value = null;
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
     await Future.delayed(const Duration(seconds: 1));
@@ -304,8 +305,8 @@ class DataController extends BaseController {
       showToast("웰리니스 수정 성공.");
     } else {
       wellnessId.value = null;
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
     await Future.delayed(const Duration(seconds: 1));
@@ -394,8 +395,8 @@ class DataController extends BaseController {
     if (response is GetIntensityListResponseModel) {
       setIntensity(response);
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
       setIntensity(null); // 값 초기화
     }
@@ -457,8 +458,8 @@ class DataController extends BaseController {
     if (response is PostIntensityResponseModel) {
       showToast("운동 강도 저장 성공.");
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
     await Future.delayed(const Duration(seconds: 1));
@@ -475,8 +476,8 @@ class DataController extends BaseController {
     if (response is PostIntensityResponseModel) {
       showToast("운동 강도 저장 성공.");
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
     await Future.delayed(const Duration(seconds: 1));
@@ -511,8 +512,8 @@ class DataController extends BaseController {
     if (response is GetInjuryResponseModel) {
       setInjury(response);
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
       setInjury(null); // 값 초기화
     }

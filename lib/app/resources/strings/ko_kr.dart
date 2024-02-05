@@ -3,6 +3,7 @@ part of 'translations.dart';
 /// 한국어.
 final koKr = {
   StringRes.appName: "Physical Note",
+  StringRes.serverError: '서버 에러',
   StringRes.bottomTabData: "데이터",
   StringRes.bottomTabHome: "홈",
   StringRes.bottomTabFeedback: "피드백",

@@ -2,6 +2,7 @@ part of 'translations.dart';
 
 final enUs = {
   StringRes.appName: "Physical Note",
+  StringRes.serverError: '서버 에러',
   StringRes.bottomTabData: "데이터",
   StringRes.bottomTabHome: "홈",
   StringRes.bottomTabFeedback: "피드백",

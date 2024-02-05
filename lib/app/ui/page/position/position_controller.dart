@@ -4,6 +4,7 @@ import 'package:physical_note/app/data/network/model/base_list_model/paginate_mo
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/workout/model/get_workout_position_detail_response_model.dart';
 import 'package:physical_note/app/data/workout/workout_api.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
@@ -83,8 +84,8 @@ class PositionController extends BaseController {
       toUiStates =
           response.content.map((e) => _positionListItemUiStateFrom(e)).toList();
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 

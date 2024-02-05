@@ -3,6 +3,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/data/network/model/base_list_model/paginate_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/teams/teams_api.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/search_teams/search_teams_list_ui_mapper.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
@@ -42,7 +43,8 @@ class SearchTeamsController extends BaseController {
   Future<LoadPage<int, SearchTeamsListItemUiState>> _loadPage(
       int pageKey) async {
     final teamsApi = Get.find<TeamsAPI>();
-    final response = await teamsApi.getTeams(page: pageKey, keyword: keyword.value);
+    final response =
+        await teamsApi.getTeams(page: pageKey, keyword: keyword.value);
 
     var isLastPage = true;
     var toUiStates = <SearchTeamsListItemUiState>[];
@@ -53,8 +55,8 @@ class SearchTeamsController extends BaseController {
           .map((e) => searchTeamsListItemUiStateFrom(e))
           .toList();
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 

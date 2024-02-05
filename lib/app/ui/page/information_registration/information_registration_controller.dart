@@ -140,8 +140,8 @@ class InformationRegistrationController extends BaseController {
         result = false;
       }
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 
@@ -150,6 +150,7 @@ class InformationRegistrationController extends BaseController {
 
     return result;
   }
+
   /// 애플 패스 인증.
   Future<String?> applePassProcess() async {
     final termArgs = TermArgs(

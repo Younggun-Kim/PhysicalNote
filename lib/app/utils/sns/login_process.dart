@@ -10,6 +10,7 @@ import 'package:physical_note/app/data/login/model/post_login_sign_in_response_m
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide_args.dart';
 
 import '../../data/user/user_storage.dart';
@@ -95,8 +96,8 @@ class LoginProcess {
         return true;
       }
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 
@@ -111,8 +112,8 @@ class LoginProcess {
       _saveUserInfo(response.token, null);
       return true;
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       logger.e(message);
     }
 
@@ -143,8 +144,8 @@ class LoginProcess {
         return LoginMoveType.home;
       }
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
     return null;
@@ -166,8 +167,8 @@ class LoginProcess {
         return true;
       }
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
     return false;

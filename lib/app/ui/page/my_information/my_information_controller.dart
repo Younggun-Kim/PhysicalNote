@@ -165,8 +165,8 @@ class MyInformationController extends BaseController {
     if (response is GetUserResponseModel) {
       setScreenData(response);
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 
@@ -196,8 +196,8 @@ class MyInformationController extends BaseController {
       gender.value = GenderType.from(response.passInfo?.gender).toString();
       name.value = response.passInfo?.utf8_name ?? "";
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 
@@ -238,8 +238,8 @@ class MyInformationController extends BaseController {
         Get.offAllNamed(RouteType.TEAM_REQUEST);
       }
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 
@@ -258,8 +258,8 @@ class MyInformationController extends BaseController {
     if (response is PostUploadResponseModel) {
       return response.url?.first;
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 

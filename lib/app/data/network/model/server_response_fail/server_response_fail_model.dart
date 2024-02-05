@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:physical_note/app/config/env/config.dart';
 
 part 'server_response_fail_model.g.dart';
 
@@ -9,6 +10,8 @@ class ServerResponseFailModel {
   final String? error;
   final String? message;
   final String? devMessage;
+
+  String? get toastMessage => (Config.isProd ? message : devMessage);
 
   ServerResponseFailModel(
     this.status,

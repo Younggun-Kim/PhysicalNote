@@ -197,8 +197,8 @@ class LoginController extends BaseController {
         response: response,
       );
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
       setLoading(false);
       return null;
@@ -297,8 +297,8 @@ class LoginController extends BaseController {
     if (response is PostLoginFindIdResponseModel) {
       result = response.accounts;
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 
@@ -317,8 +317,8 @@ class LoginController extends BaseController {
     if (response is PostLoginFindIdResponseModel) {
       result = response.accounts;
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 

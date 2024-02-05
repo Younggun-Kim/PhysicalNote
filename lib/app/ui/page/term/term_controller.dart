@@ -8,6 +8,7 @@ import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/inline_webview/inline_webview_args.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up_args.dart';
 import 'package:physical_note/app/ui/page/term/term_args.dart';
@@ -105,8 +106,8 @@ class TermController extends LifecycleController {
     if (response is PostPassResponseModel) {
       result = response;
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
       result = null;
     }
@@ -140,8 +141,8 @@ class TermController extends LifecycleController {
     if (response is GetTermResponseModel) {
       resultHtml = response.content;
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 

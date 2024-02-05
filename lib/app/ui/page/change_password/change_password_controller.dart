@@ -70,8 +70,8 @@ class ChangePasswordController extends BaseController {
     if (response is PostChangePasswordResponseModel) {
       result = response.status == true;
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
     setLoading(false);

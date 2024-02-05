@@ -161,8 +161,8 @@ class HomeController extends BaseController {
     if (response is GetHomeResponseModel) {
       setScreenData(response);
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
       setScreenData(null);
     }

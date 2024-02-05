@@ -4,6 +4,7 @@ import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/data/feedback/feedback_api.dart';
 import 'package:physical_note/app/data/feedback/model/get_feedback_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/feedback/items/feedback_schedule_item_ui_state.dart';
@@ -126,8 +127,8 @@ class FeedbackController extends BaseController {
       isLoaded = true;
       setFeedback(response);
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
       setFeedback(null); // 값 초기화
     }

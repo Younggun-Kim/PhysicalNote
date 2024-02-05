@@ -12,6 +12,7 @@ import 'package:physical_note/app/data/injury/model/post_injury_request_model.da
 import 'package:physical_note/app/data/injury/model/post_injury_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
@@ -297,8 +298,8 @@ class InjuryCheckController extends BaseController {
         close(result: true);
       }
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 
@@ -377,8 +378,8 @@ class InjuryCheckController extends BaseController {
     if (response is InjuryResponseModel) {
       setScreen(response);
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 
@@ -400,8 +401,8 @@ class InjuryCheckController extends BaseController {
     if (response is DeleteInjuryResponseModel && response.deleted == true) {
       close(result: true);
     } else {
-      final message =
-          (response as ServerResponseFailModel?)?.devMessage ?? "서버 에러";
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
       showToast(message);
     }
 
