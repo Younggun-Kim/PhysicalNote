@@ -95,5 +95,7 @@
 	<string>$(PRODUCT_NAME)</string>
 	<key>naverServiceAppUrlScheme</key>
 	<string>naverlogin</string>
+	<key>FirebaseMessagingAutoInitEnabled</key>
+	<false/>
 </dict>
 </plist>

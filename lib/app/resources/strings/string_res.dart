@@ -13,7 +13,9 @@ class StringRes {
   static final bottomTabData = _generateId();
   static final bottomTabHome = _generateId();
   static final bottomTabFeedback = _generateId();
-
+  static final notification = _generateId();
+  static final message = _generateId();
+  static final messageChannelDescription = _generateId();
   static final email = _generateId();
   static final emailHint = _generateId();
   static final emailError = _generateId();
@@ -194,7 +196,6 @@ class StringRes {
   static final pushSelect = _generateId();
   static final teamRequest = _generateId();
   static final appleNeedPass = _generateId();
-
 
   /// DateTime 영역
   static final hourParams = _generateId();

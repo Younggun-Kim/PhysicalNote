@@ -1,20 +1,20 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 
+import '../notifications/notification_detail.dart';
+import '../notifications/notification_manager.dart';
+
 /// 포그라운드 메시지 처리.
 void _onMessage(RemoteMessage message) {
-  logger.d("_handleForegroundMessage");
-  // Get.find<NotificationManager>().show(
-  //   id: message.hashCode,
-  //   title: message.notification?.title ?? "",
-  //   body: message.notification?.body ?? "",
-  //   details: NotificationDetail.message,
-  //   payload: json.encode(message.toLinkData()),
-  // );
+  logger.d("_onMessage: ${message.notification?.body.toString()}");
+  Get.find<NotificationManager>().show(
+    id: message.hashCode,
+    title: message.notification?.title ?? "",
+    body: message.notification?.body ?? "",
+    details: NotificationDetail.message,
+    // payload: json.encode(),
+  );
 }
 
 /// 백그라운드 메시지 처리.
@@ -36,7 +36,18 @@ class FcmInitializer {
   static void init() async {
     final token = await FirebaseMessaging.instance.getToken();
 
-    log("fcm-token: $token");
+    print("fcm-token: $token");
+
+    // IOS background 권한 체킹 , 요청
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
 
     FirebaseMessaging.onMessage.listen(_onMessage);
     FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenedApp);

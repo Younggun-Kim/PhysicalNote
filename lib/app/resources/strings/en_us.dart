@@ -3,6 +3,9 @@ part of 'translations.dart';
 final enUs = {
   StringRes.appName: "Physical Note",
   StringRes.serverError: '서버 에러',
+  StringRes.notification: "알림",
+  StringRes.message: "메시지",
+  StringRes.messageChannelDescription: "메시지 알림",
   StringRes.bottomTabData: "데이터",
   StringRes.bottomTabHome: "홈",
   StringRes.bottomTabFeedback: "피드백",
