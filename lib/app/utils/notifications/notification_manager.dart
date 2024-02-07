@@ -17,7 +17,7 @@ class NotificationManager extends GetxService {
     );
 
     const initializationSettingsAndroid =
-        AndroidInitializationSettings('ic_notifications');
+        AndroidInitializationSettings('ic_notification');
 
     const initializationSettings = InitializationSettings(
       iOS: initializationSettingsIOS,

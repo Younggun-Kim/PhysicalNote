@@ -71,9 +71,14 @@
             android:value="2" />
 
         <!-- FCM -->
+        <!-- FCM - 채널명 -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="high_importance_channel" />
+            android:value="message" />
+        <!-- FCM - smallSizeIcon -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
 
 
         <!-- 네이버 로그인 -->
