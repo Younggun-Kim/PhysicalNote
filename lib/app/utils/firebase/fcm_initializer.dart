@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,8 @@ class FcmInitializer {
   /// 초기화.
   static void init() async {
     final token = await FirebaseMessaging.instance.getToken();
-    logger.d("fcm-token: $token");
+
+    log("fcm-token: $token");
 
     FirebaseMessaging.onMessage.listen(_onMessage);
     FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenedApp);

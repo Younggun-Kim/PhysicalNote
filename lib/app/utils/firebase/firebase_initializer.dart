@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:physical_note/app/utils/firebase/fcm_initializer.dart';
+import 'package:physical_note/firebase_options.dart';
 
 class FirebaseInitializer {
   FirebaseInitializer._();
 
   static Future<void> init() async {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     initCrashlytics();
     initPerformance();
     intiPushMessing();
