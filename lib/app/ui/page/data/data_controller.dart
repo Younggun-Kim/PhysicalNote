@@ -434,6 +434,7 @@ class DataController extends BaseController {
     final intensityId = type == WorkoutType.sports
         ? intensitySportsUiState.value.id
         : intensityPhysicalUiState.value.id;
+
     final requestData = PostIntensityRequestModel(
       intensityLevel: level,
       workoutTime: time,

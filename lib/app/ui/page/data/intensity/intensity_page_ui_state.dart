@@ -9,7 +9,7 @@ class IntensityPageUiState {
   WorkoutType type;
 
   /// 선택 완료 여부.
-  bool get isEnabled => level != null;
+  bool get isEnabled => _isEnabled();
 
   /// 시간 문자열.
   String get hourString => hour < 10 ? '0$hour' : hour.toString();
@@ -27,4 +27,21 @@ class IntensityPageUiState {
     this.minute = 0,
     required this.type,
   });
+
+
+  /// enabled 여부.
+  bool _isEnabled() {
+    return (level != null) && _hasTimeSelected();
+  }
+
+  /// 시간 선택 여부 판단.
+  bool _hasTimeSelected() {
+    if(hour > 0) {
+      return true;
+    } else if(minute >= 30) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
