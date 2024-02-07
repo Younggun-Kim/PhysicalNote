@@ -154,6 +154,7 @@ class HomeController extends BaseController {
 
   /// 홈 로딩.
   Future loadHome() async {
+    setLoading(true);
     final homeApi = Get.find<HomeAPI>();
     final recordDate = myStateDate.value.toFormattedString("yyyy-MM-dd");
     final response = await homeApi.getHome(recordDate);
@@ -166,6 +167,8 @@ class HomeController extends BaseController {
       showToast(message);
       setScreenData(null);
     }
+
+    setLoading(false);
   }
 
   /// 나의상태 - 달력 클릭.
