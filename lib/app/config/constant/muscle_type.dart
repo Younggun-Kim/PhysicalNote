@@ -264,6 +264,7 @@ enum MuscleType {
       sartorius,
       adductorMagnus,
       soleus,
+      bicepsFemoris,
     ];
   }
 

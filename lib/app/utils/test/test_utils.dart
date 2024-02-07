@@ -9,7 +9,11 @@ import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 class TestUtils {
   static const imageUrl = "https://picsum.photos/200/300";
 
+  /// 사람 근육 앞 모습
   static get humanFrontList => _humanFrontList();
+
+  /// 사람 근육 뒷 모습
+  static get humanBackList => _humanBackList();
 
   /// 사람 앞모습 부상 목록.
   static List<HomeInjuryCheckItemUiState> _humanFrontList() {
@@ -41,6 +45,48 @@ class TestUtils {
 
     final frontRightLegInjuryList = _muscleToInjury(
       MuscleType.getFrontLegMuscles(),
+      direction,
+      InjuryCheckBodyPartsType.rightLeg,
+    );
+
+    return [
+      ...frontBodyInjuryList,
+      ...frontLeftArmInjuryList,
+      ...frontRightArmInjuryList,
+      ...frontLeftLegInjuryList,
+      ...frontRightLegInjuryList,
+    ];
+  }
+
+  static List<HomeInjuryCheckItemUiState> _humanBackList() {
+    const direction = InjuryCheckDirectionType.back;
+
+    final frontBodyInjuryList = _muscleToInjury(
+      MuscleType.getBackBodyMuscles(),
+      direction,
+      InjuryCheckBodyPartsType.body,
+    );
+
+    final frontLeftArmInjuryList = _muscleToInjury(
+      MuscleType.getBackArmMuscles(),
+      direction,
+      InjuryCheckBodyPartsType.leftArm,
+    );
+
+    final frontRightArmInjuryList = _muscleToInjury(
+      MuscleType.getBackArmMuscles(),
+      direction,
+      InjuryCheckBodyPartsType.rightArm,
+    );
+
+    final frontLeftLegInjuryList = _muscleToInjury(
+      MuscleType.getBackLegMuscles(),
+      direction,
+      InjuryCheckBodyPartsType.leftLeg,
+    );
+
+    final frontRightLegInjuryList = _muscleToInjury(
+      MuscleType.getBackLegMuscles(),
       direction,
       InjuryCheckBodyPartsType.rightLeg,
     );
