@@ -6,3 +6,6 @@ keytool -exportcert -alias key -keystore ./android/app/keystore/key.jks | openss
 
 ## Debug Key
 keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
+
+## SHA1 확인 방법
+cd android && ./gradlew signingReport
