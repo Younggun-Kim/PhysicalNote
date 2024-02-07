@@ -1,0 +1,124 @@
+{
+  "project_info": {
+    "project_number": "304934157647",
+    "project_id": "physicalnote-77739",
+    "storage_bucket": "physicalnote-77739.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304934157647:android:3eecf6f9ddaef7b78f993a",
+        "android_client_info": {
+          "package_name": "com.physical_note"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkYKD__gA4q5zIxQYXcTwgX6cy8gTmA0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304934157647:android:184b397441aa5b668f993a",
+        "android_client_info": {
+          "package_name": "com.physical_note.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkYKD__gA4q5zIxQYXcTwgX6cy8gTmA0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304934157647:android:ea2183f789d6aa7f8f993a",
+        "android_client_info": {
+          "package_name": "com.physical_note.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkYKD__gA4q5zIxQYXcTwgX6cy8gTmA0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304934157647:android:60c58fd709bba61d8f993a",
+        "android_client_info": {
+          "package_name": "com.physical_note.dev.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkYKD__gA4q5zIxQYXcTwgX6cy8gTmA0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304934157647:android:12e0f87dc9cc9da88f993a",
+        "android_client_info": {
+          "package_name": "com.physical_note.dev.profile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkYKD__gA4q5zIxQYXcTwgX6cy8gTmA0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304934157647:android:5ff66159862571e18f993a",
+        "android_client_info": {
+          "package_name": "com.physical_note.profile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkYKD__gA4q5zIxQYXcTwgX6cy8gTmA0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
