@@ -1,5 +1,6 @@
 
 import 'package:physical_note/app/config/initializer/util_initializer.dart';
+import 'package:physical_note/app/utils/firebase/firebase_initializer.dart';
 
 import 'storage_initializer.dart';
 
@@ -11,7 +12,7 @@ class AppInitializer {
     await StorageInitializer.init();
     // await NetworkInitializer.init();
     await UtilInitializer.init();
-    // await FirebaseInitializer.init();
+    await FirebaseInitializer.init();
     // await ApiInitializer.init();
     // await CacheInitializer.init();
     // await BluetoothInitializer.init();

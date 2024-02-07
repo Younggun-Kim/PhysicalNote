@@ -1,3 +1,4 @@
 #include "Profile.xcconfig"
+#include "Pods/Target Support Files/Pods-Runner/Pods-Runner.profileprod.xcconfig"
 #include "Prod.xcconfig"
 APP_NAME = 피지컬노트-ProfileProd

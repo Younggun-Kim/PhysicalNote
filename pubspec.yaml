@@ -70,6 +70,8 @@ dependencies:
   kakao_flutter_sdk_user: ^1.8.0
   sign_in_with_apple: ^5.0.0
   dotted_border: ^2.1.0
+  firebase_core: ^2.25.4
+  firebase_messaging: ^14.7.15
 
 dev_dependencies:
   flutter_test:

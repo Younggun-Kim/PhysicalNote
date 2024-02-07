@@ -70,6 +70,11 @@
 	<string>$(PRODUCT_NAME) photos description.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -78,6 +83,8 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>flavor</key>
+	<string>$(FLAVOR)</string>
 	<key>io.flutter.embedded_views_preview</key>
 	<string>YES</string>
 	<key>naverConsumerKey</key>
@@ -88,7 +95,5 @@
 	<string>$(PRODUCT_NAME)</string>
 	<key>naverServiceAppUrlScheme</key>
 	<string>naverlogin</string>
-	<key>flavor</key>
-	<string>$(FLAVOR)</string>
 </dict>
 </plist>
