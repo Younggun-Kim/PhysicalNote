@@ -33,11 +33,11 @@ enum UserSnsType {
       case idPw:
         return Assets.imgEmail;
       case naver:
-        return Assets.imgNaver;
+        return Assets.naver;
       case kakao:
-        return Assets.imgKakao;
+        return Assets.kakaotalk;
       case apple:
-        return Assets.imgApple;
+        return Assets.apple;
     }
   }
 

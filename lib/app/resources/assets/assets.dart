@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String apple = 'assets/images/apple.svg';
   static const String backgroundBottom = 'assets/images/background_bottom.svg';
   static const String backgroundTop = 'assets/images/background_top.svg';
   static const String build = 'android/build.gradle';
@@ -23,10 +24,8 @@ class Assets {
   static const String humanFront = 'assets/images/human_front.svg';
   static const String icChevronright = 'assets/images/ic_chevronright.svg';
   static const String icNotification = 'assets/images/ic_notification.svg';
-  static const String imgApple = 'assets/images/img_apple.svg';
   static const String imgEmail = 'assets/images/img_email.png';
-  static const String imgKakao = 'assets/images/img_kakao.png';
-  static const String imgNaver = 'assets/images/img_naver.png';
+  static const String kakaotalk = 'assets/images/kakaotalk.svg';
   static const String logo = 'assets/images/logo.svg';
   static const String muscleBackBody = 'assets/images/muscle_back_body.svg';
   static const String muscleBackLeftArm = 'assets/images/muscle_back_left_arm.svg';
@@ -39,6 +38,7 @@ class Assets {
   static const String muscleFrontLeftLeg = 'assets/images/muscle_front_left_leg.svg';
   static const String muscleFrontRightArm = 'assets/images/muscle_front_right_arm.svg';
   static const String muscleFrontRightLeg = 'assets/images/muscle_front_right_leg.svg';
+  static const String naver = 'assets/images/naver.svg';
   static const String navigationData = 'assets/images/navigation_data.svg';
   static const String navigationDataSelect = 'assets/images/navigation_data_select.svg';
   static const String navigationFeedback = 'assets/images/navigation_feedback.svg';
