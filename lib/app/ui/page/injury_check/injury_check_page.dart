@@ -120,7 +120,7 @@ class _Date extends GetView<InjuryCheckController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            controller.args.date.toFormattedString("yyyy년 MM월 dd일"),
+            controller.args.date.toFormattedString("yy년 M월 d일"),
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,
