@@ -967,7 +967,7 @@ class _StatisticsChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.fromLTRB(0, 16, 24, 16),
+        padding: const EdgeInsets.fromLTRB(0, 24, 24, 16),
         decoration: BoxDecoration(
           border: Border.all(color: ColorRes.borderDeselect),
           borderRadius: BorderRadius.circular(24),
@@ -1072,7 +1072,7 @@ class _StatisticsChart extends StatelessWidget {
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 10,
+      space: 7,
       child: Text(weekday, style: style),
     );
   }
