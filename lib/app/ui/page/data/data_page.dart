@@ -52,53 +52,10 @@ class DataPage extends GetView<DataController> {
             () => PageView(
               controller: controller.pageController.value,
               physics: const NeverScrollableScrollPhysics(),
-              children: [
-                SizedBox.expand(
-                  child: Obx(
-                    () => WellnessPage(
-                      hooperIndexUiState:
-                          controller.wellnessHooperIndexUiState.value,
-                      onChangeHooperIndex: controller.onChangeHooperIndex,
-                      table: controller.wellnessUrineTable.value,
-                      onChangedUrine: controller.onChangedUrine,
-                      weightController:
-                          controller.wellnessUrineWeight.controller,
-                      bmiController: controller.wellnessUrineBmi.controller,
-                      onPressedWellnessSave: () {
-                        controller.onPressedWellnessSave();
-                      },
-                      isWellnessLoaded: controller.wellnessId.value != null,
-                    ),
-                  ),
-                ),
-                SizedBox.expand(
-                  child: Obx(
-                    () => IntensityPage(
-                      hourController: controller.intensityHourController,
-                      minuteController: controller.intensityMinuteController,
-                      workoutType: controller.intensityWorkoutType.value,
-                      sportsUiState: controller.intensitySportsUiState.value,
-                      physicalUiState:
-                          controller.intensityPhysicalUiState.value,
-                      onSelectedHourChanged: controller.onSelectedHourChanged,
-                      onSelectedMinChanged: controller.onSelectedMinChanged,
-                      onPressedWorkout: controller.onPressedWorkout,
-                      onPressedLevel: controller.onPressedLevel,
-                      onPressedSave: controller.onPressedSaveButton,
-                    ),
-                  ),
-                ),
-                SizedBox.expand(
-                  child: Obx(
-                    () => InjuryPage(
-                      uiStates: controller.injuryList.toList(),
-                      humanFrontImage: controller.humanFrontImage.value,
-                      humanBackImage: controller.humanBackImage.value,
-                      onPressedAdd: controller.onPressedAdd,
-                      onPressedEdit: controller.onPressedEdit,
-                    ),
-                  ),
-                ),
+              children: const [
+                SizedBox.expand(child: WellnessPage()),
+                SizedBox.expand(child: IntensityPage()),
+                SizedBox.expand(child: InjuryPage()),
               ],
             ),
           ),

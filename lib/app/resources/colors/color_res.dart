@@ -53,6 +53,9 @@ class ColorRes {
   /// disabl.
   static const fontDisable = disable;
 
+  /// 0xff636363
+  static const fontGray = Color(0xff636363);
+
   /// 0xff6e4ca0.
   static const wellness1 = Color(0xff6e4ca0);
 

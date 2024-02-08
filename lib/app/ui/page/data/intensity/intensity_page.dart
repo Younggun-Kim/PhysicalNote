@@ -3,51 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
+import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
 import 'intensity_table.dart';
 
-class IntensityPage extends StatelessWidget {
-  final FixedExtentScrollController hourController;
-
-  final FixedExtentScrollController minuteController;
-
-  final WorkoutType? workoutType;
-
-  final IntensityPageUiState sportsUiState;
-
-  final IntensityPageUiState physicalUiState;
-
-  final Function(int) onSelectedHourChanged;
-
-  final Function(int) onSelectedMinChanged;
-
-  final Function(WorkoutType) onPressedWorkout;
-
-  final Function(int) onPressedLevel;
-
-  final VoidCallback onPressedSave;
+class IntensityPage extends GetView<DataController> {
 
   const IntensityPage({
     super.key,
-    required this.hourController,
-    required this.minuteController,
-    required this.workoutType,
-    required this.sportsUiState,
-    required this.physicalUiState,
-    required this.onSelectedHourChanged,
-    required this.onSelectedMinChanged,
-    required this.onPressedWorkout,
-    required this.onPressedLevel,
-    required this.onPressedSave,
   });
-
-  IntensityPageUiState? get uiState => workoutType == null
-      ? null
-      : workoutType == WorkoutType.sports
-          ? sportsUiState
-          : physicalUiState;
 
   @override
   Widget build(BuildContext context) => FlexibleScrollView(
@@ -65,10 +30,10 @@ class IntensityPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             TimePicker(
-              hourController: hourController,
-              minuteController: minuteController,
-              onSelectedHourChanged: onSelectedHourChanged,
-              onSelectedMinChanged: onSelectedMinChanged,
+              hourController: controller.intensityHourController,
+              minuteController: controller.intensityMinuteController,
+              onSelectedHourChanged: controller.onSelectedHourChanged,
+              onSelectedMinChanged: controller.onSelectedMinChanged,
             ),
             const SizedBox(height: 30),
             Text(
@@ -80,23 +45,23 @@ class IntensityPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            Row(
+            Obx(() => Row(
               children: [
                 _WorkoutButton(
                     text: StringRes.sportsTraining.tr,
-                    isSelected: workoutType == WorkoutType.sports,
+                    isSelected: controller.intensityWorkoutType.value == WorkoutType.sports,
                     onPressed: () {
-                      onPressedWorkout(WorkoutType.sports);
+                      controller.onPressedWorkout(WorkoutType.sports);
                     }),
                 const SizedBox(width: 8),
                 _WorkoutButton(
                     text: StringRes.physicalTraining.tr,
-                    isSelected: workoutType == WorkoutType.physical,
+                    isSelected: controller.intensityWorkoutType.value == WorkoutType.physical,
                     onPressed: () {
-                      onPressedWorkout(WorkoutType.physical);
+                      controller.onPressedWorkout(WorkoutType.physical);
                     }),
               ],
-            ),
+            ),),
             const SizedBox(height: 45),
             Text(
               StringRes.workoutIntensityKorEng.tr,
@@ -107,17 +72,31 @@ class IntensityPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            IntensityTable(
-              level: uiState?.level ?? 0,
-              onPressed: onPressedLevel,
-            ),
-            const SizedBox(height: 30),
-            RoundButton(
-              width: double.infinity,
-              isEnabled: uiState?.isEnabled ?? false,
-              text: StringRes.save.tr,
-              onPressed: onPressedSave,
-            ),
+            Obx(() {
+              final workoutType = controller.intensityWorkoutType.value;
+              final uiState = workoutType == null
+                  ? null
+                  : workoutType == WorkoutType.sports
+                      ? controller.intensitySportsUiState.value
+                      : controller.intensityPhysicalUiState.value;
+
+              return Column(
+                children: [
+
+                  IntensityTable(
+                    level: uiState?.level ?? 0,
+                    onPressed: controller.onPressedLevel,
+                  ),
+                  const SizedBox(height: 30),
+                  RoundButton(
+                    width: double.infinity,
+                    isEnabled: uiState?.isEnabled ?? false,
+                    text: StringRes.save.tr,
+                    onPressed: controller.onPressedSaveButton,
+                  ),
+                ],
+              );
+            }),
           ],
         ),
       );

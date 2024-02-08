@@ -2,46 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/widgets/text_field/bottom_border_text_field.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
 import 'data_wellness_hooper_index_ui_state.dart';
 
-class WellnessPage extends StatelessWidget {
-  /// 후퍼 인덱스 Ui State.
-  final DataWellnessHooperIndexUiState hooperIndexUiState;
-
-  /// 후퍼인덱스 슬라이드 변경 이벤트.
-  final Function(HooperIndexType type, double value) onChangeHooperIndex;
-
-  /// 소변검사표.
-  final double table;
-
-  /// 체중.
-  final TextEditingController weightController;
-
-  /// bmi.
-  final TextEditingController bmiController;
-
-  /// 소변검사 - 소변검사표 변경 이벤트.
-  final Function(double) onChangedUrine;
-
-  /// 저장하기 클릭.
-  final VoidCallback onPressedWellnessSave;
-
-  /// 웰리니스 저장 여부.
-  final bool isWellnessLoaded;
-
+class WellnessPage extends GetView<DataController> {
   const WellnessPage({
     super.key,
-    required this.hooperIndexUiState,
-    required this.onChangeHooperIndex,
-    required this.table,
-    required this.onChangedUrine,
-    required this.weightController,
-    required this.bmiController,
-    required this.onPressedWellnessSave,
-    required this.isWellnessLoaded,
   });
 
   @override
@@ -62,9 +31,9 @@ class WellnessPage extends StatelessWidget {
             Text(
               StringRes.wellnessDescription.tr,
               style: const TextStyle(
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: FontWeight.w400,
-                color: ColorRes.fontDisable,
+                color: ColorRes.fontGray,
               ),
             ),
             const SizedBox(height: 30),
@@ -73,9 +42,11 @@ class WellnessPage extends StatelessWidget {
               isSubTitle: false,
             ),
             const SizedBox(height: 15),
-            _HooperIndex(
-              uiState: hooperIndexUiState,
-              onChangeHooperIndex: onChangeHooperIndex,
+            Obx(
+              () => _HooperIndex(
+                uiState: controller.wellnessHooperIndexUiState.value,
+                onChangeHooperIndex: controller.onChangeHooperIndex,
+              ),
             ),
             const SizedBox(height: 24),
             _FieldName(
@@ -83,20 +54,22 @@ class WellnessPage extends StatelessWidget {
               isSubTitle: false,
             ),
             const SizedBox(height: 15),
-            _Urine(
-              table: table,
-              onChangedUrine: onChangedUrine,
-              weightController: weightController,
-              bmiController: bmiController,
+            Obx(
+              () => _Urine(
+                table: controller.wellnessUrineTable.value,
+                onChangedUrine: controller.onChangedUrine,
+                weightController: controller.wellnessUrineWeight.controller,
+                bmiController: controller.wellnessUrineBmi.controller,
+              ),
             ),
             const SizedBox(height: 24),
-            RoundButton(
-              width: double.infinity,
-              text: isWellnessLoaded
-                  ? StringRes.doUpdate.tr
-                  : StringRes.doSave.tr,
-              onPressed: onPressedWellnessSave,
-            ),
+            Obx(() => RoundButton(
+                  width: double.infinity,
+                  text: controller.wellnessId.value != null
+                      ? StringRes.doUpdate.tr
+                      : StringRes.doSave.tr,
+                  onPressed: controller.onPressedWellnessSave,
+                )),
           ],
         ),
       );

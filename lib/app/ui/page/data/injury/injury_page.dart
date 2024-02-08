@@ -2,33 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item.dart';
-import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
-class InjuryPage extends StatelessWidget {
-  /// 부상 목록.
-  final List<HomeInjuryCheckItemUiState> uiStates;
-
-  /// 사람 앞 모습.
-  final String humanFrontImage;
-
-  /// 사람 뒷 모습.
-  final String humanBackImage;
-
-  /// 추가 버튼 클릭.
-  final VoidCallback onPressedAdd;
-
-  /// 편집 버튼 클릭.
-  final Function(HomeInjuryCheckItemUiState uiState) onPressedEdit;
-
+class InjuryPage extends GetView<DataController> {
   const InjuryPage({
     super.key,
-    required this.uiStates,
-    required this.humanFrontImage,
-    required this.humanBackImage,
-    required this.onPressedAdd,
-    required this.onPressedEdit,
   });
 
   @override
@@ -53,7 +33,7 @@ class InjuryPage extends StatelessWidget {
                   text: StringRes.add.tr,
                   height: 28,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  onPressed: onPressedAdd,
+                  onPressed: controller.onPressedAdd,
                 ),
               ],
             ),
@@ -70,30 +50,34 @@ class InjuryPage extends StatelessWidget {
                 Expanded(
                   child: AspectRatio(
                     aspectRatio: 528 / 1205,
-                    child: SvgPicture.string(humanFrontImage),
+                    child: Obx(() => SvgPicture.string(controller.humanFrontImage.value)),
                   ),
                 ),
                 Expanded(
                   child: AspectRatio(
                     aspectRatio: 528 / 1205,
-                    child: SvgPicture.string(humanBackImage),
+                    child: Obx(() => SvgPicture.string(controller.humanBackImage.value)),
                   ),
                 ),
               ],
             ),
-            if (uiStates.isEmpty)
-              const SizedBox()
-            else
-              Column(
-                children: List<Widget>.generate(uiStates.length, (index) {
-                  return HomeInjuryCheckItem(
-                      uiState: uiStates[index],
-                      isShowBorder: true,
-                      onPressedEdit: () {
-                        onPressedEdit(uiStates[index]);
-                      });
-                }).toList(),
-              ),
+            Obx(() {
+              final uiStates = controller.injuryList.toList();
+              if (uiStates.isEmpty) {
+                return const SizedBox();
+              } else {
+                return Column(
+                  children: List<Widget>.generate(uiStates.length, (index) {
+                    return HomeInjuryCheckItem(
+                        uiState: uiStates[index],
+                        isShowBorder: true,
+                        onPressedEdit: () {
+                          controller.onPressedEdit(uiStates[index]);
+                        });
+                  }).toList(),
+                );
+              }
+            }),
           ],
         ),
       );
