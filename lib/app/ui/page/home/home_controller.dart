@@ -46,6 +46,9 @@ class HomeController extends BaseController {
   /// 나의 상태 날짜.
   var myStateDate = DateTime.now().obs;
 
+  /// 나의 상태 첫번째 페이지 여부.
+  var myStatePageFirst = true.obs;
+
   /// 나의 상태 페이지 스크롤 컨트롤러.
   var myStatePageController = PageController(initialPage: 0).obs;
 
@@ -143,13 +146,8 @@ class HomeController extends BaseController {
 
   /// 홈 다음 버튼 클릭.
   void onPressedNextButton() {
-    if (myStatePageController.value.page == 0) {
-      myStatePageController.value.jumpToPage(1);
-      myStatePageButtonName.value = StringRes.prev.tr;
-    } else {
-      myStatePageController.value.jumpToPage(0);
-      myStatePageButtonName.value = StringRes.next.tr;
-    }
+    final current = myStatePageFirst.value;
+    myStatePageFirst.value = !current;
   }
 
   /// 홈 로딩.

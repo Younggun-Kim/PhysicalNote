@@ -28,127 +28,115 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) => PageRoot(
-        controller: controller,
-        child: NestedScrollView(
-          controller: controller.scrollController,
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                const SizedBox(height: 40),
-                const _UserInformation(),
-                const SizedBox(height: 48),
-                Obx(
-                  () => _MyStateHeader(
-                    date: controller.myStateDate.value,
-                    buttonName: controller.myStatePageButtonName.value,
-                    onPressedNextButton: controller.onPressedNextButton,
-                    onPressedCalendar: controller.onPressedCalendar,
+      controller: controller,
+      child: FlexibleScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 40),
+            const _UserInformation(),
+            const SizedBox(height: 48),
+            const _MyStateHeader(),
+            const SizedBox(height: 10),
+            Obx(() => Expanded(
+              child: Row(
+                children: [
+                  Visibility(
+                    visible: controller.myStatePageFirst.value == true,
+                    child: Expanded(child: _FirstBody()),
                   ),
-                ),
-                const SizedBox(height: 10),
-              ])),
-            ];
-          },
-          body: Obx(
-            () => PageView(
-              controller: controller.myStatePageController.value,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                SizedBox.expand(child: _FirstBody()),
-                SizedBox.expand(child: _SecondBody()),
-              ],
-            ),
-          ),
+                  Visibility(
+                    visible: controller.myStatePageFirst.value == false,
+                    child: Expanded(child: _SecondBody()),
+                  ),
+                ],
+              ),
+            ),),
+          ],
         ),
-      );
+      ));
 }
 
 class _FirstBody extends GetView<HomeController> {
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
-        child: Column(
-          children: [
-            Obx(
-              () => _MyStateContainer(
-                hooperIndexData: controller.hooperIndexData.value,
-                risk: controller.risk.value,
-                riskPercent: controller.riskPercent.value,
-                urineData: controller.urineData.value,
-                workoutIntensityData: controller.workoutIntensityList.value,
-                onPressedHooperIndex: controller.onPressedHooperIndex,
-                onPressedUrine: controller.onPressedUrine,
-                onPressedRisk: controller.onPressedRisk,
-                onPressedWorkoutIntensity: controller.onPressedWorkoutIntensity,
-              ),
-            ),
-            const SizedBox(height: 20),
-            _Statistics(),
-            const SizedBox(height: 40),
-          ],
+  Widget build(BuildContext context) => Column(
+    children: [
+      Obx(
+            () => _MyStateContainer(
+          hooperIndexData: controller.hooperIndexData.value,
+          risk: controller.risk.value,
+          riskPercent: controller.riskPercent.value,
+          urineData: controller.urineData.value,
+          workoutIntensityData: controller.workoutIntensityList.value,
+          onPressedHooperIndex: controller.onPressedHooperIndex,
+          onPressedUrine: controller.onPressedUrine,
+          onPressedRisk: controller.onPressedRisk,
+          onPressedWorkoutIntensity: controller.onPressedWorkoutIntensity,
         ),
-      );
+      ),
+      const SizedBox(height: 20),
+      _Statistics(),
+      const SizedBox(height: 40),
+    ],
+  );
 }
 
 class _SecondBody extends GetView<HomeController> {
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
-        child: Column(
+  Widget build(BuildContext context) => Column(
+    children: [
+      Obx(
+            () => _SecondState(
+          todayTime: controller.workoutTodayTime.value,
+          yesterdayCompareTime:
+          controller.workoutYesterdayCompareTime.value,
+          injuryCheckList: controller.injuryCheckList.value,
+          thisWeek: controller.workoutThisWeek.value,
+          thisWeekLoad: controller.workoutThisWeekStatus.value,
+          lastWeek: controller.workoutLastWeek.value,
+          lastWeekLoad: controller.workoutLastWeekStatus.value,
+          lastFourWeek: controller.workoutLastFourWeek.value,
+          lastFourWeekLoad: controller.workoutLastFourWeekStatus.value,
+          lastEightWeek: controller.workoutLastEightWeek.value,
+          lastEightWeekLoad: controller.workoutLastEightWeekStatus.value,
+          onPressedWorkoutTime: controller.onPressedWorkoutTime,
+          onPressedInjuryCheckEdit: controller.onPressedInjuryCheckEdit,
+        ),
+      ),
+      const SizedBox(height: 20),
+      Container(
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Text(
+          StringRes.painPosition.tr,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: ColorRes.fontBlack,
+          ),
+        ),
+      ),
+      const SizedBox(height: 20),
+      Obx(
+            () => Row(
           children: [
-            Obx(
-              () => _SecondState(
-                todayTime: controller.workoutTodayTime.value,
-                yesterdayCompareTime:
-                    controller.workoutYesterdayCompareTime.value,
-                injuryCheckList: controller.injuryCheckList.value,
-                thisWeek: controller.workoutThisWeek.value,
-                thisWeekLoad: controller.workoutThisWeekStatus.value,
-                lastWeek: controller.workoutLastWeek.value,
-                lastWeekLoad: controller.workoutLastWeekStatus.value,
-                lastFourWeek: controller.workoutLastFourWeek.value,
-                lastFourWeekLoad: controller.workoutLastFourWeekStatus.value,
-                lastEightWeek: controller.workoutLastEightWeek.value,
-                lastEightWeekLoad: controller.workoutLastEightWeekStatus.value,
-                onPressedWorkoutTime: controller.onPressedWorkoutTime,
-                onPressedInjuryCheckEdit: controller.onPressedInjuryCheckEdit,
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 528 / 1205,
+                child:
+                SvgPicture.string(controller.humanFrontImage.value),
               ),
             ),
-            const SizedBox(height: 20),
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                StringRes.painPosition.tr,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: ColorRes.fontBlack,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Obx(
-              () => Row(
-                children: [
-                  Expanded(
-                    child: AspectRatio(
-                      aspectRatio: 528 / 1205,
-                      child:
-                          SvgPicture.string(controller.humanFrontImage.value),
-                    ),
-                  ),
-                  Expanded(
-                    child: AspectRatio(
-                      aspectRatio: 528 / 1205,
-                      child: SvgPicture.string(controller.humanBackImage.value),
-                    ),
-                  ),
-                ],
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 528 / 1205,
+                child: SvgPicture.string(controller.humanBackImage.value),
               ),
             ),
           ],
         ),
-      );
+      ),
+    ],
+  );
 }
 
 /// User 정보
@@ -238,21 +226,9 @@ class _UserInformation extends GetView<HomeController> {
 }
 
 /// 나의상태 헤더.
-class _MyStateHeader extends StatelessWidget {
-  final DateTime date;
+class _MyStateHeader extends GetView<HomeController> {
 
-  final String buttonName;
-
-  final VoidCallback onPressedNextButton;
-
-  final VoidCallback onPressedCalendar;
-
-  const _MyStateHeader({
-    required this.date,
-    required this.buttonName,
-    required this.onPressedNextButton,
-    required this.onPressedCalendar,
-  });
+  const _MyStateHeader();
 
   @override
   Widget build(BuildContext context) => Column(
@@ -267,23 +243,27 @@ class _MyStateHeader extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(
-                date.toFormattedString('yyyy년 M월 d일'),
-                style: const TextStyle(
-                  fontSize: 16,
+              Obx(
+                () => Text(
+                  controller.myStateDate.value.toFormattedString('yyyy년 M월 d일'),
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
                 ),
               ),
               const SizedBox(width: 5),
               InkWellOver(
-                onTap: onPressedCalendar,
+                onTap: controller.onPressedCalendar,
                 child: SvgPicture.asset(Assets.codeBrowser),
               ),
               const Spacer(),
-              BaseButton(
-                text: buttonName,
-                height: 24,
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                onPressed: onPressedNextButton,
+              Obx(
+                () => BaseButton(
+                  text: controller.myStatePageButtonName.value,
+                  height: 24,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  onPressed: controller.onPressedNextButton,
+                ),
               ),
             ],
           )
@@ -992,21 +972,21 @@ class _StatisticsChart extends StatelessWidget {
 
   /// 마커(툴팁).
   get lineTouchData => const LineTouchData(
-      touchTooltipData: LineTouchTooltipData(
+          touchTooltipData: LineTouchTooltipData(
         tooltipBgColor: ColorRes.white,
         tooltipBorder: BorderSide(color: ColorRes.disable),
-      )
-  );
+      ));
 
   /// Bar 데이터.
   List<LineChartBarData> get lineBarData =>
       chartData.map((e) => makeBarData(data: e)).toList();
 
   /// Bar Empty Data
-  List<LineChartBarData> get lineBarEmptyData =>
-      <LineChartBarData>[LineChartBarData(
-        color: Colors.transparent,
-      )];
+  List<LineChartBarData> get lineBarEmptyData => <LineChartBarData>[
+        LineChartBarData(
+          color: Colors.transparent,
+        )
+      ];
 
   /// Bar 데이터 생성.
   LineChartBarData makeBarData({
