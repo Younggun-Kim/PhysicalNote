@@ -47,9 +47,6 @@ enum MuscleType {
   /// 장골근
   iliacus("ILIACUS"),
 
-  /// 장경인대
-  iliotibialBand("ILIOTIBIAL_BAND"),
-
   /// 오훼완근
   infraspinatus("INFRASPINATUS"),
 
@@ -170,8 +167,6 @@ enum MuscleType {
         return "비복근";
       case iliacus:
         return "장골근";
-      case iliotibialBand:
-        return "장경인대";
       case infraspinatus:
         return "오훼완근";
       case largeRetirement:

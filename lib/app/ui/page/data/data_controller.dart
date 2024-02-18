@@ -27,6 +27,7 @@ import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
+import 'package:physical_note/app/utils/test/test_utils.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 class DataController extends BaseController {
@@ -532,13 +533,15 @@ class DataController extends BaseController {
   /// 사람 근육 선택
   void _setHumanMuscleColor() {
     humanFrontImage.value = MuscleUtils.setHumanMuscleColor(
-      injuryList.toList(),
+      // injuryList.toList(),
+      TestUtils.humanFrontList,
       _humanFrontOriginImage,
       true,
     );
 
     humanBackImage.value = MuscleUtils.setHumanMuscleColor(
-      injuryList.toList(),
+      // injuryList.toList(),
+      TestUtils.humanBackList,
       _humanBackOriginImage,
       false,
     );
