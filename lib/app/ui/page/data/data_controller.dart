@@ -533,15 +533,15 @@ class DataController extends BaseController {
   /// 사람 근육 선택
   void _setHumanMuscleColor() {
     humanFrontImage.value = MuscleUtils.setHumanMuscleColor(
-      // injuryList.toList(),
-      TestUtils.humanFrontList,
+      injuryList.toList(),
+      // TestUtils.humanFrontList,
       _humanFrontOriginImage,
       true,
     );
 
     humanBackImage.value = MuscleUtils.setHumanMuscleColor(
-      // injuryList.toList(),
-      TestUtils.humanBackList,
+      injuryList.toList(),
+      // TestUtils.humanBackList,
       _humanBackOriginImage,
       false,
     );
