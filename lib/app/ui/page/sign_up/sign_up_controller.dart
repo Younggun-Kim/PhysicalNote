@@ -58,6 +58,7 @@ class SignUpController extends BaseController {
   late final isEnabledLoginButton = CombineLatestStream(
     [
       isValidEmail.behaviorStream,
+      isDuplicatedEmail.behaviorStream,
       isValidPassword.behaviorStream,
     ],
     (values) {
