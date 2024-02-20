@@ -196,6 +196,9 @@ class StringRes {
   static final pushSelect = _generateId();
   static final teamRequest = _generateId();
   static final appleNeedPass = _generateId();
+  static final signOut = _generateId();
+  static final doSignOut = _generateId();
+  static final signOutDescription = _generateId();
 
   /// DateTime 영역
   static final hourParams = _generateId();

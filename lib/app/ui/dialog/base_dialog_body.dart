@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
@@ -21,7 +22,7 @@ class BaseDialogBody extends StatelessWidget {
   const BaseDialogBody({
     super.key,
     required this.text,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor = Colors.transparent,
     required this.yesText,
     required this.onPressedYes,
     required this.noText,

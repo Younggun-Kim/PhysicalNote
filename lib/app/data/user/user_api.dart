@@ -3,6 +3,7 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 
 import '../../utils/logger/logger.dart';
+import 'model/delete_user_response_model.dart';
 import 'model/post_user_request_model.dart';
 
 class UserAPI extends API {
@@ -34,6 +35,24 @@ class UserAPI extends API {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
         return GetUserResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  /// 탈퇴하기.
+  Future<dynamic> deleteUser() async {
+    try {
+      final response = await delete(requestUrl + "/leave");
+
+      logger.w(response.bodyString);
+
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return DeleteUserResponseModel.fromJson(response.body);
       }
     } catch (e) {
       logger.e(e);

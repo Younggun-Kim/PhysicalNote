@@ -25,7 +25,7 @@ class BaseDialog extends StatelessWidget {
   void close<T>({
     T? result,
   }) {
-    Get.back(result: result, closeOverlays: true);
+    Get.back(result: result, closeOverlays: false);
   }
 
   @override

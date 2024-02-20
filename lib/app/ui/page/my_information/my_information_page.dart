@@ -49,6 +49,8 @@ class MyInformationPage extends GetView<MyInformationController> {
                   onPressed: controller.onPressedRegistration,
                 ),
               ),
+              const SizedBox(height: 10),
+              BottomButtons(),
               const SizedBox(height: 40),
             ],
           ),
@@ -63,15 +65,6 @@ class _Header extends GetView<MyInformationController> {
         title: StringRes.myInformation.tr,
         showBack: true,
         onPressed: controller.close,
-        menu: LabelButton(
-          text: StringRes.logout.tr,
-          textStyle: const TextStyle(
-            fontSize: 16,
-            color: ColorRes.fontDisable,
-            fontWeight: FontWeight.w400,
-          ),
-          onPressed: controller.logout,
-        ),
       );
 }
 
@@ -537,4 +530,36 @@ class _MainFooted extends GetView<MyInformationController> {
           ),
         ],
       ).paddingSymmetric(horizontal: 30);
+}
+
+/// 로그아웃, 탈퇴 버튼.
+class BottomButtons extends GetView<MyInformationController> {
+  const BottomButtons({super.key});
+
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          const Spacer(),
+          LabelButton(
+            text: StringRes.signOut.tr,
+            textStyle: const TextStyle(
+              fontSize: 16,
+              color: Colors.red,
+              fontWeight: FontWeight.w400,
+            ),
+            onPressed: controller.onPressedSignOut,
+          ),
+          const SizedBox(width: 40),
+          LabelButton(
+            text: StringRes.logout.tr,
+            textStyle: const TextStyle(
+              fontSize: 16,
+              color: ColorRes.fontDisable,
+              fontWeight: FontWeight.w400,
+            ),
+            onPressed: controller.logout,
+          ),
+          const Spacer(),
+        ],
+      );
 }

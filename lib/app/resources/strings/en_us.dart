@@ -230,4 +230,7 @@ final enUs = {
   StringRes.injuryLevelNoPainDescription: "활동 제약 없음",
   StringRes.delete: "삭제",
   StringRes.painPosition: "통증위치",
+  StringRes.signOut: "탈퇴",
+  StringRes.signOutDescription: "탈퇴하시겠습니까?",
+  StringRes.doSignOut: "탈퇴하기",
 };

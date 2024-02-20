@@ -242,4 +242,7 @@ final koKr = {
   StringRes.radiatingPain: "통증이 주변으로 확산",
   StringRes.delete: "삭제",
   StringRes.painPosition: "통증위치",
+  StringRes.signOut: "탈퇴",
+  StringRes.signOutDescription: "탈퇴하시겠습니까?",
+  StringRes.doSignOut: "탈퇴하기",
 };

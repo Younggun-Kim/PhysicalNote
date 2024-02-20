@@ -14,10 +14,12 @@ import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_pass_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_pass_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
+import 'package:physical_note/app/data/user/model/delete_user_response_model.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/position/position.dart';
@@ -317,5 +319,37 @@ class MyInformationController extends BaseController {
 
     /// 로그인으로 이동.
     Get.offAllNamed(RouteType.LOGIN);
+  }
+
+  void onPressedSignOut() async {
+    Get.dialog(
+      BaseDialog(
+          text: StringRes.signOutDescription.tr,
+          yesText: StringRes.doSignOut.tr,
+          onPressedYes: () {
+            postSignOut();
+          },
+          noText: "",
+          onPressedNo: () {}),
+      barrierDismissible: true,
+    );
+  }
+
+  void postSignOut() async {
+    setLoading(true);
+    final userApi = Get.find<UserAPI>();
+    final response = await userApi.deleteUser();
+
+    if (response is DeleteUserResponseModel) {
+      if (response.deleted == true) {
+        logout();
+      }
+    } else {
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
+      showToast(message);
+    }
+
+    setLoading(false);
   }
 }
