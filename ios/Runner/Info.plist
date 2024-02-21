@@ -65,9 +65,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) camera description.</string>
+	<string>프로필 설정 및 기록을 위해 권한을 허락해 주세요.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) photos description.</string>
+	<string>프로필 설정 및 기록을 위해 권한을 허락해 주세요.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
