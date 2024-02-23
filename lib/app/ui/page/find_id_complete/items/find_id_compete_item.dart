@@ -15,38 +15,38 @@ class FindIdCompleteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
-    children: [
-      SvgPicture.asset(
-        snsType.toImage(),
-        width: 44,
-        height: 44,
-        fit: BoxFit.contain,
-      ),
-      const SizedBox(width: 50),
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              snsType.toUser(),
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: ColorRes.fontBlack,
-              ),
+        children: [
+          SvgPicture.asset(
+            snsType.toImage(),
+            width: 44,
+            height: 44,
+            fit: BoxFit.contain,
+          ),
+          const SizedBox(width: 50),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  snsType.toUser(),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.fontBlack,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  id ?? "",
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontBlack,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 4),
-            Text(
-              id?? "",
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: ColorRes.fontBlack,
-              ),
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
+          ),
+        ],
+      );
 }
