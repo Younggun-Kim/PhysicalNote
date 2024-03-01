@@ -62,7 +62,6 @@ class BottomBorderTextField extends StatelessWidget {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly
           ],
-
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(

@@ -24,7 +24,7 @@ extension DataUiMapper on DataController {
     );
     wellnessUrineTable.value = _convertAndClampToRange(data?.urine ?? 1);
     wellnessUrineWeight.value = data?.emptyStomachWeight?.toString() ?? "";
-    wellnessUrineBmi.value = data?.bodyFat.toString() ?? "";
+    wellnessUrineBmi.value = data?.bodyFat?.toString() ?? "";
   }
 
   /// 운동강도 매퍼.
