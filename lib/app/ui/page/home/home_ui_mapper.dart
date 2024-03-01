@@ -119,7 +119,12 @@ extension HomeUiMapper on HomeController {
       List<WeekIntensityGraphModel>? remoteData) {
     var data = remoteData;
     if (data == null || data.isEmpty) {
-      return [];
+      return [
+        HomeStatisticsChartModel(
+          list: [],
+          lineColor: Colors.transparent,
+        ),
+      ];
     } else {
       final sportChartData = _weeklyRawToHomeHomeStatisticsModel(
           remoteData: data,

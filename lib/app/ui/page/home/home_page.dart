@@ -1052,7 +1052,7 @@ class _StatisticsChart extends StatelessWidget {
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 7,
+      space: 8,
       child: Text(weekday, style: style),
     );
   }
@@ -1076,7 +1076,7 @@ class _StatisticsChart extends StatelessWidget {
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 10,
+      space: 8,
       child: Text("$month월", style: style),
     );
   }
