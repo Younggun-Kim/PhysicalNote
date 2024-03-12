@@ -9,12 +9,20 @@ class PostLoginSignInRequestModel {
   final String? passCode;
   final String password;
   final String type;
+  final String? name;
+  final String? cellphoneNo;
+  final String? birth;
+  final String? gender;
 
   PostLoginSignInRequestModel({
     required this.loginId,
     required this.passCode,
     required this.password,
     required this.type,
+    required this.name,
+    required this.cellphoneNo,
+    required this.birth,
+    required this.gender,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

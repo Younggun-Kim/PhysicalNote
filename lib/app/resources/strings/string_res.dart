@@ -63,7 +63,10 @@ class StringRes {
   static final cm = _generateId();
   static final kg = _generateId();
   static final birth = _generateId();
+  static final birthHint = _generateId();
   static final gender = _generateId();
+  static final male = _generateId();
+  static final female = _generateId();
   static final eightDigits = _generateId();
   static final positionMultipleSelectionPossible = _generateId();
   static final mainFoot = _generateId();

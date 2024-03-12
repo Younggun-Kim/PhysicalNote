@@ -63,37 +63,45 @@ class TermController extends LifecycleController {
   }
 
   /// 다음 버튼 클릭.
+  // TODO: 추후 SNS 추가시 변경 필요.
   Future<void> onPressedNextButton() async {
-    final passToken = await Get.toNamed(RouteType.PASS) as String?;
+    // final passToken = await Get.toNamed(RouteType.PASS) as String?;
+    //
+    // if (passToken != null) {
+    //   final passInfo = await _postLoginPass(passToken);
+    //   final name = passInfo?.passInfo?.utf8_name;
+    //   final phone = passInfo?.passInfo?.mobileno;
+    //
+    //   if (name == null || phone == null) {
+    //     showToast("패스 정보 조회 실패.");
+    //     return;
+    //   }
+    //
+    //   /// IdPw는 회원가입 화면으로 이동.
+    //   if (args.snsType == UserSnsType.idPw) {
+    //     final args = SignUpArgs(
+    //       passToken: passToken,
+    //       name: name,
+    //       phone: phone,
+    //     );
+    //     Get.toNamed(RouteType.SIGN_UP, arguments: args);
+    //   } else if (args.snsType == UserSnsType.apple) {
+    //     close(result: passToken);
+    //   } else {
+    //     /// 네이버, 카카오는 회원가입 API.
+    //     _postLoginSignIn(passToken);
+    //   }
+    // }
+    /// IdPw는 회원가입 화면으로 이동.
+    if (args.snsType == UserSnsType.idPw) {
+      Get.toNamed(RouteType.SIGN_UP);
+    } else {
 
-    if (passToken != null) {
-      final passInfo = await _postLoginPass(passToken);
-      final name = passInfo?.passInfo?.utf8_name;
-      final phone = passInfo?.passInfo?.mobileno;
-
-      if (name == null || phone == null) {
-        showToast("패스 정보 조회 실패.");
-        return;
-      }
-
-      /// IdPw는 회원가입 화면으로 이동.
-      if (args.snsType == UserSnsType.idPw) {
-        final args = SignUpArgs(
-          passToken: passToken,
-          name: name,
-          phone: phone,
-        );
-        Get.toNamed(RouteType.SIGN_UP, arguments: args);
-      } else if (args.snsType == UserSnsType.apple) {
-        close(result: passToken);
-      } else {
-        /// 네이버, 카카오는 회원가입 API.
-        _postLoginSignIn(passToken);
-      }
     }
   }
 
   /// 패스 정보 조회.
+  // TODO: 추후 SNS 추가시 변경 필요.
   Future<PostPassResponseModel?> _postLoginPass(String passToken) async {
     setLoading(true);
     final loginApi = Get.find<LoginAPI>();
@@ -117,6 +125,7 @@ class TermController extends LifecycleController {
   }
 
   /// API - 회원가입.
+  // TODO: 추후 SNS 추가시 변경 필요.
   Future<void> _postLoginSignIn(String passToken) async {
     setLoading(true);
     final loginProcess = Get.find<LoginProcess>();
@@ -125,6 +134,10 @@ class TermController extends LifecycleController {
       passCode: passToken,
       password: args.accessToken,
       type: args.snsType.toString(),
+      name: '',
+      cellphoneNo: '',
+      birth: '',
+      gender: '',
     );
     final moveType = await loginProcess.signInAndMove(requestData: requestData);
     loginProcess.movePage(moveType);

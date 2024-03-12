@@ -56,11 +56,17 @@ class LoginProcess {
       } else if (requestData.type == UserSnsType.apple.toString()) {
         /// 애플 회원가입.
         return await signInAndMove(
+
+          // TODO: 추후 SNS 추가시 변경 필요.
           requestData: PostLoginSignInRequestModel(
             loginId: requestData.loginId,
             passCode: null,
             password: requestData.password,
             type: requestData.type,
+            name: '',
+            cellphoneNo: '',
+            birth: '',
+            gender: '',
           ),
         );
       }

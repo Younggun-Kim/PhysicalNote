@@ -1,16 +1,14 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/gender_type.dart';
 import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_check_id_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
-import 'package:physical_note/app/ui/page/sign_up/sign_up_args.dart';
 import 'package:physical_note/app/utils/sns/login_process.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SignUpController extends BaseController {
-  final args = Get.arguments as SignUpArgs;
-
   @override
   void onInit() {
     super.onInit();
@@ -22,7 +20,9 @@ class SignUpController extends BaseController {
   }
 
   /// 이름.
-  late final name = args.name.obsWithController;
+  late final name = "".obsWithController;
+  late final _isValidName =
+      name.behaviorStream.map((event) => event.length >= 2).not();
 
   /// 이메일.
   final email = "".obsWithController;
@@ -35,7 +35,22 @@ class SignUpController extends BaseController {
   late final isDuplicatedEmail = false.obs;
 
   /// 전화번호.
-  late final phoneNumber = args.phone.obsWithController;
+  late final phoneNumber = "".obsWithController;
+  late final _isValidPhoneNumber = phoneNumber.behaviorStream
+      .map((event) => Regex.isPhoneNumber(event))
+      .not();
+
+  /// 생년월일.
+  late final birth = "".obsWithController;
+  late final _isValidBirth = birth.behaviorStream
+      .map((event) => event.length == 8 && Regex.isBirth(event))
+      .not();
+
+  /// 성별
+  late final gender = (null as GenderType?).obs;
+  late final _isValidGender = gender.behaviorStream
+      .map((event) => GenderType.values.contains(event) == true)
+      .not();
 
   /// 비밀번호.
   final password = "".obsWithController;
@@ -57,9 +72,13 @@ class SignUpController extends BaseController {
   /// 로그인 버튼 Enabled 여부
   late final isEnabledLoginButton = CombineLatestStream(
     [
+      _isValidName,
       isValidEmail.behaviorStream,
       isDuplicatedEmail.behaviorStream,
+      _isValidPhoneNumber,
       isValidPassword.behaviorStream,
+      _isValidBirth,
+      _isValidGender,
     ],
     (values) {
       return values.every((element) => element == false);
@@ -71,6 +90,11 @@ class SignUpController extends BaseController {
     close();
   }
 
+  /// 성별 클릭.
+  void onPressedGenderButton(GenderType? newGender) {
+    gender.value = newGender;
+  }
+
   /// 로그인 버튼 클릭.
   void onPressedLoginButton() async {
     unFocus();
@@ -80,9 +104,13 @@ class SignUpController extends BaseController {
     final loginProcess = Get.find<LoginProcess>();
     final requestData = PostLoginSignInRequestModel(
       loginId: email.value,
-      passCode: args.passToken,
+      passCode: "",
       password: password.value,
       type: UserSnsType.idPw.toString(),
+      name: name.value,
+      cellphoneNo: phoneNumber.value,
+      birth: birth.value,
+      gender: gender.value?.code,
     );
 
     final moveType = await loginProcess.signInAndMove(requestData: requestData);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/gender_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/sign_up/sign_up_controller.dart';
 
@@ -24,6 +25,8 @@ class SignUpPage extends GetView<SignUpController> {
                   const NameField(),
                   const EmailField(),
                   const PhoneNumberField(),
+                  const BirthField(),
+                  const GenderField(),
                   const PasswordField(),
                   const SizedBox(height: 40),
                   Obx(() => RoundButton(
@@ -108,7 +111,7 @@ class NameField extends GetView<SignUpController> {
             fontSize: 16,
             fontWeight: FontWeight.w400,
             hint: StringRes.nameHint.tr,
-            readOnly: true,
+            readOnly: false,
           ),
         ],
       ).paddingSymmetric(horizontal: 30);
@@ -168,8 +171,76 @@ class PhoneNumberField extends GetView<SignUpController> {
             hint: StringRes.phoneHint.tr,
             keyboardType: TextInputType.phone,
             maxLength: 11,
-            readOnly: true,
+            readOnly: false,
           ),
+        ],
+      ).paddingSymmetric(horizontal: 30);
+}
+
+/// 생년월일 필드.
+class BirthField extends GetView<SignUpController> {
+  const BirthField({super.key});
+
+  @override
+  Widget build(BuildContext context) => Column(
+        children: [
+          const SizedBox(height: 8),
+          FieldName(name: StringRes.birth.tr),
+          const SizedBox(height: 10),
+          OutlineTextField(
+            controller: controller.birth.controller,
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            hint: StringRes.birthHint.tr,
+            keyboardType: TextInputType.number,
+            maxLength: 8,
+            readOnly: false,
+          ),
+        ],
+      ).paddingSymmetric(horizontal: 30);
+}
+
+/// 성별 필드.
+class GenderField extends GetView<SignUpController> {
+  const GenderField({super.key});
+
+  @override
+  Widget build(BuildContext context) => Column(
+        children: [
+          const SizedBox(height: 8),
+          FieldName(name: StringRes.gender.tr),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: Obx(
+                  () => BaseButton(
+                    height: 56,
+                    isSelected: controller.gender.value == GenderType.male,
+                    text: StringRes.male.tr,
+                    onPressed: () {
+                      controller.onPressedGenderButton(GenderType.male);
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Obx(
+                  () => BaseButton(
+                    height: 56,
+                    isSelected: controller.gender.value == GenderType.female,
+                    text: StringRes.female.tr,
+                    onPressed: () {
+                      controller.onPressedGenderButton(GenderType.female);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          )
         ],
       ).paddingSymmetric(horizontal: 30);
 }

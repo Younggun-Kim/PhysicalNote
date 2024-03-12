@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 
 /// 성별 타입
 enum GenderType {
-  man(code: 'M'),
-  woman(code: 'W');
+  male(code: 'M'),
+  female(code: 'W');
 
   final String code;
 
@@ -15,10 +16,10 @@ enum GenderType {
   @override
   String toString() {
     switch (this) {
-      case man:
-        return "남자";
-      case woman:
-        return "여자";
+      case male:
+        return StringRes.male.tr;
+      case female:
+        return StringRes.female.tr;
     }
   }
 }
