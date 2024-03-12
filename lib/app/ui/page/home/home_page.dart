@@ -37,20 +37,22 @@ class HomePage extends GetView<HomeController> {
             const SizedBox(height: 48),
             const _MyStateHeader(),
             const SizedBox(height: 10),
-            Obx(() => Expanded(
-              child: Row(
-                children: [
-                  Visibility(
-                    visible: controller.myStatePageFirst.value == true,
-                    child: Expanded(child: _FirstBody()),
-                  ),
-                  Visibility(
-                    visible: controller.myStatePageFirst.value == false,
-                    child: Expanded(child: _SecondBody()),
-                  ),
-                ],
+            Obx(
+              () => Expanded(
+                child: Row(
+                  children: [
+                    Visibility(
+                      visible: controller.myStatePageFirst.value == true,
+                      child: Expanded(child: _FirstBody()),
+                    ),
+                    Visibility(
+                      visible: controller.myStatePageFirst.value == false,
+                      child: Expanded(child: _SecondBody()),
+                    ),
+                  ],
+                ),
               ),
-            ),),
+            ),
           ],
         ),
       ));
@@ -59,84 +61,83 @@ class HomePage extends GetView<HomeController> {
 class _FirstBody extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => Column(
-    children: [
-      Obx(
+        children: [
+          Obx(
             () => _MyStateContainer(
-          hooperIndexData: controller.hooperIndexData.value,
-          risk: controller.risk.value,
-          riskPercent: controller.riskPercent.value,
-          urineData: controller.urineData.value,
-          workoutIntensityData: controller.workoutIntensityList.value,
-          onPressedHooperIndex: controller.onPressedHooperIndex,
-          onPressedUrine: controller.onPressedUrine,
-          onPressedRisk: controller.onPressedRisk,
-          onPressedWorkoutIntensity: controller.onPressedWorkoutIntensity,
-        ),
-      ),
-      const SizedBox(height: 20),
-      _Statistics(),
-      const SizedBox(height: 40),
-    ],
-  );
+              hooperIndexData: controller.hooperIndexData.value,
+              risk: controller.risk.value,
+              riskPercent: controller.riskPercent.value,
+              urineData: controller.urineData.value,
+              workoutIntensityData: controller.workoutIntensityList.value,
+              onPressedHooperIndex: controller.onPressedHooperIndex,
+              onPressedUrine: controller.onPressedUrine,
+              onPressedRisk: controller.onPressedRisk,
+              onPressedWorkoutIntensity: controller.onPressedWorkoutIntensity,
+            ),
+          ),
+          const SizedBox(height: 20),
+          _Statistics(),
+          const SizedBox(height: 40),
+        ],
+      );
 }
 
 class _SecondBody extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => Column(
-    children: [
-      Obx(
+        children: [
+          Obx(
             () => _SecondState(
-          todayTime: controller.workoutTodayTime.value,
-          yesterdayCompareTime:
-          controller.workoutYesterdayCompareTime.value,
-          injuryCheckList: controller.injuryCheckList.value,
-          thisWeek: controller.workoutThisWeek.value,
-          thisWeekLoad: controller.workoutThisWeekStatus.value,
-          lastWeek: controller.workoutLastWeek.value,
-          lastWeekLoad: controller.workoutLastWeekStatus.value,
-          lastFourWeek: controller.workoutLastFourWeek.value,
-          lastFourWeekLoad: controller.workoutLastFourWeekStatus.value,
-          lastEightWeek: controller.workoutLastEightWeek.value,
-          lastEightWeekLoad: controller.workoutLastEightWeekStatus.value,
-          onPressedWorkoutTime: controller.onPressedWorkoutTime,
-          onPressedInjuryCheckEdit: controller.onPressedInjuryCheckEdit,
-        ),
-      ),
-      const SizedBox(height: 20),
-      Container(
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Text(
-          StringRes.painPosition.tr,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            color: ColorRes.fontBlack,
+              todayTime: controller.workoutTodayTime.value,
+              yesterdayCompareTime:
+                  controller.workoutYesterdayCompareTime.value,
+              injuryCheckList: controller.injuryCheckList.value,
+              thisWeek: controller.workoutThisWeek.value,
+              thisWeekLoad: controller.workoutThisWeekStatus.value,
+              lastWeek: controller.workoutLastWeek.value,
+              lastWeekLoad: controller.workoutLastWeekStatus.value,
+              lastFourWeek: controller.workoutLastFourWeek.value,
+              lastFourWeekLoad: controller.workoutLastFourWeekStatus.value,
+              lastEightWeek: controller.workoutLastEightWeek.value,
+              lastEightWeekLoad: controller.workoutLastEightWeekStatus.value,
+              onPressedWorkoutTime: controller.onPressedWorkoutTime,
+              onPressedInjuryCheckEdit: controller.onPressedInjuryCheckEdit,
+            ),
           ),
-        ),
-      ),
-      const SizedBox(height: 20),
-      Obx(
+          const SizedBox(height: 20),
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Text(
+              StringRes.painPosition.tr,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: ColorRes.fontBlack,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Obx(
             () => Row(
-          children: [
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 528 / 1205,
-                child:
-                SvgPicture.string(controller.humanFrontImage.value),
-              ),
+              children: [
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 528 / 1205,
+                    child: SvgPicture.string(controller.humanFrontImage.value),
+                  ),
+                ),
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 528 / 1205,
+                    child: SvgPicture.string(controller.humanBackImage.value),
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 528 / 1205,
-                child: SvgPicture.string(controller.humanBackImage.value),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ],
-  );
+          ),
+        ],
+      );
 }
 
 /// User 정보
@@ -227,7 +228,6 @@ class _UserInformation extends GetView<HomeController> {
 
 /// 나의상태 헤더.
 class _MyStateHeader extends GetView<HomeController> {
-
   const _MyStateHeader();
 
   @override
