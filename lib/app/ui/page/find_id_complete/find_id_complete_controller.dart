@@ -22,15 +22,13 @@ class FindIdCompleteController extends BaseController {
     ),
   ].obs;
 
-
   /// 비밀번호 찾기 클릭.
   void onPressedFindPassword() async {
     Get.until((route) => Get.currentRoute == RouteType.LOGIN);
 
     final args = ChangePasswordArgs(
-      name: "",
-      id: argument.email,
-      passCode: "",
+      email: argument.email,
+      phone: phone.value,
     );
     Get.toNamed(RouteType.CHANGE_PASSWORD, arguments: args);
   }

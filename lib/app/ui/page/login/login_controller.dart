@@ -63,7 +63,7 @@ class LoginController extends BaseController {
 
   /// 비밀번호 찾기 클릭.
   void onPressedFindPw() async {
-
+    Get.toNamed(RouteType.FIND_PASSWORD);
   }
 
   /// 로그인 버튼 클릭.

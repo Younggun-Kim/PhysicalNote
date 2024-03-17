@@ -10,12 +10,12 @@ PostChangePasswordResponseModel _$PostChangePasswordResponseModelFromJson(
         Map<String, dynamic> json) =>
     PostChangePasswordResponseModel(
       status: json['status'] as bool?,
-      userId: json['userId'] as int?,
+      userLoginId: json['userLoginId'] as String?,
     );
 
 Map<String, dynamic> _$PostChangePasswordResponseModelToJson(
         PostChangePasswordResponseModel instance) =>
     <String, dynamic>{
       'status': instance.status,
-      'userId': instance.userId,
+      'userLoginId': instance.userLoginId,
     };

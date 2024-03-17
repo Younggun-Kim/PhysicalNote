@@ -16,8 +16,8 @@ class ChangePasswordPage extends GetView<ChangePasswordController> {
               _Header(),
               const SizedBox(height: 20),
               _UserInfo(
-                name: controller.args.name,
-                id: controller.args.id,
+                id: controller.args.email,
+                phone: controller.args.phone,
               ),
               const SizedBox(height: 60),
               FieldName(name: StringRes.password.tr)
@@ -118,12 +118,13 @@ class _ErrorText extends StatelessWidget {
 
 /// 유저 정보.
 class _UserInfo extends StatelessWidget {
-  final String name;
   final String id;
 
+  final String phone;
+
   const _UserInfo({
-    required this.name,
     required this.id,
+    required this.phone,
   });
 
   @override
@@ -135,15 +136,6 @@ class _UserInfo extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    StringRes.name.tr,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ColorRes.fontBlack,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
                   Text(
                     StringRes.identity.tr,
                     style: const TextStyle(
@@ -159,16 +151,38 @@ class _UserInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    id,
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: ColorRes.fontBlack,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                ],
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    id,
+                    StringRes.phoneNumber.tr,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 26),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    phone,
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,

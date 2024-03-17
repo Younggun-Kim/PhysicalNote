@@ -7,11 +7,11 @@ part 'post_change_password_response_model.g.dart';
 /// 중복 확인 응답 모델.
 class PostChangePasswordResponseModel {
   final bool? status;
-  final int? userId;
+  final String? userLoginId;
 
   PostChangePasswordResponseModel({
     required this.status,
-    required this.userId,
+    required this.userLoginId,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

@@ -46,8 +46,12 @@ class ChangePasswordController extends BaseController {
 
   /// 로그인 버튼 클릭.
   void onPressedLogin() async {
+    unFocus();
+    Future.delayed(const Duration(milliseconds: 500));
     final isChanged = await _changePassword(
-        passCode: args.passCode, password: password.value);
+      password: password.value,
+      email: args.email,
+    );
 
     if (isChanged) {
       Get.until((route) => Get.currentRoute == RouteType.LOGIN);
@@ -58,13 +62,15 @@ class ChangePasswordController extends BaseController {
 
   /// API - 비밀번호 변경
   Future<bool> _changePassword({
-    required String passCode,
     required String password,
+    required String email,
   }) async {
     setLoading(true);
     final loginApi = Get.find<LoginAPI>();
     final response = await loginApi.postLoginFindPwStep2(
-        passCode: passCode, password: password);
+      password: password,
+      email: email,
+    );
 
     bool result = false;
     if (response is PostChangePasswordResponseModel) {

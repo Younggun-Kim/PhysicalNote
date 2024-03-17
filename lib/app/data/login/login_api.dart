@@ -110,14 +110,14 @@ class LoginAPI extends API {
 
   /// 비밀번호 변경.
   Future<dynamic> postLoginFindPwStep2({
-    required String passCode,
     required String password,
+    required String email,
   }) async {
     final response = await post(
       requestUrl + "/find_pw/step2",
       {
-        "code": passCode,
         "password": password,
+        "userLoginId": email,
       },
     );
 
@@ -191,6 +191,26 @@ class LoginAPI extends API {
     } catch (e) {
       logger.e(e);
       return null;
+    }
+  }
+
+  /// 비밀번호 찾기.
+  Future<dynamic> postFindPwStep1({
+    required String authCode,
+    required String phone,
+  }) async {
+    final response = await post(
+      requestUrl + "/find_pw/step1",
+      {"authCode": authCode, "phoneNumber": phone},
+    );
+    logger.i("postLoginFindId: authCode: $authCode, phoneNumber: $phone}");
+
+    logger.i(response.bodyString);
+
+    if (response.status.hasError) {
+      return ServerResponseFailModel.fromJson(response.body);
+    } else {
+      return PostLoginFindIdResponseModel.fromJson(response.body);
     }
   }
 }

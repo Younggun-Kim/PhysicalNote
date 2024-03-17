@@ -1,9 +1,10 @@
 class ChangePasswordArgs {
-  final String name;
+  final String email;
 
-  final String id;
+  final String phone;
 
-  final String passCode;
-
-  ChangePasswordArgs({required this.name, required this.id, required this.passCode,});
+  ChangePasswordArgs({
+    required this.email,
+    required this.phone,
+  });
 }
