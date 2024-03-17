@@ -58,84 +58,12 @@ class LoginController extends BaseController {
 
   /// 아이디 찾기 클릭.
   Future onPressedFindId() async {
-    final data = await _pass();
-    if (data == null) {
-      return;
-    }
-
-    final name = data.response.passInfo?.utf8_name;
-    final phone = data.response.passInfo?.mobileno;
-
-    if (name == null || phone == null) {
-      return;
-    }
-
-    /// 아이디 찾기API
-    final accounts = await _findId(data.passToken);
-
-    if (accounts == null || accounts.isEmpty) {
-      /// 가입 내역 없음.
-      _showNoAccountsDialog();
-    } else {
-      final uiStates = accounts
-          .map((e) {
-            final snsType = UserSnsType.from(e.type);
-            final id = e.email;
-
-            if (snsType == null || id == null) {
-              return null;
-            } else {
-              return FindIdCompleteItemUiState(snsType: snsType, id: id);
-            }
-          })
-          .whereType<FindIdCompleteItemUiState>()
-          .toList();
-
-      Get.toNamed(
-        RouteType.FIND_ID_COMPLETE,
-        arguments: FindIdCompleteArgument(
-          name: name,
-          phone: phone,
-          accounts: uiStates,
-          passCode: data.passToken,
-        ),
-      );
-    }
+    Get.toNamed(RouteType.FIND_ID);
   }
 
   /// 비밀번호 찾기 클릭.
   void onPressedFindPw() async {
-    /// Pass 인증.
-    final data = await _pass();
-    if (data == null) {
-      return;
-    }
 
-    final name = data.response.passInfo?.utf8_name;
-    final phone = data.response.passInfo?.mobileno;
-
-    if (name == null || phone == null) {
-      logger.e("패스 정보에 이름 또는 전화번호가 없습니다.");
-      return;
-    }
-
-    /// 비밀번호 찾기 API.
-    final accounts = await _findPwStep1(data.passToken);
-    final email = accounts
-        ?.firstWhere((element) => element.type == UserSnsType.idPw.toString())
-        .email;
-
-    if (accounts == null || accounts.isEmpty) {
-      _showNoAccountsDialog();
-    } else if (email == null) {
-      /// SNS 계정.
-      _showSnsAccounts();
-    } else {
-      /// 비밀번호 재설정으로 이동.
-      final args =
-          ChangePasswordArgs(name: name, id: email, passCode: data.passToken);
-      Get.toNamed(RouteType.CHANGE_PASSWORD, arguments: args);
-    }
   }
 
   /// 로그인 버튼 클릭.
@@ -285,46 +213,6 @@ class LoginController extends BaseController {
 
     loginProcess.movePage(moveType);
     setLoading(false);
-  }
-
-  /// API - 아이디 찾기.
-  Future<List<SocialAccountsModel>?> _findId(String passCode) async {
-    setLoading(true);
-    final loginApi = Get.find<LoginAPI>();
-    final response = await loginApi.postLoginFindId(code: passCode);
-
-    List<SocialAccountsModel>? result;
-    if (response is PostLoginFindIdResponseModel) {
-      result = response.accounts;
-    } else {
-      final message = (response as ServerResponseFailModel?)?.toastMessage ??
-          StringRes.serverError.tr;
-      showToast(message);
-    }
-
-    await Future.delayed(const Duration(seconds: 1));
-    setLoading(false);
-    return result;
-  }
-
-  /// API - 비밀번호 찾기.
-  Future<List<SocialAccountsModel>?> _findPwStep1(String passCode) async {
-    setLoading(true);
-    final loginApi = Get.find<LoginAPI>();
-    final response = await loginApi.postLoginFindPwStep1(code: passCode);
-
-    List<SocialAccountsModel>? result;
-    if (response is PostLoginFindIdResponseModel) {
-      result = response.accounts;
-    } else {
-      final message = (response as ServerResponseFailModel?)?.toastMessage ??
-          StringRes.serverError.tr;
-      showToast(message);
-    }
-
-    await Future.delayed(const Duration(seconds: 1));
-    setLoading(false);
-    return result;
   }
 
   /// 가입 내역 없음 다이얼로그.

@@ -5,6 +5,7 @@ import 'package:physical_note/app/data/login/model/post_login_request_model.dart
 import 'package:physical_note/app/data/login/model/post_login_response_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_request_model.dart';
 import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
+import 'package:physical_note/app/data/login/model/post_phone_authentication_response_model.dart';
 import 'package:physical_note/app/data/network/api.dart';
 
 import '../../utils/logger/logger.dart';
@@ -72,11 +73,15 @@ class LoginAPI extends API {
   }
 
   /// 아이디 찾기.
-  Future<dynamic> postLoginFindId({required String code}) async {
+  Future<dynamic> postLoginFindId({
+    required String authCode,
+    required String phone,
+  }) async {
     final response = await post(
       requestUrl + "/find_id",
-      {"code": code},
+      {"authCode": authCode, "phoneNumber": phone},
     );
+    logger.i("postLoginFindId: authCode: $authCode, phoneNumber: $phone}");
 
     logger.i(response.bodyString);
 
@@ -158,6 +163,30 @@ class LoginAPI extends API {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
         return PostCheckIdResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  /// 문자 인증 요청
+  Future<dynamic> postPhoneAuthentication({required String phone}) async {
+    logger.i("postPhoneAuthentication: $phone");
+    try {
+      final response = await post(
+        requestUrl + "/phone/authentication",
+        {
+          "phoneNo": phone,
+        },
+      );
+
+      logger.i(response.bodyString);
+
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return PostPhoneAuthenticationResponseModel.fromJson(response.body);
       }
     } catch (e) {
       logger.e(e);

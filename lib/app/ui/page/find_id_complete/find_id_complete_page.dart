@@ -21,7 +21,6 @@ class FindIdCompletePage extends GetView<FindIdCompleteController> {
               const SizedBox(height: 40),
               Obx(
                 () => _UserInfo(
-                  name: controller.name.value,
                   phone: controller.phone.value,
                 ),
               ),
@@ -40,24 +39,19 @@ class FindIdCompletePage extends GetView<FindIdCompleteController> {
                   itemCount: controller.accounts.length,
                 )),
               ),
-              Obx(
-                () => Visibility(
-                  visible: controller.hasEmail.value,
-                  child: LabelButton(
-                    text: StringRes.findPw.tr,
-                    textStyle: const TextStyle(
-                      color: ColorRes.fontDisable,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    onPressed: controller.onPressedFindPassword,
-                  ),
+              LabelButton(
+                text: StringRes.findPw.tr,
+                textStyle: const TextStyle(
+                  color: ColorRes.fontDisable,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
                 ),
+                onPressed: controller.onPressedFindPassword,
               ),
               const SizedBox(height: 12),
               RoundButton(
                 width: double.infinity,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 text: StringRes.login.tr,
                 onPressed: controller.onPressedLogin,
               ),
@@ -81,11 +75,9 @@ class _Header extends GetView<FindIdCompleteController> {
 
 /// 유저 정보.
 class _UserInfo extends StatelessWidget {
-  final String name;
   final String phone;
 
   const _UserInfo({
-    required this.name,
     required this.phone,
   });
 
@@ -98,15 +90,6 @@ class _UserInfo extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    StringRes.name.tr,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ColorRes.fontBlack,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
                   Text(
                     StringRes.phoneNumber.tr,
                     style: const TextStyle(
@@ -121,15 +104,6 @@ class _UserInfo extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: ColorRes.fontBlack,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
                   Text(
                     phone,
                     style: const TextStyle(

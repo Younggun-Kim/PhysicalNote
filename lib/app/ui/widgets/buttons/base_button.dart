@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:physical_note/app/resources/colors/color_res.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';

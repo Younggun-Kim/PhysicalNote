@@ -16,7 +16,7 @@ class FindIdCompleteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          SvgPicture.asset(
+          Image.asset(
             snsType.toImage(),
             width: 44,
             height: 44,

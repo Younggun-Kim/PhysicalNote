@@ -202,6 +202,8 @@ class StringRes {
   static final signOut = _generateId();
   static final doSignOut = _generateId();
   static final signOutDescription = _generateId();
+  static final authCode = _generateId();
+  static final authCodeHint = _generateId();
 
   /// DateTime 영역
   static final hourParams = _generateId();

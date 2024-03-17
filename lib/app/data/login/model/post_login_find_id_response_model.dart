@@ -6,15 +6,17 @@ part 'post_login_find_id_response_model.g.dart';
 
 @JsonSerializable()
 class PostLoginFindIdResponseModel {
-
-  final List<SocialAccountsModel>? accounts;
   final bool? status;
-  final int? userId;
+  final String? userLoginId;
+  final String? message;
+  final List<SocialAccountsModel>? accounts;
+
 
   PostLoginFindIdResponseModel({
-    required this.accounts,
     required this.status,
-    required this.userId,
+    required this.userLoginId,
+    required this.message,
+    required this.accounts,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

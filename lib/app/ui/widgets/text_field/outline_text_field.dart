@@ -53,6 +53,8 @@ class OutlineTextField extends StatelessWidget {
 
   final bool readOnly;
 
+  final ValueChanged<String>? onChanged;
+
   /// 생성자.
   const OutlineTextField({
     Key? key,
@@ -77,6 +79,7 @@ class OutlineTextField extends StatelessWidget {
     this.onPressedSearch,
     this.rightWidget,
     this.readOnly = false,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -114,6 +117,7 @@ class OutlineTextField extends StatelessWidget {
               keyboardType: keyboardType,
               obscureText: obscureText,
               readOnly: readOnly,
+              onChanged: onChanged,
               style: TextStyle(
                 fontSize: fontSize,
                 color: readOnly ? ColorRes.white : textColor,
@@ -141,7 +145,8 @@ class OutlineTextField extends StatelessWidget {
               onTap: onPressedSearch,
               splashColor: null,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, rightWidget == null ? 0 : 16, 0),
+                padding:
+                    EdgeInsets.fromLTRB(0, 0, rightWidget == null ? 0 : 16, 0),
                 child: SvgPicture.asset(Assets.searchRefraction),
               ),
             ),

@@ -11,37 +11,26 @@ class FindIdCompleteController extends BaseController {
   /// Arguments.
   final argument = Get.arguments as FindIdCompleteArgument;
 
-  /// 이름.
-  late final name = argument.name.obs;
-
   /// 전화번호.
   late final phone = argument.phone.obs;
 
   /// 계정.
-  late final accounts = argument.accounts.obs;
+  late final accounts = [
+    FindIdCompleteItemUiState(
+      snsType: UserSnsType.idPw,
+      id: argument.email,
+    ),
+  ].obs;
 
-  /// 이메일 계정 여부.
-  late final hasEmail = accounts.behaviorStream
-      .map(
-        (event) => _getEmailAccount(event),
-      )
-      .map((event) => event?.snsType == UserSnsType.idPw)
-      .toObs(false);
 
   /// 비밀번호 찾기 클릭.
   void onPressedFindPassword() async {
-    final id = _getEmailAccount(accounts.toList())?.id;
-
-    if (id == null) {
-      return;
-    }
-
     Get.until((route) => Get.currentRoute == RouteType.LOGIN);
 
     final args = ChangePasswordArgs(
-      name: argument.name,
-      id: id,
-      passCode: argument.passCode,
+      name: "",
+      id: argument.email,
+      passCode: "",
     );
     Get.toNamed(RouteType.CHANGE_PASSWORD, arguments: args);
   }
