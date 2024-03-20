@@ -49,11 +49,10 @@ class HomeController extends BaseController {
   /// 나의 상태 첫번째 페이지 여부.
   var myStatePageFirst = true.obs;
 
-  /// 나의 상태 페이지 스크롤 컨트롤러.
-  var myStatePageController = PageController(initialPage: 0).obs;
-
   /// 나의 상태 페이지 버튼 명
-  late var myStatePageButtonName = StringRes.next.tr.obs;
+  late var myStatePageButtonName = myStatePageFirst.behaviorStream
+      .map((event) => event ? StringRes.next.tr : StringRes.prev.tr)
+      .toObs(StringRes.next.tr);
 
   /// 후퍼인덱스.
   Rx<HooperIndexData?> hooperIndexData = (null as HooperIndexData?).obs;
