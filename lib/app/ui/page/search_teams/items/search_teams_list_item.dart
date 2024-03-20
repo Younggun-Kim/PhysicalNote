@@ -75,7 +75,7 @@ class _Image extends StatelessWidget {
         url,
         width: 40,
         height: 40,
-        fit: BoxFit.fill,
+        fit: BoxFit.contain,
         errorBuilder: (
           BuildContext context,
           Object error,

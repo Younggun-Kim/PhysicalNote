@@ -79,8 +79,10 @@ class MyInformationController extends BaseController {
       teamUiState.behaviorStream.map((event) => event?.id != null),
       height.behaviorStream.map((event) => event.isNotEmpty),
       weight.behaviorStream.map((event) => event.isNotEmpty),
-      birth.behaviorStream.map((event) => event.length == 8),
+      // birth.behaviorStream.map((event) => event.length == 8),
       gender.behaviorStream.map((event) => event.isNotEmpty),
+      positions.behaviorStream
+          .map((event) => event.any((element) => element.isSelected == true)),
     ],
     (values) => values.every((element) => element == true),
   ).toObs(false);
