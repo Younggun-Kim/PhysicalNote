@@ -11,6 +11,8 @@ class PostLoginSignInResponseModel {
   final String? name;
   final bool? status;
   final String? token;
+  final String? birthDate;
+
 
   PostLoginSignInResponseModel({
     required this.userId,
@@ -19,6 +21,7 @@ class PostLoginSignInResponseModel {
     required this.name,
     required this.status,
     required this.token,
+    required this.birthDate,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

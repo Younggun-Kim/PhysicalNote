@@ -15,6 +15,7 @@ PostLoginSignInResponseModel _$PostLoginSignInResponseModelFromJson(
       name: json['name'] as String?,
       status: json['status'] as bool?,
       token: json['token'] as String?,
+      birthDate: json['birthDate'] as String?,
     );
 
 Map<String, dynamic> _$PostLoginSignInResponseModelToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$PostLoginSignInResponseModelToJson(
       'name': instance.name,
       'status': instance.status,
       'token': instance.token,
+      'birthDate': instance.birthDate,
     };

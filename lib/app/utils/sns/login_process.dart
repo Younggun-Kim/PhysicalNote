@@ -65,7 +65,7 @@ class LoginProcess {
             type: requestData.type,
             name: '',
             cellphoneNo: '',
-            birth: '',
+            birthDate: '',
             gender: '',
           ),
         );

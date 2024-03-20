@@ -11,7 +11,7 @@ class PostLoginSignInRequestModel {
   final String type;
   final String? name;
   final String? cellphoneNo;
-  final String? birth;
+  final String? birthDate;
   final String? gender;
 
   PostLoginSignInRequestModel({
@@ -21,7 +21,7 @@ class PostLoginSignInRequestModel {
     required this.type,
     required this.name,
     required this.cellphoneNo,
-    required this.birth,
+    required this.birthDate,
     required this.gender,
   });
 

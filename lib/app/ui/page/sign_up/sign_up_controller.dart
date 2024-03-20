@@ -101,6 +101,8 @@ class SignUpController extends BaseController {
     await Future.delayed(const Duration(milliseconds: 300));
 
     setLoading(true);
+    final birthValue = birth.value;
+    final birthDate =  "${birthValue.substring(0, 4)}-${birthValue.substring(4, 6)}-${birthValue.substring(6)}";
     final loginProcess = Get.find<LoginProcess>();
     final requestData = PostLoginSignInRequestModel(
       loginId: email.value,
@@ -109,7 +111,7 @@ class SignUpController extends BaseController {
       type: UserSnsType.idPw.toString(),
       name: name.value,
       cellphoneNo: phoneNumber.value,
-      birth: birth.value,
+      birthDate: birthDate,
       gender: gender.value?.code,
     );
 

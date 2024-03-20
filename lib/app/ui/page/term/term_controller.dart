@@ -136,7 +136,7 @@ class TermController extends LifecycleController {
       type: args.snsType.toString(),
       name: '',
       cellphoneNo: '',
-      birth: '',
+      birthDate: '',
       gender: '',
     );
     final moveType = await loginProcess.signInAndMove(requestData: requestData);

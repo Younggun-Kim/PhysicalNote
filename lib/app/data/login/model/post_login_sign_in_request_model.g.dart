@@ -15,7 +15,7 @@ PostLoginSignInRequestModel _$PostLoginSignInRequestModelFromJson(
       type: json['type'] as String,
       name: json['name'] as String?,
       cellphoneNo: json['cellphoneNo'] as String?,
-      birth: json['birth'] as String?,
+      birthDate: json['birthDate'] as String?,
       gender: json['gender'] as String?,
     );
 
@@ -28,6 +28,6 @@ Map<String, dynamic> _$PostLoginSignInRequestModelToJson(
       'type': instance.type,
       'name': instance.name,
       'cellphoneNo': instance.cellphoneNo,
-      'birth': instance.birth,
+      'birthDate': instance.birthDate,
       'gender': instance.gender,
     };
