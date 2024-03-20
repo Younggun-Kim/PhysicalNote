@@ -46,6 +46,10 @@ class _SearchTextField extends GetView<SearchTeamsController> {
         controller: controller.keyword.controller,
         hint: StringRes.search.tr,
         isShowSearch: true,
+        textInputAction: TextInputAction.search,
+        onSubmitted: (_) {
+          controller.onPressedSearchButton();
+        },
         onPressedSearch: controller.onPressedSearchButton,
       ).paddingSymmetric(horizontal: 30);
 }

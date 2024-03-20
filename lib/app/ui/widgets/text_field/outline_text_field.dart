@@ -26,6 +26,8 @@ class OutlineTextField extends StatelessWidget {
 
   final TextInputType keyboardType;
 
+  final TextInputAction textInputAction;
+
   final bool obscureText; // 암호화 여부.
 
   final bool expands;
@@ -53,7 +55,11 @@ class OutlineTextField extends StatelessWidget {
 
   final bool readOnly;
 
+  /// 텍스트 변경 이벤트
   final ValueChanged<String>? onChanged;
+
+  /// 완료 동작 - Enter 클릭.
+  final ValueChanged<String>? onSubmitted;
 
   /// 생성자.
   const OutlineTextField({
@@ -67,6 +73,7 @@ class OutlineTextField extends StatelessWidget {
     this.maxLength,
     this.maxLines = 1,
     this.keyboardType = TextInputType.emailAddress,
+    this.textInputAction = TextInputAction.done,
     this.obscureText = false,
     this.expands = false,
     this.hint = "",
@@ -80,6 +87,7 @@ class OutlineTextField extends StatelessWidget {
     this.rightWidget,
     this.readOnly = false,
     this.onChanged,
+    this.onSubmitted,
   }) : super(key: key);
 
   @override
@@ -115,9 +123,11 @@ class OutlineTextField extends StatelessWidget {
               expands: expands,
               maxLines: maxLines,
               keyboardType: keyboardType,
+              textInputAction: textInputAction,
               obscureText: obscureText,
               readOnly: readOnly,
               onChanged: onChanged,
+              onSubmitted: onSubmitted,
               style: TextStyle(
                 fontSize: fontSize,
                 color: readOnly ? ColorRes.white : textColor,
