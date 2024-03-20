@@ -27,6 +27,7 @@ import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_i
 import 'package:physical_note/app/ui/widgets/list_dialog/list_dialog.dart';
 import 'package:physical_note/app/ui/widgets/list_dialog/list_dialog_item.dart';
 import 'package:physical_note/app/utils/sns/kakao_login.dart';
+import 'package:physical_note/app/utils/sns/logout.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/streams.dart';
 
@@ -301,26 +302,7 @@ class MyInformationController extends BaseController {
 
   /// 로그아웃.
   void logout() {
-    final userStorage = UserStorage();
-
-    /// 저장된 토근 삭제
-    userStorage.apiKey.val = "";
-
-    /// 네이버 로그아웃.
-    if (userStorage.snsType.val == UserSnsType.naver.toString()) {
-      FlutterNaverLogin.logOutAndDeleteToken();
-    }
-
-    /// 카카오 로그아웃.
-    if (userStorage.snsType.val == UserSnsType.kakao.toString()) {
-      final kakaoLogin = Get.find<KakaoLogin>();
-      kakaoLogin.logout();
-    }
-
-    userStorage.snsType.val = "";
-
-    /// 로그인으로 이동.
-    Get.offAllNamed(RouteType.LOGIN);
+    Logout.logout();
   }
 
   void onPressedSignOut() async {

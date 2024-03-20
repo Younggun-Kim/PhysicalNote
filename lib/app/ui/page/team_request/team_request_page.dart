@@ -48,6 +48,20 @@ class TeamRequestPage extends GetView<TeamRequestController> {
             right: 0,
             child: SvgPicture.asset(Assets.backgroundBottom),
           ),
+          Positioned(
+            bottom: 40,
+            left: 0,
+            right: 0,
+            child: LabelButton(
+              text: StringRes.logout.tr,
+              textStyle: const TextStyle(
+                fontSize: 16,
+                color: ColorRes.fontDisable,
+                fontWeight: FontWeight.w700,
+              ),
+              onPressed: controller.logout,
+            ),
+          ),
         ],
       ),
     );
