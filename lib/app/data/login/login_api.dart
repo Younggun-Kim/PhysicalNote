@@ -26,8 +26,6 @@ class LoginAPI extends API {
       requestData.toJson(),
     );
 
-    logger.i(response.bodyString);
-
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);
     } else {
@@ -40,8 +38,6 @@ class LoginAPI extends API {
     try {
       final fullUrl = "$server/api/login/relogin";
       final response = await post(fullUrl, {});
-
-      logger.i(response.bodyString);
 
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
@@ -57,18 +53,20 @@ class LoginAPI extends API {
   /// 회원가입 요청.
   Future<dynamic> postLoginSignIn(
       {required PostLoginSignInRequestModel requestData}) async {
-    logger.i("postLoginSignIn: ${requestData.toJson()}");
-    final response = await post(
-      requestUrl + "/signin",
-      requestData.toJson(),
-    );
+    try {
+      logger.i("postLoginSignIn: ${requestData.toJson()}");
+      final response = await post(
+        requestUrl + "/signin",
+        requestData.toJson(),
+      );
 
-    logger.w(response.bodyString);
-
-    if (response.status.hasError) {
-      return ServerResponseFailModel.fromJson(response.body);
-    } else {
-      return PostLoginSignInResponseModel.fromJson(response.body);
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return PostLoginSignInResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
     }
   }
 
@@ -83,8 +81,6 @@ class LoginAPI extends API {
     );
     logger.i("postLoginFindId: authCode: $authCode, phoneNumber: $phone}");
 
-    logger.i(response.bodyString);
-
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);
     } else {
@@ -98,8 +94,6 @@ class LoginAPI extends API {
       requestUrl + "/find_pw/step1",
       {"code": code},
     );
-
-    logger.i(response.bodyString);
 
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);
@@ -120,8 +114,6 @@ class LoginAPI extends API {
         "userLoginId": email,
       },
     );
-
-    logger.i(response.bodyString);
 
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);
@@ -157,8 +149,6 @@ class LoginAPI extends API {
         },
       );
 
-      logger.i(response.bodyString);
-
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
@@ -181,8 +171,6 @@ class LoginAPI extends API {
         },
       );
 
-      logger.i(response.bodyString);
-
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
@@ -203,9 +191,6 @@ class LoginAPI extends API {
       requestUrl + "/find_pw/step1",
       {"authCode": authCode, "phoneNumber": phone},
     );
-    logger.i("postLoginFindId: authCode: $authCode, phoneNumber: $phone}");
-
-    logger.i(response.bodyString);
 
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);

@@ -12,8 +12,6 @@ class FeedbackAPI extends API {
   Future<dynamic> getFeedback(String recordDate) async {
     final response = await get(requestUrl + "?recordDate=$recordDate");
 
-    logger.i("API Response: ${response.bodyString}");
-
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);
     } else {

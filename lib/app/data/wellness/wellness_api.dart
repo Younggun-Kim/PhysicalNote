@@ -11,8 +11,6 @@ class WellnessAPI extends API {
   Future<dynamic> getWellness(String date) async {
     final response = await get("$requestUrl?recordDate=$date");
 
-    logger.w(response.bodyString);
-
     if (response.status.hasError) {
       final failResponse = ServerResponseFailModel.fromJson(response.body);
       return failResponse;
@@ -28,8 +26,6 @@ class WellnessAPI extends API {
       {required PostWellnessRequestModel requestData}) async {
     logger.i("postWellness: ${requestData.toJson()}");
     final response = await post(requestUrl, requestData.toJson());
-
-    logger.w(response.bodyString);
 
     if (response.status.hasError) {
       final failResponse = ServerResponseFailModel.fromJson(response.body);
@@ -48,8 +44,6 @@ class WellnessAPI extends API {
     logger.i("putWellnessDetail: ${requestData.toJson()}");
     final response =
         await put(requestUrl + "/$wellnessId", requestData.toJson());
-
-    logger.w(response.bodyString);
 
     if (response.status.hasError) {
       final failResponse = ServerResponseFailModel.fromJson(response.body);

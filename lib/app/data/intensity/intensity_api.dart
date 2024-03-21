@@ -15,8 +15,6 @@ class IntensityAPI extends API {
     try {
       final response = await get("$requestUrl?recordDate=$date");
 
-      log("${response.bodyString}");
-
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
@@ -50,8 +48,6 @@ class IntensityAPI extends API {
   Future<dynamic> putIntensity(PostIntensityRequestModel requestData, int intensityId) async {
     logger.i("putIntensity: ${requestData.toJson()}");
     final response = await put("$requestUrl/$intensityId", requestData.toJson());
-
-    log("${response.bodyString}");
 
     if (response.status.hasError) {
       final failResponse = ServerResponseFailModel.fromJson(response.body);

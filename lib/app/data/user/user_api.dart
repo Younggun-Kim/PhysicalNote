@@ -13,8 +13,6 @@ class UserAPI extends API {
   Future<dynamic> getUser() async {
     final response = await get(requestUrl);
 
-    logger.w(response.bodyString);
-
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);
     } else {
@@ -28,8 +26,6 @@ class UserAPI extends API {
       logger.i("postUser: ${requestData.toJson()}");
 
       final response = await post(requestUrl, requestData.toJson());
-
-      logger.w(response.bodyString);
 
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
@@ -46,8 +42,6 @@ class UserAPI extends API {
   Future<dynamic> deleteUser() async {
     try {
       final response = await delete(requestUrl + "/leave");
-
-      logger.w(response.bodyString);
 
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);

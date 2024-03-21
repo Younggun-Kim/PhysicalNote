@@ -20,8 +20,6 @@ class TeamsAPI extends API {
         url,
       );
 
-      logger.i("${response.bodyString}");
-
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
       } else {

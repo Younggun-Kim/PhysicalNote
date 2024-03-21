@@ -17,8 +17,6 @@ class WorkoutAPI extends API {
     final response =
         await get(requestUrl + "/category?page=$page&keyword=$keyword");
 
-    logger.i("API Response: ${response.bodyString}");
-
     if (response.status.hasError) {
       final failResponse = ServerResponseFailModel.fromJson(response.body);
       return Future.error({failResponse.message});
@@ -38,8 +36,6 @@ class WorkoutAPI extends API {
     final response = await get(
       requestUrl + "/$categoryId?page=$pageKey&keyword=$keyword",
     );
-
-    logger.i("API Response: ${response.bodyString}");
 
     if (response.status.hasError) {
       final failResponse = ServerResponseFailModel.fromJson(response.body);
@@ -66,8 +62,6 @@ class WorkoutAPI extends API {
       }
 
       final response = await get(apiUrl);
-
-      logger.i("API Response: ${response.bodyString}");
 
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);

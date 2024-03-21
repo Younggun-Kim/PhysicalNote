@@ -36,6 +36,17 @@ class API extends GetConnect {
           logger.w("Request Header: ${request.headers.toString()}");
           return request;
         },
-      );
+      )
+      ..addResponseModifier((request, response) {
+        final requestMethodUrl =
+            "[${request.method.toUpperCase()}]${request.url}";
+        final statusCode = "Status Code : ${response.statusCode}";
+        final logMessage = [
+          requestMethodUrl,
+          statusCode,
+          response.bodyString,
+        ].join("\n");
+        logger.i(logMessage);
+      });
   }
 }
