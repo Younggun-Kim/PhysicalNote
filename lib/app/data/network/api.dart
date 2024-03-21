@@ -25,7 +25,6 @@ class API extends GetConnect {
       ..addRequestModifier<dynamic>(
         (request) {
           /// 헤더에 토큰 추가 작업
-          logger.i('Request Url: ${request.url.toString()}');
           if (request.url.toString().contains("/api")) {
             final userStorage = UserStorage();
             final token = userStorage.apiKey.val;
@@ -33,7 +32,12 @@ class API extends GetConnect {
           } else {
             request.headers.remove('Authorization');
           }
-          logger.w("Request Header: ${request.headers.toString()}");
+          final logMessage = [
+            'Request Header: ${request.headers.toString()}',
+            'Request Url: [${request.method.toUpperCase()}]${request.url.toString()}',
+          ].join('\n');
+
+          logger.i(logMessage);
           return request;
         },
       )
@@ -47,6 +51,8 @@ class API extends GetConnect {
           response.bodyString,
         ].join("\n");
         logger.i(logMessage);
+
+        return response;
       });
   }
 }

@@ -4,7 +4,7 @@ import 'package:physical_note/app/resources/strings/translations.dart';
 /// 성별 타입
 enum GenderType {
   male(code: 'M'),
-  female(code: 'W');
+  female(code: 'F');
 
   final String code;
 

@@ -16,8 +16,6 @@ class HomeAPI extends API {
     try {
       final response = await get(requestUrl + "?recordDate=$recordDate");
 
-      log(response.bodyString ?? "");
-
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
       } else {

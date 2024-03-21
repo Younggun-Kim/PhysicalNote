@@ -32,8 +32,6 @@ class IntensityAPI extends API {
     logger.i("postIntensity: ${requestData.toJson()}");
     final response = await post(requestUrl, requestData.toJson());
 
-    logger.w(response.bodyString);
-
     if (response.status.hasError) {
       final failResponse = ServerResponseFailModel.fromJson(response.body);
       return failResponse;

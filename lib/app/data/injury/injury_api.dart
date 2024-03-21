@@ -23,8 +23,6 @@ class InjuryAPI extends API {
         requestUrl + "?recordDate=$recordDate",
       );
 
-      logger.i(response.bodyString ?? "");
-
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
@@ -45,8 +43,6 @@ class InjuryAPI extends API {
       final response = await get(
         requestUrl + "/$id",
       );
-
-      log(response.bodyString ?? "");
 
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
@@ -69,8 +65,6 @@ class InjuryAPI extends API {
         requestUrl,
         requestData.toJson(),
       );
-
-      log(response.bodyString ?? "");
 
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
@@ -95,8 +89,6 @@ class InjuryAPI extends API {
         requestData.toJson(),
       );
 
-      log(response.bodyString ?? "");
-
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
@@ -117,8 +109,6 @@ class InjuryAPI extends API {
       final response = await delete(
         requestUrl + "/$injuryId",
       );
-
-      log(response.bodyString ?? "");
 
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);

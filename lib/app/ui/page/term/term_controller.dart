@@ -95,9 +95,7 @@ class TermController extends LifecycleController {
     /// IdPw는 회원가입 화면으로 이동.
     if (args.snsType == UserSnsType.idPw) {
       Get.toNamed(RouteType.SIGN_UP);
-    } else {
-
-    }
+    } else {}
   }
 
   /// 패스 정보 조회.
@@ -146,23 +144,28 @@ class TermController extends LifecycleController {
 
   /// API - 약관 조회.
   Future<String?> _getTerm(TermType type) async {
-    setLoading(true);
-    final commonApi = Get.find<CommonAPI>();
-    final response = await commonApi.getTerms(type: type);
-    String? resultHtml;
+    try {
+      setLoading(true);
+      final commonApi = Get.find<CommonAPI>();
+      final response = await commonApi.getTerms(type: type);
+      String? resultHtml;
 
-    if (response is GetTermResponseModel) {
-      resultHtml = response.content;
-    } else {
-      final message = (response as ServerResponseFailModel?)?.toastMessage ??
-          StringRes.serverError.tr;
-      showToast(message);
+      if (response is GetTermResponseModel) {
+        resultHtml = response.content;
+      } else {
+        final message = (response as ServerResponseFailModel?)?.toastMessage ??
+            StringRes.serverError.tr;
+        showToast(message);
+      }
+
+      await Future.delayed(const Duration(seconds: 1));
+      setLoading(false);
+
+      return resultHtml;
+    } catch (e) {
+      logger.e(e);
+      return "";
     }
-
-    await Future.delayed(const Duration(seconds: 1));
-    setLoading(false);
-
-    return resultHtml;
   }
 
   /// 약관 보기.

@@ -12,8 +12,7 @@ class CommonAPI extends API {
   CommonAPI() : super(basePath: "");
 
   /// 이미지 업로드
-  Future<dynamic> postUpload(
-      String dir, PhotoModel photoModel) async {
+  Future<dynamic> postUpload(String dir, PhotoModel photoModel) async {
     final formData = FormData({
       'file': MultipartFile(photoModel.file?.path, filename: 'profile.jpg')
     });
@@ -22,8 +21,6 @@ class CommonAPI extends API {
       requestUrl + "/api/upload/$dir",
       formData,
     );
-
-    logger.w(response.bodyString);
 
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);
@@ -36,16 +33,19 @@ class CommonAPI extends API {
   Future<dynamic> getTerms({
     required TermType type,
   }) async {
-    final response = await get(
-      requestUrl + "/terms/${type.toString()}",
-    );
+    try {
+      final response = await get(
+        requestUrl + "/terms/${type.toString()}",
+      );
 
-    logger.w(response.bodyString);
-
-    if (response.status.hasError) {
-      return ServerResponseFailModel.fromJson(response.body);
-    } else {
-      return GetTermResponseModel.fromJson(response.body);
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return GetTermResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
+      return null;
     }
   }
 }
