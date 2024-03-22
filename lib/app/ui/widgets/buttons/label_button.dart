@@ -7,11 +7,11 @@ class LabelButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const LabelButton({
-    Key? key,
+    super.key,
     required this.text,
     this.textStyle,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) => TextButton(

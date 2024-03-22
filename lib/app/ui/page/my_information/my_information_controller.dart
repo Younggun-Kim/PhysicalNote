@@ -1,7 +1,6 @@
 // ignore_for_file: unnecessary_cast
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:physical_note/app/config/constant/gender_type.dart';
@@ -17,7 +16,6 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/user/model/delete_user_response_model.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
-import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_ui_mapper.dart';
@@ -26,7 +24,6 @@ import 'package:physical_note/app/ui/page/position/position.dart';
 import 'package:physical_note/app/ui/page/search_teams/items/search_teams_list_item_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/list_dialog/list_dialog.dart';
 import 'package:physical_note/app/ui/widgets/list_dialog/list_dialog_item.dart';
-import 'package:physical_note/app/utils/sns/kakao_login.dart';
 import 'package:physical_note/app/utils/sns/logout.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/streams.dart';

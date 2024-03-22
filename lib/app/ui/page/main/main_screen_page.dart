@@ -13,7 +13,7 @@ import 'main_tab_index.dart';
 class MainScreenPage extends GetView<MainScreenController> {
   static const routeName = "/main";
 
-  const MainScreenPage({Key? key}) : super(key: key);
+  const MainScreenPage({super.key});
 
   @override
   Widget build(BuildContext context) => PopScope(

@@ -3,7 +3,6 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/workout/model/get_workout_detail_response_list_item_model.dart';
 import 'package:physical_note/app/data/workout/model/get_workout_position_detail_response_model.dart';
 
-import '../../utils/logger/logger.dart';
 import '../network/api.dart';
 import 'model/get_workout_category_response_list_item_model.dart';
 
@@ -57,7 +56,7 @@ class WorkoutAPI extends API {
     try {
       var apiUrl = "$requestUrl/position/$workoutId?page=$pageKey";
 
-      if(keyword != null) {
+      if (keyword != null) {
         apiUrl += "&keyword=$keyword";
       }
 

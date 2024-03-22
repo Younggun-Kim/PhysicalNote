@@ -10,13 +10,13 @@ class Header extends StatelessWidget {
   get hasMenu => menu != null;
 
   const Header({
-    Key? key,
+    super.key,
     required this.title,
     this.showBack = true,
     this.padding = const EdgeInsets.symmetric(horizontal: 24),
     this.onPressed,
     this.menu,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) => Container(

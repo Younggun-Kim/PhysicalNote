@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
 import 'package:physical_note/app/data/intensity/model/post_intensity_request_model.dart';
 import 'package:physical_note/app/data/intensity/model/post_intensity_response_model.dart';

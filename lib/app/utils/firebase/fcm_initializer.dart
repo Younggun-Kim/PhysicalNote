@@ -36,7 +36,7 @@ class FcmInitializer {
   static void init() async {
     final token = await FirebaseMessaging.instance.getToken();
 
-    print("fcm-token: $token");
+    logger.i("fcm-token: $token");
 
     // IOS background 권한 체킹 , 요청
     await FirebaseMessaging.instance.requestPermission(

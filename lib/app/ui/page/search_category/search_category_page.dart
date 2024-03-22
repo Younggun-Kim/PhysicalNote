@@ -5,7 +5,6 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item.dart';
 import 'package:physical_note/app/ui/page/search_category/search_category.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 
 import 'item/search_category_list_item_ui_state.dart';
 

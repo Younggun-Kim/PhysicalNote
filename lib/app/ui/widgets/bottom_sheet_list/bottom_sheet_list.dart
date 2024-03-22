@@ -44,7 +44,7 @@ var bottomSheetList = (
         );
       },
       separatorBuilder: (BuildContext ctx, int idx) {
-        return Divider();
+        return const Divider();
       },
     ),
   );

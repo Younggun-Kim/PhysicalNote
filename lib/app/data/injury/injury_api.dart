@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:physical_note/app/data/injury/model/get_injury_response_model.dart';
 import 'package:physical_note/app/data/injury/model/post_injury_request_model.dart';
 import 'package:physical_note/app/data/injury/model/post_injury_response_model.dart';

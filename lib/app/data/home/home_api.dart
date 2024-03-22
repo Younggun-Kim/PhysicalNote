@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:physical_note/app/data/home/model/get_home_response_model.dart';
 import 'package:physical_note/app/utils/utils.dart';
 

@@ -63,7 +63,7 @@ class OutlineTextField extends StatelessWidget {
 
   /// 생성자.
   const OutlineTextField({
-    Key? key,
+    super.key,
     this.height = 56,
     this.border,
     this.borderRadius,
@@ -88,7 +88,7 @@ class OutlineTextField extends StatelessWidget {
     this.readOnly = false,
     this.onChanged,
     this.onSubmitted,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

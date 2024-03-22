@@ -15,10 +15,10 @@ class CalendarDialog extends StatefulWidget {
   final DateTime focusedDate;
 
   const CalendarDialog({
-    Key? key,
+    super.key,
     required this.currentDate,
     required this.focusedDate,
-  }) : super(key: key);
+  });
 
   @override
   State<CalendarDialog> createState() => _CalendarDialogState();

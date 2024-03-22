@@ -20,7 +20,7 @@ class AppCheckbox extends StatelessWidget {
   get hasMenu => menu != null;
 
   const AppCheckbox({
-    Key? key,
+    super.key,
     this.text = "",
     required this.isChecked,
     this.onToggle,
@@ -28,7 +28,7 @@ class AppCheckbox extends StatelessWidget {
     this.textStyle,
     this.crossAxisAlignment = CrossAxisAlignment.center,
     this.menu,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) => GestureDetector(

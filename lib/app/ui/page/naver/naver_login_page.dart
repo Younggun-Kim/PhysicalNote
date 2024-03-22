@@ -1,4 +1,4 @@
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/naver/naver_login.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -42,7 +40,7 @@ class LoginPage extends GetView<LoginController> {
 
 /// 이메일 필드.
 class _EmailField extends GetView<LoginController> {
-  const _EmailField({Key? key}) : super(key: key);
+  const _EmailField();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +64,7 @@ class _EmailField extends GetView<LoginController> {
 
 /// 비밀번호 필드.
 class _PasswordField extends GetView<LoginController> {
-  const _PasswordField({Key? key}) : super(key: key);
+  const _PasswordField();
 
   @override
   Widget build(BuildContext context) => Column(
@@ -118,7 +116,7 @@ class _ErrorText extends StatelessWidget {
 
 /// 가입 및 찾기 필드.
 class _SignUpAndFindField extends GetView<LoginController> {
-  const _SignUpAndFindField({Key? key}) : super(key: key);
+  const _SignUpAndFindField();
 
   @override
   Widget build(BuildContext context) {
@@ -182,69 +180,4 @@ class LoginButton extends GetView<LoginController> {
         isEnabled: controller.isEnabledLogin.value,
         onPressed: controller.onPressedLogin,
       ));
-}
-
-/// Sns로 시작하기 뷰.
-class _SnsField extends GetView<LoginController> {
-  @override
-  Widget build(BuildContext context) => Container(
-        width: double.infinity,
-        alignment: Alignment.center,
-        child: Column(
-          children: [
-            Text(
-              StringRes.startWithSns.tr,
-              style: const TextStyle(
-                fontSize: 12,
-                color: ColorRes.fontBlack,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWellOver(
-                  onTap: controller.onPressedNaver,
-                  borderRadius: BorderRadius.circular(20),
-                  child: SvgPicture.asset(
-                    Assets.naver,
-                    width: 44,
-                    height: 44,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                const SizedBox(width: 24),
-                InkWellOver(
-                  onTap: controller.onPressedKakao,
-                  borderRadius: BorderRadius.circular(20),
-                  child: SvgPicture.asset(
-                    Assets.kakaotalk,
-                    width: 44,
-                    height: 44,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                Visibility(visible: Platform.isIOS, child: _apple())
-              ],
-            ),
-          ],
-        ),
-      );
-
-  /// Apple 로그인 뷰.
-  Widget _apple() => Row(
-        children: [
-          const SizedBox(width: 24),
-          InkWellOver(
-            onTap: controller.onPressedApple,
-            borderRadius: BorderRadius.circular(20),
-            child: SvgPicture.asset(
-              Assets.apple,
-              width: 44,
-              height: 44,
-              fit: BoxFit.contain,
-            ),
-          ),
-        ],
-      );
 }

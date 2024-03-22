@@ -37,12 +37,4 @@ class FindIdCompleteController extends BaseController {
   void onPressedLogin() {
     Get.until((route) => Get.currentRoute == RouteType.LOGIN);
   }
-
-  /// Email 계정 가져오기.
-  FindIdCompleteItemUiState? _getEmailAccount(
-      List<FindIdCompleteItemUiState>? accounts) {
-    return accounts?.firstWhereOrNull(
-      (element) => element.snsType == UserSnsType.idPw,
-    );
-  }
 }

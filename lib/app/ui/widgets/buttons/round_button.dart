@@ -27,7 +27,7 @@ class RoundButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const RoundButton({
-    Key? key,
+    super.key,
     this.width,
     this.height = 56,
     this.radius = 28,
@@ -53,7 +53,7 @@ class RoundButton extends StatelessWidget {
       fontSize: 16,
     ),
     this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) => Container(

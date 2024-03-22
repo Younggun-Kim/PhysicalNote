@@ -17,13 +17,13 @@ class InkWellOver extends StatelessWidget {
   final BorderRadius? borderRadius;
 
   const InkWellOver({
-    Key? key,
+    super.key,
     required this.child,
     this.splashColor,
     this.onTap,
     this.onTapDown,
     this.borderRadius,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) => Stack(

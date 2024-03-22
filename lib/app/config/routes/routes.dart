@@ -20,17 +20,11 @@ import 'package:physical_note/app/ui/page/sign_up/sign_up.dart';
 import 'package:physical_note/app/ui/page/splash/splash.dart';
 import 'package:physical_note/app/ui/page/team_request/team_request.dart';
 import 'package:physical_note/app/ui/page/term/term.dart';
-import 'package:physical_note/app/ui/page/test/test.dart';
 
 part 'route_type.dart';
 
 class Routes {
   static final pages = [
-    GetPage(
-      name: RouteType.TEST,
-      page: () => const TestPage(),
-      binding: TestBindings(),
-    ),
     GetPage(
       name: RouteType.SPLASH,
       page: () => const SplashPage(),

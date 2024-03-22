@@ -50,7 +50,7 @@ class MyInformationPage extends GetView<MyInformationController> {
                 ),
               ),
               const SizedBox(height: 10),
-              BottomButtons(),
+              const BottomButtons(),
               const SizedBox(height: 40),
             ],
           ),

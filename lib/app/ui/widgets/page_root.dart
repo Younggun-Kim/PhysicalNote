@@ -36,7 +36,7 @@ class PageRoot extends StatelessWidget {
 
   /// 생성자.
   const PageRoot({
-    Key? key,
+    super.key,
     required this.controller,
     this.backgroundColor = Colors.white,
     this.progressColor = Colors.black,
@@ -47,7 +47,7 @@ class PageRoot extends StatelessWidget {
     required this.child,
     this.canPop = false,
     this.onWillPop,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) => PopScope(

@@ -18,13 +18,13 @@ class FlexibleScrollView extends StatelessWidget {
   final bool hasScrollBody;
 
   const FlexibleScrollView({
-    Key? key,
+    super.key,
     this.padding,
     this.scrollDirection = Axis.vertical,
     this.controller,
     this.hasScrollBody = false,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) => CustomScrollView(
