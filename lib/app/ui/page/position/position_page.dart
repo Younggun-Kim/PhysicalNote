@@ -22,7 +22,6 @@ class PositionPage extends GetView<PositionController> {
             const SizedBox(height: 40),
             _PositionList(),
             const SizedBox(height: 20),
-            const Spacer(),
             Obx(
               () => BaseButton(
                 text: StringRes.complete.tr,
