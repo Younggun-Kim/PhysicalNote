@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -35,7 +37,8 @@ class TeamRequestPage extends GetView<TeamRequestController> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 200),
+              SizedBox(
+                  height: min(MediaQuery.of(context).size.height * 0.1, 200)),
               Image.asset(Assets.teamRequest),
               Text(
                 StringRes.teamRequest.tr,

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -32,7 +34,8 @@ class InformationRegistrationGuidePage
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 200),
+              SizedBox(
+                  height: min(MediaQuery.of(context).size.height * 0.2, 200)),
               Text(
                 controller.args.hasWorkout
                     ? StringRes.noRegisteredTeam.tr
