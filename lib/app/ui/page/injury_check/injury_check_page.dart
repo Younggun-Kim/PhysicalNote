@@ -159,35 +159,40 @@ class _Disease extends GetView<InjuryCheckController> {
 /// 부상 타입.
 class _InjuryType extends GetView<InjuryCheckController> {
   @override
-  Widget build(BuildContext context) => Obx(
-        () => Row(
-          children: [
-            BaseButton(
+  Widget build(BuildContext context) => Obx(() => Wrap(
+        direction: Axis.horizontal,
+        spacing: 10,
+        runSpacing: 10,
+        children: [
+          FittedBox(
+            child: BaseButton(
               isSelected: controller.injuryType.value == InjuryType.nonContact,
               text: InjuryType.nonContact.toString(),
               onPressed: () {
                 controller.onPressedInjuryType(InjuryType.nonContact);
               },
             ),
-            const SizedBox(width: 10),
-            BaseButton(
+          ),
+          FittedBox(
+            child: BaseButton(
               isSelected: controller.injuryType.value == InjuryType.contact,
               text: InjuryType.contact.toString(),
               onPressed: () {
                 controller.onPressedInjuryType(InjuryType.contact);
               },
             ),
-            const SizedBox(width: 10),
-            BaseButton(
+          ),
+          FittedBox(
+            child: BaseButton(
               isSelected: controller.injuryType.value == InjuryType.disease,
               text: InjuryType.disease.toString(),
               onPressed: () {
                 controller.onPressedInjuryType(InjuryType.disease);
               },
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ));
 }
 
 /// 접촉/비접촉.
