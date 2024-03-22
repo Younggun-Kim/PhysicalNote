@@ -9,7 +9,6 @@ import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'intensity_table.dart';
 
 class IntensityPage extends GetView<DataController> {
-
   const IntensityPage({
     super.key,
   });
@@ -45,23 +44,27 @@ class IntensityPage extends GetView<DataController> {
               ),
             ),
             const SizedBox(height: 30),
-            Obx(() => Row(
-              children: [
-                _WorkoutButton(
-                    text: StringRes.sportsTraining.tr,
-                    isSelected: controller.intensityWorkoutType.value == WorkoutType.sports,
-                    onPressed: () {
-                      controller.onPressedWorkout(WorkoutType.sports);
-                    }),
-                const SizedBox(width: 8),
-                _WorkoutButton(
-                    text: StringRes.physicalTraining.tr,
-                    isSelected: controller.intensityWorkoutType.value == WorkoutType.physical,
-                    onPressed: () {
-                      controller.onPressedWorkout(WorkoutType.physical);
-                    }),
-              ],
-            ),),
+            Obx(
+              () => Row(
+                children: [
+                  _WorkoutButton(
+                      text: StringRes.sportsTraining.tr,
+                      isSelected: controller.intensityWorkoutType.value ==
+                          WorkoutType.sports,
+                      onPressed: () {
+                        controller.onPressedWorkout(WorkoutType.sports);
+                      }),
+                  const SizedBox(width: 8),
+                  _WorkoutButton(
+                      text: StringRes.physicalTraining.tr,
+                      isSelected: controller.intensityWorkoutType.value ==
+                          WorkoutType.physical,
+                      onPressed: () {
+                        controller.onPressedWorkout(WorkoutType.physical);
+                      }),
+                ],
+              ),
+            ),
             const SizedBox(height: 45),
             Text(
               StringRes.workoutIntensityKorEng.tr,
@@ -82,7 +85,6 @@ class IntensityPage extends GetView<DataController> {
 
               return Column(
                 children: [
-
                   IntensityTable(
                     level: uiState?.level ?? 0,
                     onPressed: controller.onPressedLevel,

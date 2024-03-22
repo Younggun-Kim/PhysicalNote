@@ -52,6 +52,7 @@ class DataPage extends GetView<DataController> {
             () => PageView(
               controller: controller.pageController.value,
               physics: const NeverScrollableScrollPhysics(),
+              onPageChanged: controller.onChangedPage,
               children: const [
                 SizedBox.expand(child: WellnessPage()),
                 SizedBox.expand(child: IntensityPage()),

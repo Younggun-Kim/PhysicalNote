@@ -93,6 +93,15 @@ class DataController extends BaseController {
     isLoadInjury = false;
   }
 
+  /// 페이지 변경.
+  void onChangedPage(int page) async {
+    final menu = DataMenuType.fromPage(page);
+    if (menu == DataMenuType.intensity) {
+      await Future.delayed(const Duration(milliseconds: 500));
+      updateIntensityWorkoutTime();
+    }
+  }
+
   /// 날짜 업데이트 요청.
   void _updateDate(DateTime date) {
     final mainController = Get.find<MainScreenController>();
@@ -154,9 +163,24 @@ class DataController extends BaseController {
   Future onTapMenu(DataMenuType type) async {
     menu.value = type;
 
+    /// 운동강도 타임피커 초기화 버그 방지.
+    if (type != DataMenuType.intensity) {
+      final isSport = intensityWorkoutType.value == WorkoutType.sports;
+      final uiState = isSport
+          ? intensitySportsUiState.value
+          : intensityPhysicalUiState.value;
+      final lastHour = uiState.hour;
+      final lastMinute = uiState.minute;
+      intensityHourController = FixedExtentScrollController(
+        initialItem: lastHour,
+      );
+      intensityMinuteController = FixedExtentScrollController(
+        initialItem: lastMinute,
+      );
+    }
+
     if (pageController.value.hasClients) {
       pageController.value.jumpToPage(type.index);
-
       await loadApi();
     } else {
       /// 초기화가 다시.
@@ -324,12 +348,12 @@ class DataController extends BaseController {
   var intensityUiState = (null as IntensityPageUiState?).obs;
 
   /// 운동 강도 - 시간 컨트롤러.
-  final intensityHourController = FixedExtentScrollController(
+  var intensityHourController = FixedExtentScrollController(
     initialItem: 0,
   );
 
   /// 운동 강도 - 분 컨트롤러.
-  final intensityMinuteController = FixedExtentScrollController(
+  var intensityMinuteController = FixedExtentScrollController(
     initialItem: 0,
   );
 
