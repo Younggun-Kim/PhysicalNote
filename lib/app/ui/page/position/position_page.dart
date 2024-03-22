@@ -65,6 +65,9 @@ class _SearchTextField extends GetView<PositionController> {
         hint: StringRes.search.tr,
         isShowSearch: true,
         onPressedSearch: controller.onPressedSearchButton,
+        onSubmitted: (_) {
+          controller.onPressedSearchButton();
+        },
       ).paddingSymmetric(horizontal: 30);
 }
 
