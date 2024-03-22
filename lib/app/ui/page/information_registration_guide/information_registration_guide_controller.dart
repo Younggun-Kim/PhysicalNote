@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide_args.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
+import 'package:physical_note/app/utils/logger/logger.dart';
 
 class InformationRegistrationGuideController extends BaseController {
   final args = Get.arguments as InformationRegistrationGuideArgs;

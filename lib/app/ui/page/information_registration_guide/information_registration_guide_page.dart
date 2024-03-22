@@ -23,6 +23,11 @@ class InformationRegistrationGuidePage
             top: 0,
             child: SvgPicture.asset(Assets.backgroundTop),
           ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: SvgPicture.asset(Assets.backgroundBottom),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,11 +61,6 @@ class InformationRegistrationGuidePage
               ),
             ],
           ).paddingSymmetric(horizontal: 36),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: SvgPicture.asset(Assets.backgroundBottom),
-          ),
         ],
       ),
     );

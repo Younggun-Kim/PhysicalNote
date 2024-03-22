@@ -26,6 +26,11 @@ class TeamRequestPage extends GetView<TeamRequestController> {
               height: 230,
             ),
           ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: SvgPicture.asset(Assets.backgroundBottom),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,11 +47,6 @@ class TeamRequestPage extends GetView<TeamRequestController> {
               ).paddingSymmetric(horizontal: 40),
               const SizedBox(height: 46),
             ],
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: SvgPicture.asset(Assets.backgroundBottom),
           ),
           Positioned(
             bottom: 40,
