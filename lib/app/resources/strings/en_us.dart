@@ -241,4 +241,8 @@ final enUs = {
   StringRes.signUpComplete: "가입완료",
   StringRes.registrationCompletedAfterAdminApproval: '관리자 승인 후 등록이 완료됩니다.',
   StringRes.writeInBodyRecord: '인바디 기록을 적어주세요.',
+  StringRes.injuryRiskVeryGood: '매우좋음',
+  StringRes.injuryRiskGood: '좋음',
+  StringRes.injuryRiskDangerous: '관리요망',
+  StringRes.injuryRiskVeryDangerous: '매우위험',
 };

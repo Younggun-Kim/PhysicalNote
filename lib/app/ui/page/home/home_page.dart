@@ -730,7 +730,7 @@ class _MyStateRisk extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                StringRes.managementRequired.tr,
+                _getInjuryRiskLevelDescription(risk),
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
@@ -798,6 +798,19 @@ class _MyStateRisk extends StatelessWidget {
           color: ColorRes.fontDisable,
         ),
       );
+
+  /// 부상위험도 레벨 문구.
+  String _getInjuryRiskLevelDescription(int riskLevel) {
+    if (riskLevel < 8) {
+      return StringRes.injuryRiskVeryGood.tr;
+    } else if (riskLevel < 15) {
+      return StringRes.injuryRiskGood.tr;
+    } else if (riskLevel < 22) {
+      return StringRes.injuryRiskDangerous.tr;
+    } else {
+      return StringRes.injuryRiskVeryDangerous.tr;
+    }
+  }
 
   /// 부상위험도 이미지.
   Widget _getRiskManImage(int riskLevel) {

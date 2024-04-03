@@ -48,6 +48,12 @@ class StringRes {
   static final injuryLevelModeratePainDescription = _generateId();
   static final injuryLevelNoPainDescription = _generateId();
 
+  /// 부상위험도 문구.
+  static final injuryRiskVeryGood = _generateId();
+  static final injuryRiskGood = _generateId();
+  static final injuryRiskDangerous = _generateId();
+  static final injuryRiskVeryDangerous = _generateId();
+
   /// 통증 양상.
   static final tingling = _generateId();
   static final pressure = _generateId();
