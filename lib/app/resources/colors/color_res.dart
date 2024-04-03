@@ -179,6 +179,9 @@ class ColorRes {
   /// 연한 그레이.
   static const backgroundF9 = Color(0xfff9f9f9);
 
+  /// 9f9f9f
+  static const gray9f9f9f = Color(0xff9f9f9f);
+
   static MaterialColor _createMaterialColor(Color color) {
     List strengths = <double>[.05];
     Map<int, Color> swatch = {};

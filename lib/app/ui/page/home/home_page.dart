@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:dotted_border/dotted_border.dart';
@@ -706,7 +707,7 @@ class _MyStateRisk extends StatelessWidget {
                       number: risk,
                       backgroundColor: ColorRes.risk3,
                       isWhiteImage: true,
-                      isShowImage: risk > 20 && risk < 24),
+                      isShowImage: risk > 20 && risk < 29),
                 ),
               ],
             ),
@@ -750,7 +751,6 @@ class _MyStateRisk extends StatelessWidget {
         ],
       );
 
-  // TODO: 이미지.svg 파일 깨짐
   Widget _square({
     required int number,
     required Color backgroundColor,
@@ -771,11 +771,7 @@ class _MyStateRisk extends StatelessWidget {
               Positioned(
                 top: 6,
                 left: 6,
-                child: Image.asset(
-                  isWhiteImage ? Assets.retiredManWhite : Assets.retiredManGray,
-                  width: 10,
-                  height: 17,
-                ),
+                child: _getRiskManImage(number),
               ),
               Positioned(
                 bottom: 4,
@@ -784,7 +780,7 @@ class _MyStateRisk extends StatelessWidget {
                   risk.toString(),
                   style: TextStyle(
                     fontSize: 12,
-                    color: isWhiteImage ? ColorRes.white : ColorRes.disable,
+                    color: isWhiteImage ? ColorRes.white : ColorRes.gray9f9f9f,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -802,6 +798,36 @@ class _MyStateRisk extends StatelessWidget {
           color: ColorRes.fontDisable,
         ),
       );
+
+  /// 부상위험도 이미지.
+  Widget _getRiskManImage(int riskLevel) {
+    late String asset;
+    late double width;
+    late double height;
+    if (riskLevel < 8) {
+      asset = Assets.injuryRiskMan1;
+      width = 13;
+      height = 19;
+    } else if (riskLevel < 15) {
+      asset = Assets.injuryRiskMan2;
+      width = 10;
+      height = 18;
+    } else if (riskLevel < 22) {
+      asset = Assets.injuryRiskMan3;
+      width = 10;
+      height = 17;
+    } else {
+      asset = Assets.injuryRiskMan4;
+      width = 15;
+      height = 12;
+    }
+
+    return Image.asset(
+      asset,
+      width: width,
+      height: height,
+    );
+  }
 }
 
 /// 통계.

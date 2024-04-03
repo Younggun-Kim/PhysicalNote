@@ -25,6 +25,10 @@ class Assets {
   static const String icChevronright = 'assets/images/ic_chevronright.svg';
   static const String icNotification = 'assets/images/ic_notification.svg';
   static const String imgEmail = 'assets/images/img_email.png';
+  static const String injuryRiskMan1 = 'assets/images/injury_risk_man1.png';
+  static const String injuryRiskMan2 = 'assets/images/injury_risk_man2.png';
+  static const String injuryRiskMan3 = 'assets/images/injury_risk_man3.png';
+  static const String injuryRiskMan4 = 'assets/images/injury_risk_man4.png';
   static const String kakaotalk = 'assets/images/kakaotalk.svg';
   static const String logo = 'assets/images/logo.svg';
   static const String muscleBackBody = 'assets/images/muscle_back_body.svg';
@@ -69,5 +73,4 @@ class Assets {
   static const String walkMan = 'assets/images/walk_man.svg';
   static const String walkManBlack = 'assets/images/walk_man_black.svg';
   static const String xClose = 'assets/images/x-close.svg';
-
 }
