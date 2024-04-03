@@ -18,5 +18,15 @@ A new Flutter project.
 
 deploy_dev 브랜치에 머지 -> Xcode Cloud 배포
 
+## 외부 배포
+
+### Android
+
+1. App Bundle 추출
+- flutter build appbundle --release --flavor prod -t lib/app/config/env/prod.dart
+
+### iOS
+2. 아카이브
+
 # Android 키 해시 추출.
 [키 해시 문서](android/app/keystore/keyhash.md)
