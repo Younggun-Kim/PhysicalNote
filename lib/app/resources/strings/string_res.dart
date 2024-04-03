@@ -2,6 +2,64 @@ part of 'translations.dart';
 
 class StringRes {
   static const _uuid = Uuid();
+  /// DateTime 영역
+  static final hourParams = _generateId();
+  static final minParams = _generateId();
+
+  /// 운동강도 레벨.
+  static final intensityLevelVeryEasy = _generateId();
+  static final intensityLevelVeryEasyDescription = _generateId();
+  static final intensityLevelEasy = _generateId();
+  static final intensityLevelEasyDescription = _generateId();
+  static final intensityLevelNormal = _generateId();
+  static final intensityLevelNormalDescription = _generateId();
+  static final intensityLevelHard = _generateId();
+  static final intensityLevelHardDescription = _generateId();
+  static final intensityLevelVeryHard = _generateId();
+  static final intensityLevelVeryHardDescription = _generateId();
+  static final intensityLevelOver = _generateId();
+  static final intensityLevelOverDescription = _generateId();
+
+  /// 부상 타입.
+  static final injuryTypeContact = _generateId();
+  static final injuryTypeNonContact = _generateId();
+  static final injuryTypeDisease = _generateId();
+
+  /// 요일.
+  static final weekDaySun = _generateId();
+  static final weekDayMon = _generateId();
+  static final weekDayTue = _generateId();
+  static final weekDayWed = _generateId();
+  static final weekDayThu = _generateId();
+  static final weekDayFri = _generateId();
+  static final weekDaySat = _generateId();
+
+  /// 부상 레벨
+  static final injuryLevelVeryHighPain = _generateId();
+  static final injuryLevelHighPain = _generateId();
+  static final injuryLevelInjured = _generateId();
+  static final injuryLevelMildDiscomfort = _generateId();
+  static final injuryLevelModeratePain = _generateId();
+  static final injuryLevelNoPain = _generateId();
+  static final injuryLevelVeryHighPainDescription = _generateId();
+  static final injuryLevelHighPainDescription = _generateId();
+  static final injuryLevelInjuredDescription = _generateId();
+  static final injuryLevelMildDiscomfortDescription = _generateId();
+  static final injuryLevelModeratePainDescription = _generateId();
+  static final injuryLevelNoPainDescription = _generateId();
+
+  /// 통증 양상.
+  static final tingling = _generateId();
+  static final pressure = _generateId();
+  static final weakness = _generateId();
+  static final numbness = _generateId();
+  static final tightness = _generateId();
+  static final postureSensitive = _generateId();
+  static final aching = _generateId();
+  static final stiff = _generateId();
+  static final soreness = _generateId();
+  static final sharpPain = _generateId();
+  static final radiatingPain = _generateId();
 
   /// 생성자.
   const StringRes._();
@@ -204,66 +262,9 @@ class StringRes {
   static final signOutDescription = _generateId();
   static final authCode = _generateId();
   static final authCodeHint = _generateId();
-
-  /// DateTime 영역
-  static final hourParams = _generateId();
-  static final minParams = _generateId();
-
-  /// 운동강도 레벨.
-  static final intensityLevelVeryEasy = _generateId();
-  static final intensityLevelVeryEasyDescription = _generateId();
-  static final intensityLevelEasy = _generateId();
-  static final intensityLevelEasyDescription = _generateId();
-  static final intensityLevelNormal = _generateId();
-  static final intensityLevelNormalDescription = _generateId();
-  static final intensityLevelHard = _generateId();
-  static final intensityLevelHardDescription = _generateId();
-  static final intensityLevelVeryHard = _generateId();
-  static final intensityLevelVeryHardDescription = _generateId();
-  static final intensityLevelOver = _generateId();
-  static final intensityLevelOverDescription = _generateId();
   static final managementRequired = _generateId();
   static final delete = _generateId();
   static final painPosition = _generateId();
+  static final signUpComplete = _generateId();
 
-  /// 부상 타입.
-  static final injuryTypeContact = _generateId();
-  static final injuryTypeNonContact = _generateId();
-  static final injuryTypeDisease = _generateId();
-
-  /// 요일.
-  static final weekDaySun = _generateId();
-  static final weekDayMon = _generateId();
-  static final weekDayTue = _generateId();
-  static final weekDayWed = _generateId();
-  static final weekDayThu = _generateId();
-  static final weekDayFri = _generateId();
-  static final weekDaySat = _generateId();
-
-  /// 부상 레벨
-  static final injuryLevelVeryHighPain = _generateId();
-  static final injuryLevelHighPain = _generateId();
-  static final injuryLevelInjured = _generateId();
-  static final injuryLevelMildDiscomfort = _generateId();
-  static final injuryLevelModeratePain = _generateId();
-  static final injuryLevelNoPain = _generateId();
-  static final injuryLevelVeryHighPainDescription = _generateId();
-  static final injuryLevelHighPainDescription = _generateId();
-  static final injuryLevelInjuredDescription = _generateId();
-  static final injuryLevelMildDiscomfortDescription = _generateId();
-  static final injuryLevelModeratePainDescription = _generateId();
-  static final injuryLevelNoPainDescription = _generateId();
-
-  /// 통증 양상.
-  static final tingling = _generateId();
-  static final pressure = _generateId();
-  static final weakness = _generateId();
-  static final numbness = _generateId();
-  static final tightness = _generateId();
-  static final postureSensitive = _generateId();
-  static final aching = _generateId();
-  static final stiff = _generateId();
-  static final soreness = _generateId();
-  static final sharpPain = _generateId();
-  static final radiatingPain = _generateId();
 }

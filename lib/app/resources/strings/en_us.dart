@@ -237,5 +237,6 @@ final enUs = {
   StringRes.signOutDescription: "탈퇴하시겠습니까?",
   StringRes.doSignOut: "탈퇴하기",
   StringRes.authCode: "인증번호",
-  StringRes.authCodeHint: "인증번호 6자리를 입력해주세요."
+  StringRes.authCodeHint: "인증번호 6자리를 입력해주세요.",
+  StringRes.signUpComplete: "가입완료",
 };
