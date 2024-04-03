@@ -266,5 +266,6 @@ class StringRes {
   static final delete = _generateId();
   static final painPosition = _generateId();
   static final signUpComplete = _generateId();
+  static final registrationCompletedAfterAdminApproval = _generateId();
 
 }

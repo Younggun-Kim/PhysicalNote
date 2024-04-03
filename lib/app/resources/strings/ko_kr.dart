@@ -251,4 +251,5 @@ final koKr = {
   StringRes.authCode: "인증번호",
   StringRes.authCodeHint: "인증번호 6자리를 입력해주세요.",
   StringRes.signUpComplete: "가입완료",
+  StringRes.registrationCompletedAfterAdminApproval: '관리자 승인 후 등록이 완료됩니다.',
 };

@@ -237,6 +237,8 @@ class MyInformationController extends BaseController {
         close(result: true);
       } else {
         /// 정보등록에서 진입 시.
+        showToast(StringRes.registrationCompletedAfterAdminApproval.tr);
+        await Future.delayed(const Duration(seconds: 2));
         Get.offAllNamed(RouteType.TEAM_REQUEST);
       }
     } else {
@@ -244,7 +246,6 @@ class MyInformationController extends BaseController {
           StringRes.serverError.tr;
       showToast(message);
     }
-
     setLoading(false);
   }
 
