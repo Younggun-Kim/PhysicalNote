@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:dotted_border/dotted_border.dart';
@@ -534,9 +533,6 @@ class _MyStateUrinalysis extends StatelessWidget {
   late final checkImagePath =
       isPositiveWeight ? Assets.checkRed : Assets.checkBlue;
 
-  late final differenceFatColor =
-      isPositiveWeight ? Colors.red : ColorRes.fontBlue;
-
   late final weightWord = isPositiveWeight
       ? StringRes.emptyWeightGood.tr
       : StringRes.emptyWeightWarning.tr;
@@ -569,7 +565,7 @@ class _MyStateUrinalysis extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  color: differenceFatColor,
+                  color: _getDifferenceFatColor(urineData.differenceFat),
                 ),
               )
             ],
@@ -580,7 +576,17 @@ class _MyStateUrinalysis extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 14,
-                  color: urineData.urine.toColor(),
+                  decoration: BoxDecoration(
+                    color: urineData.urine.toColor(),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 2,
+                        blurRadius: 2,
+                        offset: const Offset(0, 0),
+                      ),
+                    ],
+                  ),
                   // color: ColorRes.urine3,
                 ),
               ),
@@ -613,7 +619,7 @@ class _MyStateUrinalysis extends StatelessWidget {
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 10,
-                    color: differenceFatColor,
+                    color: _getDifferenceFatColor(urineData.differenceFat),
                   ),
                 ),
               ),
@@ -621,6 +627,15 @@ class _MyStateUrinalysis extends StatelessWidget {
           ),
         ],
       );
+
+  /// 공복몸무게 차이 문구 색상
+  Color _getDifferenceFatColor(int fat) {
+    if (fat > 0) {
+      return ColorRes.fontRed;
+    } else {
+      return ColorRes.fontBlue;
+    }
+  }
 }
 
 /// 나의 상태 - 운동강도.
