@@ -267,5 +267,6 @@ class StringRes {
   static final painPosition = _generateId();
   static final signUpComplete = _generateId();
   static final registrationCompletedAfterAdminApproval = _generateId();
+  static final writeInBodyRecord = _generateId();
 
 }

@@ -251,7 +251,7 @@ class _Urine extends StatelessWidget {
               controller: bmiController,
               keyboardType: TextInputType.number,
               obscureText: false,
-              hint: StringRes.compellingRequest.tr,
+              hint: StringRes.writeInBodyRecord.tr,
               contentPadding: EdgeInsets.zero,
             ),
           ],

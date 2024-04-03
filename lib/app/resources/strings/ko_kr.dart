@@ -252,4 +252,5 @@ final koKr = {
   StringRes.authCodeHint: "인증번호 6자리를 입력해주세요.",
   StringRes.signUpComplete: "가입완료",
   StringRes.registrationCompletedAfterAdminApproval: '관리자 승인 후 등록이 완료됩니다.',
+  StringRes.writeInBodyRecord: '인바디 기록을 적어주세요.',
 };
