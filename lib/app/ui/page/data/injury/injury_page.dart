@@ -44,7 +44,7 @@ class InjuryPage extends GetView<DataController> {
                 color: ColorRes.fontDisable,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Row(
               children: [
                 Expanded(
