@@ -257,4 +257,6 @@ final koKr = {
   StringRes.injuryRiskGood: '좋음',
   StringRes.injuryRiskDangerous: '관리요망',
   StringRes.injuryRiskVeryDangerous: '매우위험',
+  StringRes.moistureGood: '수분 양호',
+  StringRes.moistureLack: '수분 부족',
 };

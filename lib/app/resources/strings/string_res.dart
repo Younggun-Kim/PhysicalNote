@@ -274,5 +274,8 @@ class StringRes {
   static final signUpComplete = _generateId();
   static final registrationCompletedAfterAdminApproval = _generateId();
   static final writeInBodyRecord = _generateId();
+  static final moistureGood = _generateId();
+  static final moistureLack = _generateId();
+
 
 }

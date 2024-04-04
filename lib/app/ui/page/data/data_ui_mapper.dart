@@ -22,7 +22,7 @@ extension DataUiMapper on DataController {
       fatigue: _convertAndClampToRange(data?.fatigue ?? 1),
       muscleSoreness: _convertAndClampToRange(data?.muscleSoreness ?? 1),
     );
-    wellnessUrineTable.value = _convertAndClampToRange(data?.urine ?? 1);
+    wellnessUrineTable.value = _convertUrineTable(data?.urine ?? 0);
     wellnessUrineWeight.value = data?.emptyStomachWeight?.toString() ?? "";
     wellnessUrineBmi.value = data?.bodyFat?.toString() ?? "";
   }
@@ -109,6 +109,23 @@ extension DataUiMapper on DataController {
 
     // int를 double로 변환
     double result = x.toDouble();
+
+    // 범위 제한
+    if (result < minLimit) {
+      result = minLimit;
+    } else if (result > maxLimit) {
+      result = maxLimit;
+    }
+
+    return result;
+  }
+
+  /// 소변검사표 값으로 변환
+  int _convertUrineTable(int x) {
+    const int minLimit = 1;
+    const int maxLimit = 7;
+
+    int result = x;
 
     // 범위 제한
     if (result < minLimit) {

@@ -38,6 +38,9 @@ class ColorRes {
   /// disabl.
   static const borderWhite = disable;
 
+  /// 소변검사표 선택
+  static const borderUrine = Color(0xff32261B);
+
   /// 0xff000000.
   static const fontBlack = Color(0xff000000);
 
@@ -181,6 +184,30 @@ class ColorRes {
 
   /// 9f9f9f
   static const gray9f9f9f = Color(0xff9f9f9f);
+
+  /// 소변검사표 8색상 - 1
+  static const urineTable1 = Color(0xfffffef8);
+
+  /// 소변검사표 8색상 - 2
+  static const urineTable2 = Color(0xffe9eecc);
+
+  /// 소변검사표 8색상 - 3
+  static const urineTable3 = Color(0xffE5E68C);
+
+  /// 소변검사표 8색상 - 4
+  static const urineTable4 = Color(0xffE0DC55);
+
+  /// 소변검사표 8색상 - 5
+  static const urineTable5 = Color(0xffE2DA14);
+
+  /// 소변검사표 8색상 - 6
+  static const urineTable6 = Color(0xffEBBD11);
+
+  /// 소변검사표 8색상 - 7
+  static const urineTable7 = Color(0xffD2A021);
+
+  /// 소변검사표 8색상 - 8
+  static const urineTable8 = Color(0xffC08D26);
 
   static MaterialColor _createMaterialColor(Color color) {
     List strengths = <double>[.05];

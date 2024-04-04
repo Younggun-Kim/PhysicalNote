@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
@@ -182,7 +183,7 @@ class _HooperIndex extends StatelessWidget {
 /// 소변검사.
 class _Urine extends StatelessWidget {
   /// 소변검사표.
-  final double table;
+  final int table;
 
   /// 체중.
   final TextEditingController weightController;
@@ -191,7 +192,7 @@ class _Urine extends StatelessWidget {
   final TextEditingController bmiController;
 
   /// 소변검사 - 소변검사표 변경 이벤트.
-  final Function(double) onChangedUrine;
+  final Function(int) onChangedUrine;
 
   const _Urine({
     required this.table,
@@ -219,16 +220,10 @@ class _Urine extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _SliderItem(
-              title: StringRes.urinalysisTable.tr,
-              engTitle: null,
+            _FieldName(text: StringRes.urinalysisTable.tr, isSubTitle: true),
+            _UrineTable(
               value: table,
-              minValueName: StringRes.satisfactory.tr,
-              maxValueName: StringRes.insufficient.tr,
-              color: ColorRes.urine3,
-              onChanged: (double value) {
-                onChangedUrine(value);
-              },
+              onChangedUrine: onChangedUrine,
             ),
             const SizedBox(height: 24),
             _FieldName(
@@ -328,5 +323,222 @@ class _SliderItem extends StatelessWidget {
             onChanged: onChanged,
           ),
         ],
+      );
+}
+
+/// 소변 검사 표
+class _UrineTable extends StatelessWidget {
+  final int value;
+
+  final Function(int) onChangedUrine;
+
+  const _UrineTable({
+    required this.value,
+    required this.onChangedUrine,
+  });
+
+  final TextStyle fontWhite = const TextStyle(
+    fontWeight: FontWeight.w700,
+    color: ColorRes.white,
+    fontSize: 12,
+  );
+
+  final TextStyle fontGray = const TextStyle(
+    fontWeight: FontWeight.w700,
+    color: ColorRes.gray9f9f9f,
+    fontSize: 12,
+  );
+
+  @override
+  Widget build(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            child: _UrineTableItem(
+              isSelected: value == 1,
+              text: '1',
+              textStyle: fontGray,
+              backgroundColor: ColorRes.urineTable1,
+              onTap: () {
+                onChangedUrine(1);
+              },
+            ),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: _UrineTableItem(
+              isSelected: value == 2,
+              text: '2',
+              textStyle: fontGray,
+              backgroundColor: ColorRes.urineTable2,
+              description: StringRes.moistureGood.tr,
+              onTap: () {
+                onChangedUrine(2);
+              },
+            ),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: _UrineTableItem(
+              isSelected: value == 3,
+              text: '3',
+              textStyle: fontGray,
+              backgroundColor: ColorRes.urineTable3,
+              onTap: () {
+                onChangedUrine(3);
+              },
+            ),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: _UrineTableItem(
+              isSelected: value == 4,
+              text: '4',
+              textStyle: fontWhite,
+              backgroundColor: ColorRes.urineTable4,
+              onTap: () {
+                onChangedUrine(4);
+              },
+            ),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: _UrineTableItem(
+              isSelected: value == 5,
+              text: '5',
+              textStyle: fontWhite,
+              backgroundColor: ColorRes.urineTable5,
+              onTap: () {
+                onChangedUrine(5);
+              },
+            ),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: _UrineTableItem(
+              isSelected: value == 6,
+              text: '6',
+              textStyle: fontWhite,
+              backgroundColor: ColorRes.urineTable6,
+              description: StringRes.moistureLack.tr,
+              onTap: () {
+                onChangedUrine(6);
+              },
+            ),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: _UrineTableItem(
+              isSelected: value == 7,
+              text: '7',
+              textStyle: fontWhite,
+              backgroundColor: ColorRes.urineTable7,
+              onTap: () {
+                onChangedUrine(7);
+              },
+            ),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: _UrineTableItem(
+              isSelected: value == 8,
+              text: '8',
+              textStyle: fontWhite,
+              backgroundColor: ColorRes.urineTable8,
+              onTap: () {
+                onChangedUrine(8);
+              },
+            ),
+          ),
+        ],
+      );
+}
+
+class _UrineTableItem extends StatelessWidget {
+  final bool isSelected;
+
+  final String text;
+
+  final TextStyle textStyle;
+
+  final Color backgroundColor;
+
+  final String description;
+
+  final Function() onTap;
+
+  const _UrineTableItem({
+    required this.isSelected,
+    required this.text,
+    required this.textStyle,
+    required this.backgroundColor,
+    this.description = '',
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) => InkWellOver(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            AspectRatio(
+              aspectRatio: 22 / 10,
+              child: Row(
+                children: [
+                  const Expanded(child: SizedBox()),
+                  Visibility(
+                    visible: isSelected,
+                    child: Expanded(
+                      child: SvgPicture.asset(Assets.arrowDown),
+                    ),
+                  ),
+                  const Expanded(child: SizedBox()),
+                ],
+              ),
+            ),
+            AspectRatio(
+              aspectRatio: 22 / 34,
+              child: Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  border: isSelected
+                      ? Border.all(color: ColorRes.borderUrine, width: 1.5)
+                      : null,
+                  borderRadius: BorderRadius.circular(5),
+                  color: backgroundColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.25),
+                      spreadRadius: 3,
+                      blurRadius: 5,
+                      offset: const Offset(0, 2), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Text(
+                  text,
+                  style: textStyle,
+                ),
+              ),
+            ),
+            Transform.translate(
+              offset: const Offset(-8, 0),
+              child: Text(
+                description,
+                textAlign: TextAlign.center,
+                softWrap: false,
+                overflow: TextOverflow.visible,
+                style: const TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  color: ColorRes.fontGray,
+                ),
+              ),
+            )
+          ],
+        ),
       );
 }

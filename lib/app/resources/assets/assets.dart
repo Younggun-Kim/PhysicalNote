@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String apple = 'assets/images/apple.svg';
+  static const String arrowDown = 'assets/images/arrow_down.svg';
   static const String backgroundBottom = 'assets/images/background_bottom.svg';
   static const String backgroundTop = 'assets/images/background_top.svg';
   static const String build = 'android/build.gradle';
@@ -73,4 +74,5 @@ class Assets {
   static const String walkMan = 'assets/images/walk_man.svg';
   static const String walkManBlack = 'assets/images/walk_man_black.svg';
   static const String xClose = 'assets/images/x-close.svg';
+
 }

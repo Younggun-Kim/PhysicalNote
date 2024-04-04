@@ -62,7 +62,7 @@ class DataController extends BaseController {
   var wellnessHooperIndexUiState = DataWellnessHooperIndexUiState().obs;
 
   /// 웰리니스 - 소변검사표.
-  var wellnessUrineTable = 1.0.obs;
+  var wellnessUrineTable = 0.obs;
 
   /// 웰리니스 - 소변검사 몸무게.
   var wellnessUrineWeight = "".obsWithController;
@@ -205,7 +205,7 @@ class DataController extends BaseController {
   }
 
   /// 웰리니스 - 소변검사 슬라이드 변경 이벤트.
-  void onChangedUrine(double value) {
+  void onChangedUrine(int value) {
     wellnessUrineTable.value = value;
   }
 
@@ -216,7 +216,7 @@ class DataController extends BaseController {
       stress: wellnessHooperIndexUiState.value.stress.toInt(),
       fatigue: wellnessHooperIndexUiState.value.fatigue.toInt(),
       muscleSoreness: wellnessHooperIndexUiState.value.muscleSoreness.toInt(),
-      urine: wellnessUrineTable.value.toInt(),
+      urine: wellnessUrineTable.value,
       bodyFat: double.tryParse(wellnessUrineBmi.value) ?? 0.0,
       emptyStomachWeight: double.tryParse(wellnessUrineWeight.value) ?? 0.0,
       recordDate:
