@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:physical_note/app/resources/resources.dart';
 
-import 'border_thumb_shape.dart';
 import 'custom_slider_thumb_circle.dart';
 import 'custom_slider_tick_mark_shape.dart';
 
