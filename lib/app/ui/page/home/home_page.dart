@@ -1015,7 +1015,7 @@ class _StatisticsChart extends StatelessWidget {
         titlesData: titlesData,
         lineBarsData: lineBarData,
         minX: 0,
-        maxX: 5,
+        maxX: isWeekly ? 6 : 5,
         minY: 0,
         maxY: 10,
       );
@@ -1088,13 +1088,13 @@ class _StatisticsChart extends StatelessWidget {
     int xValue = value.toInt();
     if (xValue <= HomeConstant.weeklyMaxXLength) {
       final weekdays = [
-        StringRes.weekDaySun.tr,
         StringRes.weekDayMon.tr,
         StringRes.weekDayTue.tr,
         StringRes.weekDayWed.tr,
         StringRes.weekDayThu.tr,
         StringRes.weekDayFri.tr,
         StringRes.weekDaySat.tr,
+        StringRes.weekDaySun.tr,
       ];
 
       weekday = weekdays[xValue];

@@ -212,19 +212,19 @@ extension HomeUiMapper on HomeController {
 
   /// 주간 X Value 매핑
   double? _weeklyXValeToDouble(String? xValue) {
-    if (xValue?.contains("일요일") == true) {
+    if (xValue?.contains("월요일") == true) {
       return 0;
-    } else if (xValue?.contains("월요일") == true) {
-      return 1;
     } else if (xValue?.contains("화요일") == true) {
-      return 2;
+      return 1;
     } else if (xValue?.contains("수요일") == true) {
-      return 3;
+      return 2;
     } else if (xValue?.contains("목요일") == true) {
-      return 4;
+      return 3;
     } else if (xValue?.contains("금요일") == true) {
-      return 5;
+      return 4;
     } else if (xValue?.contains("토요일") == true) {
+      return 5;
+    } else if (xValue?.contains("일요일") == true) {
       return 6;
     } else {
       return null;
