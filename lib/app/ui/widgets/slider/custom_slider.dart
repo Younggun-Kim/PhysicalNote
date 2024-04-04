@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:physical_note/app/resources/resources.dart';
 
 import 'border_thumb_shape.dart';
+import 'custom_slider_thumb_circle.dart';
 import 'custom_slider_tick_mark_shape.dart';
 
 /// 슬라이더.
@@ -47,7 +48,11 @@ class CustomSlider extends StatelessWidget {
             activeTrackColor: color,
             inactiveTrackColor: ColorRes.white,
             thumbColor: color,
-            thumbShape: BorderThumbShape(),
+            // thumbShape: BorderThumbShape(),
+            thumbShape: CustomSliderThumbCircle(
+              thumbRadius: 10,
+              currentValue: value,
+            ),
             showValueIndicator: ShowValueIndicator.always,
             overlayShape: SliderComponentShape.noOverlay,
             overlayColor: Colors.blue.withOpacity(0.3),
