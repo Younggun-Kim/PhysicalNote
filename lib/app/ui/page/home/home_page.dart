@@ -528,7 +528,7 @@ class _MyStateHooperIndexItem extends StatelessWidget {
 class _MyStateUrinalysis extends StatelessWidget {
   final HomeUrineModel urineData;
 
-  late final isPositiveWeight = urineData.differenceFat > 0;
+  late final isPositiveWeight = urineData.differenceFat.contains('+');
 
   late final checkImagePath =
       isPositiveWeight ? Assets.checkRed : Assets.checkBlue;
@@ -565,7 +565,7 @@ class _MyStateUrinalysis extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
-                  color: _getDifferenceFatColor(urineData.differenceFat),
+                  color: _getDifferenceFatColor(),
                 ),
               )
             ],
@@ -619,7 +619,7 @@ class _MyStateUrinalysis extends StatelessWidget {
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 10,
-                    color: _getDifferenceFatColor(urineData.differenceFat),
+                    color: _getDifferenceFatColor(),
                   ),
                 ),
               ),
@@ -629,12 +629,8 @@ class _MyStateUrinalysis extends StatelessWidget {
       );
 
   /// 공복몸무게 차이 문구 색상
-  Color _getDifferenceFatColor(int fat) {
-    if (fat > 0) {
-      return ColorRes.fontRed;
-    } else {
-      return ColorRes.fontBlue;
-    }
+  Color _getDifferenceFatColor() {
+    return isPositiveWeight ? ColorRes.fontRed : ColorRes.fontBlue;
   }
 }
 

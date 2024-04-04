@@ -10,7 +10,7 @@ UrineInfoModel _$UrineInfoModelFromJson(Map<String, dynamic> json) =>
     UrineInfoModel(
       id: json['id'] as int?,
       weight: (json['weight'] as num?)?.toDouble(),
-      differenceFat: (json['differenceFat'] as num?)?.toDouble(),
+      differenceFat: json['differenceFat'] as String?,
       urine: json['urine'] as String?,
       recordDate: json['recordDate'] as String?,
     );

@@ -4,7 +4,7 @@ import 'package:physical_note/app/config/constant/urine_status_type.dart';
 class HomeUrineModel {
   final int id;
   final int weight;
-  final int differenceFat;
+  final String differenceFat;
   final UrineStatusType urine;
 
   HomeUrineModel({

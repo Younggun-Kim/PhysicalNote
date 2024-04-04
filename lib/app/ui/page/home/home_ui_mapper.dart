@@ -89,7 +89,7 @@ extension HomeUiMapper on HomeController {
     return HomeUrineModel(
       id: urineId,
       weight: data.weight?.toInt() ?? 0,
-      differenceFat: data.differenceFat?.toInt() ?? 0,
+      differenceFat: data.differenceFat ?? '0',
       urine: UrineStatusType.typeFrom(data.urine ?? ""),
     );
   }

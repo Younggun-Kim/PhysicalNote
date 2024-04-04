@@ -7,7 +7,7 @@ part 'urine_info_model.g.dart';
 class UrineInfoModel {
   final int? id;
   final double? weight;
-  final double? differenceFat;
+  final String? differenceFat;
   final String? urine;
   final String? recordDate;
 
