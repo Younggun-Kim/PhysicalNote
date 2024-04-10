@@ -48,7 +48,11 @@ enum MuscleType {
   iliacus("ILIACUS"),
 
   /// 오훼완근
+  // TODO: 삭제 예정
   infraspinatus("INFRASPINATUS"),
+
+  /// 회전근개
+  rotatorcuff("ROTATORCUFF"),
 
   /// 대퇴직근
   largeRetirement("LARGE_RETIREMENT"),
@@ -169,6 +173,8 @@ enum MuscleType {
         return "장골근";
       case infraspinatus:
         return "오훼완근";
+      case rotatorcuff:
+        return "회전근개";
       case largeRetirement:
         return "대퇴직근";
       case lateralGastrocnemius:
@@ -270,7 +276,7 @@ enum MuscleType {
       biceps,
       brachioradialis,
       serratusAnterior,
-      infraspinatus,
+      rotatorcuff,
       triceps,
       brachialis,
       pronatorTeres
