@@ -232,7 +232,7 @@ final koKr = {
   StringRes.injuryLevelMildDiscomfortDescription: "활동 가능, 하지만 땀이 나거나 열을 내면 통증 완화 가능",
   StringRes.injuryLevelModeratePainDescription: "주로 뻣뻣함과 뻐근함이 느껴짐",
   StringRes.injuryLevelNoPainDescription: "활동 제약 없음",
-  StringRes.tingling: "짜릿함",
+  StringRes.tingling: "찌릿함",
   StringRes.pressure: "압박감",
   StringRes.weakness: "힘이 빠짐",
   StringRes.numbness: "저리거나 둔해짐",
