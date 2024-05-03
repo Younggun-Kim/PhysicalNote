@@ -28,7 +28,6 @@ class IntensityPageUiState {
     required this.type,
   });
 
-
   /// enabled 여부.
   bool _isEnabled() {
     return (level != null) && _hasTimeSelected();
@@ -36,9 +35,9 @@ class IntensityPageUiState {
 
   /// 시간 선택 여부 판단.
   bool _hasTimeSelected() {
-    if(hour > 0) {
+    if (hour > 0) {
       return true;
-    } else if(minute >= 30) {
+    } else if (minute >= 30) {
       return true;
     } else {
       return false;

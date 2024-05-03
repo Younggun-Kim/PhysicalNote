@@ -590,6 +590,7 @@ class _MyStateUrinalysis extends StatelessWidget {
                   // color: ColorRes.urine3,
                 ),
               ),
+              // TODO: 240503 수정예정.
               Text(
                 " : ${urineData.urine.toString()}",
                 style: const TextStyle(
