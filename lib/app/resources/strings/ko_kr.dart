@@ -229,7 +229,8 @@ final koKr = {
   StringRes.injuryLevelVeryHighPainDescription: "의료 상담 필요",
   StringRes.injuryLevelHighPainDescription: "운동 또는 일상 동작이 어려움",
   StringRes.injuryLevelInjuredDescription: "워밍업 후에도 지속, 특정 동작에서 제한 발생",
-  StringRes.injuryLevelMildDiscomfortDescription: "활동 가능, 하지만 땀이 나거나 열을 내면 통증 완화 가능",
+  StringRes.injuryLevelMildDiscomfortDescription:
+      "활동 가능, 하지만 땀이 나거나 열을 내면 통증 완화 가능",
   StringRes.injuryLevelModeratePainDescription: "주로 뻣뻣함과 뻐근함이 느껴짐",
   StringRes.injuryLevelNoPainDescription: "활동 제약 없음",
   StringRes.tingling: "찌릿함",
@@ -263,4 +264,8 @@ final koKr = {
   StringRes.trainingBalanceLess: '부족',
   StringRes.trainingBalanceNormal: '적절',
   StringRes.trainingBalanceOver: '과훈련',
+  StringRes.urineWeightVeryLess: '운동 후 충분한 영양섭취가 필요합니다.',
+  StringRes.urineWeightLess: '운동 후 충분한 수분섭취가 필요합니다.',
+  StringRes.urineWeightOver: '식단 조절에 신경쓰세요.',
+  StringRes.urineWeightVeryOver: '식단 조절과 수분섭취에 신경쓰세요.',
 };

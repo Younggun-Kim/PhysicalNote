@@ -280,6 +280,10 @@ class StringRes {
   static final trainingBalanceLess = _generateId();
   static final trainingBalanceNormal = _generateId();
   static final trainingBalanceOver = _generateId();
+  static final urineWeightVeryLess = _generateId();
+  static final urineWeightLess = _generateId();
+  static final urineWeightOver = _generateId();
+  static final urineWeightVeryOver = _generateId();
 
 
 }

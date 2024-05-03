@@ -632,6 +632,16 @@ class _MyStateUrinalysis extends StatelessWidget {
   Color _getDifferenceFatColor() {
     return isPositiveWeight ? ColorRes.fontRed : ColorRes.fontBlue;
   }
+
+  // TODO: 240503 수정 예정.
+  /// DifferenceFat -> String
+  String _convertDifferenceFatToString() {
+    final differenceFat = urineData.differenceFat;
+    final doubleDifferenceFat =
+        double.parse(differenceFat.replaceAll(RegExp(r'[^\d.-]'), ''));
+
+    return '';
+  }
 }
 
 /// 나의 상태 - 운동강도.

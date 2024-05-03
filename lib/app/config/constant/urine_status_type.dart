@@ -55,28 +55,4 @@ enum UrineStatusType {
         return ColorRes.disable;
     }
   }
-
-  /// Type -> String.
-  @override
-  String toString() {
-    super.toString();
-    switch (this) {
-      case UrineStatusType.veryGood:
-        return StringRes.urineVeryGood.tr;
-      case UrineStatusType.good:
-        return StringRes.urineGood.tr;
-      case UrineStatusType.appropriate:
-        return StringRes.urineAppropriate.tr;
-      case UrineStatusType.demand:
-        return StringRes.urineDemand.tr;
-      case UrineStatusType.recommended:
-        return StringRes.urineRecommended.tr;
-      case UrineStatusType.need:
-        return StringRes.urineNeed.tr;
-      case UrineStatusType.emergency:
-        return StringRes.urineEmergency.tr;
-      default:
-        return StringRes.urineNone.tr;
-    }
-  }
 }
