@@ -357,6 +357,11 @@ class DataController extends BaseController {
     initialItem: 0,
   );
 
+  /// 운동강도 - 타임피커 enabled
+  late var intensityTimePickerEnabled = intensityWorkoutType.behaviorStream
+      .map((event) => event != null)
+      .toObs(false);
+
   /// 운동 강도 - 스포츠 Ui State.
   final intensitySportsUiState =
       IntensityPageUiState(type: WorkoutType.sports).obs;

@@ -28,13 +28,6 @@ class IntensityPage extends GetView<DataController> {
               ),
             ),
             const SizedBox(height: 10),
-            TimePicker(
-              hourController: controller.intensityHourController,
-              minuteController: controller.intensityMinuteController,
-              onSelectedHourChanged: controller.onSelectedHourChanged,
-              onSelectedMinChanged: controller.onSelectedMinChanged,
-            ),
-            const SizedBox(height: 30),
             Text(
               StringRes.performedWorkout.tr,
               style: const TextStyle(
@@ -66,6 +59,16 @@ class IntensityPage extends GetView<DataController> {
               ),
             ),
             const SizedBox(height: 45),
+            Obx(
+              () => TimePicker(
+                hourController: controller.intensityHourController,
+                minuteController: controller.intensityMinuteController,
+                isEnabled: controller.intensityTimePickerEnabled.value,
+                onSelectedHourChanged: controller.onSelectedHourChanged,
+                onSelectedMinChanged: controller.onSelectedMinChanged,
+              ),
+            ),
+            const SizedBox(height: 30),
             Text(
               StringRes.workoutIntensityKorEng.tr,
               style: const TextStyle(

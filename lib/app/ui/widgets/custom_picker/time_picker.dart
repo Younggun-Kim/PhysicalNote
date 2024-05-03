@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/utils/getx/toast_message.dart';
 
 import 'custom_picker_selection_overlay.dart';
 
@@ -11,6 +13,8 @@ class TimePicker extends StatelessWidget {
 
   final FixedExtentScrollController minuteController;
 
+  final bool isEnabled;
+
   final Function(int) onSelectedHourChanged;
 
   final Function(int) onSelectedMinChanged;
@@ -20,42 +24,64 @@ class TimePicker extends StatelessWidget {
     this.height = 90,
     required this.hourController,
     required this.minuteController,
+    required this.isEnabled,
     required this.onSelectedHourChanged,
     required this.onSelectedMinChanged,
   });
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        height: height,
-        child: Row(
-          children: [
-            Expanded(
-              child: _TimePickerItem(
-                controller: hourController,
-                text: (int index) {
-                  return StringRes.hourParams
-                      .trParams({"hour": "$index"});
+  Widget build(BuildContext context) => Stack(
+        children: [
+          SizedBox(
+            height: height,
+            child: Row(
+              children: [
+                Expanded(
+                  child: _TimePickerItem(
+                    controller: hourController,
+                    text: (int index) {
+                      return StringRes.hourParams.trParams({"hour": "$index"});
+                    },
+                    length: 24,
+                    isEnabled: isEnabled,
+                    capStartEdge: true,
+                    capEndEdge: false,
+                    onSelectedItemChanged: onSelectedHourChanged,
+                  ),
+                ),
+                Expanded(
+                  child: _TimePickerItem(
+                    controller: minuteController,
+                    text: (int index) {
+                      return StringRes.minParams.trParams({"min": "$index"});
+                    },
+                    length: 60,
+                    isEnabled: isEnabled,
+                    capStartEdge: false,
+                    capEndEdge: true,
+                    onSelectedItemChanged: onSelectedMinChanged,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Visibility(
+            visible: !isEnabled,
+            child: Container(
+              width: double.infinity,
+              height: height,
+              color: Colors.transparent,
+              child: GestureDetector(
+                onTap: () {
+                  showToast('운동을 선택해주세요.');
                 },
-                length: 24,
-                capStartEdge: true,
-                capEndEdge: false,
-                onSelectedItemChanged: onSelectedHourChanged,
+                onPanUpdate: (_) {
+                  showToast('운동을 선택해주세요.');
+                },
               ),
             ),
-            Expanded(
-              child: _TimePickerItem(
-                controller: minuteController,
-                text: (int index) {
-                  return StringRes.minParams.trParams({"min": "$index"});
-                },
-                length: 60,
-                capStartEdge: false,
-                capEndEdge: true,
-                onSelectedItemChanged: onSelectedMinChanged,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       );
 }
 
@@ -65,6 +91,8 @@ class _TimePickerItem extends StatelessWidget {
   final String Function(int index) text;
 
   final int length;
+
+  final bool isEnabled;
 
   final bool capStartEdge;
 
@@ -76,10 +104,16 @@ class _TimePickerItem extends StatelessWidget {
     required this.controller,
     required this.text,
     required this.length,
+    required this.isEnabled,
     required this.capStartEdge,
     required this.capEndEdge,
     required this.onSelectedItemChanged,
   });
+
+  /// 오버레이 백그라운드 색상
+  Color get overlayBackgroundColor => isEnabled
+      ? ColorRes.primary.withOpacity(0.3)
+      : ColorRes.disable.withOpacity(0.2);
 
   @override
   Widget build(BuildContext context) => CupertinoPicker(
@@ -88,7 +122,7 @@ class _TimePickerItem extends StatelessWidget {
         itemExtent: 32.0,
         onSelectedItemChanged: onSelectedItemChanged,
         selectionOverlay: CustomPickerSelectionOverlay(
-          background: ColorRes.primary.withOpacity(0.3),
+          background: overlayBackgroundColor,
           capStartEdge: capStartEdge,
           capEndEdge: capEndEdge,
         ),
