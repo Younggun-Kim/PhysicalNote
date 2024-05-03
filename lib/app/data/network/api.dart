@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
@@ -50,7 +52,9 @@ class API extends GetConnect {
           statusCode,
           response.bodyString,
         ].join("\n");
-        logger.i(logMessage);
+
+        // API 응답 로그
+        log(logMessage);
 
         return response;
       });

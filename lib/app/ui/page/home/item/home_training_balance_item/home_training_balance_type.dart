@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 
 /// 홈 트레이닝 밸런스 타입.
@@ -22,6 +23,19 @@ enum HomeTrainingBalanceType {
     }
   }
 
+  @override
+  String toString() {
+    if (this == HomeTrainingBalanceType.less) {
+      return StringRes.trainingBalanceLess.tr;
+    } else if (this == HomeTrainingBalanceType.normal) {
+      return StringRes.trainingBalanceNormal.tr;
+    } else if (this == HomeTrainingBalanceType.over) {
+      return StringRes.trainingBalanceOver.tr;
+    } else {
+      return StringRes.trainingBalanceNone.tr;
+    }
+  }
+
   String toAsset() {
     if (this == HomeTrainingBalanceType.less) {
       return Assets.walkMan;
@@ -42,7 +56,12 @@ enum HomeTrainingBalanceType {
     } else if (this == HomeTrainingBalanceType.over) {
       return ColorRes.fontError;
     } else {
-      return ColorRes.fontDisable;
+      return ColorRes.gray9f9f9f;
     }
+  }
+
+  // 정보없음 여부
+  bool isTraining() {
+    return this != HomeTrainingBalanceType.none;
   }
 }

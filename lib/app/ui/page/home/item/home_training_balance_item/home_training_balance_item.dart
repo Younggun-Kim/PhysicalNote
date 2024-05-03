@@ -21,13 +21,8 @@ class HomeTrainingBalanceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
+      mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            type.toAsset(),
-            width: 21,
-            height: 37,
-          ),
-          const SizedBox(height: 3),
           Text(
             period,
             style: const TextStyle(
@@ -35,8 +30,22 @@ class HomeTrainingBalanceItem extends StatelessWidget {
               color: ColorRes.fontBlack,
             ),
           ),
+          const SizedBox(height: 4),
+          SvgPicture.asset(
+            type.toAsset(),
+            width: 21,
+            height: 37,
+          ),
+          const SizedBox(height: 3),
           Text(
-            "($average)",
+            type.toString(),
+            style: TextStyle(
+              fontSize: 10,
+              color: type.toColor(),
+            ),
+          ),
+          Text(
+            type.isTraining() ? "($average)" : '',
             style: TextStyle(
               fontSize: 10,
               color: type.toColor(),

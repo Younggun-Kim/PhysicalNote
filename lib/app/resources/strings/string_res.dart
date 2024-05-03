@@ -276,6 +276,10 @@ class StringRes {
   static final writeInBodyRecord = _generateId();
   static final moistureGood = _generateId();
   static final moistureLack = _generateId();
+  static final trainingBalanceNone = _generateId();
+  static final trainingBalanceLess = _generateId();
+  static final trainingBalanceNormal = _generateId();
+  static final trainingBalanceOver = _generateId();
 
 
 }
