@@ -13,6 +13,42 @@ enum UrineStatusType {
   need, // 수분 섭취 필요
   emergency; // 수분 부족 위급
 
+  /// 상태 양호 여부.
+  bool isPositive() {
+    switch(this) {
+      case veryGood:
+      case good:
+      case appropriate:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  /// Type -> String.
+  @override
+  String toString() {
+    super.toString();
+    switch (this) {
+      case UrineStatusType.veryGood:
+        return StringRes.urineVeryGood.tr;
+      case UrineStatusType.good:
+        return StringRes.urineGood.tr;
+      case UrineStatusType.appropriate:
+        return StringRes.urineAppropriate.tr;
+      case UrineStatusType.demand:
+        return StringRes.urineDemand.tr;
+      case UrineStatusType.recommended:
+        return StringRes.urineRecommended.tr;
+      case UrineStatusType.need:
+        return StringRes.urineNeed.tr;
+      case UrineStatusType.emergency:
+        return StringRes.urineEmergency.tr;
+      default:
+        return StringRes.urineNone.tr;
+    }
+  }
+
   /// String -> Type.
   static UrineStatusType typeFrom(String urineString) {
     if (urineString == StringRes.urineVeryGood.tr) {

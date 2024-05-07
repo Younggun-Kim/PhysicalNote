@@ -266,6 +266,7 @@ final koKr = {
   StringRes.trainingBalanceOver: '과훈련',
   StringRes.urineWeightVeryLess: '운동 후 충분한 영양섭취가 필요합니다.',
   StringRes.urineWeightLess: '운동 후 충분한 수분섭취가 필요합니다.',
+  StringRes.urineWeightWaterRequired: '평상시 수분섭취 관리에 신경쓰시길 바랍니다.',
   StringRes.urineWeightOver: '식단 조절에 신경쓰세요.',
   StringRes.urineWeightVeryOver: '식단 조절과 수분섭취에 신경쓰세요.',
 };

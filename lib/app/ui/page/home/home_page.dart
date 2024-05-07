@@ -68,6 +68,7 @@ class _FirstBody extends GetView<HomeController> {
               risk: controller.risk.value,
               riskPercent: controller.riskPercent.value,
               urineData: controller.urineData.value,
+              urineDescription: controller.urineDescription.value,
               workoutIntensityData: controller.workoutIntensityList.value,
               onPressedHooperIndex: controller.onPressedHooperIndex,
               onPressedUrine: controller.onPressedUrine,
@@ -281,6 +282,8 @@ class _MyStateContainer extends StatelessWidget {
 
   final HomeUrineModel? urineData;
 
+  final String urineDescription;
+
   final List<HomeWorkoutIntensityChartUiState> workoutIntensityData;
 
   final VoidCallback onPressedHooperIndex;
@@ -293,6 +296,7 @@ class _MyStateContainer extends StatelessWidget {
     required this.risk,
     required this.riskPercent,
     required this.urineData,
+    required this.urineDescription,
     required this.workoutIntensityData,
     required this.onPressedHooperIndex,
     required this.onPressedUrine,
@@ -373,6 +377,7 @@ class _MyStateContainer extends StatelessWidget {
                     else
                       _MyStateUrinalysis(
                         urineData: urineData!,
+                        urineDescription: urineDescription,
                       ),
                     const SizedBox(height: 16),
                     _MyStateTitle(
@@ -526,19 +531,20 @@ class _MyStateHooperIndexItem extends StatelessWidget {
 
 /// 나의상태 - 소변검사.
 class _MyStateUrinalysis extends StatelessWidget {
+  // 소변 데이터
   final HomeUrineModel urineData;
+
+  /// 소변 상태 설명
+  final String urineDescription;
 
   late final isPositiveWeight = urineData.differenceFat.contains('+');
 
   late final checkImagePath =
       isPositiveWeight ? Assets.checkRed : Assets.checkBlue;
 
-  late final weightWord = isPositiveWeight
-      ? StringRes.emptyWeightGood.tr
-      : StringRes.emptyWeightWarning.tr;
-
   _MyStateUrinalysis({
     required this.urineData,
+    required this.urineDescription,
   });
 
   @override
@@ -615,7 +621,7 @@ class _MyStateUrinalysis extends StatelessWidget {
               const SizedBox(width: 4),
               Expanded(
                 child: Text(
-                  weightWord,
+                  urineDescription,
                   softWrap: true,
                   textAlign: TextAlign.left,
                   style: TextStyle(
@@ -632,16 +638,6 @@ class _MyStateUrinalysis extends StatelessWidget {
   /// 공복몸무게 차이 문구 색상
   Color _getDifferenceFatColor() {
     return isPositiveWeight ? ColorRes.fontRed : ColorRes.fontBlue;
-  }
-
-  // TODO: 240503 수정 예정.
-  /// DifferenceFat -> String
-  String _convertDifferenceFatToString() {
-    final differenceFat = urineData.differenceFat;
-    final doubleDifferenceFat =
-        double.parse(differenceFat.replaceAll(RegExp(r'[^\d.-]'), ''));
-
-    return '';
   }
 }
 

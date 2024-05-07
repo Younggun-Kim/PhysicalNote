@@ -2,6 +2,7 @@ part of 'translations.dart';
 
 class StringRes {
   static const _uuid = Uuid();
+
   /// DateTime 영역
   static final hourParams = _generateId();
   static final minParams = _generateId();
@@ -282,8 +283,7 @@ class StringRes {
   static final trainingBalanceOver = _generateId();
   static final urineWeightVeryLess = _generateId();
   static final urineWeightLess = _generateId();
+  static final urineWeightWaterRequired = _generateId();
   static final urineWeightOver = _generateId();
   static final urineWeightVeryOver = _generateId();
-
-
 }

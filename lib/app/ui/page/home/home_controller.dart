@@ -65,6 +65,35 @@ class HomeController extends BaseController {
   /// 소변검사.
   Rx<HomeUrineModel?> urineData = (null as HomeUrineModel?).obs;
 
+  /// 소변검사 - 설명
+  String _urineDescription(HomeUrineModel? urineData) {
+    if (urineData == null) {
+      return '';
+    }
+
+    final differenceFat = double.parse(
+        urineData.differenceFat.replaceAll(RegExp(r'[^\d.-]'), ''));
+    final isPositiveType = urineData.urine.isPositive();
+
+    logger.i('differenceFat : $differenceFat,, type: ${urineData.urine}');
+
+    if (differenceFat > 2) {
+      return isPositiveType
+          ? StringRes.urineWeightOver.tr
+          : StringRes.urineWeightVeryOver.tr;
+    } else if (differenceFat < -2) {
+      return StringRes.urineWeightLess.tr;
+    } else {
+      return isPositiveType
+          ? StringRes.urineWeightVeryLess.tr
+          : StringRes.urineWeightWaterRequired.tr;
+    }
+  }
+
+  late var urineDescription = urineData.behaviorStream
+      .map((event) => _urineDescription(event))
+      .toObs('');
+
   /// 운동강도 - 축구.
   var workoutIntensitySports =
       HomeWorkoutIntensityChartUiState(name: StringRes.sports.tr, value: 6.5)
