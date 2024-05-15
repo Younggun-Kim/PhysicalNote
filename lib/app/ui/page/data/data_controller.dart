@@ -65,7 +65,7 @@ class DataController extends BaseController {
   var wellnessUrineTable = 0.obs;
 
   /// 웰리니스 - 소변검사 몸무게.
-  var wellnessUrineWeight = "".obsWithController;
+  var wellnessUrineWeight = "".obsWithNumberController;
 
   /// 웰리니스 - 소변검사 Bmi.
   var wellnessUrineBmi = "".obsWithController;

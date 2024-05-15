@@ -24,7 +24,11 @@ class BottomBorderTextField extends StatelessWidget {
 
   final EdgeInsets contentPadding;
 
-  const BottomBorderTextField({
+  final List<TextInputFormatter>? inputFormatters;
+
+  final ValueChanged<String>? onChanged;
+
+  BottomBorderTextField({
     super.key,
     this.height = 56,
     required this.controller,
@@ -35,9 +39,14 @@ class BottomBorderTextField extends StatelessWidget {
     this.readOnly = false,
     required this.hint,
     required this.contentPadding,
+    this.inputFormatters,
+    this.onChanged,
   });
 
-  /// TextField Parameter.
+  // 기본 입력 포맷
+  final defaultDigitInputFormatters = <TextInputFormatter>[
+    FilteringTextInputFormatter.digitsOnly
+  ];
 
   @override
   Widget build(BuildContext context) => Container(
@@ -59,9 +68,7 @@ class BottomBorderTextField extends StatelessWidget {
           keyboardType: keyboardType,
           readOnly: readOnly,
           style: textStyle,
-          inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly
-          ],
+          inputFormatters: inputFormatters ?? defaultDigitInputFormatters,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(
@@ -75,6 +82,7 @@ class BottomBorderTextField extends StatelessWidget {
             contentPadding: EdgeInsets.zero,
             counterText: '',
           ),
+          onChanged: onChanged,
         ),
       );
 }
