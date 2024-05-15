@@ -8,12 +8,14 @@ class PostLoginResponseModel {
   final String? token;
   final int? userId;
   final String? loginId;
+  final String? role;
   final String? name;
 
   PostLoginResponseModel({
     this.token,
     this.userId,
     this.loginId,
+    this.role,
     this.name,
   });
 
