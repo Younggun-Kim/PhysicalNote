@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-/// 숫자전용 TextEditing Controller
+/// 실수 전용 TextEditing Controller
 class GetxTextEditingNumberController extends RxString {
   late final FocusNode focusNode;
   late final TextEditingController controller;
@@ -14,7 +14,7 @@ class GetxTextEditingNumberController extends RxString {
         final newValue = controller.text;
 
         /// 실수형이 아니면 이전 값을 유지.
-        if (double.tryParse(newValue) == null) {
+        if (newValue.isNotEmpty && double.tryParse(newValue) == null) {
           this.value = oldValue;
         } else if (newValue != oldValue) {
           this.value = newValue;
