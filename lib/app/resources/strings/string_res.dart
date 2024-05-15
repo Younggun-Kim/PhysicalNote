@@ -281,9 +281,10 @@ class StringRes {
   static final trainingBalanceLess = _generateId();
   static final trainingBalanceNormal = _generateId();
   static final trainingBalanceOver = _generateId();
-  static final urineWeightVeryLess = _generateId();
-  static final urineWeightLess = _generateId();
-  static final urineWeightWaterRequired = _generateId();
-  static final urineWeightOver = _generateId();
-  static final urineWeightVeryOver = _generateId();
+  static final urineWeightLessMoistureGood = _generateId();
+  static final urineWeightLessMoistureBad = _generateId();
+  static final urineWeightGoodMoistureGood = _generateId();
+  static final urineWeightGoodMoistureBad = _generateId();
+  static final urineWeightOverMoistureGood = _generateId();
+  static final urineWeightOverMoistureBad = _generateId();
 }
