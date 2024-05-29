@@ -31,6 +31,8 @@ import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'injury/injury_state_type.dart';
+
 class DataController extends BaseController {
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
@@ -566,6 +568,8 @@ class DataController extends BaseController {
 
   var currentInjuryMenu = InjuryMenuType.check.obs;
 
+  var injuryStateType = InjuryStateType.progress.obs;
+
   var _humanFrontOriginImage = "";
 
   var _humanBackOriginImage = "";
@@ -578,6 +582,11 @@ class DataController extends BaseController {
   void onPressedInjuryMenu(InjuryMenuType type) {
     currentInjuryMenu.value = type;
     isOpenInjuryMenu.value = false;
+  }
+
+  /// 부상 상태 타입 버튼 클릭
+  void onPressedInjuryStateType(InjuryStateType type) {
+    injuryStateType.value = type;
   }
 
   /// 부상체크 조회.

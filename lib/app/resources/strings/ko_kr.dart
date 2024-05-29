@@ -272,4 +272,6 @@ final koKr = {
   StringRes.urineWeightGoodMoistureBad: '운동 후 충분한 수분 섭취가 필요합니다.',
   StringRes.urineWeightOverMoistureGood: '식단 조절에 신경쓰세요.',
   StringRes.urineWeightOverMoistureBad: '식단 조절과 수분 섭취에 신경쓰세요.',
+  StringRes.progress: "진행",
+  StringRes.recovery: "완치",
 };

@@ -17,6 +17,9 @@ class ColorRes {
   /// 0xffa5ed2e.
   static const primary = Color(0xffa5ed2e);
 
+  /// 0xffe4fac1.
+  static const secondPrimary = Color(0xffe4fac1);
+
   /// 0xffc1c1c1.
   static const disable = Color(0xffc1c1c1);
 

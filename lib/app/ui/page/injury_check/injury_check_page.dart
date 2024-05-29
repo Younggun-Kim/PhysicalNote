@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/data/injury/injury_state_button.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_pain_symptom_ui_state.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
@@ -25,7 +26,7 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
               Row(
                 children: [
                   Text(
-                    StringRes.injuryHistory.tr,
+                    StringRes.injuryCheck.tr,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 20,
@@ -33,12 +34,11 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
                     ),
                   ),
                   const Spacer(),
-                  OutlineRoundButton(
-                    hint: "",
-                    text: StringRes.add.tr,
-                    height: 28,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    onPressed: (){},
+                  Obx(
+                    () => InjuryStateButton(
+                      type: controller.injuryStateType.value,
+                      onPressed: controller.onPressedInjuryStateType,
+                    ),
                   ),
                 ],
               ),

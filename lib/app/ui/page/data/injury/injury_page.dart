@@ -8,6 +8,8 @@ import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_
 import 'package:physical_note/app/ui/page/injury_check/injury_check.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
+import 'injury_state_button.dart';
+
 class InjuryPage extends GetView<DataController> {
   const InjuryPage({
     super.key,
@@ -143,12 +145,11 @@ class _InjuryHistory extends GetView<DataController> {
                 ),
               ),
               const Spacer(),
-              OutlineRoundButton(
-                hint: "",
-                text: StringRes.add.tr,
-                height: 28,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                onPressed: (){},
+              Obx(
+                () => InjuryStateButton(
+                  type: controller.injuryStateType.value,
+                  onPressed: controller.onPressedInjuryStateType,
+                ),
               ),
             ],
           ),
