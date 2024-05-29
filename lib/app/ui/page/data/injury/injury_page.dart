@@ -203,5 +203,5 @@ class _InjuryHistory extends GetView<DataController> {
 /// 부상 체크
 class _InjuryCheck extends GetView<DataController> {
   @override
-  Widget build(BuildContext context) => InjuryCheckPage();
+  Widget build(BuildContext context) => const InjuryCheckPage();
 }

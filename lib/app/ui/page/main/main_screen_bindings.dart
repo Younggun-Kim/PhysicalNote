@@ -7,7 +7,6 @@ import 'package:physical_note/app/data/wellness/wellness_api.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
-import 'package:physical_note/app/ui/page/injury_check/injury_check.dart';
 import 'package:physical_note/app/ui/page/main/main_screen_controller.dart';
 
 class MainScreenBindings extends Bindings {
@@ -16,7 +15,6 @@ class MainScreenBindings extends Bindings {
     Get.lazyPut(() => MainScreenController());
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => DataController());
-    Get.lazyPut(() => InjuryCheckController());
     Get.lazyPut(() => FeedbackController());
 
     /// API

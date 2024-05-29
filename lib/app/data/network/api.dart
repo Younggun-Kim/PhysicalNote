@@ -54,7 +54,7 @@ class API extends GetConnect {
         ].join("\n");
 
         // API 응답 로그
-        log(logMessage);
+        log("🔥🔥🔥API RESPONE🔥🔥🔥\n$logMessage");
 
         return response;
       });

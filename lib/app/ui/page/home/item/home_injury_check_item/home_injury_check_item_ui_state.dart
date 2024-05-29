@@ -27,4 +27,9 @@ class HomeInjuryCheckItemUiState {
     required this.bodyPart,
     required this.direction,
   });
+
+  @override
+  String toString() {
+    return "$id";
+  }
 }

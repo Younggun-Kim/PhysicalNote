@@ -4,131 +4,125 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/data/injury/injury_state_button.dart';
-import 'package:physical_note/app/ui/page/injury_check/injury_check.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_pain_symptom_ui_state.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
-class InjuryCheckPage extends GetView<InjuryCheckController> {
+class InjuryCheckPage extends GetView<DataController> {
   const InjuryCheckPage({super.key});
 
   @override
-  Widget build(BuildContext context) => PageRoot(
-        controller: controller,
-        child: FlexibleScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 24),
+          Row(
             children: [
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  Text(
-                    StringRes.injuryCheck.tr,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
-                      color: ColorRes.fontBlack,
-                    ),
-                  ),
-                  const Spacer(),
-                  Obx(
-                    () => Visibility(
-                      visible: controller.injuryDetailId.value != null,
-                      child: InjuryStateButton(
-                        type: controller.injuryStateType.value,
-                        onPressed: controller.onPressedInjuryStateType,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               Text(
-                StringRes.painCheckLocation.tr,
+                StringRes.injuryCheck.tr,
                 style: const TextStyle(
-                  fontSize: 12,
-                  color: ColorRes.fontDisable,
-                ),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                StringRes.injuryLocationSelection.tr,
-                style: const TextStyle(
-                  fontSize: 16,
                   fontWeight: FontWeight.w500,
+                  fontSize: 20,
                   color: ColorRes.fontBlack,
                 ),
               ),
-              const SizedBox(height: 20),
-              _InjuryType(),
-              _Disease(),
-              _Contact(),
-              const SizedBox(height: 20),
-              _MuscleImage(),
-              const SizedBox(height: 20),
-              _Muscles(),
-              const SizedBox(height: 40),
-              _Pain(),
-              const SizedBox(height: 50),
               const Spacer(),
               Obx(
-                () => Row(
-                  children: [
-                    Visibility(
-                      visible: controller.injuryDetailId.value != null,
-                      child: Expanded(
-                        child: BaseButton(
-                          width: double.infinity,
-                          height: 56,
-                          text: StringRes.delete.tr,
-                          defaultTextStyle: const TextStyle(
-                            fontSize: 16,
-                            color: ColorRes.white,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          defaultBackgroundColor: ColorRes.disable,
-                          onPressed: controller.onPressedDelete,
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: controller.args.id != null,
-                      child: const SizedBox(
-                        width: 10,
-                      ),
-                    ),
-                    Expanded(
-                      child: BaseButton(
-                        width: double.infinity,
-                        height: 56,
-                        isEnabled:
-                            controller.injuryType.value == InjuryType.disease
-                                ? controller.isEnabledDiseaseSubmit.value
-                                : controller.isEnabledSubmit.value,
-                        text: StringRes.save.tr,
-                        defaultTextStyle: const TextStyle(
-                          fontSize: 16,
-                          color: ColorRes.white,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        defaultBackgroundColor: ColorRes.primary,
-                        onPressed: controller.onPressedSubmit,
-                      ),
-                    ),
-                  ],
+                () => Visibility(
+                  visible: controller.injuryDetailId.value != null,
+                  child: InjuryStateButton(
+                    type: controller.injuryStateType.value,
+                    onPressed: controller.onPressedInjuryStateType,
+                  ),
                 ),
               ),
-              const SizedBox(height: 20),
             ],
           ),
-        ),
+          Text(
+            StringRes.painCheckLocation.tr,
+            style: const TextStyle(
+              fontSize: 12,
+              color: ColorRes.fontDisable,
+            ),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            StringRes.injuryLocationSelection.tr,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.fontBlack,
+            ),
+          ),
+          const SizedBox(height: 20),
+          _InjuryType(),
+          _Disease(),
+          _Contact(),
+          const SizedBox(height: 20),
+          _MuscleImage(),
+          const SizedBox(height: 20),
+          _Muscles(),
+          const SizedBox(height: 40),
+          _Pain(),
+          const SizedBox(height: 50),
+          const Spacer(),
+          Obx(
+            () => Row(
+              children: [
+                Visibility(
+                  visible: controller.injuryDetailId.value != null,
+                  child: Expanded(
+                    child: BaseButton(
+                      width: double.infinity,
+                      height: 56,
+                      text: StringRes.delete.tr,
+                      defaultTextStyle: const TextStyle(
+                        fontSize: 16,
+                        color: ColorRes.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      defaultBackgroundColor: ColorRes.disable,
+                      onPressed: controller.onPressedInjuryCheckDelete,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: controller.injuryDetailId.value != null,
+                  child: const SizedBox(
+                    width: 10,
+                  ),
+                ),
+                Expanded(
+                  child: BaseButton(
+                    width: double.infinity,
+                    height: 56,
+                    isEnabled: controller.injuryType.value == InjuryType.disease
+                        ? controller.isEnabledDiseaseSubmit.value
+                        : controller.isEnabledSubmit.value,
+                    text: StringRes.save.tr,
+                    defaultTextStyle: const TextStyle(
+                      fontSize: 16,
+                      color: ColorRes.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    defaultBackgroundColor: ColorRes.primary,
+                    onPressed: controller.onPressedSubmit,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+        ],
       );
 }
 
 /// 질병.
-class _Disease extends GetView<InjuryCheckController> {
+class _Disease extends GetView<DataController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => Visibility(
@@ -151,7 +145,7 @@ class _Disease extends GetView<InjuryCheckController> {
 }
 
 /// 부상 타입.
-class _InjuryType extends GetView<InjuryCheckController> {
+class _InjuryType extends GetView<DataController> {
   @override
   Widget build(BuildContext context) => Obx(() => Wrap(
         direction: Axis.horizontal,
@@ -190,7 +184,7 @@ class _InjuryType extends GetView<InjuryCheckController> {
 }
 
 /// 접촉/비접촉.
-class _Contact extends GetView<InjuryCheckController> {
+class _Contact extends GetView<DataController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => Visibility(
@@ -336,7 +330,7 @@ class _Contact extends GetView<InjuryCheckController> {
 }
 
 /// 근육 이미지.
-class _MuscleImage extends GetView<InjuryCheckController> {
+class _MuscleImage extends GetView<DataController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -349,7 +343,7 @@ class _MuscleImage extends GetView<InjuryCheckController> {
 }
 
 /// 상세 근육.
-class _Muscles extends GetView<InjuryCheckController> {
+class _Muscles extends GetView<DataController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => Visibility(
@@ -397,7 +391,7 @@ class _Muscles extends GetView<InjuryCheckController> {
 }
 
 /// 통증
-class _Pain extends GetView<InjuryCheckController> {
+class _Pain extends GetView<DataController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => Visibility(
@@ -628,6 +622,7 @@ class _PainTimingDescription extends StatelessWidget {
         fontSize: 12,
         hint: StringRes.injuryCauseHint.tr,
         keyboardType: TextInputType.multiline,
+        showBoxShadow: false,
       );
 }
 
@@ -645,6 +640,7 @@ class _FieldName extends StatelessWidget {
           style: const TextStyle(
             color: ColorRes.fontBlack,
             fontSize: 16,
+            fontWeight: FontWeight.w500,
           ),
         ),
       );

@@ -13,8 +13,6 @@ import 'package:physical_note/app/data/injury/model/post_injury_response_model.d
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
-import 'package:physical_note/app/ui/page/data/data.dart';
-import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
@@ -25,13 +23,34 @@ import 'package:rxdart/rxdart.dart';
 
 import 'injury_check_pain_symptom_ui_state.dart';
 
-class InjuryCheckController extends DataController {
+mixin InjuryCheckController on BaseController {
+  /// 부상 체크 초기화.
+  void resetInjuryCheck(DateTime? date) {
+    injuryDetailId.value = null;
+    injuryCheckDate.value = date ?? injuryCheckDate.value;
+    injuryType.value = InjuryType.nonContact;
+    diseaseController.value = "";
+    directionType.value = null;
+    bodyType.value = null;
+    bodyPartsType.value = null;
+    selectedMuscleType.value = null;
+    muscleImage.value = "";
+    painLevel.value = InjuryLevelType.noPain;
+    painSymptoms.value = PainType.values
+        .map((e) => InjuryCheckPainSymptomUiState(type: e))
+        .toList();
+    painTimingIntermittent.value = null;
+    painTimingRest.value = false;
+    painTimingWorkout.value = false;
+    painTimingDescription.value = "";
+  }
 
-  // final args = Get.arguments as InjuryCheckArgs;
-  final args = InjuryCheckArgs(
-    id: 1,
-    date: DateTime.now(),
-  );
+  late var injuryDetailId = (null as int?).obs
+    ..listen((p0) {
+      _loadInjuryDetail(p0);
+    });
+
+  var injuryCheckDate = DateTime.now().obs;
 
   /// 부상 타입.
   final injuryType = InjuryType.nonContact.obs;
@@ -343,7 +362,7 @@ class InjuryCheckController extends DataController {
       requestData = PostInjuryRequestModel(
         injuryType: injuryTypeKey,
         comment: comment,
-        recordDate: calendarUiState.value.focusedDate.toFormattedString("yyyy-MM-dd"),
+        recordDate: injuryCheckDate.value.toFormattedString("yyyy-MM-dd"),
       );
     } else {
       requestData = PostInjuryRequestModel(
@@ -356,7 +375,7 @@ class InjuryCheckController extends DataController {
         painCharacteristicList: symptoms,
         painTimes: painTime,
         comment: comment,
-        recordDate: calendarUiState.value.focusedDate.toFormattedString("yyyy-MM-dd"),
+        recordDate: injuryCheckDate.value.toFormattedString("yyyy-MM-dd"),
       );
     }
 
@@ -364,8 +383,8 @@ class InjuryCheckController extends DataController {
   }
 
   /// API - 상세 조회.
-  Future _loadInjuryDetail() async {
-    final injuryId = injuryDetailId.value;
+  Future _loadInjuryDetail(int? id) async {
+    final injuryId = id;
     if (injuryId == null) {
       return;
     }
@@ -387,10 +406,11 @@ class InjuryCheckController extends DataController {
   }
 
   /// API - 부상 정보 삭제..
-  Future _deleteInjury() async {
+  Future<bool> _deleteInjury() async {
+    var result = false;
     final injuryId = injuryDetailId.value;
     if (injuryId == null) {
-      return;
+      return result;
     }
 
     setLoading(true);
@@ -400,17 +420,21 @@ class InjuryCheckController extends DataController {
 
     if (response is DeleteInjuryResponseModel && response.deleted == true) {
       close(result: true);
+      resetInjuryCheck(null);
+      result = true;
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
       showToast(message);
+      result = false;
     }
 
     setLoading(false);
+    return result;
   }
 
   /// 삭제 버튼 클릭.
-  void onPressedDelete() async {
-    await _deleteInjury();
+  Future<bool> onPressedInjuryCheckDelete() async {
+    return await _deleteInjury();
   }
 }

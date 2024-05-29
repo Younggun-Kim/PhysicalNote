@@ -32,7 +32,6 @@ class InjuryResponseModel {
     required this.recordDate,
   });
 
-
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`
   /// factory.
   factory InjuryResponseModel.fromJson(Map<String, dynamic> json) =>

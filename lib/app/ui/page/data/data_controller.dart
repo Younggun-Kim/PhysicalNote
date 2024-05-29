@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
-import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/injury/injury_api.dart';
 import 'package:physical_note/app/data/injury/model/get_injury_response_model.dart';
 import 'package:physical_note/app/data/intensity/intensity_api.dart';
@@ -16,6 +15,7 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
+import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
@@ -24,7 +24,7 @@ import 'package:physical_note/app/ui/page/data/injury/injury_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
-import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
+import 'package:physical_note/app/ui/page/injury_check/injury_check_controller.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
@@ -33,7 +33,7 @@ import 'package:rxdart/rxdart.dart';
 
 import 'injury/injury_state_type.dart';
 
-class DataController extends BaseController {
+class DataController extends BaseController with InjuryCheckController {
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
 
@@ -87,7 +87,9 @@ class DataController extends BaseController {
   }
 
   /// 날짜 싱크 맞추기.
+  /// 날짜를 받아와서 해당 날짜로 초기화하네.
   void syncDate(DateTime date) {
+    super.resetInjuryCheck(date);
     calendarUiState.value.focusedDate = date;
     calendarUiState.refresh();
 
@@ -554,15 +556,13 @@ class DataController extends BaseController {
 
   // ignore: slash_for_doc_comments
   /**
-   * 부상체크
+   * 부상관리 - 부상이력
    */
 
   late var injuryList = <HomeInjuryCheckItemUiState>[].obs
     ..listen((p0) {
       _setHumanMuscleColor();
     });
-
-  var injuryDetailId = (null as int?).obs;
 
   var isOpenInjuryMenu = false.obs;
 
@@ -632,24 +632,24 @@ class DataController extends BaseController {
     );
   }
 
-  /// 부상체크 추가 클릭.
-  void onPressedAdd() async {
-    await _moveInjuryDetail(null);
-  }
-
   /// 부상 체크 편집 클릭.
   void onPressedEdit(HomeInjuryCheckItemUiState uiState) async {
-    await _moveInjuryDetail(uiState.id);
+    injuryDetailId.value = uiState.id;
+    currentInjuryMenu.value = InjuryMenuType.check;
   }
 
-  /// 부상 체크 상세로 이동.
-  Future _moveInjuryDetail(int? injuryId) async {
-    final args =
-        InjuryCheckArgs(date: calendarUiState.value.focusedDate, id: injuryId);
-    final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
-    if (result is bool && result == true) {
+  /// 부상관리 - 부상체크 삭제 성공시.
+  @override
+  Future<bool> onPressedInjuryCheckDelete() async {
+    final isDeleted = await super.onPressedInjuryCheckDelete();
+
+    if (isDeleted) {
       isLoadInjury = false;
       loadApi();
     }
+
+    scrollToTop();
+
+    return true;
   }
 }
