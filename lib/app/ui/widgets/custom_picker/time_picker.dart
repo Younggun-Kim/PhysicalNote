@@ -2,11 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
 import 'package:physical_note/app/utils/getx/toast_message.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'custom_picker_selection_overlay.dart';
 
 class TimePicker extends StatelessWidget {
+  final IntensityPageUiState? uiState;
+
   final double height;
 
   final FixedExtentScrollController hourController;
@@ -21,6 +25,7 @@ class TimePicker extends StatelessWidget {
 
   const TimePicker({
     super.key,
+    this.uiState,
     this.height = 90,
     required this.hourController,
     required this.minuteController,
@@ -44,6 +49,7 @@ class TimePicker extends StatelessWidget {
                     },
                     length: 24,
                     isEnabled: isEnabled,
+                    selectedIndex: uiState?.hour,
                     capStartEdge: true,
                     capEndEdge: false,
                     onSelectedItemChanged: onSelectedHourChanged,
@@ -57,6 +63,7 @@ class TimePicker extends StatelessWidget {
                     },
                     length: 60,
                     isEnabled: isEnabled,
+                    selectedIndex: uiState?.minute,
                     capStartEdge: false,
                     capEndEdge: true,
                     onSelectedItemChanged: onSelectedMinChanged,
@@ -94,6 +101,8 @@ class _TimePickerItem extends StatelessWidget {
 
   final bool isEnabled;
 
+  final int? selectedIndex;
+
   final bool capStartEdge;
 
   final bool capEndEdge;
@@ -105,6 +114,7 @@ class _TimePickerItem extends StatelessWidget {
     required this.text,
     required this.length,
     required this.isEnabled,
+    required this.selectedIndex,
     required this.capStartEdge,
     required this.capEndEdge,
     required this.onSelectedItemChanged,
@@ -132,7 +142,10 @@ class _TimePickerItem extends StatelessWidget {
             text(index),
             style: TextStyle(
               fontSize: 24.0,
-              color: index == index ? ColorRes.fontBlack : ColorRes.disable,
+              color: index == (selectedIndex ?? index)
+                  ? ColorRes.fontBlack
+                  : ColorRes.disable,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),

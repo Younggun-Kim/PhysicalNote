@@ -28,6 +28,7 @@ import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
+import 'package:rxdart/rxdart.dart';
 
 class DataController extends BaseController {
   /// 스크롤 컨트롤러.
@@ -370,6 +371,26 @@ class DataController extends BaseController {
   final intensityPhysicalUiState =
       IntensityPageUiState(type: WorkoutType.physical).obs;
 
+  /// 운동강도 - 현재 선택된 Ui State
+  late final intensityCurrentUiState =
+      CombineLatestStream<dynamic, IntensityPageUiState?>([
+    intensityWorkoutType.behaviorStream,
+    intensitySportsUiState.behaviorStream,
+    intensityPhysicalUiState.behaviorStream,
+  ], (values) {
+    logger.i('change state');
+    final workoutType = values[0];
+    final sportsUiState = values[1];
+    final physicalUiState = values[2];
+    if (workoutType == WorkoutType.sports) {
+      return sportsUiState;
+    } else if (workoutType == WorkoutType.physical) {
+      return physicalUiState;
+    } else {
+      return null;
+    }
+  }).toObs(null as IntensityPageUiState?);
+
   /// 운동 강도 - 종류 선택.
   void onPressedWorkout(WorkoutType type) {
     intensityWorkoutType.value = type;
@@ -381,11 +402,11 @@ class DataController extends BaseController {
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
       intensitySportsUiState.value.hour = value;
-      intensitySportsUiState.refresh();
     } else if (type == WorkoutType.physical) {
       intensityPhysicalUiState.value.hour = value;
-      intensityPhysicalUiState.refresh();
     } else {}
+
+    updateIntensityUiState();
   }
 
   /// 운동 강도 - 시간 변경.
@@ -393,25 +414,25 @@ class DataController extends BaseController {
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
       intensitySportsUiState.value.minute = value;
-      intensitySportsUiState.refresh();
     } else if (type == WorkoutType.physical) {
       intensityPhysicalUiState.value.minute = value;
-      intensityPhysicalUiState.refresh();
     } else {}
+
+    updateIntensityUiState();
   }
 
   /// 운동강도 - 레벨 선택.
   void onPressedLevel(int level) {
+    logger.i('onPressedLevel : $level');
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
       intensitySportsUiState.value.level = level;
-      intensitySportsUiState.refresh();
     } else if (type == WorkoutType.physical) {
       intensityPhysicalUiState.value.level = level;
-      intensityPhysicalUiState.refresh();
     } else {
       showToast("운동 종류를 선택해주세요.");
     }
+    updateIntensityUiState();
   }
 
   /// 운동강도 - api 조회.
@@ -514,6 +535,13 @@ class DataController extends BaseController {
     setLoading(false);
   }
 
+  /// 운동 강도 Ui State refresh
+  void updateIntensityUiState() {
+    intensitySportsUiState.refresh();
+    intensityPhysicalUiState.refresh();
+    intensityCurrentUiState.refresh();
+  }
+
   // ignore: slash_for_doc_comments
   /**
    * 부상체크
@@ -528,9 +556,9 @@ class DataController extends BaseController {
 
   var _humanBackOriginImage = "";
 
-  final Rx<String> humanFrontImage = "".obs;
+  final humanFrontImage = "".obs;
 
-  final Rx<String> humanBackImage = "".obs;
+  final humanBackImage = "".obs;
 
   /// 부상체크 조회.
   Future _loadInjury() async {

@@ -61,6 +61,7 @@ class IntensityPage extends GetView<DataController> {
             const SizedBox(height: 45),
             Obx(
               () => TimePicker(
+                uiState: controller.intensityCurrentUiState.value,
                 hourController: controller.intensityHourController,
                 minuteController: controller.intensityMinuteController,
                 isEnabled: controller.intensityTimePickerEnabled.value,
@@ -79,13 +80,7 @@ class IntensityPage extends GetView<DataController> {
             ),
             const SizedBox(height: 12),
             Obx(() {
-              final workoutType = controller.intensityWorkoutType.value;
-              final uiState = workoutType == null
-                  ? null
-                  : workoutType == WorkoutType.sports
-                      ? controller.intensitySportsUiState.value
-                      : controller.intensityPhysicalUiState.value;
-
+              final uiState = controller.intensityCurrentUiState.value;
               return Column(
                 children: [
                   IntensityTable(
