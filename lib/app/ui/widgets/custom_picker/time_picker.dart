@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
 import 'package:physical_note/app/utils/getx/toast_message.dart';
-import 'package:rxdart/rxdart.dart';
-
 import 'custom_picker_selection_overlay.dart';
 
 class TimePicker extends StatelessWidget {
