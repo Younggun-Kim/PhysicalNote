@@ -1,0 +1,4 @@
+enum InjuryMenuType {
+  check,
+  history;
+}

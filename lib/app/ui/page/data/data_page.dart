@@ -102,9 +102,6 @@ class _DataMenu extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 5),
-                const Expanded(
-                  child: SizedBox(),
-                ),
               ],
             ),
             Container(

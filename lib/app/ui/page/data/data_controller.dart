@@ -20,6 +20,7 @@ import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/data_ui_mapper.dart';
+import 'package:physical_note/app/ui/page/data/injury/injury_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
@@ -161,11 +162,19 @@ class DataController extends BaseController {
   }
 
   /// 메뉴 선택.
-  Future onTapMenu(DataMenuType type) async {
-    menu.value = type;
+  Future onTapMenu(DataMenuType newType) async {
+    final oldMenuType = menu.value;
+    menu.value = newType;
+
+    /// 부상체크 서브 메뉴 열기/닫기.
+    if (oldMenuType == newType) {
+      // TODO: - 부상체크 서브 뷰 여는 작업.
+      var isOpen = isOpenInjuryMenu.value;
+      isOpenInjuryMenu.value = !isOpen;
+    }
 
     /// 운동강도 타임피커 초기화 버그 방지.
-    if (type != DataMenuType.intensity) {
+    if (newType != DataMenuType.intensity) {
       final isSport = intensityWorkoutType.value == WorkoutType.sports;
       final uiState = isSport
           ? intensitySportsUiState.value
@@ -181,11 +190,11 @@ class DataController extends BaseController {
     }
 
     if (pageController.value.hasClients) {
-      pageController.value.jumpToPage(type.index);
+      pageController.value.jumpToPage(newType.index);
       await loadApi();
     } else {
       /// 초기화가 다시.
-      pageController.value = PageController(initialPage: type.index);
+      pageController.value = PageController(initialPage: newType.index);
       await loadApi();
     }
   }
@@ -552,6 +561,10 @@ class DataController extends BaseController {
       _setHumanMuscleColor();
     });
 
+  var isOpenInjuryMenu = false.obs;
+
+  var currentInjuryMenu = InjuryMenuType.check.obs;
+
   var _humanFrontOriginImage = "";
 
   var _humanBackOriginImage = "";
@@ -559,6 +572,12 @@ class DataController extends BaseController {
   final humanFrontImage = "".obs;
 
   final humanBackImage = "".obs;
+
+  /// 부상 체크 메뉴 선택.
+  void onPressedInjuryMenu(InjuryMenuType type) {
+    currentInjuryMenu.value = type;
+    isOpenInjuryMenu.value = false;
+  }
 
   /// 부상체크 조회.
   Future _loadInjury() async {
