@@ -10,7 +10,6 @@ import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_pa
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
 class InjuryCheckPage extends GetView<InjuryCheckController> {
   const InjuryCheckPage({super.key});
@@ -19,14 +18,38 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
         child: FlexibleScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _Header(),
-              const SizedBox(height: 20),
-              _Date(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Text(
+                    StringRes.injuryHistory.tr,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20,
+                      color: ColorRes.fontBlack,
+                    ),
+                  ),
+                  const Spacer(),
+                  OutlineRoundButton(
+                    hint: "",
+                    text: StringRes.add.tr,
+                    height: 28,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    onPressed: (){},
+                  ),
+                ],
+              ),
+              Text(
+                StringRes.painCheckLocation.tr,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: ColorRes.fontDisable,
+                ),
+              ),
+              const SizedBox(height: 24),
               Text(
                 StringRes.injuryLocationSelection.tr,
                 style: const TextStyle(
@@ -51,7 +74,7 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
                 () => Row(
                   children: [
                     Visibility(
-                      visible: controller.args.id != null,
+                      visible: controller.injuryDetailId.value != null,
                       child: Expanded(
                         child: BaseButton(
                           width: double.infinity,
@@ -98,38 +121,6 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
             ],
           ),
         ),
-      );
-}
-
-/// 헤더.
-class _Header extends GetView<InjuryCheckController> {
-  @override
-  Widget build(BuildContext context) => Header(
-        title: StringRes.injuryCheck.tr,
-        showBack: true,
-        onPressed: controller.close,
-        padding: EdgeInsets.zero,
-      );
-}
-
-/// 날짜.
-class _Date extends GetView<InjuryCheckController> {
-  @override
-  Widget build(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            controller.args.date.toFormattedString("yy년 M월 d일"),
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: ColorRes.fontBlack,
-            ),
-          ),
-          const SizedBox(width: 8),
-          SvgPicture.asset(Assets.codeBrowser),
-        ],
       );
 }
 

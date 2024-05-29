@@ -13,6 +13,7 @@ import 'package:physical_note/app/data/injury/model/post_injury_response_model.d
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
+import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
@@ -24,14 +25,13 @@ import 'package:rxdart/rxdart.dart';
 
 import 'injury_check_pain_symptom_ui_state.dart';
 
-class InjuryCheckController extends BaseController {
-  @override
-  void onInit() async {
-    super.onInit();
-    await _loadInjuryDetail();
-  }
+class InjuryCheckController extends DataController {
 
-  final args = Get.arguments as InjuryCheckArgs;
+  // final args = Get.arguments as InjuryCheckArgs;
+  final args = InjuryCheckArgs(
+    id: 1,
+    date: DateTime.now(),
+  );
 
   /// 부상 타입.
   final injuryType = InjuryType.nonContact.obs;
@@ -279,7 +279,7 @@ class InjuryCheckController extends BaseController {
     setLoading(true);
     final requestData = _getRequestData();
     final injuryApi = Get.find<InjuryAPI>();
-    final injuryId = args.id;
+    final injuryId = injuryDetailId.value;
     dynamic response;
 
     if (injuryId == null) {
@@ -343,7 +343,7 @@ class InjuryCheckController extends BaseController {
       requestData = PostInjuryRequestModel(
         injuryType: injuryTypeKey,
         comment: comment,
-        recordDate: args.date.toFormattedString("yyyy-MM-dd"),
+        recordDate: calendarUiState.value.focusedDate.toFormattedString("yyyy-MM-dd"),
       );
     } else {
       requestData = PostInjuryRequestModel(
@@ -356,7 +356,7 @@ class InjuryCheckController extends BaseController {
         painCharacteristicList: symptoms,
         painTimes: painTime,
         comment: comment,
-        recordDate: args.date.toFormattedString("yyyy-MM-dd"),
+        recordDate: calendarUiState.value.focusedDate.toFormattedString("yyyy-MM-dd"),
       );
     }
 
@@ -365,7 +365,7 @@ class InjuryCheckController extends BaseController {
 
   /// API - 상세 조회.
   Future _loadInjuryDetail() async {
-    final injuryId = args.id;
+    final injuryId = injuryDetailId.value;
     if (injuryId == null) {
       return;
     }
@@ -388,7 +388,7 @@ class InjuryCheckController extends BaseController {
 
   /// API - 부상 정보 삭제..
   Future _deleteInjury() async {
-    final injuryId = args.id;
+    final injuryId = injuryDetailId.value;
     if (injuryId == null) {
       return;
     }

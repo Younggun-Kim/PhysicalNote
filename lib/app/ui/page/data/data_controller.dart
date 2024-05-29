@@ -168,7 +168,6 @@ class DataController extends BaseController {
 
     /// 부상체크 서브 메뉴 열기/닫기.
     if (oldMenuType == newType) {
-      // TODO: - 부상체크 서브 뷰 여는 작업.
       var isOpen = isOpenInjuryMenu.value;
       isOpenInjuryMenu.value = !isOpen;
     }
@@ -560,6 +559,8 @@ class DataController extends BaseController {
     ..listen((p0) {
       _setHumanMuscleColor();
     });
+
+  var injuryDetailId = (null as int?).obs;
 
   var isOpenInjuryMenu = false.obs;
 
