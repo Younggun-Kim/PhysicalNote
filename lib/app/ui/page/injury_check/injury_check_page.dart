@@ -35,9 +35,12 @@ class InjuryCheckPage extends GetView<InjuryCheckController> {
                   ),
                   const Spacer(),
                   Obx(
-                    () => InjuryStateButton(
-                      type: controller.injuryStateType.value,
-                      onPressed: controller.onPressedInjuryStateType,
+                    () => Visibility(
+                      visible: controller.injuryDetailId.value != null,
+                      child: InjuryStateButton(
+                        type: controller.injuryStateType.value,
+                        onPressed: controller.onPressedInjuryStateType,
+                      ),
                     ),
                   ),
                 ],
