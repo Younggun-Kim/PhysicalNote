@@ -126,6 +126,7 @@ final koKr = {
   StringRes.wellnessDescription:
       "팀 내 피지컬 코치 및 운동코치 또는 선수 개인이 웰리니스 관련 데이터를 수집하고 분석함으로써 운동 컨디션 및 삶의 질을 관리하고, 부상을 보다 효과적으로 예방하는데 도움이 됩니다. 뿐만아니라, 경기력 향상 및 유지하는데 또한 도움이 됩니다.",
   StringRes.injuryCheck: "부상체크",
+  StringRes.injuryHistory: "부상이력",
   StringRes.close: "닫기",
   StringRes.open: "열기",
   StringRes.veryVeryGood: "매우, 매우 좋은",

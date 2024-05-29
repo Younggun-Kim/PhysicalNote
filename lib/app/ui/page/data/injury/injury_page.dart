@@ -123,7 +123,7 @@ class _InjuryMenu extends GetView<DataController> {
           children: [
             Obx(
               () => _InjuryMenuButton(
-                text: "부상체크",
+                text: StringRes.injuryCheck.tr,
                 isSelected:
                     controller.currentInjuryMenu.value == InjuryMenuType.check,
                 onPressed: () {
