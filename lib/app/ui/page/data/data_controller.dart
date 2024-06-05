@@ -590,6 +590,11 @@ class DataController extends BaseController with InjuryCheckController {
     isOpenInjuryMenu.value = false;
   }
 
+  /// 부상 체크 메뉴 닫기.
+  void closeInjuryMenu() {
+    isOpenInjuryMenu.value = false;
+  }
+
   /// 부상 상태 타입 버튼 클릭
   void onPressedInjuryStateType(InjuryStateType type) {
     injuryStateType.value = type;

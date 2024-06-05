@@ -16,36 +16,38 @@ class InjuryPage extends GetView<DataController> {
   });
 
   @override
-  Widget build(BuildContext context) => FlexibleScrollView(
-        padding: const EdgeInsets.fromLTRB(30, 0, 30, 24),
-        child: Stack(
-          children: [
-            Obx(
-              () => Visibility(
-                visible:
-                    controller.currentInjuryMenu.value == InjuryMenuType.check,
-                child: _InjuryCheck(),
-              ),
-            ),
-            Obx(
-              () => Visibility(
-                visible: controller.currentInjuryMenu.value ==
-                    InjuryMenuType.history,
-                child: _InjuryHistory(),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: Obx(
-                () => Visibility(
-                  visible: controller.isOpenInjuryMenu.value,
-                  child: _InjuryMenu(),
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: controller.closeInjuryMenu,
+        child: FlexibleScrollView(
+            padding: const EdgeInsets.fromLTRB(30, 0, 30, 24),
+            child: Stack(
+              children: [
+                Obx(
+                  () => Visibility(
+                    visible: controller.currentInjuryMenu.value ==
+                        InjuryMenuType.check,
+                    child: _InjuryCheck(),
+                  ),
                 ),
-              ),
-            ),
-          ],
-        ),
+                Obx(
+                  () => Visibility(
+                    visible: controller.currentInjuryMenu.value ==
+                        InjuryMenuType.history,
+                    child: _InjuryHistory(),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Obx(
+                    () => Visibility(
+                      visible: controller.isOpenInjuryMenu.value,
+                      child: _InjuryMenu(),
+                    ),
+                  ),
+                ),
+              ],
+            )),
       );
 }
 
