@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/ui/page/data/data_controller.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
@@ -41,7 +42,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
       uiState.value.tabIndex = tabIndex;
       uiState.refresh();
 
-      if(!canLoad) {
+      if (!canLoad) {
         return;
       }
       await loadApi();
@@ -93,7 +94,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
 
     /// 데이터 탭에서 웰리니스 메뉴로 이동.
     final dataController = Get.find<DataController>();
-    dataController.onTapMenu(DataMenuType.wellness);
+    dataController.changeTapMenu(DataMenuType.wellness);
   }
 
   /// 데이터탭으로 이동.
@@ -103,17 +104,24 @@ class MainScreenController extends BaseMainController<MainUiState> {
 
     /// 데이터 탭에서 운동강도 메뉴로 이동.
     final dataController = Get.find<DataController>();
-    dataController.onTapMenu(DataMenuType.intensity);
+    dataController.changeTapMenu(DataMenuType.intensity);
   }
 
   /// 데이터 탭으로 이동 및 부상체크 상세 화면으로 이동.
   void moveDataInjuryDetail(HomeInjuryCheckItemUiState uiState) async {
+    /// 날짜 싱크
+    final recordDate = uiState.recordDate;
+    if (recordDate != null) {
+      final dateTime = DateFormat('yyyy-MM-dd').parse(recordDate);
+      syncDate(dateTime);
+    }
+
     /// 데이터 탭으로 이동.
     await setTabIndex(tabIndex: MainTabIndex.data, canLoad: false);
 
     /// 데이터 탭에서 메뉴이동
     final dataController = Get.find<DataController>();
-    await dataController.onTapMenu(DataMenuType.injury);
+    await dataController.changeTapMenu(DataMenuType.injury);
 
     /// 부상체크 상세 화면으로 이동.
     dataController.onPressedEdit(uiState);

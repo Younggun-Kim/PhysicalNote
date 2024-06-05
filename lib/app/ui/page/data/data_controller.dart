@@ -165,19 +165,19 @@ class DataController extends BaseController with InjuryCheckController {
     _updateDate(newDate);
   }
 
-  /// 메뉴 선택.
-  Future onTapMenu(DataMenuType newType) async {
-    final oldMenuType = menu.value;
-    menu.value = newType;
+  /// 메뉴 탭 변경 - subMenu 안 열림
+  Future<void> changeTapMenu(DataMenuType type) =>
+      _onTapMenu(type: type, isTap: false);
 
-    /// 부상체크 서브 메뉴 열기/닫기.
-    if (oldMenuType == newType) {
-      var isOpen = isOpenInjuryMenu.value;
-      isOpenInjuryMenu.value = !isOpen;
-    }
+  /// 메뉴 탭 클릭 - subMenu 열림.
+  Future<void> onTapMenu(DataMenuType type) =>
+      _onTapMenu(type: type, isTap: true);
+
+  Future _onTapMenu({required DataMenuType type, required bool isTap}) async {
+    menu.value = type;
 
     /// 운동강도 타임피커 초기화 버그 방지.
-    if (newType != DataMenuType.intensity) {
+    if (type != DataMenuType.intensity) {
       final isSport = intensityWorkoutType.value == WorkoutType.sports;
       final uiState = isSport
           ? intensitySportsUiState.value
@@ -193,12 +193,18 @@ class DataController extends BaseController with InjuryCheckController {
     }
 
     if (pageController.value.hasClients) {
-      pageController.value.jumpToPage(newType.index);
+      pageController.value.jumpToPage(type.index);
       await loadApi();
     } else {
       /// 초기화가 다시.
-      pageController.value = PageController(initialPage: newType.index);
+      pageController.value = PageController(initialPage: type.index);
       await loadApi();
+    }
+
+    /// 부상체크 서브 메뉴 열기/닫기.
+    if (type == DataMenuType.injury && isTap) {
+      var isOpen = isOpenInjuryMenu.value;
+      isOpenInjuryMenu.value = !isOpen;
     }
   }
 

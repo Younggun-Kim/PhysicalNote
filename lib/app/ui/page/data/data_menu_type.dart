@@ -22,7 +22,7 @@ enum DataMenuType {
       case intensity:
         return StringRes.workoutIntensity.tr;
       case injury:
-        return StringRes.injuryCheck.tr;
+        return StringRes.injuryManagement.tr;
     }
   }
 }

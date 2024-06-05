@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/data/data_controller.dart';
@@ -98,6 +99,7 @@ class _DataMenu extends StatelessWidget {
                   child: _DataMenuItem(
                     type: DataMenuType.injury,
                     isSelected: currentMenu == DataMenuType.injury,
+                    showIcon: true,
                     onTap: onTap,
                   ),
                 ),
@@ -119,11 +121,14 @@ class _DataMenuItem extends StatelessWidget {
 
   final bool isSelected;
 
+  final bool showIcon;
+
   final Function(DataMenuType type) onTap;
 
   const _DataMenuItem({
     required this.type,
     required this.isSelected,
+    this.showIcon = false,
     required this.onTap,
   });
 
@@ -134,12 +139,24 @@ class _DataMenuItem extends StatelessWidget {
         },
         child: Column(
           children: [
-            Text(
-              type.toString(),
-              style: TextStyle(
-                fontSize: 16,
-                color: isSelected ? ColorRes.fontBlack : ColorRes.fontDisable,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  type.toString(),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color:
+                        isSelected ? ColorRes.fontBlack : ColorRes.fontDisable,
+                  ),
+                ),
+                const SizedBox(width: 5),
+                Visibility(
+                  visible: showIcon,
+                  child: SvgPicture.asset(Assets.chevronDownBlack),
+                ),
+              ],
             ),
             const SizedBox(height: 5),
             Container(

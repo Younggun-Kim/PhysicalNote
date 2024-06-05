@@ -195,6 +195,7 @@ class StringRes {
   static final wellness = _generateId();
   static final wellnessKorEng = _generateId();
   static final wellnessDescription = _generateId();
+  static final injuryManagement = _generateId();
   static final injuryCheck = _generateId();
   static final injuryHistory = _generateId();
   static final injuryHistoryDescription = _generateId();

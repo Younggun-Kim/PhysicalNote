@@ -123,7 +123,8 @@ final enUs = {
   StringRes.wellness: "웰리니스",
   StringRes.wellnessKorEng: "웰리니스 (Wellness)",
   StringRes.wellnessDescription:
-  "팀 내 피지컬 코치 및 운동코치 또는 선수 개인이 웰리니스 관련 데이터를 수집하고 분석함으로써 운동 컨디션 및 삶의 질을 관리하고, 부상을 보다 효과적으로 예방하는데 도움이 됩니다. 뿐만아니라, 경기력 향상 및 유지하는데 또한 도움이 됩니다.",
+      "팀 내 피지컬 코치 및 운동코치 또는 선수 개인이 웰리니스 관련 데이터를 수집하고 분석함으로써 운동 컨디션 및 삶의 질을 관리하고, 부상을 보다 효과적으로 예방하는데 도움이 됩니다. 뿐만아니라, 경기력 향상 및 유지하는데 또한 도움이 됩니다.",
+  StringRes.injuryManagement: "부상관리",
   StringRes.injuryCheck: "부상체크",
   StringRes.injuryHistory: "부상이력",
   StringRes.injuryHistoryDescription: "부상을 한번에 편집 할 수 있어요.",
@@ -151,7 +152,7 @@ final enUs = {
   StringRes.intensityLevelEasyDescription: "몇시간은 운동\n더 할 수 있음\n숨쉬기 쉽고\n대화가 가능",
   StringRes.intensityLevelNormal: "중간",
   StringRes.intensityLevelNormalDescription:
-  "숨이 거칠고,\n짧은 대화가\n가능함. 편안\n하지만 더하면\n힘들 것 같음",
+      "숨이 거칠고,\n짧은 대화가\n가능함. 편안\n하지만 더하면\n힘들 것 같음",
   StringRes.intensityLevelHard: "힘듦",
   StringRes.intensityLevelHardDescription: "불편은 하지만\n문장으로 말할\n수 있음",
   StringRes.intensityLevelVeryHard: "매우 힘듦",
@@ -231,7 +232,7 @@ final enUs = {
   StringRes.injuryLevelHighPainDescription: "운동 또는 일상 동작이 어려움",
   StringRes.injuryLevelInjuredDescription: "워밍업 후에도 지속, 특정 동작에서 제한 발생",
   StringRes.injuryLevelMildDiscomfortDescription:
-  "활동 가능, 하지만 땀이 나거나 열을 내면 통증 완화 가능",
+      "활동 가능, 하지만 땀이 나거나 열을 내면 통증 완화 가능",
   StringRes.injuryLevelModeratePainDescription: "주로 뻣뻣함과 뻐근함이 느껴짐",
   StringRes.injuryLevelNoPainDescription: "활동 제약 없음",
   StringRes.tingling: "찌릿함",
