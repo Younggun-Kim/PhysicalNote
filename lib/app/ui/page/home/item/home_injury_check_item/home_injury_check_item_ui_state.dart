@@ -42,4 +42,7 @@ class HomeInjuryCheckItemUiState {
   /// 완치 여부 문자
   String get recoveryString =>
       recoveryYn == true ? StringRes.recovery.tr : StringRes.progress.tr;
+
+  /// 완치 날짜 존재 여부.
+  bool get hasRecoveryData => recoveryDate?.isNotEmpty ?? false;
 }
