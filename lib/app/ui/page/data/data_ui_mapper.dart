@@ -12,7 +12,6 @@ import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 
-
 extension DataUiMapper on DataController {
   /// 웰리니스 매퍼
   void setWellness(GetWellnessResponseModel? data) {
@@ -96,6 +95,7 @@ extension DataUiMapper on DataController {
                 bodyPart: bodyPart,
                 direction: InjuryCheckDirectionType.from(e.distinctionType),
                 recoveryYn: e.recoveryYn,
+                recoveryDate: e.recoveryDate,
               );
             })
             .whereType<HomeInjuryCheckItemUiState>()

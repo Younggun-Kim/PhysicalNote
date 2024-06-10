@@ -120,6 +120,7 @@ class TestUtils {
               recordDate: DateTime.now().toFormattedString("yyyy-MM-dd"),
               comment: "",
               recoveryYn: true,
+              recoveryDate: '',
             ))
         .toList();
   }

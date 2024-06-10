@@ -18,6 +18,7 @@ class HomeInjuryCheckItemUiState {
   final String? recordDate;
   final String? comment;
   final bool? recoveryYn;
+  final String? recoveryDate;
 
   HomeInjuryCheckItemUiState({
     required this.id,
@@ -30,6 +31,7 @@ class HomeInjuryCheckItemUiState {
     required this.bodyPart,
     required this.direction,
     required this.recoveryYn,
+    required this.recoveryDate,
   });
 
   @override

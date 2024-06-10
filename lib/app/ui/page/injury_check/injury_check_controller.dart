@@ -53,11 +53,9 @@ mixin InjuryCheckController on BaseController {
 
   // 상세(or 수정)일 때 ui 노출 플래그.
   late var isShowDetailUi =
-  injuryDetailId.behaviorStream.map((event) => event != null).toObs(false);
+      injuryDetailId.behaviorStream.map((event) => event != null).toObs(false);
 
-  var injuryCheckDate = DateTime
-      .now()
-      .obs;
+  var injuryCheckDate = DateTime.now().obs;
 
   /// 부상 타입.
   final injuryType = InjuryType.nonContact.obs;
@@ -158,7 +156,7 @@ mixin InjuryCheckController on BaseController {
           .map((event) => event.any((element) => element.isSelected == true)),
       painTimingIntermittent.behaviorStream.map((event) => event != null),
     ],
-        (values) => values.every((element) => element == true),
+    (values) => values.every((element) => element == true),
   ).toObs(false);
 
   /// 질병일 때 Enabled.
@@ -232,7 +230,7 @@ mixin InjuryCheckController on BaseController {
 
     logger.i(svgList);
     var pathIndex =
-    svgList.indexWhere((element) => element.contains('id="$pathId"'));
+        svgList.indexWhere((element) => element.contains('id="$pathId"'));
     var pathString = svgList[pathIndex];
     var colorIndex = pathString.indexOf('fill="#');
 
@@ -243,7 +241,7 @@ mixin InjuryCheckController on BaseController {
     final startIndex = colorIndex + 7;
     final endIndex = colorIndex + 13;
     final colorChangedPath =
-    pathString.replaceRange(startIndex, endIndex, color);
+        pathString.replaceRange(startIndex, endIndex, color);
     svgList[pathIndex] = colorChangedPath;
 
     return svgList.join("\n");
@@ -301,12 +299,14 @@ mixin InjuryCheckController on BaseController {
   }
 
   /// API - 부상 체크 등록 / 수정.
-  Future<void> onPressedSubmit() async {
-    setLoading(true);
+  Future<bool> onPressedSubmit() async {
+    var result = false;
     final requestData = _getRequestData();
     final injuryApi = Get.find<InjuryAPI>();
     final injuryId = injuryDetailId.value;
     dynamic response;
+
+    setLoading(true);
 
     if (injuryId == null) {
       response = await injuryApi.postInjury(
@@ -321,7 +321,7 @@ mixin InjuryCheckController on BaseController {
 
     if (response is PostInjuryResponseModel) {
       if (response.id != null) {
-        close(result: true);
+        result = true;
       }
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
@@ -330,6 +330,8 @@ mixin InjuryCheckController on BaseController {
     }
 
     setLoading(false);
+
+    return result;
   }
 
   /// 등록/수정 RequestData
@@ -459,7 +461,7 @@ mixin InjuryCheckController on BaseController {
 
     setLoading(true);
     final response =
-    await injuryApi.putInjuryDetailRecovery(userInjuryId: injuryId);
+        await injuryApi.putInjuryDetailRecovery(userInjuryId: injuryId);
 
     if (response is PutInjuryDetailRecoveryResponseModel &&
         response.status == true) {

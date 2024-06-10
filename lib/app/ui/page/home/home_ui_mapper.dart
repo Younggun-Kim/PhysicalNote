@@ -297,6 +297,7 @@ extension HomeUiMapper on HomeController {
             bodyPart: bodyPart,
             direction: InjuryCheckDirectionType.from(e.distinctionType),
             recoveryYn: e.recoveryYn,
+            recoveryDate: e.recoveryDate,
           );
         })
         .whereType<HomeInjuryCheckItemUiState>()

@@ -19,6 +19,7 @@ InjuryInfoModel _$InjuryInfoModelFromJson(Map<String, dynamic> json) =>
       injuryLevelString: json['injuryLevelString'] as String?,
       comment: json['comment'] as String?,
       recoveryYn: json['recoveryYn'] as bool?,
+      recoveryDate: json['recoveryDate'] as String?,
     );
 
 Map<String, dynamic> _$InjuryInfoModelToJson(InjuryInfoModel instance) =>
@@ -34,4 +35,5 @@ Map<String, dynamic> _$InjuryInfoModelToJson(InjuryInfoModel instance) =>
       'injuryLevelString': instance.injuryLevelString,
       'comment': instance.comment,
       'recoveryYn': instance.recoveryYn,
+      'recoveryDate': instance.recoveryDate,
     };

@@ -16,6 +16,7 @@ class InjuryInfoModel {
   final String? injuryLevelString;
   final String? comment;
   final bool? recoveryYn;
+  final String? recoveryDate;
 
   InjuryInfoModel({
     required this.id,
@@ -29,6 +30,7 @@ class InjuryInfoModel {
     required this.injuryLevelString,
     required this.comment,
     required this.recoveryYn,
+    required this.recoveryDate,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

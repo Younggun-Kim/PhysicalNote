@@ -667,14 +667,23 @@ class DataController extends BaseController with InjuryCheckController {
   /// 부상관리 - 부상체크 삭제 성공시.
   @override
   Future<bool> onPressedInjuryCheckDelete() async {
-    final isDeleted = await super.onPressedInjuryCheckDelete();
+    final isSuccess = await super.onPressedInjuryCheckDelete();
+    injuryApiSuccessAction(isSuccess);
+    return true;
+  }
 
-    if (isDeleted) {
-      _reloadInjury();
-    }
+  /// 부상 완치 클릭.
+  @override
+  Future<bool> onPressedInjuryCheckRecovery() async {
+    final isSuccess = await super.onPressedInjuryCheckRecovery();
+    injuryApiSuccessAction(isSuccess);
+    return true;
+  }
 
-    scrollToTop();
-
+  @override
+  Future<bool> onPressedSubmit() async {
+    final isSuccess = await super.onPressedSubmit();
+    injuryApiSuccessAction(isSuccess);
     return true;
   }
 
@@ -684,15 +693,12 @@ class DataController extends BaseController with InjuryCheckController {
     loadApi();
   }
 
-  /// 부상 완치 클릭.
-  @override
-  Future<bool> onPressedInjuryCheckRecovery() async {
-    final isRecovery = await super.onPressedInjuryCheckRecovery();
-
-    if (isRecovery) {
+  /// 부상체크 - API 등록/수정/삭제/완치 후 동작
+  void injuryApiSuccessAction(bool result) {
+    if (result) {
       _reloadInjury();
       onPressedInjuryMenu(InjuryMenuType.history);
     }
-    return true;
+    scrollToTop();
   }
 }
