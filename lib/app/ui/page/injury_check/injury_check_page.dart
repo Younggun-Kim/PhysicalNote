@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
+import 'package:physical_note/app/ui/page/data/injury/injury_recovery_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_pain_symptom_ui_state.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
@@ -56,10 +57,29 @@ class InjuryCheckPage extends GetView<DataController> {
           const SizedBox(height: 50),
           const Spacer(),
           Obx(
+            () => Visibility(
+              visible: controller.isShowDetailUi.value &&
+                  controller.injuryRecoveryType.value ==
+                      InjuryRecoveryType.progress,
+              child: BaseButton(
+                width: double.infinity,
+                height: 56,
+                text: StringRes.recovery.tr,
+                defaultTextStyle: const TextStyle(
+                  fontSize: 16,
+                  color: ColorRes.white,
+                  fontWeight: FontWeight.w500,
+                ),
+                defaultBackgroundColor: ColorRes.disable,
+                onPressed: controller.onPressedInjuryCheckRecovery,
+              ).marginOnly(bottom: 20),
+            ),
+          ),
+          Obx(
             () => Row(
               children: [
                 Visibility(
-                  visible: controller.injuryDetailId.value != null,
+                  visible: controller.isShowDetailUi.value,
                   child: Expanded(
                     child: BaseButton(
                       width: double.infinity,
@@ -76,7 +96,7 @@ class InjuryCheckPage extends GetView<DataController> {
                   ),
                 ),
                 Visibility(
-                  visible: controller.injuryDetailId.value != null,
+                  visible: controller.isShowDetailUi.value,
                   child: const SizedBox(
                     width: 10,
                   ),

@@ -10,6 +10,7 @@ import 'package:physical_note/app/data/injury/model/delete_injury_response_model
 import 'package:physical_note/app/data/injury/model/injury_response_model.dart';
 import 'package:physical_note/app/data/injury/model/post_injury_request_model.dart';
 import 'package:physical_note/app/data/injury/model/post_injury_response_model.dart';
+import 'package:physical_note/app/data/injury/model/put_injury_detail_recovery_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
@@ -50,7 +51,13 @@ mixin InjuryCheckController on BaseController {
       _loadInjuryDetail(p0);
     });
 
-  var injuryCheckDate = DateTime.now().obs;
+  // 상세(or 수정)일 때 ui 노출 플래그.
+  late var isShowDetailUi =
+  injuryDetailId.behaviorStream.map((event) => event != null).toObs(false);
+
+  var injuryCheckDate = DateTime
+      .now()
+      .obs;
 
   /// 부상 타입.
   final injuryType = InjuryType.nonContact.obs;
@@ -151,7 +158,7 @@ mixin InjuryCheckController on BaseController {
           .map((event) => event.any((element) => element.isSelected == true)),
       painTimingIntermittent.behaviorStream.map((event) => event != null),
     ],
-    (values) => values.every((element) => element == true),
+        (values) => values.every((element) => element == true),
   ).toObs(false);
 
   /// 질병일 때 Enabled.
@@ -225,7 +232,7 @@ mixin InjuryCheckController on BaseController {
 
     logger.i(svgList);
     var pathIndex =
-        svgList.indexWhere((element) => element.contains('id="$pathId"'));
+    svgList.indexWhere((element) => element.contains('id="$pathId"'));
     var pathString = svgList[pathIndex];
     var colorIndex = pathString.indexOf('fill="#');
 
@@ -236,7 +243,7 @@ mixin InjuryCheckController on BaseController {
     final startIndex = colorIndex + 7;
     final endIndex = colorIndex + 13;
     final colorChangedPath =
-        pathString.replaceRange(startIndex, endIndex, color);
+    pathString.replaceRange(startIndex, endIndex, color);
     svgList[pathIndex] = colorChangedPath;
 
     return svgList.join("\n");
@@ -436,5 +443,35 @@ mixin InjuryCheckController on BaseController {
   /// 삭제 버튼 클릭.
   Future<bool> onPressedInjuryCheckDelete() async {
     return await _deleteInjury();
+  }
+
+  /// 부상 완치 클릭
+
+  /// 부상관리 - 부상체크 삭제 성공시.
+  Future<bool> onPressedInjuryCheckRecovery() async {
+    var injuryId = injuryDetailId.value;
+    var result = false;
+    if (injuryId == null) {
+      return result;
+    }
+
+    final injuryApi = Get.find<InjuryAPI>();
+
+    setLoading(true);
+    final response =
+    await injuryApi.putInjuryDetailRecovery(userInjuryId: injuryId);
+
+    if (response is PutInjuryDetailRecoveryResponseModel &&
+        response.status == true) {
+      result = true;
+    } else {
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
+      showToast(message);
+    }
+
+    setLoading(false);
+
+    return result;
   }
 }

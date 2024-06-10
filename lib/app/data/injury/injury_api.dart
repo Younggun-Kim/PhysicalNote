@@ -7,6 +7,7 @@ import 'package:physical_note/app/utils/utils.dart';
 
 import 'model/delete_injury_response_model.dart';
 import 'model/injury_response_model.dart';
+import 'model/put_injury_detail_recovery_response_model.dart';
 
 class InjuryAPI extends API {
   InjuryAPI() : super(basePath: "/api/injury");
@@ -114,6 +115,25 @@ class InjuryAPI extends API {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
         return DeleteInjuryResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  /// 부상 정보 수정.
+  Future<dynamic> putInjuryDetailRecovery({
+    required int userInjuryId,
+  }) async {
+    try {
+      logger.i("putInjuryDetailRecovery: $userInjuryId");
+      final response = await put(requestUrl + "/$userInjuryId/recovery", {});
+
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return PutInjuryDetailRecoveryResponseModel.fromJson(response.body);
       }
     } catch (e) {
       logger.e(e);

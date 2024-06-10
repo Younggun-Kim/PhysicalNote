@@ -683,4 +683,16 @@ class DataController extends BaseController with InjuryCheckController {
     isLoadInjury = false;
     loadApi();
   }
+
+  /// 부상 완치 클릭.
+  @override
+  Future<bool> onPressedInjuryCheckRecovery() async {
+    final isRecovery = await super.onPressedInjuryCheckRecovery();
+
+    if (isRecovery) {
+      _reloadInjury();
+      onPressedInjuryMenu(InjuryMenuType.history);
+    }
+    return true;
+  }
 }
