@@ -24,6 +24,7 @@ InjuryResponseModel _$InjuryResponseModelFromJson(Map<String, dynamic> json) =>
           .toList(),
       comment: json['comment'] as String?,
       recordDate: json['recordDate'] as String?,
+      recoveryYn: json['recoveryYn'] as bool?,
     );
 
 Map<String, dynamic> _$InjuryResponseModelToJson(
@@ -41,4 +42,5 @@ Map<String, dynamic> _$InjuryResponseModelToJson(
       'painTimes': instance.painTimes,
       'comment': instance.comment,
       'recordDate': instance.recordDate,
+      'recoveryYn': instance.recoveryYn,
     };

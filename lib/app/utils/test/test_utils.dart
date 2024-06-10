@@ -119,6 +119,7 @@ class TestUtils {
               injuryLevelTypeString: InjuryLevelType.values[0].toDescription(),
               recordDate: DateTime.now().toFormattedString("yyyy-MM-dd"),
               comment: "",
+              recoveryYn: true,
             ))
         .toList();
   }

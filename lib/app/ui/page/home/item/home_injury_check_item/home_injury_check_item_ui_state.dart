@@ -1,6 +1,8 @@
+import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_level_type.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/config/constant/muscle_type.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 
@@ -15,6 +17,7 @@ class HomeInjuryCheckItemUiState {
   final InjuryCheckBodyPartsType? bodyPart;
   final String? recordDate;
   final String? comment;
+  final bool? recoveryYn;
 
   HomeInjuryCheckItemUiState({
     required this.id,
@@ -26,10 +29,15 @@ class HomeInjuryCheckItemUiState {
     required this.muscleType,
     required this.bodyPart,
     required this.direction,
+    required this.recoveryYn,
   });
 
   @override
   String toString() {
     return "$id";
   }
+
+  /// 완치 여부 문자
+  String get recoveryString =>
+      recoveryYn == true ? StringRes.recovery.tr : StringRes.progress.tr;
 }

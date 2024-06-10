@@ -24,6 +24,7 @@ class InjuryAPI extends API {
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
+        logger.i(response.body);
         return GetInjuryResponseModel.fromJson({"list": response.body});
       }
     } catch (e) {

@@ -52,14 +52,11 @@ class HomeInjuryCheckItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 if (uiState.muscleType != null)
-                  Flexible(
-                    fit: FlexFit.loose,
-                    child: Text(
-                      uiState.muscleType?.toKor() ?? "",
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  Text(
+                    uiState.muscleType?.toKor() ?? "",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 const SizedBox(width: 7),
@@ -70,7 +67,7 @@ class HomeInjuryCheckItem extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                const SizedBox(width: 10),
+                const Spacer(),
                 InkWellOver(
                   onTap: onPressedEdit,
                   borderRadius: BorderRadius.circular(20),
@@ -95,6 +92,17 @@ class HomeInjuryCheckItem extends StatelessWidget {
                       color: ColorRes.fontBlack,
                     ),
                   ),
+                  const Spacer(),
+                  Text(
+                    uiState.recoveryString,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: uiState.recoveryYn == true
+                          ? ColorRes.fontDisable
+                          : ColorRes.primary,
+                    ),
+                  )
                 ],
               ),
             ),
