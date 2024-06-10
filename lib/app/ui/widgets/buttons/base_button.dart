@@ -73,7 +73,7 @@ class BaseButton extends StatelessWidget {
       ? isSelected
           ? selectedBackgroundColor
           : defaultBackgroundColor
-      : ColorRes.disable;
+      : disableBackgroundColor;
 
   /// 텍스트 스타일.
   TextStyle get textStyle => isEnabled

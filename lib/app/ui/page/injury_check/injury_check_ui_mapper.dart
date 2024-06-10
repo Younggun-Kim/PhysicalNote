@@ -22,7 +22,7 @@ extension InjuryCheckUiMapper on InjuryCheckController {
 
     /// 앞/뒤
     final _directionType =
-        InjuryCheckDirectionType.from(remoteData.distinctionType);
+    InjuryCheckDirectionType.from(remoteData.distinctionType);
     if (_directionType == null) {
       return;
     }
@@ -56,9 +56,9 @@ extension InjuryCheckUiMapper on InjuryCheckController {
     /// 통증 양상.
     final painTypes = remoteData.painCharacteristicList
         ?.map((element) {
-          final painType = PainType.from(element);
-          return painType;
-        })
+      final painType = PainType.from(element);
+      return painType;
+    })
         .whereType<PainType>()
         .toList();
 
@@ -91,5 +91,8 @@ extension InjuryCheckUiMapper on InjuryCheckController {
     /// 질병, 부경위
     diseaseController.value = remoteData.comment ?? "";
     painTimingDescription.value = remoteData.comment ?? "";
+
+    // 완치여부
+    isRecovered.value = remoteData.recoveryYn == true;
   }
 }

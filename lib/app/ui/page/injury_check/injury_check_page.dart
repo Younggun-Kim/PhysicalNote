@@ -16,48 +16,49 @@ class InjuryCheckPage extends GetView<DataController> {
   const InjuryCheckPage({super.key});
 
   @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 24),
-          Text(
-            StringRes.injuryCheck.tr,
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
-              color: ColorRes.fontBlack,
+  Widget build(BuildContext context) => Obx(() => AbsorbPointer(
+        absorbing: controller.isRecovered.value,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 24),
+            Text(
+              StringRes.injuryCheck.tr,
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 20,
+                color: ColorRes.fontBlack,
+              ),
             ),
-          ),
-          Text(
-            StringRes.painCheckLocation.tr,
-            style: const TextStyle(
-              fontSize: 12,
-              color: ColorRes.fontDisable,
+            Text(
+              StringRes.painCheckLocation.tr,
+              style: const TextStyle(
+                fontSize: 12,
+                color: ColorRes.fontDisable,
+              ),
             ),
-          ),
-          const SizedBox(height: 24),
-          Text(
-            StringRes.injuryLocationSelection.tr,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: ColorRes.fontBlack,
+            const SizedBox(height: 24),
+            Text(
+              StringRes.injuryLocationSelection.tr,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: ColorRes.fontBlack,
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          _InjuryType(),
-          _Disease(),
-          _Contact(),
-          const SizedBox(height: 20),
-          _MuscleImage(),
-          const SizedBox(height: 20),
-          _Muscles(),
-          const SizedBox(height: 40),
-          _Pain(),
-          const SizedBox(height: 50),
-          const Spacer(),
-          Obx(
-            () => Visibility(
+            const SizedBox(height: 20),
+            _InjuryType(),
+            _Disease(),
+            _Contact(),
+            const SizedBox(height: 20),
+            _MuscleImage(),
+            const SizedBox(height: 20),
+            _Muscles(),
+            const SizedBox(height: 40),
+            _Pain(),
+            const SizedBox(height: 50),
+            const Spacer(),
+            Visibility(
               visible: controller.isShowDetailUi.value &&
                   controller.injuryRecoveryType.value ==
                       InjuryRecoveryType.progress,
@@ -74,56 +75,62 @@ class InjuryCheckPage extends GetView<DataController> {
                 onPressed: controller.onPressedInjuryCheckRecovery,
               ).marginOnly(bottom: 20),
             ),
-          ),
-          Obx(
-            () => Row(
-              children: [
-                Visibility(
-                  visible: controller.isShowDetailUi.value,
-                  child: Expanded(
-                    child: BaseButton(
-                      width: double.infinity,
-                      height: 56,
-                      text: StringRes.delete.tr,
-                      defaultTextStyle: const TextStyle(
-                        fontSize: 16,
-                        color: ColorRes.white,
-                        fontWeight: FontWeight.w500,
+            Obx(
+              () => Row(
+                children: [
+                  Visibility(
+                    visible: controller.isShowDetailUi.value &&
+                        !controller.isRecovered.value,
+                    child: Expanded(
+                      child: BaseButton(
+                        width: double.infinity,
+                        height: 56,
+                        text: StringRes.delete.tr,
+                        defaultTextStyle: const TextStyle(
+                          fontSize: 16,
+                          color: ColorRes.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        defaultBackgroundColor: ColorRes.disable,
+                        onPressed: controller.onPressedInjuryCheckDelete,
                       ),
-                      defaultBackgroundColor: ColorRes.disable,
-                      onPressed: controller.onPressedInjuryCheckDelete,
                     ),
                   ),
-                ),
-                Visibility(
-                  visible: controller.isShowDetailUi.value,
-                  child: const SizedBox(
-                    width: 10,
-                  ),
-                ),
-                Expanded(
-                  child: BaseButton(
-                    width: double.infinity,
-                    height: 56,
-                    isEnabled: controller.injuryType.value == InjuryType.disease
-                        ? controller.isEnabledDiseaseSubmit.value
-                        : controller.isEnabledSubmit.value,
-                    text: StringRes.save.tr,
-                    defaultTextStyle: const TextStyle(
-                      fontSize: 16,
-                      color: ColorRes.white,
-                      fontWeight: FontWeight.w500,
+                  Visibility(
+                    visible: controller.isShowDetailUi.value &&
+                        !controller.isRecovered.value,
+                    child: const SizedBox(
+                      width: 10,
                     ),
-                    defaultBackgroundColor: ColorRes.primary,
-                    onPressed: controller.onPressedSubmit,
                   ),
-                ),
-              ],
+                  Visibility(
+                    visible: !controller.isRecovered.value,
+                    child: Expanded(
+                      child: BaseButton(
+                        width: double.infinity,
+                        height: 56,
+                        isEnabled:
+                            controller.injuryType.value == InjuryType.disease
+                                ? controller.isEnabledDiseaseSubmit.value
+                                : controller.isEnabledSubmit.value,
+                        text: StringRes.save.tr,
+                        defaultTextStyle: const TextStyle(
+                          fontSize: 16,
+                          color: ColorRes.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        defaultBackgroundColor: ColorRes.primary,
+                        onPressed: controller.onPressedSubmit,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-        ],
-      );
+            const SizedBox(height: 20),
+          ],
+        ),
+      ));
 }
 
 /// 질병.
@@ -161,6 +168,9 @@ class _InjuryType extends GetView<DataController> {
             child: BaseButton(
               isSelected: controller.injuryType.value == InjuryType.nonContact,
               text: InjuryType.nonContact.toString(),
+              selectedBackgroundColor: controller.isRecovered.value
+                  ? ColorRes.gray9f9f9f
+                  : ColorRes.primary,
               onPressed: () {
                 controller.onPressedInjuryType(InjuryType.nonContact);
               },
@@ -170,6 +180,9 @@ class _InjuryType extends GetView<DataController> {
             child: BaseButton(
               isSelected: controller.injuryType.value == InjuryType.contact,
               text: InjuryType.contact.toString(),
+              selectedBackgroundColor: controller.isRecovered.value
+                  ? ColorRes.gray9f9f9f
+                  : ColorRes.primary,
               onPressed: () {
                 controller.onPressedInjuryType(InjuryType.contact);
               },
@@ -179,6 +192,9 @@ class _InjuryType extends GetView<DataController> {
             child: BaseButton(
               isSelected: controller.injuryType.value == InjuryType.disease,
               text: InjuryType.disease.toString(),
+              selectedBackgroundColor: controller.isRecovered.value
+                  ? ColorRes.gray9f9f9f
+                  : ColorRes.primary,
               onPressed: () {
                 controller.onPressedInjuryType(InjuryType.disease);
               },
@@ -205,6 +221,9 @@ class _Contact extends GetView<DataController> {
                         InjuryCheckDirectionType.front,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    selectedBackgroundColor: controller.isRecovered.value
+                        ? ColorRes.gray9f9f9f
+                        : ColorRes.primary,
                     onPressed: () {
                       controller.onPressedDirectionType(
                           InjuryCheckDirectionType.front);
@@ -217,6 +236,9 @@ class _Contact extends GetView<DataController> {
                         InjuryCheckDirectionType.back,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    selectedBackgroundColor: controller.isRecovered.value
+                        ? ColorRes.gray9f9f9f
+                        : ColorRes.primary,
                     onPressed: () {
                       controller.onPressedDirectionType(
                           InjuryCheckDirectionType.back);
@@ -235,6 +257,9 @@ class _Contact extends GetView<DataController> {
                           InjuryCheckBodyType.upper,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
+                      selectedBackgroundColor: controller.isRecovered.value
+                          ? ColorRes.gray9f9f9f
+                          : ColorRes.primary,
                       onPressed: () {
                         controller.onPressedBodyType(InjuryCheckBodyType.upper);
                       },
@@ -246,6 +271,9 @@ class _Contact extends GetView<DataController> {
                           InjuryCheckBodyType.lower,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
+                      selectedBackgroundColor: controller.isRecovered.value
+                          ? ColorRes.gray9f9f9f
+                          : ColorRes.primary,
                       onPressed: () {
                         controller.onPressedBodyType(InjuryCheckBodyType.lower);
                       },
@@ -265,6 +293,9 @@ class _Contact extends GetView<DataController> {
                           InjuryCheckBodyPartsType.body,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
+                      selectedBackgroundColor: controller.isRecovered.value
+                          ? ColorRes.gray9f9f9f
+                          : ColorRes.primary,
                       onPressed: () {
                         controller.onPressedBodyPartsType(
                             InjuryCheckBodyPartsType.body);
@@ -277,6 +308,9 @@ class _Contact extends GetView<DataController> {
                           InjuryCheckBodyPartsType.leftArm,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
+                      selectedBackgroundColor: controller.isRecovered.value
+                          ? ColorRes.gray9f9f9f
+                          : ColorRes.primary,
                       onPressed: () {
                         controller.onPressedBodyPartsType(
                             InjuryCheckBodyPartsType.leftArm);
@@ -289,6 +323,9 @@ class _Contact extends GetView<DataController> {
                           InjuryCheckBodyPartsType.rightArm,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
+                      selectedBackgroundColor: controller.isRecovered.value
+                          ? ColorRes.gray9f9f9f
+                          : ColorRes.primary,
                       onPressed: () {
                         controller.onPressedBodyPartsType(
                             InjuryCheckBodyPartsType.rightArm);
@@ -308,6 +345,9 @@ class _Contact extends GetView<DataController> {
                           InjuryCheckBodyPartsType.leftLeg,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
+                      selectedBackgroundColor: controller.isRecovered.value
+                          ? ColorRes.gray9f9f9f
+                          : ColorRes.primary,
                       onPressed: () {
                         controller.onPressedBodyPartsType(
                             InjuryCheckBodyPartsType.leftLeg);
@@ -320,6 +360,9 @@ class _Contact extends GetView<DataController> {
                           InjuryCheckBodyPartsType.rightLeg,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
+                      selectedBackgroundColor: controller.isRecovered.value
+                          ? ColorRes.gray9f9f9f
+                          : ColorRes.primary,
                       onPressed: () {
                         controller.onPressedBodyPartsType(
                             InjuryCheckBodyPartsType.rightLeg);
@@ -382,6 +425,9 @@ class _Muscles extends GetView<DataController> {
                           controller.selectedMuscleType.value == muscleType,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
+                      selectedBackgroundColor: controller.isRecovered.value
+                          ? ColorRes.gray9f9f9f
+                          : ColorRes.primary,
                       onPressed: () {
                         controller.onPressedMuscle(muscleType);
                       },
@@ -464,6 +510,7 @@ class _Pain extends GetView<DataController> {
                 Obx(
                   () => _PainSymptoms(
                     painSymptoms: controller.painSymptoms.toList(),
+                    isRecovered: controller.isRecovered.value,
                     onPressed: controller.onPressedPainSymptom,
                   ),
                 ),
@@ -473,6 +520,7 @@ class _Pain extends GetView<DataController> {
                 Obx(
                   () => _PainTimingIntermittentOrRegular(
                     isIntermittent: controller.painTimingIntermittent.value,
+                    isRecovered: controller.isRecovered.value,
                     onPressed: controller.onPressedPainTimingIntermittent,
                   ),
                 ),
@@ -481,6 +529,7 @@ class _Pain extends GetView<DataController> {
                   () => _PainTimingRestAndWorkout(
                     isRest: controller.painTimingRest.value,
                     isWorkout: controller.painTimingWorkout.value,
+                    isRecovered: controller.isRecovered.value,
                     onPressedRest: controller.onPressedPainTimingRest,
                     onPressedWorkout: controller.onPressedPainTimingWorkout,
                   ),
@@ -502,10 +551,13 @@ class _Pain extends GetView<DataController> {
 class _PainSymptoms extends StatelessWidget {
   final List<InjuryCheckPainSymptomUiState> painSymptoms;
 
+  final bool isRecovered;
+
   final Function(InjuryCheckPainSymptomUiState) onPressed;
 
   const _PainSymptoms({
     required this.painSymptoms,
+    required this.isRecovered,
     required this.onPressed,
   });
 
@@ -520,6 +572,8 @@ class _PainSymptoms extends StatelessWidget {
               text: e.type.toString(),
               isSelected: e.isSelected,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              selectedBackgroundColor:
+                  isRecovered ? ColorRes.gray9f9f9f : ColorRes.primary,
               onPressed: () {
                 onPressed(e);
               },
@@ -532,11 +586,13 @@ class _PainSymptoms extends StatelessWidget {
 /// 통증 시기 - 간헐적, 일정함
 class _PainTimingIntermittentOrRegular extends StatelessWidget {
   final bool? isIntermittent;
+  final bool isRecovered;
 
   final Function(bool) onPressed;
 
   const _PainTimingIntermittentOrRegular({
     required this.isIntermittent,
+    required this.isRecovered,
     required this.onPressed,
   });
 
@@ -548,6 +604,8 @@ class _PainTimingIntermittentOrRegular extends StatelessWidget {
               text: StringRes.intermittent.tr,
               isSelected: isIntermittent == true,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              selectedBackgroundColor:
+                  isRecovered ? ColorRes.gray9f9f9f : ColorRes.primary,
               onPressed: () {
                 onPressed(true);
               },
@@ -559,6 +617,8 @@ class _PainTimingIntermittentOrRegular extends StatelessWidget {
               text: StringRes.regular.tr,
               isSelected: isIntermittent == false,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              selectedBackgroundColor:
+                  isRecovered ? ColorRes.gray9f9f9f : ColorRes.primary,
               onPressed: () {
                 onPressed(false);
               },
@@ -574,6 +634,8 @@ class _PainTimingRestAndWorkout extends StatelessWidget {
 
   final bool isWorkout;
 
+  final bool isRecovered;
+
   final Function() onPressedRest;
 
   final Function() onPressedWorkout;
@@ -581,6 +643,7 @@ class _PainTimingRestAndWorkout extends StatelessWidget {
   const _PainTimingRestAndWorkout({
     required this.isRest,
     required this.isWorkout,
+    required this.isRecovered,
     required this.onPressedRest,
     required this.onPressedWorkout,
   });
@@ -593,6 +656,8 @@ class _PainTimingRestAndWorkout extends StatelessWidget {
               text: StringRes.restPeriod.tr,
               isSelected: isRest,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              selectedBackgroundColor:
+                  isRecovered ? ColorRes.gray9f9f9f : ColorRes.primary,
               onPressed: onPressedRest,
             ),
           ),
@@ -602,6 +667,8 @@ class _PainTimingRestAndWorkout extends StatelessWidget {
               text: StringRes.duringWorkout.tr,
               isSelected: isWorkout,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              selectedBackgroundColor:
+                  isRecovered ? ColorRes.gray9f9f9f : ColorRes.primary,
               onPressed: onPressedWorkout,
             ),
           ),

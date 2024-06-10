@@ -44,6 +44,8 @@ mixin InjuryCheckController on BaseController {
     painTimingRest.value = false;
     painTimingWorkout.value = false;
     painTimingDescription.value = "";
+
+    isRecovered.value = false;
   }
 
   late var injuryDetailId = (null as int?).obs
@@ -163,6 +165,9 @@ mixin InjuryCheckController on BaseController {
   late final isEnabledDiseaseSubmit = diseaseController.behaviorStream
       .map((event) => event.isNotEmpty)
       .toObs(false);
+
+  /// 완치여부
+  final isRecovered = false.obs;
 
   /// 부상 타입 클릭.
   void onPressedInjuryType(InjuryType type) {
