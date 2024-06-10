@@ -16,116 +16,26 @@ class InjuryPage extends GetView<DataController> {
   });
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        onTap: controller.closeInjuryMenu,
-        child: FlexibleScrollView(
-            padding: const EdgeInsets.fromLTRB(30, 0, 30, 24),
-            child: Stack(
-              children: [
-                Obx(
-                  () => Visibility(
-                    visible: controller.currentInjuryMenu.value ==
-                        InjuryMenuType.check,
-                    child: _InjuryCheck(),
-                  ),
-                ),
-                Obx(
-                  () => Visibility(
-                    visible: controller.currentInjuryMenu.value ==
-                        InjuryMenuType.history,
-                    child: _InjuryHistory(),
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Obx(
-                    () => Visibility(
-                      visible: controller.isOpenInjuryMenu.value,
-                      child: _InjuryMenu(),
-                    ),
-                  ),
-                ),
-              ],
-            )),
-      );
-}
-
-/// 부상 메뉴
-class _InjuryMenu extends GetView<DataController> {
-  @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: ColorRes.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.25),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: const Offset(0, 2), // changes position of shadow
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-        child: Column(
+  Widget build(BuildContext context) => FlexibleScrollView(
+        padding: const EdgeInsets.fromLTRB(30, 0, 30, 24),
+        child: Stack(
           children: [
             Obx(
-              () => _InjuryMenuButton(
-                text: StringRes.injuryCheck.tr,
-                isSelected:
+              () => Visibility(
+                visible:
                     controller.currentInjuryMenu.value == InjuryMenuType.check,
-                onPressed: () {
-                  controller.onPressedInjuryMenu(InjuryMenuType.check);
-                },
+                child: _InjuryCheck(),
               ),
             ),
-            const SizedBox(height: 4),
-            Container(
-              width: 86,
-              height: 0.5,
-              color: ColorRes.disable,
-            ),
-            const SizedBox(height: 4),
             Obx(
-              () => _InjuryMenuButton(
-                text: StringRes.injuryHistory.tr,
-                isSelected: controller.currentInjuryMenu.value ==
+              () => Visibility(
+                visible: controller.currentInjuryMenu.value ==
                     InjuryMenuType.history,
-                onPressed: () {
-                  controller.onPressedInjuryMenu(InjuryMenuType.history);
-                },
+                child: _InjuryHistory(),
               ),
             ),
           ],
         ),
-      );
-}
-
-/// 부상 메뉴 버튼
-class _InjuryMenuButton extends StatelessWidget {
-  final String text;
-
-  final bool isSelected;
-
-  final VoidCallback onPressed;
-
-  const _InjuryMenuButton({
-    required this.text,
-    required this.isSelected,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) => LabelButton(
-        text: text,
-        textStyle: TextStyle(
-          color: isSelected ? ColorRes.fontBlack : ColorRes.fontGray,
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-        onPressed: onPressed,
       );
 }
 

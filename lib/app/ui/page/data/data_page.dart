@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/data/data_controller.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
+import 'package:physical_note/app/ui/page/data/injury/injury_menu.dart';
 import 'package:physical_note/app/ui/page/data/injury/injury_page.dart';
 import 'package:physical_note/app/ui/page/data/wellness/wellness_page.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
+import 'package:physical_note/app/utils/logger/logger.dart';
 
 import 'intensity/intensity_page.dart';
 
@@ -17,7 +19,9 @@ class DataPage extends GetView<DataController> {
 
   @override
   Widget build(BuildContext context) => PageRoot(
-        controller: controller,
+      controller: controller,
+      child: GestureDetector(
+        onTap: controller.closeInjuryMenu,
         child: NestedScrollView(
           controller: controller.scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -41,7 +45,10 @@ class DataPage extends GetView<DataController> {
                     Obx(
                       () => _DataMenu(
                         currentMenu: controller.menu.value,
-                        onTap: controller.onTapMenu,
+                        onTap: (DataMenuType type) {
+                          logger.i('onTap: $type');
+                          controller.onTapMenu.add(type);
+                        },
                       ),
                     ),
                   ],
@@ -50,19 +57,33 @@ class DataPage extends GetView<DataController> {
             ];
           },
           body: Obx(
-            () => PageView(
-              controller: controller.pageController.value,
-              physics: const NeverScrollableScrollPhysics(),
-              onPageChanged: controller.onChangedPage,
-              children: const [
-                SizedBox.expand(child: WellnessPage()),
-                SizedBox.expand(child: IntensityPage()),
-                SizedBox.expand(child: InjuryPage()),
+            () => Stack(
+              children: [
+                PageView(
+                  controller: controller.pageController.value,
+                  physics: const NeverScrollableScrollPhysics(),
+                  onPageChanged: controller.onChangedPage,
+                  children: const [
+                    SizedBox.expand(child: WellnessPage()),
+                    SizedBox.expand(child: IntensityPage()),
+                    SizedBox.expand(child: InjuryPage()),
+                  ],
+                ),
+                Positioned(
+                  top: 0,
+                  right: 30,
+                  child: Obx(
+                    () => Visibility(
+                      visible: controller.isOpenInjuryMenu.value,
+                      child: const DataInjuryMenu(),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
-      );
+      ));
 }
 
 class _DataMenu extends StatelessWidget {
@@ -70,7 +91,10 @@ class _DataMenu extends StatelessWidget {
 
   final Function(DataMenuType type) onTap;
 
-  const _DataMenu({required this.currentMenu, required this.onTap});
+  const _DataMenu({
+    required this.currentMenu,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) => Container(

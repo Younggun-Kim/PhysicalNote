@@ -170,8 +170,10 @@ class DataController extends BaseController with InjuryCheckController {
       _onTapMenu(type: type, isTap: false);
 
   /// 메뉴 탭 클릭 - subMenu 열림.
-  Future<void> onTapMenu(DataMenuType type) =>
-      _onTapMenu(type: type, isTap: true);
+  late var onTapMenu = PublishSubject<DataMenuType>()
+    ..doOnData((event) async {
+      await _onTapMenu(type: event, isTap: true);
+    }).collect();
 
   Future _onTapMenu({required DataMenuType type, required bool isTap}) async {
     menu.value = type;
@@ -205,6 +207,8 @@ class DataController extends BaseController with InjuryCheckController {
     if (type == DataMenuType.injury && isTap) {
       var isOpen = isOpenInjuryMenu.value;
       isOpenInjuryMenu.value = !isOpen;
+    } else {
+      isOpenInjuryMenu.value = false;
     }
   }
 
