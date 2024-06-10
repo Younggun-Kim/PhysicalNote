@@ -45,4 +45,9 @@ class HomeInjuryCheckItemUiState {
 
   /// 완치 날짜 존재 여부.
   bool get hasRecoveryData => recoveryDate?.isNotEmpty ?? false;
+
+  /// 표시 날짜
+  String get recordAndRecoveryDate => recoveryDate?.isEmpty ?? true
+      ? '$recordDate'
+      : '$recordDate - $recoveryDate';
 }

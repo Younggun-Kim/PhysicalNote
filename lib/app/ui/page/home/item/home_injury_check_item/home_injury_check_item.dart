@@ -60,23 +60,14 @@ class HomeInjuryCheckItem extends StatelessWidget {
                     ),
                   ),
                 const SizedBox(width: 7),
-                Text(
-                  uiState.recordDate ?? "",
+                Expanded(
+                    child: Text(
+                  uiState.recordAndRecoveryDate,
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                   ),
-                ),
-                Visibility(
-                  visible: uiState.hasRecoveryData,
-                  child: Text(
-                    " - ${uiState.recoveryDate}",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
+                )),
                 const Spacer(),
                 InkWellOver(
                   onTap: onPressedEdit,
