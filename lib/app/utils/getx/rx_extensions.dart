@@ -66,7 +66,7 @@ extension StreamExt<T> on Stream<T> {
 
 
   /// 클릭 스로틀.
-  Stream<T> clickThrottle() => throttleTime(const Duration(milliseconds: 500));
+  Stream<T> clickThrottle() => throttleTime(const Duration(milliseconds: 300));
 
   /// 아무 동작도 하지 않는 리스너로 수집.
   /// 이건 뭐하는 거니
