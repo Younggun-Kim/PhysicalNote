@@ -274,6 +274,7 @@ class StringRes {
   static final authCodeHint = _generateId();
   static final managementRequired = _generateId();
   static final delete = _generateId();
+  static final deleteDialog = _generateId();
   static final painPosition = _generateId();
   static final signUpComplete = _generateId();
   static final registrationCompletedAfterAdminApproval = _generateId();
@@ -292,4 +293,7 @@ class StringRes {
   static final urineWeightOverMoistureBad = _generateId();
   static final progress = _generateId();
   static final recovery = _generateId();
+  static final recoveryCompleteQuestion = _generateId();
+  static final yes = _generateId();
+  static final no = _generateId();
 }

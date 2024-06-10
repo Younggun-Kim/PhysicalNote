@@ -92,6 +92,8 @@ class BaseDialogBody extends StatelessWidget {
                             onPressed: () => onPressedYes(),
                           ),
                         ),
+                      if(noText.isNotEmpty)
+                        const SizedBox(width: 10),
                       if (noText.isNotEmpty)
                         Expanded(
                           child: BaseButton(

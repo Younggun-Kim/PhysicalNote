@@ -247,6 +247,7 @@ final enUs = {
   StringRes.sharpPain: "날카로운 통증",
   StringRes.radiatingPain: "통증이 주변으로 확산",
   StringRes.delete: "삭제",
+  StringRes.deleteDialog: "삭제하시겠습니까?",
   StringRes.painPosition: "통증위치",
   StringRes.signOut: "탈퇴",
   StringRes.signOutDescription: "탈퇴하시겠습니까?",
@@ -274,4 +275,7 @@ final enUs = {
   StringRes.urineWeightOverMoistureBad: '식단 조절과 수분 섭취에 신경쓰세요.',
   StringRes.progress: "진행",
   StringRes.recovery: "완치",
+  StringRes.recoveryCompleteQuestion: "부상이 완치되었습니까?",
+  StringRes.yes: '예',
+  StringRes.no: '아니요',
 };

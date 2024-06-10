@@ -14,6 +14,7 @@ import 'package:physical_note/app/data/injury/model/put_injury_detail_recovery_r
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
+import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
@@ -480,5 +481,39 @@ mixin InjuryCheckController on BaseController {
     setLoading(false);
 
     return result;
+  }
+
+  void showRecoveryDialog() {
+    Get.dialog(
+      BaseDialog(
+          text: StringRes.recoveryCompleteQuestion.tr,
+          yesText: StringRes.yes.tr,
+          onPressedYes: () async {
+            await onPressedInjuryCheckRecovery();
+            Get.back();
+          },
+          noText: StringRes.no.tr,
+          onPressedNo: () {
+            Get.back();
+          }),
+      barrierDismissible: true,
+    );
+  }
+
+  void showDeleteDialog() {
+    Get.dialog(
+      BaseDialog(
+          text: StringRes.deleteDialog.tr,
+          yesText: StringRes.yes.tr,
+          onPressedYes: () async {
+            await onPressedInjuryCheckDelete();
+            Get.back();
+          },
+          noText: StringRes.no.tr,
+          onPressedNo: () {
+            Get.back();
+          }),
+      barrierDismissible: true,
+    );
   }
 }

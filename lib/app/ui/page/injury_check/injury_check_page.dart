@@ -58,7 +58,7 @@ class InjuryCheckPage extends GetView<DataController> {
             _Pain(),
             const SizedBox(height: 50),
             const Spacer(),
-            Visibility(
+            Obx(() => Visibility(
               visible: controller.isShowDetailUi.value &&
                   controller.injuryRecoveryType.value ==
                       InjuryRecoveryType.progress,
@@ -72,9 +72,12 @@ class InjuryCheckPage extends GetView<DataController> {
                   fontWeight: FontWeight.w500,
                 ),
                 defaultBackgroundColor: ColorRes.disable,
-                onPressed: controller.onPressedInjuryCheckRecovery,
+                // onPressed: controller.onPressedInjuryCheckRecovery,
+                onPressed: () {
+                  controller.showRecoveryDialog();
+                },
               ).marginOnly(bottom: 20),
-            ),
+            ),),
             Obx(
               () => Row(
                 children: [
@@ -92,7 +95,7 @@ class InjuryCheckPage extends GetView<DataController> {
                           fontWeight: FontWeight.w500,
                         ),
                         defaultBackgroundColor: ColorRes.disable,
-                        onPressed: controller.onPressedInjuryCheckDelete,
+                        onPressed: controller.showDeleteDialog,
                       ),
                     ),
                   ),
