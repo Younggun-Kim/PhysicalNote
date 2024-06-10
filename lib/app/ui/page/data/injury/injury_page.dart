@@ -8,7 +8,7 @@ import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_
 import 'package:physical_note/app/ui/page/injury_check/injury_check.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
-import 'injury_state_button.dart';
+import 'injury_recovery_button.dart';
 
 class InjuryPage extends GetView<DataController> {
   const InjuryPage({
@@ -58,8 +58,8 @@ class _InjuryHistory extends GetView<DataController> {
               ),
               const Spacer(),
               Obx(
-                () => InjuryStateButton(
-                  type: controller.injuryStateType.value,
+                () => InjuryRecoveryButton(
+                  type: controller.injuryRecoveryType.value,
                   onPressed: controller.onPressedInjuryStateType,
                 ),
               ),

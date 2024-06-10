@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
-import 'package:physical_note/app/ui/page/data/injury/injury_state_button.dart';
+import 'package:physical_note/app/ui/page/data/injury/injury_recovery_button.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_pain_symptom_ui_state.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
@@ -34,8 +34,8 @@ class InjuryCheckPage extends GetView<DataController> {
               Obx(
                 () => Visibility(
                   visible: controller.injuryDetailId.value != null,
-                  child: InjuryStateButton(
-                    type: controller.injuryStateType.value,
+                  child: InjuryRecoveryButton(
+                    type: controller.injuryRecoveryType.value,
                     onPressed: controller.onPressedInjuryStateType,
                   ),
                 ),

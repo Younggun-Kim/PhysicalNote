@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/buttons/base_button.dart';
 
-import 'injury_state_type.dart';
+import 'injury_recovery_type.dart';
 
-class InjuryStateButton extends StatelessWidget {
-  final InjuryStateType type;
+class InjuryRecoveryButton extends StatelessWidget {
+  final InjuryRecoveryType type;
 
-  final Function(InjuryStateType) onPressed;
+  final Function(InjuryRecoveryType) onPressed;
 
-  const InjuryStateButton({
+  const InjuryRecoveryButton({
     super.key,
     required this.type,
     required this.onPressed,
@@ -27,16 +27,16 @@ class InjuryStateButton extends StatelessWidget {
           children: [
             _InjuryStateButtonItem(
               text: StringRes.progress.tr,
-              isSelected: type == InjuryStateType.progress,
+              isSelected: type == InjuryRecoveryType.progress,
               onPressed: () {
-                onPressed(InjuryStateType.progress);
+                onPressed(InjuryRecoveryType.progress);
               },
             ),
             _InjuryStateButtonItem(
               text: StringRes.recovery.tr,
-              isSelected: type == InjuryStateType.recovery,
+              isSelected: type == InjuryRecoveryType.recovery,
               onPressed: () {
-                onPressed(InjuryStateType.recovery);
+                onPressed(InjuryRecoveryType.recovery);
               },
             ),
           ],

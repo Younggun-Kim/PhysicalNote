@@ -31,7 +31,7 @@ import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'injury/injury_state_type.dart';
+import 'injury/injury_recovery_type.dart';
 
 class DataController extends BaseController with InjuryCheckController {
   /// 스크롤 컨트롤러.
@@ -578,7 +578,7 @@ class DataController extends BaseController with InjuryCheckController {
 
   var currentInjuryMenu = InjuryMenuType.check.obs;
 
-  var injuryStateType = InjuryStateType.progress.obs;
+  var injuryRecoveryType = InjuryRecoveryType.progress.obs;
 
   var _humanFrontOriginImage = "";
 
@@ -600,8 +600,9 @@ class DataController extends BaseController with InjuryCheckController {
   }
 
   /// 부상 상태 타입 버튼 클릭
-  void onPressedInjuryStateType(InjuryStateType type) {
-    injuryStateType.value = type;
+  void onPressedInjuryStateType(InjuryRecoveryType type) {
+    injuryRecoveryType.value = type;
+    _reloadInjury();
   }
 
   /// 부상체크 조회.
@@ -609,7 +610,11 @@ class DataController extends BaseController with InjuryCheckController {
     final injuryApi = Get.find<InjuryAPI>();
     final date =
         calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
-    final response = await injuryApi.getInjury(recordDate: date);
+    final isRecovery = injuryRecoveryType.value == InjuryRecoveryType.recovery;
+    final response = await injuryApi.getInjury(
+      recordDate: date,
+      recoveryYn: isRecovery,
+    );
 
     if (response is GetInjuryResponseModel) {
       setInjury(response);
@@ -659,12 +664,17 @@ class DataController extends BaseController with InjuryCheckController {
     final isDeleted = await super.onPressedInjuryCheckDelete();
 
     if (isDeleted) {
-      isLoadInjury = false;
-      loadApi();
+      _reloadInjury();
     }
 
     scrollToTop();
 
     return true;
+  }
+
+  /// 부상관리 리로딩.
+  void _reloadInjury() {
+    isLoadInjury = false;
+    loadApi();
   }
 }

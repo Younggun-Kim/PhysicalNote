@@ -14,11 +14,12 @@ class InjuryAPI extends API {
   /// 부상 정보 조회.
   Future<dynamic> getInjury({
     required String recordDate,
+    required bool recoveryYn,
   }) async {
     try {
       logger.i("getInjury: $recordDate");
       final response = await get(
-        requestUrl + "?recordDate=$recordDate",
+        requestUrl + "?recordDate=$recordDate&recoveryYn=$recoveryYn",
       );
 
       if (response.status.hasError) {
