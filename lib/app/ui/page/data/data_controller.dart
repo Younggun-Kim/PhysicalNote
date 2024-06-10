@@ -590,6 +590,12 @@ class DataController extends BaseController with InjuryCheckController {
 
   /// 부상 체크 메뉴 선택.
   void onPressedInjuryMenu(InjuryMenuType type) {
+    final oldMenu = currentInjuryMenu.value;
+
+    // 부상이력 -> 부상체크로 가면 등록 동작
+    if (oldMenu != type && type == InjuryMenuType.check) {
+      resetInjuryCheck(calendarUiState.value.focusedDate);
+    }
     currentInjuryMenu.value = type;
     isOpenInjuryMenu.value = false;
   }
