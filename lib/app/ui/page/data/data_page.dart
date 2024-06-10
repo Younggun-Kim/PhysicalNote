@@ -10,7 +10,6 @@ import 'package:physical_note/app/ui/page/data/wellness/wellness_page.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 
 import 'intensity/intensity_page.dart';
 
@@ -46,7 +45,6 @@ class DataPage extends GetView<DataController> {
                       () => _DataMenu(
                         currentMenu: controller.menu.value,
                         onTap: (DataMenuType type) {
-                          logger.i('onTap: $type');
                           controller.onTapMenu.add(type);
                         },
                       ),

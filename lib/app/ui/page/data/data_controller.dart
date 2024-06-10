@@ -400,7 +400,6 @@ class DataController extends BaseController with InjuryCheckController {
     intensitySportsUiState.behaviorStream,
     intensityPhysicalUiState.behaviorStream,
   ], (values) {
-    logger.i('change state');
     final workoutType = values[0];
     final sportsUiState = values[1];
     final physicalUiState = values[2];
@@ -445,7 +444,6 @@ class DataController extends BaseController with InjuryCheckController {
 
   /// 운동강도 - 레벨 선택.
   void onPressedLevel(int level) {
-    logger.i('onPressedLevel : $level');
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
       intensitySportsUiState.value.level = level;
