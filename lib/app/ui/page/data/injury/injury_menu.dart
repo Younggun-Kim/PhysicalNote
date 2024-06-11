@@ -12,6 +12,7 @@ class DataInjuryMenu extends GetView<DataController> {
 
   @override
   Widget build(BuildContext context) => Container(
+        width: (context.width - 60) / 3,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: ColorRes.white,
