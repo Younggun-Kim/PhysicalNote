@@ -45,66 +45,70 @@ class HomeInjuryCheckItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _Level(
                   injuryLevelType: uiState.injuryLevelType,
                 ),
                 const SizedBox(width: 10),
-                if (uiState.muscleType != null)
-                  Text(
-                    uiState.muscleType?.toKor() ?? "",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (uiState.muscleType != null)
+                      Text(
+                        uiState.muscleType?.toKor() ?? "",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    Text(
+                      uiState.recordAndRecoveryDate,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                const SizedBox(width: 7),
-                Expanded(
-                    child: Text(
-                  uiState.recordAndRecoveryDate,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),
-                )),
-                const Spacer(),
-                InkWellOver(
-                  onTap: onPressedEdit,
-                  borderRadius: BorderRadius.circular(20),
-                  child: SvgPicture.asset(
-                    Assets.edit03,
-                    width: 17,
-                    height: 17,
-                  ),
+                  ],
                 ),
+                const Spacer(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    InkWellOver(
+                      onTap: onPressedEdit,
+                      borderRadius: BorderRadius.circular(20),
+                      child: SvgPicture.asset(
+                        Assets.edit03,
+                        width: 17,
+                        height: 17,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      uiState.recoveryString,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: uiState.recoveryYn == true
+                            ? ColorRes.fontDisable
+                            : ColorRes.primary,
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
             const SizedBox(height: 8),
             Visibility(
               visible: uiState.injuryType != InjuryType.disease,
-              child: Row(
-                children: [
-                  Text(
-                    uiState.injuryType?.toString() ?? "",
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ColorRes.fontBlack,
-                    ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    uiState.recoveryString,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: uiState.recoveryYn == true
-                          ? ColorRes.fontDisable
-                          : ColorRes.primary,
-                    ),
-                  )
-                ],
+              child: Text(
+                uiState.injuryType?.toString() ?? "",
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: ColorRes.fontBlack,
+                ),
               ),
             ),
             Visibility(

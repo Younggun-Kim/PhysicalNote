@@ -292,6 +292,7 @@ class StringRes {
   static final urineWeightOverMoistureGood = _generateId();
   static final urineWeightOverMoistureBad = _generateId();
   static final progress = _generateId();
+  static final proceeding = _generateId();
   static final recovery = _generateId();
   static final recoveryCompleteQuestion = _generateId();
   static final yes = _generateId();
