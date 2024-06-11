@@ -91,6 +91,7 @@ class _InjuryHistory extends GetView<DataController> {
               ),
             ],
           ),
+          const SizedBox(height: 20),
           Obx(() {
             final uiStates = controller.injuryList.toList();
             if (uiStates.isEmpty) {
