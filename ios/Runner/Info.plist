@@ -97,5 +97,8 @@
 	<string>naverlogin</string>
 	<key>FirebaseMessagingAutoInitEnabled</key>
 	<false/>
+	<key>FLTEnableImpeller</key>
+    <false/>
+
 </dict>
 </plist>

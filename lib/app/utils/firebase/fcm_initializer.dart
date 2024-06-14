@@ -1,4 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 
@@ -36,7 +37,10 @@ class FcmInitializer {
   static void init() async {
     final token = await FirebaseMessaging.instance.getToken();
 
-    logger.i("fcm-token: $token");
+    if (kDebugMode) {
+      print("🫥🫥🫥🫥🫥FCM TOKEN🫥🫥🫥🫥🫥");
+      print("$token");
+    }
 
     // IOS background 권한 체킹 , 요청
     await FirebaseMessaging.instance.requestPermission(
