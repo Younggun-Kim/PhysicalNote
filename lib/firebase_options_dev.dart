@@ -19,7 +19,7 @@ class DefaultFirebaseOptions {
     if (kIsWeb) {
       throw UnsupportedError(
         'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
+            'you can reconfigure this by running the FlutterFire CLI again.',
       );
     }
     switch (defaultTargetPlatform) {
@@ -30,17 +30,17 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
+              'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
+              'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
+              'you can reconfigure this by running the FlutterFire CLI again.',
         );
       default:
         throw UnsupportedError(
@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAePbe3CqDYULPi82EjyZQv1g56eOW3AZE',
-    appId: '1:1042105708192:android:0282cfd4c23f2c4bbfa3c5',
+    appId: '1:1042105708192:android:382a04d1aa9591e7bfa3c5',
     messagingSenderId: '1042105708192',
     projectId: 'physicalnote-b14ad',
     storageBucket: 'physicalnote-b14ad.appspot.com',
@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA3Es7DQy06bQO4TGNNPDaIz5MiYuFQpZU',
-    appId: '1:1042105708192:ios:bd043ff852075c15bfa3c5',
+    appId: '1:1042105708192:ios:1369dd0e57190115bfa3c5',
     messagingSenderId: '1042105708192',
     projectId: 'physicalnote-b14ad',
     storageBucket: 'physicalnote-b14ad.appspot.com',
-    iosBundleId: 'com.conner.physicalNote',
+    iosBundleId: 'com.conner.physicalNote.dev',
   );
 
 }
