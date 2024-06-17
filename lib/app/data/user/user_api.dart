@@ -1,6 +1,9 @@
+import 'package:physical_note/app/config/constant/device_type.dart';
 import 'package:physical_note/app/data/network/api.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
+import 'package:physical_note/app/data/user/model/post_user_push_request_model.dart';
+import 'package:physical_note/app/data/user/model/post_user_push_response_model.dart';
 
 import '../../utils/logger/logger.dart';
 import 'model/delete_user_response_model.dart';
@@ -47,6 +50,27 @@ class UserAPI extends API {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
         return DeleteUserResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  /// FCM 토큰 기록.
+  Future<dynamic> postUserPush({required String token}) async {
+    try {
+      final deviceType = DeviceType.current.key;
+      final body = PostUserPushRequestModel(token: token);
+      final url = requestUrl + '/push';
+      final response = await post(url, body.toJson(), headers: {
+        "deviceType": deviceType,
+      });
+
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return PostUserPushResponseModel.fromJson(response.body);
       }
     } catch (e) {
       logger.e(e);

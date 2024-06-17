@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
@@ -9,6 +10,7 @@ import 'package:physical_note/app/data/login/model/post_login_sign_in_request_mo
 import 'package:physical_note/app/data/login/model/post_login_sign_in_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
+import 'package:physical_note/app/data/user/model/post_user_push_response_model.dart';
 import 'package:physical_note/app/data/user/user_api.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide_args.dart';
@@ -97,7 +99,7 @@ class LoginProcess {
       final snsType = requestData.type;
 
       if (apiToken != null) {
-        _saveUserInfo(apiToken, snsType);
+        _loginSuccess(apiToken, snsType);
         return true;
       }
     } else {
@@ -114,7 +116,7 @@ class LoginProcess {
     final response = await loginApi.postLoginRelogin();
 
     if (response is PostLoginReloginResponseModel) {
-      _saveUserInfo(response.token, null);
+      _loginSuccess(response.token, null);
       return true;
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
@@ -168,7 +170,7 @@ class LoginProcess {
       if (response.status == false || apiToken == null) {
         showToast(response.message ?? "서버 에러");
       } else {
-        _saveUserInfo(apiToken, requestData.type);
+        _loginSuccess(apiToken, requestData.type);
         return true;
       }
     } else {
@@ -186,6 +188,12 @@ class LoginProcess {
     if (snsType != null) {
       userStorage.snsType.val = snsType;
     }
+  }
+
+  /// 로그인 성공.
+  Future<void> _loginSuccess(String apiToken, String? snsType) async {
+    _saveUserInfo(apiToken, snsType);
+    await _postPushToken();
   }
 
   /// 페이지 이동.
@@ -216,6 +224,26 @@ class LoginProcess {
 
       case LoginMoveType.login:
         Get.offAllNamed(RouteType.LOGIN);
+    }
+  }
+
+  /// Push 토큰 기록 API
+  Future<void> _postPushToken() async {
+    final token = await FirebaseMessaging.instance.getToken();
+
+    if (token == null) {
+      logger.e('Unexpected Error - FCM token null');
+      return;
+    }
+
+    final response = await userApi.postUserPush(token: token);
+
+    /// 가입 성공.
+    if (response is PostUserPushResponseModel) {
+    } else {
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
+      showToast(message);
     }
   }
 }
