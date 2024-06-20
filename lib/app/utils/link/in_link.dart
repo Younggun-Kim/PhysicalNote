@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/ui/page/data/data.dart';
+import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/page/main/main_tab_index.dart';
 import 'package:physical_note/app/utils/link/model/link_data.dart';
@@ -63,6 +65,9 @@ class InLink extends GetxService {
       case LinkScreen.feedback:
         await _openFeedback(linkData);
         break;
+      case LinkScreen.injury:
+        await _openDataInjury(linkData);
+        break;
       default:
         await _openMain(linkData);
         break;
@@ -91,5 +96,19 @@ class InLink extends GetxService {
   /// 메인 - 피드백.
   Future<void> _openFeedback(LinkData linkData) async {
     await _openMainTab(MainTabIndex.feedback);
+  }
+
+  /// 메인 - 데이터 - 메뉴 열기
+  Future<void> _openDataMenu(DataMenuType menu) async {
+    if (Get.isRegistered<DataController>()) {
+      final dataController = Get.find<DataController>();
+      dataController.changeMenu(menu);
+    }
+  }
+
+  /// 메인 - 데이터 - 부상관리 탭.
+  Future<void> _openDataInjury(LinkData linkData) async {
+    await _openMainTab(MainTabIndex.data);
+    await _openDataMenu(DataMenuType.injury);
   }
 }

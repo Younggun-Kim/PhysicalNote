@@ -166,7 +166,7 @@ class DataController extends BaseController with InjuryCheckController {
   }
 
   /// 메뉴 탭 변경 - subMenu 안 열림
-  Future<void> changeTapMenu(DataMenuType type) =>
+  Future<void> changeMenu(DataMenuType type) =>
       _onTapMenu(type: type, isTap: false);
 
   /// 메뉴 탭 클릭 - subMenu 열림.

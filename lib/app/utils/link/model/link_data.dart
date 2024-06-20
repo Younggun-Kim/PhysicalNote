@@ -42,6 +42,8 @@ extension RemoteMessageExt on RemoteMessage {
       logger.e(e);
     }
 
+    logger.i(screen);
+
     return LinkData(
       linkType: LinkType.inAppLink,
       screen: screen,

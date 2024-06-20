@@ -19,9 +19,9 @@ class LabelButton extends StatelessWidget {
   Widget build(BuildContext context) => TextButton(
         onPressed: onPressed,
         style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(ColorRes.clickOverlayColor),
-          minimumSize: MaterialStateProperty.all(Size.zero),
-          padding: MaterialStateProperty.all(padding),
+          overlayColor: WidgetStateProperty.all(ColorRes.clickOverlayColor),
+          minimumSize: WidgetStateProperty.all(Size.zero),
+          padding: WidgetStateProperty.all(padding),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Fit 하게 만들어 줌
         ),
         child: Text(

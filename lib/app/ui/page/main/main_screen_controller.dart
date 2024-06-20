@@ -94,7 +94,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
 
     /// 데이터 탭에서 웰리니스 메뉴로 이동.
     final dataController = Get.find<DataController>();
-    dataController.changeTapMenu(DataMenuType.wellness);
+    dataController.changeMenu(DataMenuType.wellness);
   }
 
   /// 데이터탭으로 이동.
@@ -104,7 +104,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
 
     /// 데이터 탭에서 운동강도 메뉴로 이동.
     final dataController = Get.find<DataController>();
-    dataController.changeTapMenu(DataMenuType.intensity);
+    dataController.changeMenu(DataMenuType.intensity);
   }
 
   /// 데이터 탭으로 이동 및 부상체크 상세 화면으로 이동.
@@ -121,7 +121,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
 
     /// 데이터 탭에서 메뉴이동
     final dataController = Get.find<DataController>();
-    await dataController.changeTapMenu(DataMenuType.injury);
+    await dataController.changeMenu(DataMenuType.injury);
 
     /// 부상체크 상세 화면으로 이동.
     dataController.onPressedEdit(uiState);
