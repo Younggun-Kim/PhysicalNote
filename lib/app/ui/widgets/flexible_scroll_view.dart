@@ -17,6 +17,9 @@ class FlexibleScrollView extends StatelessWidget {
   /// 바디에 스크롤 위젯 포함 여부.
   final bool hasScrollBody;
 
+  /// 키보드 닫기.
+  final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
+
   const FlexibleScrollView({
     super.key,
     this.padding,
@@ -24,12 +27,14 @@ class FlexibleScrollView extends StatelessWidget {
     this.controller,
     this.hasScrollBody = false,
     required this.child,
+    this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
   });
 
   @override
   Widget build(BuildContext context) => CustomScrollView(
     controller: controller,
     scrollDirection: scrollDirection,
+    keyboardDismissBehavior: keyboardDismissBehavior,
     slivers: [
       SliverFillRemaining(
         hasScrollBody: hasScrollBody,

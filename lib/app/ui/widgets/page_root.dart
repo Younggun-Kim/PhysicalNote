@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/utils/getx/base_controller.dart';
+import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
+import 'package:physical_note/app/utils/utils.dart';
 
 class PageRoot extends StatelessWidget {
   /// 컨트롤러.
@@ -53,16 +55,17 @@ class PageRoot extends StatelessWidget {
   Widget build(BuildContext context) => PopScope(
         onPopInvoked: onWillPop,
         canPop: canPop,
-        child: _createPage(),
+        child: _createPage(context),
       );
 
   /// 페이지의 기본적인 구조를 생성.
-  Widget _createPage() => Stack(
+  Widget _createPage(BuildContext context) => Stack(
         children: [
           KeyboardDismissOnTap(
             child: Scaffold(
               backgroundColor: backgroundColor,
               resizeToAvoidBottomInset: resize,
+              bottomSheet: _KeyboardCloseButton(),
               body: isFullPage
                   ? SizedBox(
                       width: double.infinity,
@@ -91,6 +94,50 @@ class PageRoot extends StatelessWidget {
               color: progressColor,
             ),
           ),
+        ),
+      );
+}
+
+/// iOS 키보드 닫기 버튼
+class _KeyboardCloseButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => SafeArea(
+        child: KeyboardVisibilityBuilder(
+          builder: (context, isKeyboardVisible) => GetPlatform.isIOS
+              ? Visibility(
+                  visible: isKeyboardVisible,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                          color: ColorRes.white,
+                          border: Border(
+                              top: BorderSide(
+                                  width: 1, color: ColorRes.borderDeselect))),
+                      child: Row(
+                        children: [
+                          const Spacer(),
+                          InkWellOver(
+                            onTap: () {
+                              unFocus();
+                            },
+                            child: Text(
+                              StringRes.complete.tr,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.lightBlue,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : const SizedBox(),
         ),
       );
 }
