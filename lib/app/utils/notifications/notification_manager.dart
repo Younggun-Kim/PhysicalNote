@@ -1,5 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/utils/link/in_link.dart';
+import 'package:physical_note/app/utils/link/model/link_data.dart';
 
 import 'notification_detail.dart';
 
@@ -73,7 +75,7 @@ class NotificationManager extends GetxService {
     if (payload.isEmpty) {
       return;
     }
-    // final linkData = LinkData.fromStringJson(payload);
-    // Get.find<InLink>().open(linkData);
+    final linkData = LinkData.fromStringJson(payload);
+    Get.find<InLink>().open(linkData);
   }
 }

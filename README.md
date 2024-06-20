@@ -36,3 +36,6 @@ deploy_dev 브랜치에 머지 -> Xcode Cloud 배포
 # Android 키 해시 추출.
 
 [키 해시 문서](android/app/keystore/keyhash.md)
+
+# Json Serializable
+` flutter pub run build_runner build`
