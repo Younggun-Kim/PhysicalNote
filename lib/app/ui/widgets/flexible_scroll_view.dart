@@ -17,6 +17,9 @@ class FlexibleScrollView extends StatelessWidget {
   /// 바디에 스크롤 위젯 포함 여부.
   final bool hasScrollBody;
 
+  /// 스크롤 물리적 동작 여부.
+  final ScrollPhysics? physics;
+
   /// 키보드 닫기.
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
 
@@ -26,6 +29,7 @@ class FlexibleScrollView extends StatelessWidget {
     this.scrollDirection = Axis.vertical,
     this.controller,
     this.hasScrollBody = false,
+    this.physics,
     required this.child,
     this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual,
   });
@@ -34,6 +38,7 @@ class FlexibleScrollView extends StatelessWidget {
   Widget build(BuildContext context) => CustomScrollView(
     controller: controller,
     scrollDirection: scrollDirection,
+    physics: physics,
     keyboardDismissBehavior: keyboardDismissBehavior,
     slivers: [
       SliverFillRemaining(

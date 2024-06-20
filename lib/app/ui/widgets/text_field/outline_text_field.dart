@@ -20,6 +20,8 @@ class OutlineTextField extends StatelessWidget {
   // TextField
   final TextEditingController controller;
 
+  final FocusNode? focusNode;
+
   final int? maxLength;
 
   final int? maxLines;
@@ -72,6 +74,7 @@ class OutlineTextField extends StatelessWidget {
     this.margin,
     this.color = Colors.white,
     required this.controller,
+    this.focusNode,
     this.maxLength,
     this.maxLines = 1,
     this.keyboardType = TextInputType.emailAddress,
@@ -125,6 +128,7 @@ class OutlineTextField extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: controller,
+              focusNode: focusNode,
               maxLength: maxLength,
               expands: expands,
               maxLines: maxLines,
