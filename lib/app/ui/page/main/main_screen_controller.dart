@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
@@ -8,7 +9,10 @@ import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_
 import 'package:physical_note/app/ui/page/main/main_ui_state.dart';
 import 'package:physical_note/app/utils/getx/base_main_controller.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
+import 'package:physical_note/app/utils/link/in_link.dart';
+import 'package:physical_note/app/utils/link/model/link_data.dart';
 
+import '../../../utils/logger/logger.dart';
 import '../../../utils/muscle_utils.dart';
 import '../data/data_menu_type.dart';
 import 'main_tab_index.dart';
@@ -19,6 +23,26 @@ class MainScreenController extends BaseMainController<MainUiState> {
     super.onInit();
     await _loadHumanMuscleImage();
     await loadApi();
+  }
+
+  @override
+  void onReady() async {
+    route();
+    super.onReady();
+  }
+
+  /// 페이지 라우팅.
+  void route() async {
+    try {
+      final fcmMessage = await FirebaseMessaging.instance.getInitialMessage();
+
+      if (fcmMessage != null) {
+        var inLink = Get.find<InLink>();
+        inLink.open(fcmMessage.toLinkData());
+      }
+    } catch (e) {
+      logger.e(e);
+    }
   }
 
   @override

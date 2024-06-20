@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/utils/link/in_link.dart';
 import 'package:physical_note/app/utils/link/model/link_data.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 
@@ -30,7 +31,7 @@ Future<void> _onBackgroundMessage(RemoteMessage message) async {
 /// 백그라운드에서 앱 실행 처리.
 void _onMessageOpenedApp(RemoteMessage message) {
   logger.d("_onMessageOpenedApp");
-  // Get.find<InLink>().open(message.toLinkData());
+  Get.find<InLink>().open(message.toLinkData());
 }
 
 class FcmInitializer {
