@@ -62,11 +62,15 @@ class InLink extends GetxService {
       case LinkScreen.data:
         await _openData(linkData);
         break;
-      case LinkScreen.feedback:
-        await _openFeedback(linkData);
+      case LinkScreen.wellness:
+        await _openDataWellness(linkData);
         break;
       case LinkScreen.injury:
         await _openDataInjury(linkData);
+        break;
+      case LinkScreen.feedback:
+      case LinkScreen.calendar:
+        await _openFeedback(linkData);
         break;
       default:
         await _openMain(linkData);
@@ -108,6 +112,12 @@ class InLink extends GetxService {
       final dataController = Get.find<DataController>();
       dataController.changeMenu(menu);
     }
+  }
+
+  /// 메인 - 데이터 - 웰리니스 탭.
+  Future<void> _openDataWellness(LinkData linkData) async {
+    await _openMainTab(MainTabIndex.data, linkData.recordDate);
+    await _openDataMenu(DataMenuType.wellness);
   }
 
   /// 메인 - 데이터 - 부상관리 탭.
