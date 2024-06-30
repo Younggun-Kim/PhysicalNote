@@ -10,7 +10,7 @@ A new Flutter project.
 
 1. APK 추출
 
-- flutter build apk --release --flavor prod -t lib/app/config/env/prod.dart
+- `flutter build apk --release --flavor prod -t lib/app/config/env/prod.dart`
 
 2. Firebase App Distribution 배포
 

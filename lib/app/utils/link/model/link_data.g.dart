@@ -9,13 +9,15 @@ part of 'link_data.dart';
 LinkData _$LinkDataFromJson(Map<String, dynamic> json) => LinkData(
       linkType: $enumDecode(_$LinkTypeEnumMap, json['linkType']),
       screen: $enumDecodeNullable(_$LinkScreenEnumMap, json['screen']),
-      targetId: json['targetId'] as int?,
+      recordDate: json['recordDate'] == null
+          ? null
+          : DateTime.parse(json['recordDate'] as String),
     );
 
 Map<String, dynamic> _$LinkDataToJson(LinkData instance) => <String, dynamic>{
       'linkType': _$LinkTypeEnumMap[instance.linkType]!,
       'screen': _$LinkScreenEnumMap[instance.screen],
-      'targetId': instance.targetId,
+      'recordDate': instance.recordDate?.toIso8601String(),
     };
 
 const _$LinkTypeEnumMap = {

@@ -75,27 +75,31 @@ class InLink extends GetxService {
   }
 
   /// 메인의 탭 열기.
-  Future<void> _openMainTab(MainTabIndex index) async {
+  Future<void> _openMainTab(MainTabIndex index, DateTime? recordDate) async {
     if (Get.isRegistered<MainScreenController>()) {
       final mainController = Get.find<MainScreenController>();
+      if(recordDate != null) {
+        mainController.syncDate(recordDate);
+      }
       mainController.setTabIndex(tabIndex: index);
+
     }
     Get.until((route) => Get.currentRoute == MainScreenPage.routeName);
   }
 
   /// 메인 - 홈.
   Future<void> _openMain(LinkData linkData) async {
-    await _openMainTab(MainTabIndex.home);
+    await _openMainTab(MainTabIndex.home, linkData.recordDate);
   }
 
   /// 메인 - 데이터.
   Future<void> _openData(LinkData linkData) async {
-    await _openMainTab(MainTabIndex.data);
+    await _openMainTab(MainTabIndex.data, linkData.recordDate);
   }
 
   /// 메인 - 피드백.
   Future<void> _openFeedback(LinkData linkData) async {
-    await _openMainTab(MainTabIndex.feedback);
+    await _openMainTab(MainTabIndex.feedback, linkData.recordDate);
   }
 
   /// 메인 - 데이터 - 메뉴 열기
@@ -108,7 +112,7 @@ class InLink extends GetxService {
 
   /// 메인 - 데이터 - 부상관리 탭.
   Future<void> _openDataInjury(LinkData linkData) async {
-    await _openMainTab(MainTabIndex.data);
+    await _openMainTab(MainTabIndex.data, linkData.recordDate);
     await _openDataMenu(DataMenuType.injury);
   }
 }

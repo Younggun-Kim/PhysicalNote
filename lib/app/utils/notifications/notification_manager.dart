@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/utils/link/in_link.dart';
 import 'package:physical_note/app/utils/link/model/link_data.dart';
 
+import '../logger/logger.dart';
 import 'notification_detail.dart';
 
 class NotificationManager extends GetxService {
@@ -75,7 +76,10 @@ class NotificationManager extends GetxService {
     if (payload.isEmpty) {
       return;
     }
+
     final linkData = LinkData.fromStringJson(payload);
+
+    logger.i('LinkData: ${linkData.toJson()}');
     Get.find<InLink>().open(linkData);
   }
 }

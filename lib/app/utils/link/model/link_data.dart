@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:physical_note/app/utils/link/model/link_data_detail.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 
 import 'link_screen.dart';
@@ -15,9 +17,9 @@ class LinkData {
 
   final LinkScreen? screen;
 
-  final int? targetId;
+  final DateTime? recordDate;
 
-  const LinkData({required this.linkType, this.screen, this.targetId});
+  const LinkData({required this.linkType, this.screen, this.recordDate});
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`
   /// factory.
@@ -34,20 +36,22 @@ class LinkData {
 extension RemoteMessageExt on RemoteMessage {
   LinkData toLinkData() {
     final screen = LinkScreen.from(data['screen']);
-    int? targetId;
+    DateTime? recordDate;
 
     try {
-      targetId = int.tryParse(data['targetId']);
-    } catch (e) {
+      final linkDataDetail = LinkDataDetail.fromStringJson(data['data']);
+      final recordDateStr = linkDataDetail.recordDate;
+      if(recordDateStr != null) {
+        recordDate = DateFormat('yyyy-MM-dd').parse(recordDateStr);
+      }
+    } catch(e) {
       logger.e(e);
     }
-
-    logger.i(screen);
 
     return LinkData(
       linkType: LinkType.inAppLink,
       screen: screen,
-      targetId: targetId,
+      recordDate: recordDate,
     );
   }
 }
