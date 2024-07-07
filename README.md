@@ -13,7 +13,7 @@ A new Flutter project.
 - `flutter build apk --release --flavor prod -t lib/app/config/env/prod.dart`
 
 2. Firebase App Distribution 배포
-
+****
 ### iOS
 
 deploy_dev 브랜치에 머지 -> Xcode Cloud 배포
