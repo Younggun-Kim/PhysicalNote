@@ -9,7 +9,7 @@ import 'items/feedback_schedule_item_ui_state.dart';
 
 extension FeedbackUiMapper on FeedbackController {
   void setFeedback(GetFeedbackResponseModel? remoteData) {
-    todayFeedback.value = remoteData?.todayFeedBack ?? "";
+    todayFeedback.value = remoteData?.todayFeedBack ?? "Finance refers to monetary resources and to the study and discipline of money, currency and capital assets.[a] As a subject of study, it is related to but distinct from economics, which is the study of the production, distribution, and consumption of goods and services.[b] Based on the scope of financial activities in financial systems, the discipline can be divided into personal, corporate, and public finance.In these financial systems, assets are bought, sold, or traded as financial instruments, such as currencies, loans, bonds, shares, stocks, options, futures, etc. Assets can also be banked, invested, and insured to maximize value and minimize loss. In practice, risks are always present in any financial action and entities.";
 
     monthlySchedule.value =
         _parseMonthlySchedule(remoteData?.importantInfo) ?? [];

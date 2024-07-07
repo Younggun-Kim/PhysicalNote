@@ -121,7 +121,7 @@ class _TodayFeedback extends GetView<FeedbackController> {
           ],
         ),
         child: Obx(
-          () => Text(
+          () => SingleChildScrollView(child: Text(
             controller.todayFeedback.value.isEmpty
                 ? StringRes.emptyFeedback.tr
                 : controller.todayFeedback.value,
@@ -132,7 +132,7 @@ class _TodayFeedback extends GetView<FeedbackController> {
                   : ColorRes.fontBlack,
               fontWeight: FontWeight.w400,
             ),
-          ),
+          ),),
         ),
       );
 }
