@@ -1,1 +1,1 @@
-enum MainTabIndex { data, home, feedback }
+enum MainTabIndex { history, home, feedback }

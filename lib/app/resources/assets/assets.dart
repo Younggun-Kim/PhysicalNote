@@ -45,6 +45,8 @@ class Assets {
   static const String muscleFrontRightArm = 'assets/images/muscle_front_right_arm.svg';
   static const String muscleFrontRightLeg = 'assets/images/muscle_front_right_leg.svg';
   static const String naver = 'assets/images/naver.svg';
+  static const String navigationHistory = 'assets/images/navigationHistory.svg';
+  static const String navigationHistorySelect = 'assets/images/navigationHistorySelect.svg';
   static const String navigationData = 'assets/images/navigation_data.svg';
   static const String navigationDataSelect = 'assets/images/navigation_data_select.svg';
   static const String navigationFeedback = 'assets/images/navigation_feedback.svg';

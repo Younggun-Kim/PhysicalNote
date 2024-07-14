@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
+import 'package:physical_note/app/ui/page/history/history.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/ui/page/main/main_screen_controller.dart';
 
@@ -24,7 +24,7 @@ class MainScreenPage extends GetView<MainScreenController> {
                 () => LazyLoadIndexedStack(
                   index: controller.uiState.value.tabIndex.index,
                   children: const [
-                    DataPage(),
+                    HistoryPage(),
                     HomePage(),
                     FeedbackPage(),
                   ],
@@ -61,9 +61,9 @@ class MainScreenPage extends GetView<MainScreenController> {
                   ),
                   items: [
                     BottomNavigationBarItem(
-                      icon: SvgPicture.asset(Assets.navigationData),
-                      label: StringRes.bottomTabData.tr,
-                      activeIcon: SvgPicture.asset(Assets.navigationDataSelect),
+                      icon: SvgPicture.asset(Assets.navigationHistory),
+                      label: StringRes.bottomTabHistory.tr,
+                      activeIcon: SvgPicture.asset(Assets.navigationHistorySelect),
                     ),
                     BottomNavigationBarItem(
                       icon: SvgPicture.asset(Assets.navigationHome),

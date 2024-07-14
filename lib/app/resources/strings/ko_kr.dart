@@ -7,7 +7,7 @@ final koKr = {
   StringRes.notification: "알림",
   StringRes.message: "메시지",
   StringRes.messageChannelDescription: "메시지 알림",
-  StringRes.bottomTabData: "데이터",
+  StringRes.bottomTabHistory: "이력",
   StringRes.bottomTabHome: "홈",
   StringRes.bottomTabFeedback: "피드백",
   StringRes.email: "이메일",

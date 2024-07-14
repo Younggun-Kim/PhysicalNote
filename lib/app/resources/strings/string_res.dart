@@ -75,7 +75,7 @@ class StringRes {
 
   static final appName = _generateId();
   static final serverError = _generateId();
-  static final bottomTabData = _generateId();
+  static final bottomTabHistory = _generateId();
   static final bottomTabHome = _generateId();
   static final bottomTabFeedback = _generateId();
   static final notification = _generateId();

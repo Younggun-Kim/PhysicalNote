@@ -98,7 +98,7 @@ class InLink extends GetxService {
 
   /// 메인 - 데이터.
   Future<void> _openData(LinkData linkData) async {
-    await _openMainTab(MainTabIndex.data, linkData.recordDate);
+    await _openMainTab(MainTabIndex.history, linkData.recordDate);
   }
 
   /// 메인 - 피드백.
@@ -116,13 +116,13 @@ class InLink extends GetxService {
 
   /// 메인 - 데이터 - 웰리니스 탭.
   Future<void> _openDataWellness(LinkData linkData) async {
-    await _openMainTab(MainTabIndex.data, linkData.recordDate);
+    await _openMainTab(MainTabIndex.history, linkData.recordDate);
     await _openDataMenu(DataMenuType.wellness);
   }
 
   /// 메인 - 데이터 - 부상관리 탭.
   Future<void> _openDataInjury(LinkData linkData) async {
-    await _openMainTab(MainTabIndex.data, linkData.recordDate);
+    await _openMainTab(MainTabIndex.history, linkData.recordDate);
     await _openDataMenu(DataMenuType.injury);
   }
 }
