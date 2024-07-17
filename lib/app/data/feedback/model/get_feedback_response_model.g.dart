@@ -9,7 +9,7 @@ part of 'get_feedback_response_model.dart';
 GetFeedbackResponseModel _$GetFeedbackResponseModelFromJson(
         Map<String, dynamic> json) =>
     GetFeedbackResponseModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       date: json['date'] as String?,
       todayFeedBack: json['todayFeedBack'] as String?,
       coachPhoneNo: json['coachPhoneNo'] as String?,

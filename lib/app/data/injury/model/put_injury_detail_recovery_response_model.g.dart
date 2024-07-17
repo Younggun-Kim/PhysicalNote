@@ -9,7 +9,7 @@ part of 'put_injury_detail_recovery_response_model.dart';
 PutInjuryDetailRecoveryResponseModel
     _$PutInjuryDetailRecoveryResponseModelFromJson(Map<String, dynamic> json) =>
         PutInjuryDetailRecoveryResponseModel(
-          id: json['id'] as int?,
+          id: (json['id'] as num?)?.toInt(),
           message: json['message'] as String?,
           status: json['status'] as bool?,
         );

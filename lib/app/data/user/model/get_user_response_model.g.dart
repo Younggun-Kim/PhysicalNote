@@ -12,7 +12,7 @@ GetUserResponseModel _$GetUserResponseModelFromJson(
       birthDate: json['birthDate'] as String?,
       gender: json['gender'] as String?,
       height: (json['height'] as num?)?.toDouble(),
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       isRefresh: json['isRefresh'] as bool?,
       leftValue: (json['leftValue'] as num?)?.toDouble(),
       loginId: json['loginId'] as String?,
@@ -29,13 +29,13 @@ GetUserResponseModel _$GetUserResponseModelFromJson(
           ?.map((e) => SocialAccountsModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       teamHeadCoach: json['teamHeadCoach'] as String?,
-      teamId: json['teamId'] as int?,
+      teamId: (json['teamId'] as num?)?.toInt(),
       teamName: json['teamName'] as String?,
       teamRequestYn: json['teamRequestYn'] as bool?,
       token: json['token'] as String?,
       userType: json['userType'] as String?,
       weight: (json['weight'] as num?)?.toDouble(),
-      workoutId: json['workoutId'] as int?,
+      workoutId: (json['workoutId'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$GetUserResponseModelToJson(

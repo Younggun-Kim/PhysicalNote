@@ -10,7 +10,7 @@ PassInfoModel _$PassInfoModelFromJson(Map<String, dynamic> json) =>
     PassInfoModel(
       birthdate: json['birthdate'] as String?,
       di: json['di'] as String?,
-      exp: json['exp'] as int?,
+      exp: (json['exp'] as num?)?.toInt(),
       gender: json['gender'] as String?,
       mobileno: json['mobileno'] as String?,
       nationalinfo: json['nationalinfo'] as String?,

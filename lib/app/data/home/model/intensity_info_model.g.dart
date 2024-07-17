@@ -8,9 +8,9 @@ part of 'intensity_info_model.dart';
 
 IntensityInfoModel _$IntensityInfoModelFromJson(Map<String, dynamic> json) =>
     IntensityInfoModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       type: json['type'] as String?,
-      level: json['level'] as int?,
+      level: (json['level'] as num?)?.toInt(),
       recordDate: json['recordDate'] as String?,
     );
 

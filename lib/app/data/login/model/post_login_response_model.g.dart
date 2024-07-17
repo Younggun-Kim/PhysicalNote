@@ -10,7 +10,7 @@ PostLoginResponseModel _$PostLoginResponseModelFromJson(
         Map<String, dynamic> json) =>
     PostLoginResponseModel(
       token: json['token'] as String?,
-      userId: json['userId'] as int?,
+      userId: (json['userId'] as num?)?.toInt(),
       loginId: json['loginId'] as String?,
       role: json['role'] as String?,
       name: json['name'] as String?,

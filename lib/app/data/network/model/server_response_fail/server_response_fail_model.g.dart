@@ -9,7 +9,7 @@ part of 'server_response_fail_model.dart';
 ServerResponseFailModel _$ServerResponseFailModelFromJson(
         Map<String, dynamic> json) =>
     ServerResponseFailModel(
-      json['status'] as int,
+      (json['status'] as num).toInt(),
       json['error'] as String?,
       json['message'] as String?,
       json['devMessage'] as String?,

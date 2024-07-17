@@ -10,8 +10,8 @@ GetWorkoutPositionDetailResponseModel
     _$GetWorkoutPositionDetailResponseModelFromJson(
             Map<String, dynamic> json) =>
         GetWorkoutPositionDetailResponseModel(
-          id: json['id'] as int,
-          workoutId: json['workoutId'] as int,
+          id: (json['id'] as num).toInt(),
+          workoutId: (json['workoutId'] as num).toInt(),
           name: json['name'] as String,
         );
 

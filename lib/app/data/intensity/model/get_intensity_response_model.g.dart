@@ -24,8 +24,8 @@ Map<String, dynamic> _$GetIntensityListResponseModelToJson(
 GetIntensityResponseModel _$GetIntensityResponseModelFromJson(
         Map<String, dynamic> json) =>
     GetIntensityResponseModel(
-      id: json['id'] as int?,
-      intensityType: json['intensityType'] as int?,
+      id: (json['id'] as num?)?.toInt(),
+      intensityType: (json['intensityType'] as num?)?.toInt(),
       workoutTime: json['workoutTime'] as String?,
       workoutType: json['workoutType'] as String?,
       recordDate: json['recordDate'] as String?,

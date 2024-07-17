@@ -8,7 +8,7 @@ part of 'injury_response_model.dart';
 
 InjuryResponseModel _$InjuryResponseModelFromJson(Map<String, dynamic> json) =>
     InjuryResponseModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       injuryType: json['injuryType'] as String?,
       distinctionType: json['distinctionType'] as String?,
       bodyType: json['bodyType'] as String?,
