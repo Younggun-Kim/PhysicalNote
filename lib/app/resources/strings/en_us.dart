@@ -279,4 +279,12 @@ final enUs = {
   StringRes.recoveryCompleteQuestion: "부상이 완치되었습니까?",
   StringRes.yes: '예',
   StringRes.no: '아니요',
+  StringRes.myHistory: '나의 이력',
+  StringRes.historyFilterAll: '전체',
+  StringRes.historyFilterWeek: '최근 일주일',
+  StringRes.historyFilterMonth: '최근 한달',
+  StringRes.historyFilterLatest: '최신 순',
+  StringRes.historyFilterOldest: '오래된 순',
+  StringRes.historyFilterProgressInjury: '진행중인 부상',
+  StringRes.historyFilterHealedInjury: '완치된부상',
 };

@@ -1,6 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/history/history.dart';
+import 'package:physical_note/app/ui/page/history/type/history_filter_type.dart';
 
 void main() {
   late HistoryController controller;
@@ -31,6 +34,52 @@ void main() {
 
       controller.tabController.animateTo(2);
       expect(controller.tabController.index, 2);
+    });
+
+    test('필터 목록 초기 상태 테스트', () {
+      final initializedFilterList = controller.filterList.toList();
+      expect(initializedFilterList, HistoryFilterType.commonList);
+    });
+    
+    test('탭 변경시 필터 목록 변경 테스트',(){
+      final tabController = controller.tabController;
+      expect(tabController.index, 0);
+      expect(controller.filterList, HistoryFilterType.commonList);
+
+      controller.changeTab(1);
+      expect(tabController.index, 1);
+      expect(controller.filterList, HistoryFilterType.commonList);
+
+      controller.changeTab(2);
+      expect(tabController.index, 2);
+      expect(controller.filterList, HistoryFilterType.injuryList);
+    });
+  });
+
+  group('필터 테스트', () {
+    test('필터 초기 상태 테스트', () {
+      expect(controller.filter.value, HistoryFilterType.all);
+      expect(controller.isVisibleFilterModal.value, false);
+    });
+
+    test('필터 모달 visible 변경 테스트', () {
+      expect(controller.isVisibleFilterModal.value, false);
+
+      controller.setFilterModalVisibility(true);
+      expect(controller.isVisibleFilterModal.value, true);
+
+      controller.setFilterModalVisibility(false);
+      expect(controller.isVisibleFilterModal.value, false);
+    });
+
+    test('필터 변경 테스트', () {
+      expect(controller.filter.value, HistoryFilterType.all);
+
+      controller.setFilter(HistoryFilterType.latest);
+      expect(controller.filter.value, HistoryFilterType.latest);
+
+      controller.setFilter(HistoryFilterType.all);
+      expect(controller.filter.value, HistoryFilterType.all);
     });
   });
 }

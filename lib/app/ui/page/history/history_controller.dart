@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/history/history_tab_manager.dart';
+import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
 import 'package:physical_note/app/utils/getx/base_controller.dart';
+
+import 'type/history_filter_type.dart';
 
 // 인터페이스 정의
 abstract class IHistoryController {
@@ -15,22 +18,31 @@ abstract class IHistoryController {
 }
 
 class HistoryController extends BaseController
-    with GetSingleTickerProviderStateMixin
-    implements IHistoryController {
+    with GetSingleTickerProviderStateMixin {
   late final HistoryTabManager _tabManager;
-  late final TabController _tabController;
 
-  @override
   TabController get tabController => _tabController;
 
-  @override
+  late final TabController _tabController;
+
   final scrollController = ScrollController();
+
+  /// 현재 필터
+  final filter = HistoryFilterType.all.obs;
+
+  /// 필터 목록
+  final filterList = <HistoryFilterType>[].obs;
+
+  /// 필터 모달 visible
+  final isVisibleFilterModal = false.obs;
 
   /// LifeCycle
   @override
   void onInit() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController =
+        TabController(length: HistoryTabType.values.length, vsync: this);
     _tabManager = HistoryTabManager(_tabController);
+    _setFilterList(_tabManager.tab);
     super.onInit();
   }
 
@@ -39,13 +51,36 @@ class HistoryController extends BaseController
     tabController.dispose();
   }
 
-  /// MainScreenController에서 필요한 메소드들
+  /// MainScreen에서 화면 전환 시 필요
   void scrollToTop() {}
+
+  /// MainScreen의 날짜 sync 맞추는 메소드
   void syncDate(DateTime date) {}
 
-  /// 인터페이스 메소드 구현
-  @override
-  changeTab(int index) {
+  /// 탭 변경
+  void changeTab(int index) {
     _tabManager.changeTab(index: index);
+    _setFilterList(_tabManager.tab);
+  }
+
+  /// 필터 목록 변경
+  void _setFilterList(HistoryTabType tab) {
+    switch (tab) {
+      case HistoryTabType.wellness:
+      case HistoryTabType.intensity:
+        filterList.value = HistoryFilterType.commonList;
+      case HistoryTabType.injury:
+        filterList.value = HistoryFilterType.injuryList;
+    }
+  }
+
+  /// 필터 설정
+  void setFilter(HistoryFilterType newFilter) {
+    filter.value = newFilter;
+  }
+
+  /// 필터 모달 visible 설정
+  void setFilterModalVisibility(bool isVisible) {
+    isVisibleFilterModal.value = isVisible;
   }
 }

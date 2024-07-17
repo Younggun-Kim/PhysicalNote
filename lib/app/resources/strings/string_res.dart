@@ -68,6 +68,15 @@ class StringRes {
   static final sharpPain = _generateId();
   static final radiatingPain = _generateId();
 
+  // 이력 공통 필터
+  static final historyFilterAll = _generateId();
+  static final historyFilterWeek = _generateId();
+  static final historyFilterMonth = _generateId();
+  static final historyFilterLatest = _generateId();
+  static final historyFilterOldest = _generateId();
+  static final historyFilterProgressInjury = _generateId();
+  static final historyFilterHealedInjury = _generateId();
+
   /// 생성자.
   const StringRes._();
 
@@ -297,4 +306,5 @@ class StringRes {
   static final recoveryCompleteQuestion = _generateId();
   static final yes = _generateId();
   static final no = _generateId();
+  static final myHistory = _generateId();
 }
