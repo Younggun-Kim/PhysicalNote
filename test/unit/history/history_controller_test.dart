@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/page/history/history.dart';
@@ -40,8 +38,8 @@ void main() {
       final initializedFilterList = controller.filterList.toList();
       expect(initializedFilterList, HistoryFilterType.commonList);
     });
-    
-    test('탭 변경시 필터 목록 변경 테스트',(){
+
+    test('탭 변경시 필터 목록 변경 테스트', () {
       final tabController = controller.tabController;
       expect(tabController.index, 0);
       expect(controller.filterList, HistoryFilterType.commonList);
@@ -62,24 +60,9 @@ void main() {
       expect(controller.isVisibleFilterModal.value, false);
     });
 
-    test('필터 모달 visible 변경 테스트', () {
-      expect(controller.isVisibleFilterModal.value, false);
-
-      controller.setFilterModalVisibility(true);
-      expect(controller.isVisibleFilterModal.value, true);
-
-      controller.setFilterModalVisibility(false);
-      expect(controller.isVisibleFilterModal.value, false);
-    });
-
-    test('필터 변경 테스트', () {
-      expect(controller.filter.value, HistoryFilterType.all);
-
-      controller.setFilter(HistoryFilterType.latest);
-      expect(controller.filter.value, HistoryFilterType.latest);
-
-      controller.setFilter(HistoryFilterType.all);
-      expect(controller.filter.value, HistoryFilterType.all);
+    test('필터 변경 테스트', (){
+      // 각 탭마다 맞는 필터가 있는가 검사
+      // 필터가 잘 변경되었는가 테스트
     });
   });
 }

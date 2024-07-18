@@ -38,6 +38,9 @@ class HistoryPage extends GetView<HistoryController> {
               indicatorSize: TabBarIndicatorSize.tab,
               dividerColor: ColorRes.disable,
               dividerHeight: 0.5,
+              onTap: (int index) {
+                controller.changeTab(index);
+              },
               tabs: [
                 Tab(child: Text(StringRes.wellness.tr)),
                 Tab(child: Text(StringRes.workoutIntensity.tr)),
@@ -78,7 +81,7 @@ class _Header extends GetView<HistoryController> {
               () => InkWellOver(
                 key: HistoryPageKeyType.filterButton.key,
                 onTap: () {
-                  controller.setFilterModalVisibility(true);
+                  controller.setFilterModalVisibility();
                 },
                 child: Row(
                   children: [

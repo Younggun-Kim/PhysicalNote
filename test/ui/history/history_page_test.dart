@@ -9,11 +9,12 @@ import 'package:physical_note/app/ui/page/history/type/history_page_key_type.dar
 void main() {
   late HistoryController controller;
   setUp(() {
+    Get.testMode = true;
     controller = Get.put(HistoryController());
   });
 
   pumpWidget(WidgetTester tester) =>
-      tester.pumpWidget(const MaterialApp(home: HistoryPage()));
+      tester.pumpWidget(const GetMaterialApp(home: HistoryPage()));
 
   group('Header 테스트', () {
     testWidgets('타이틀 테스트', (WidgetTester tester) async {
@@ -34,36 +35,6 @@ void main() {
         findsOneWidget,
       );
     });
-
-    testWidgets('필터 변경 후 랜딩 테스트', (WidgetTester tester) async {
-      await pumpWidget(tester);
-
-      controller.setFilter(HistoryFilterType.oldest);
-
-      final filterButton = find.byKey(HistoryPageKeyType.filterButton.key);
-      expect(filterButton, findsOneWidget);
-      expect(
-        find.descendant(
-            of: filterButton,
-            matching: find.text(StringRes.historyFilterAll.tr)),
-        findsOneWidget,
-      );
-
-      await tester.pump();
-
-      expect(
-        find.descendant(
-            of: filterButton,
-            matching: find.text(StringRes.historyFilterOldest.tr)),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('필터 클릭 테스트', (WidgetTester tester) async {
-      // 클릭하면 필터가 나와야하고
-      // 그럴려면 컨트롤러가 변경되어야 하고
-      // 이걸 몯라로 해볼 예정이긴 함
-    });
   });
 
   group('탭 테스트', () {
@@ -74,7 +45,7 @@ void main() {
       expect(find.byType(TabBar), findsOneWidget);
       final TabBar tabBar = tester.widget<TabBar>(find.byType(TabBar));
 
-      // Tab 3개 확이
+      // Tab 3개 확인
       expect(find.byType(Tab), findsNWidgets(3));
 
       // Tab 내 텍스트 확인
@@ -83,6 +54,7 @@ void main() {
         StringRes.workoutIntensity.tr,
         StringRes.injuryManagement.tr,
       ];
+
       for (final text in tabTexts) {
         expect(
           find.descendant(
@@ -126,6 +98,121 @@ void main() {
       expect(tabController.index, 1);
       expect(tabController.previousIndex, 0);
       expect(tabController.indexIsChanging, false);
+    });
+  });
+
+  group('필터 드롭다운 모달 테스트', () {
+    Future<Finder> getDropdownDialog(WidgetTester tester) async {
+      final filterButton = find.byKey(HistoryPageKeyType.filterButton.key);
+      expect(filterButton, findsOneWidget);
+
+      final filterInkWell = find.descendant(
+        of: filterButton,
+        matching: find.byType(InkWell),
+      );
+
+      expect(filterInkWell, findsOneWidget);
+
+      await tester.tap(filterInkWell);
+      await tester.pumpAndSettle();
+
+      return find.byKey(HistoryPageKeyType.dropDownDialog.key);
+    }
+
+    testWidgets('필터 클릭 시 드롭다운 모달 Visible 테스트', (WidgetTester tester) async {
+      await pumpWidget(tester);
+
+      final dialog = await getDropdownDialog(tester);
+      expect(dialog, findsOneWidget);
+
+      final filterList =
+          controller.filterList.map((e) => e.toString()).toList();
+
+      for (final text in filterList) {
+        expect(
+          find.descendant(
+            of: dialog,
+            matching: find.text(text),
+          ),
+          findsOneWidget,
+        );
+      }
+    });
+
+    testWidgets('열린 드롭다운 다이얼로그 닫기 테스트', (WidgetTester tester) async {
+      await pumpWidget(tester);
+      final dialog = await getDropdownDialog(tester);
+      expect(dialog, findsOneWidget);
+
+      final TestGesture gesture =
+          await tester.startGesture(tester.getRect(dialog).center);
+      await tester.pumpAndSettle();
+      await gesture.up();
+      await tester.pumpAndSettle();
+
+      expect(dialog, findsNothing);
+    });
+
+    testWidgets('드롭다운 필터 선택 후 필터 바꼈는지 검사', (WidgetTester tester) async {
+      await pumpWidget(tester);
+
+      // 1. 드롭다운 다이얼로그 표시 확인
+      final dialog = await getDropdownDialog(tester);
+      expect(dialog, findsOneWidget);
+
+      // 2. 드롭다운에 올바른 필터 옵션 포함 확인
+      final filterList =
+          controller.filterList.map((e) => e.toString()).toList();
+      final lastFilterOption = find.descendant(
+        of: dialog,
+        matching: find.text(filterList.last),
+      );
+      expect(lastFilterOption, findsOneWidget);
+
+      // 3. 필터 선택 및 다이얼로그 닫힘 확인
+      await tester.tap(lastFilterOption);
+      await tester.pumpAndSettle();
+      expect(dialog, findsNothing);
+
+      // 4. 선택된 필터가 버튼에 반영되었는지 확인
+      final filterButton = find.byKey(HistoryPageKeyType.filterButton.key);
+      expect(filterButton, findsOneWidget);
+      expect(
+        find.descendant(of: filterButton, matching: find.text(filterList.last)),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('부산 탭일 때 필터내용이 맞게 나오는지 테스트', (WidgetTester tester) async {
+      await pumpWidget(tester);
+
+      // 부상관리 탭 클릭.
+      final injuryTab = find.descendant(
+        of: find.byType(Tab),
+        matching: find.text(
+          StringRes.injuryManagement.tr,
+        ),
+      );
+      expect(injuryTab, findsOneWidget);
+      await tester.tap(injuryTab);
+      await tester.pumpAndSettle();
+      expect(controller.tabController.index, 2);
+
+      // 2. 드롭다운 다이얼로그 표시 확인
+      final dialog = await getDropdownDialog(tester);
+      expect(dialog, findsOneWidget);
+
+      // 3. 드롭다운 메뉴 확인
+      final menuList = HistoryFilterType.injuryList.map((e) => e.toString());
+      for (final menu in menuList) {
+        expect(
+          find.descendant(
+            of: dialog,
+            matching: find.text(menu),
+          ),
+          findsOneWidget,
+        );
+      }
     });
   });
 }
