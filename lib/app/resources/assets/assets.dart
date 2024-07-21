@@ -77,7 +77,9 @@ class Assets {
   static const String walkMan = 'assets/images/walk_man.svg';
   static const String walkManBlack = 'assets/images/walk_man_black.svg';
   static const String wellnessUrine = 'assets/images/wellness_urine.svg';
+  static const String wellnessWater = 'assets/images/wellness_water.svg';
   static const String wellnessWeight = 'assets/images/wellness_weight.svg';
+  static const String wellnessWeightGreen = 'assets/images/wellness_weight_green.svg';
   static const String xClose = 'assets/images/x-close.svg';
 
 }

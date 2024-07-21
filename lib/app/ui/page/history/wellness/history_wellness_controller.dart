@@ -45,9 +45,18 @@ mixin HistoryWellnessController on BaseController {
 
     if (response is GetWellnessPaginateModel && response.wellnessList != null) {
       final isLastPage = response.wellnessList!.last;
-      final toUiState = response.wellnessList!.content
+      var toUiState = response.wellnessList!.content
           .compactMap((e) => historyWellnessItemUiStateFrom(e))
           .toList();
+
+      if (toUiState.isNotEmpty) {
+        toUiState[0].sleepAvg = response.sleepAvg;
+        toUiState[0].stressAvg = response.stressAvg;
+        toUiState[0].fatigueAvg = response.fatigueAvg;
+        toUiState[0].muscleSorenessAvg = response.muscleSorenessAvg;
+        toUiState[0].urineAvg = response.urineAvg;
+        toUiState[0].weightAvg = response.weightAvg;
+      }
 
       return LoadPage(
         items: toUiState,

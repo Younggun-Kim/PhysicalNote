@@ -108,7 +108,8 @@ class _KeyboardCloseButton extends StatelessWidget {
                   visible: isKeyboardVisible,
                   child: Padding(
                     padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                      // bottom: MediaQuery.of(context).viewInsets.bottom,
+                    ),
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(10),

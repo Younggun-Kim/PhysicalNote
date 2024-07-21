@@ -1,4 +1,8 @@
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
@@ -13,9 +17,16 @@ class HistoryWellnessItemUiState {
   final int? urine;
   final double? emptyStomachWeight;
   final double? bodyFat;
+  double? sleepAvg;
+  double? stressAvg;
+  double? fatigueAvg;
+  double? muscleSorenessAvg;
+  double? urineAvg;
+  double? weightAvg;
 
   HistoryWellnessItemUiState({
     required this.id,
+    required this.recordDate,
     required this.sleep,
     required this.stress,
     required this.fatigue,
@@ -23,7 +34,12 @@ class HistoryWellnessItemUiState {
     required this.urine,
     required this.emptyStomachWeight,
     required this.bodyFat,
-    required this.recordDate,
+    this.sleepAvg,
+    this.stressAvg,
+    this.fatigueAvg,
+    this.muscleSorenessAvg,
+    this.urineAvg,
+    this.weightAvg,
   });
 }
 
@@ -31,10 +47,254 @@ class HistoryWellnessItemUiState {
 class HistoryWellnessItem extends StatelessWidget {
   final HistoryWellnessItemUiState uiState;
 
+  final bool isFirst;
+
   const HistoryWellnessItem({
     super.key,
     required this.uiState,
+    this.isFirst = false,
   });
+
+  @override
+  Widget build(BuildContext context) => isFirst
+      ? Column(
+          children: [
+            const SizedBox(height: 24),
+            _Average(
+              sleep: (uiState.sleepAvg ?? 0).toInt(),
+              stress: (uiState.stressAvg ?? 0).toInt(),
+              fatigue: (uiState.fatigueAvg ?? 0).toInt(),
+              musclePain: (uiState.muscleSorenessAvg ?? 0).toInt(),
+              urine: uiState.urineAvg,
+              weight: uiState.weightAvg,
+            ),
+            const SizedBox(height: 24),
+            _Content(uiState: uiState),
+          ],
+        )
+      : _Content(uiState: uiState);
+}
+
+class _Average extends StatelessWidget {
+  final int sleep;
+
+  final int stress;
+
+  final int fatigue;
+
+  final int musclePain;
+
+  final double? urine;
+
+  final double? weight;
+
+  const _Average({
+    required this.sleep,
+    required this.stress,
+    required this.fatigue,
+    required this.musclePain,
+    required this.urine,
+    required this.weight,
+  });
+
+  String get urineText => urine?.toStringAsFixed(1) ?? '-';
+
+  String get weightText => weight?.toStringAsFixed(1) ?? '-';
+
+  @override
+  Widget build(BuildContext context) => Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                StringRes.hooperIndexAverage.tr,
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.fontBlack,
+                    letterSpacing: -0.7),
+              ),
+              const SizedBox(height: 8),
+              _AverageHooperIndexItem(
+                text: StringRes.sleepNoSpace.tr,
+                value: sleep,
+              ),
+              _AverageHooperIndexItem(
+                text: StringRes.stress.tr,
+                value: stress,
+              ),
+              _AverageHooperIndexItem(
+                text: StringRes.fatigue.tr,
+                value: fatigue,
+              ),
+              _AverageHooperIndexItem(
+                text: StringRes.musclePain.tr,
+                value: 3,
+              ),
+            ],
+          ),
+          const Spacer(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                StringRes.urinalysisAverage.tr,
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.fontBlack,
+                    letterSpacing: -0.7),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  _AverageUrinalysisItem(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    svgAsset: Assets.wellnessWater,
+                    value: urineText,
+                    valueSuffix: '',
+                    description: '수분섭취가 부족합니다.',
+                  ),
+                  const SizedBox(width: 20),
+                  _AverageUrinalysisItem(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    svgAsset: Assets.wellnessWeightGreen,
+                    value: weightText,
+                    valueSuffix: 'kg',
+                    description: '체중조절이 필요합니다.',
+                  ),
+                ],
+              )
+            ],
+          ),
+        ],
+      );
+}
+
+class _AverageHooperIndexItem extends StatelessWidget {
+  final String text;
+
+  final int value;
+
+  const _AverageHooperIndexItem({
+    required this.text,
+    required this.value,
+  });
+
+  String get _emptyText =>
+      List<String>.generate(4 - text.length, (i) => '빈').join('');
+
+  @override
+  Widget build(BuildContext context) => Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w400,
+              color: ColorRes.fontBlack,
+              height: 2,
+            ),
+          ),
+          Text(
+            _emptyText,
+            style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w400,
+              color: Colors.transparent,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Container(
+            width: min(77, 11 * value.toDouble()),
+            height: 5,
+            decoration: const BoxDecoration(
+              color: ColorRes.hooperIndexWarning,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            '$value',
+            style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.fontBlack,
+            ),
+          ),
+        ],
+      );
+}
+
+class _AverageUrinalysisItem extends StatelessWidget {
+  final CrossAxisAlignment crossAxisAlignment;
+
+  final String svgAsset;
+
+  final String value;
+
+  final String valueSuffix;
+
+  final String description;
+
+  const _AverageUrinalysisItem({
+    required this.crossAxisAlignment,
+    required this.svgAsset,
+    required this.value,
+    required this.valueSuffix,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) => IntrinsicWidth(
+        child: Column(
+          crossAxisAlignment: crossAxisAlignment,
+          children: [
+            SvgPicture.asset(svgAsset),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  value,
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.fontBlack,
+                    letterSpacing: -1,
+                  ),
+                ),
+                Text(
+                  valueSuffix,
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.fontBlack,
+                  ),
+                ),
+              ],
+            ),
+            Text(
+              description,
+              style: const TextStyle(
+                fontSize: 8,
+                fontWeight: FontWeight.w400,
+                color: ColorRes.grayBababa,
+              ),
+            ),
+          ],
+        ),
+      );
+}
+
+class _Content extends StatelessWidget {
+  final HistoryWellnessItemUiState uiState;
+
+  const _Content({required this.uiState});
 
   @override
   Widget build(BuildContext context) => Container(

@@ -27,6 +27,7 @@ class _List extends GetView<HistoryController> {
                   PagedChildBuilderDelegate<HistoryWellnessItemUiState>(
                 itemBuilder: (context, item, index) => HistoryWellnessItem(
                   uiState: item,
+                  isFirst: index == 0,
                 ),
                 noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
               ),

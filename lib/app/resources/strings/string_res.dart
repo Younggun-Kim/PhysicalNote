@@ -156,7 +156,9 @@ class StringRes {
   static final myState = _generateId();
   static final noData = _generateId();
   static final hooperIndex = _generateId();
+  static final hooperIndexAverage = _generateId();
   static final urinalysis = _generateId();
+  static final urinalysisAverage = _generateId();
   static final urinalysisTable = _generateId();
   static final injuryRisk = _generateId();
   static final workoutIntensity = _generateId();
@@ -171,6 +173,7 @@ class StringRes {
   static final monthly = _generateId();
   static final weekly = _generateId();
   static final sleep = _generateId();
+  static final sleepNoSpace = _generateId();
   static final sleepKorEng = _generateId();
   static final sleepEng = _generateId();
   static final stress = _generateId();

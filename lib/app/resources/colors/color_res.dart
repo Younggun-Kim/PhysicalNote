@@ -188,6 +188,9 @@ class ColorRes {
   /// 9f9f9f
   static const gray9f9f9f = Color(0xff9f9f9f);
 
+  /// bababa.
+  static const grayBababa = Color(0xffbababa);
+
   /// 소변검사표 8색상 - 1
   static const urineTable1 = Color(0xfffffef8);
 
