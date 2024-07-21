@@ -1,10 +1,61 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:physical_note/app/data/wellness/model/get_wellness_paginate_model.dart';
+import 'package:physical_note/app/data/wellness/wellness_api.dart';
+import 'package:physical_note/app/ui/page/history/wellness/item/history_wellness_item.dart';
+import 'package:physical_note/app/ui/page/history/wellness/item/history_wellness_item_ui_mapper.dart';
+import 'package:physical_note/app/utils/extensions/list_extension.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
+import 'package:physical_note/app/utils/pagination/load_page.dart';
+import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
+import 'package:physical_note/app/utils/utils.dart';
 
 mixin HistoryWellnessController on BaseController {
-  void resetWellness() {
+  @override
+  void onInit() {
+    super.onInit();
+    resetWellness();
+  }
 
+  void resetWellness() {
+    wellnessPagingController.start((pageKey) => _loadPage(pageKey));
   }
 
   final wellnessScrollController = ScrollController();
+
+  final wellnessPagingController =
+      PagingController<int, HistoryWellnessItemUiState>(firstPageKey: 0);
+
+  /// 페이지 리프레시.
+  Future<void> onRefreshWellness() async {
+    wellnessPagingController.refresh();
+  }
+
+  /// 웰리니스 목록 조회.
+  Future<LoadPage<int, HistoryWellnessItemUiState>> _loadPage(
+    int pageKey,
+  ) async {
+    final wellnessApi = Get.find<WellnessAPI>();
+    final response = await wellnessApi.getWellnessList(
+      page: pageKey,
+      period: 'ALL',
+      sortDirection: 'ASC',
+    );
+
+    if (response is GetWellnessPaginateModel && response.wellnessList != null) {
+      final isLastPage = response.wellnessList!.last;
+      final toUiState = response.wellnessList!.content
+          .compactMap((e) => historyWellnessItemUiStateFrom(e))
+          .toList();
+
+      return LoadPage(
+        items: toUiState,
+        isLastPage: isLastPage,
+        nextPageKey: pageKey + 1,
+      );
+    } else {
+      return LoadPage(items: [], isLastPage: true, nextPageKey: 0);
+    }
+  }
 }

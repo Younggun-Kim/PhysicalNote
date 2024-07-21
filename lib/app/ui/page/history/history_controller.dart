@@ -45,7 +45,6 @@ class HistoryController extends BaseController
     );
     _tabManager = HistoryTabManager(_tabController);
     _setFilterList(_tabManager.tab);
-    resetWellness();
     super.onInit();
   }
 
