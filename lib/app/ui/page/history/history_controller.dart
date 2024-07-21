@@ -4,23 +4,13 @@ import 'package:physical_note/app/ui/dialog/dropdown/dropdown_dialog.dart';
 import 'package:physical_note/app/ui/page/history/history_tab_manager.dart';
 import 'package:physical_note/app/ui/page/history/type/history_page_key_type.dart';
 import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
+import 'package:physical_note/app/ui/page/history/wellness/history_wellness_controller.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 import 'type/history_filter_type.dart';
 
-// 인터페이스 정의
-abstract class IHistoryController {
-  /// 탭바 컨트롤러
-  TabController get tabController;
-
-  /// 스크롤 컨트롤러
-  ScrollController get scrollController;
-
-  changeTab(int index);
-}
-
 class HistoryController extends BaseController
-    with GetSingleTickerProviderStateMixin {
+    with GetSingleTickerProviderStateMixin, HistoryWellnessController {
   late final HistoryTabManager _tabManager;
 
   TabController get tabController => _tabController;
@@ -55,6 +45,7 @@ class HistoryController extends BaseController
     );
     _tabManager = HistoryTabManager(_tabController);
     _setFilterList(_tabManager.tab);
+    resetWellness();
     super.onInit();
   }
 

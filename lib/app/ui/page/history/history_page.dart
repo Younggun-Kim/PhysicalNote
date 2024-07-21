@@ -3,6 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/history/history_controller.dart';
+import 'package:physical_note/app/ui/page/history/injury/history_injury_page.dart';
+import 'package:physical_note/app/ui/page/history/intensity/history_intensity_page.dart';
+import 'package:physical_note/app/ui/page/history/wellness/history_wellness_page.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
 import 'type/history_page_key_type.dart';
@@ -50,10 +53,16 @@ class HistoryPage extends GetView<HistoryController> {
             Expanded(
                 child: TabBarView(
               controller: controller.tabController,
-              children: const [
-                Text('1'),
-                Text('2'),
-                Text('3'),
+              children: [
+                HistoryWellnessPage(
+                  key: HistoryPageKeyType.wellness.key,
+                ),
+                HistoryIntensityPage(
+                  key: HistoryPageKeyType.intensity.key,
+                ),
+                HistoryInjuryPage(
+                  key: HistoryPageKeyType.injury.key,
+                ),
               ],
             ))
           ],
