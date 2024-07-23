@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/ui/page/history/history.dart';
 import 'package:physical_note/app/ui/page/history/wellness/item/history_wellness_item.dart';
+
+import 'item/history_wellness_item_ui_state.dart';
 
 class HistoryWellnessPage extends GetView<HistoryController> {
   const HistoryWellnessPage({super.key});
@@ -28,6 +29,9 @@ class _List extends GetView<HistoryController> {
                 itemBuilder: (context, item, index) => HistoryWellnessItem(
                   uiState: item,
                   isFirst: index == 0,
+                  onPressed: () {
+                    controller.onPressedWellnessItem(item.id);
+                  },
                 ),
                 noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
               ),

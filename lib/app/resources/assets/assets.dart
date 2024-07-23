@@ -76,6 +76,7 @@ class Assets {
   static const String userDefaultBasic = 'assets/images/user_default_basic.svg';
   static const String walkMan = 'assets/images/walk_man.svg';
   static const String walkManBlack = 'assets/images/walk_man_black.svg';
+  static const String wellnessFloatingButton = 'assets/images/wellness_floating_button.svg';
   static const String wellnessUrine = 'assets/images/wellness_urine.svg';
   static const String wellnessWater = 'assets/images/wellness_water.svg';
   static const String wellnessWeight = 'assets/images/wellness_weight.svg';

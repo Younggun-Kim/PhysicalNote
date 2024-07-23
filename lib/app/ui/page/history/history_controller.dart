@@ -114,4 +114,16 @@ class HistoryController extends BaseController
       _setFilter(filterList[index]);
     }
   }
+
+  /// 플로팅 버튼 클릭
+  void onPressedFloatingButton() {
+    final tab = _tabManager.tab;
+
+    switch(tab) {
+      case HistoryTabType.wellness:
+        recordWellness();
+      default:
+        break;
+    }
+  }
 }

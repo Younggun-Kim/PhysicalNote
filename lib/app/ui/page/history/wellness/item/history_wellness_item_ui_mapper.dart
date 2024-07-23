@@ -1,6 +1,7 @@
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/ui/page/history/wellness/history_wellness_controller.dart';
-import 'package:physical_note/app/ui/page/history/wellness/item/history_wellness_item.dart';
+
+import 'history_wellness_item_ui_state.dart';
 
 extension HistoryWellnessItemUiMapper on HistoryWellnessController {
   /// 웰리니스 목록 아이템 매핑

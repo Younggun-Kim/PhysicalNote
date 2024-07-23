@@ -6,43 +6,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
-class HistoryWellnessItemUiState {
-  final int id;
-  final String recordDate;
-  final int? sleep;
-  final int? stress;
-  final int? fatigue;
-  final int? muscleSoreness;
-  final int? urine;
-  final double? emptyStomachWeight;
-  final double? bodyFat;
-  double? sleepAvg;
-  double? stressAvg;
-  double? fatigueAvg;
-  double? muscleSorenessAvg;
-  double? urineAvg;
-  double? weightAvg;
-
-  HistoryWellnessItemUiState({
-    required this.id,
-    required this.recordDate,
-    required this.sleep,
-    required this.stress,
-    required this.fatigue,
-    required this.muscleSoreness,
-    required this.urine,
-    required this.emptyStomachWeight,
-    required this.bodyFat,
-    this.sleepAvg,
-    this.stressAvg,
-    this.fatigueAvg,
-    this.muscleSorenessAvg,
-    this.urineAvg,
-    this.weightAvg,
-  });
-}
+import 'history_wellness_item_ui_state.dart';
 
 /// 웰리니스 목록 아이템
 class HistoryWellnessItem extends StatelessWidget {
@@ -50,10 +17,13 @@ class HistoryWellnessItem extends StatelessWidget {
 
   final bool isFirst;
 
+  final VoidCallback onPressed;
+
   const HistoryWellnessItem({
     super.key,
     required this.uiState,
     this.isFirst = false,
+    required this.onPressed,
   });
 
   @override
@@ -69,10 +39,16 @@ class HistoryWellnessItem extends StatelessWidget {
               weight: uiState.weightAvg,
             ),
             const SizedBox(height: 24),
-            _Content(uiState: uiState),
+            _Content(
+              uiState: uiState,
+              onPressed: onPressed,
+            ),
           ],
         )
-      : _Content(uiState: uiState);
+      : _Content(
+          uiState: uiState,
+          onPressed: onPressed,
+        );
 }
 
 class _Average extends StatelessWidget {
@@ -296,72 +272,80 @@ class _AverageUrinalysisItem extends StatelessWidget {
 class _Content extends StatelessWidget {
   final HistoryWellnessItemUiState uiState;
 
-  const _Content({required this.uiState});
+  final VoidCallback onPressed;
+
+  const _Content({
+    required this.uiState,
+    required this.onPressed,
+  });
 
   @override
-  Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.25),
-                spreadRadius: 0,
-                blurRadius: 8,
-                offset: const Offset(0, 4), // changes position of shadow
-              )
-            ]),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  uiState.recordDate,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: ColorRes.gray9f9f9f,
-                    letterSpacing: -0.7,
+  Widget build(BuildContext context) => InkWellOver(
+        onTap: onPressed,
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.25),
+                  spreadRadius: 0,
+                  blurRadius: 8,
+                  offset: const Offset(0, 4), // changes position of shadow
+                )
+              ]),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    uiState.recordDate,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.gray9f9f9f,
+                      letterSpacing: -0.7,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    _HooperIndexItem(
-                      label: StringRes.sleep.tr,
-                      value: uiState.sleep ?? 0,
-                    ),
-                    const SizedBox(width: 7),
-                    _HooperIndexItem(
-                      label: StringRes.fatigue.tr,
-                      value: uiState.fatigue ?? 0,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 7),
-                Row(
-                  children: [
-                    _HooperIndexItem(
-                      label: StringRes.stress.tr,
-                      value: uiState.stress ?? 0,
-                    ),
-                    const SizedBox(width: 7),
-                    _HooperIndexItem(
-                      label: StringRes.musclePain.tr,
-                      value: uiState.muscleSoreness ?? 0,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const Spacer(),
-            _Urine(urine: uiState.urine),
-            const Spacer(),
-            _Weight(weight: uiState.emptyStomachWeight),
-          ],
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      _HooperIndexItem(
+                        label: StringRes.sleep.tr,
+                        value: uiState.sleep ?? 0,
+                      ),
+                      const SizedBox(width: 7),
+                      _HooperIndexItem(
+                        label: StringRes.fatigue.tr,
+                        value: uiState.fatigue ?? 0,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 7),
+                  Row(
+                    children: [
+                      _HooperIndexItem(
+                        label: StringRes.stress.tr,
+                        value: uiState.stress ?? 0,
+                      ),
+                      const SizedBox(width: 7),
+                      _HooperIndexItem(
+                        label: StringRes.musclePain.tr,
+                        value: uiState.muscleSoreness ?? 0,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Spacer(),
+              _Urine(urine: uiState.urine),
+              const Spacer(),
+              _Weight(weight: uiState.emptyStomachWeight),
+            ],
+          ),
         ),
       );
 }

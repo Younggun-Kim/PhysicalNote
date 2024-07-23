@@ -19,6 +19,7 @@ import 'package:physical_note/app/ui/page/sign_up/sign_up.dart';
 import 'package:physical_note/app/ui/page/splash/splash.dart';
 import 'package:physical_note/app/ui/page/team_request/team_request.dart';
 import 'package:physical_note/app/ui/page/term/term.dart';
+import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
 
 part 'route_type.dart';
 
@@ -146,6 +147,11 @@ class Routes {
       name: RouteType.TEAM_REQUEST,
       page: () => const TeamRequestPage(),
       binding: TeamRequestBindings(),
+    ),
+    GetPage(
+      name: RouteType.WELLNESS_DETAIL,
+      page: () => const WellnessDetailPage(),
+      binding: WellnessDetailBindings(),
     ),
   ];
 }

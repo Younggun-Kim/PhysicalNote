@@ -17,6 +17,7 @@ class HistoryPage extends GetView<HistoryController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
+        floatingActionButton: _FloatingButton(),
         child: Column(
           children: [
             const SizedBox(height: 40),
@@ -112,4 +113,13 @@ class _Header extends GetView<HistoryController> {
           ],
         ),
       );
+}
+
+class _FloatingButton  extends GetView<HistoryController> {
+  @override
+  Widget build(BuildContext context) => InkWellOver(
+    onTap: controller.onPressedFloatingButton,
+    borderRadius: BorderRadius.circular(50),
+    child: SvgPicture.asset(Assets.wellnessFloatingButton),
+  );
 }

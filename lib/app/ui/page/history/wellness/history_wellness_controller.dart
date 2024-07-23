@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/wellness/model/get_wellness_paginate_model.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
-import 'package:physical_note/app/ui/page/history/wellness/item/history_wellness_item.dart';
 import 'package:physical_note/app/ui/page/history/wellness/item/history_wellness_item_ui_mapper.dart';
+import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
 import 'package:physical_note/app/utils/extensions/list_extension.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
+
+import 'item/history_wellness_item_ui_state.dart';
 
 mixin HistoryWellnessController on BaseController {
   @override
@@ -66,5 +69,21 @@ mixin HistoryWellnessController on BaseController {
     } else {
       return LoadPage(items: [], isLastPage: true, nextPageKey: 0);
     }
+  }
+
+  /// 웰리니스 상세 이동
+  void _moveWellnessDetail({required int? wellnessId}) {
+    final args = WellnessDetailArgs(wellnessId: wellnessId);
+    Get.toNamed(RouteType.WELLNESS_DETAIL, arguments: args);
+  }
+
+  /// 웰리니스 생성
+  void recordWellness() {
+    _moveWellnessDetail(wellnessId: null);
+  }
+
+  /// 웰리니스 수정
+  void onPressedWellnessItem(int wellnessId) {
+    _moveWellnessDetail(wellnessId: wellnessId);
   }
 }
