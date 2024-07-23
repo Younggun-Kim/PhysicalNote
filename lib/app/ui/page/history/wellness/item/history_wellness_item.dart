@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/utils/utils.dart';
 
 class HistoryWellnessItemUiState {
   final int id;
@@ -59,7 +60,6 @@ class HistoryWellnessItem extends StatelessWidget {
   Widget build(BuildContext context) => isFirst
       ? Column(
           children: [
-            const SizedBox(height: 24),
             _Average(
               sleep: (uiState.sleepAvg ?? 0).toInt(),
               stress: (uiState.stressAvg ?? 0).toInt(),
@@ -186,6 +186,8 @@ class _AverageHooperIndexItem extends StatelessWidget {
   String get _emptyText =>
       List<String>.generate(4 - text.length, (i) => '빈').join('');
 
+  Color get barColor => ColorUtils.convertWellness(value);
+
   @override
   Widget build(BuildContext context) => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -211,8 +213,8 @@ class _AverageHooperIndexItem extends StatelessWidget {
           Container(
             width: min(77, 11 * value.toDouble()),
             height: 5,
-            decoration: const BoxDecoration(
-              color: ColorRes.hooperIndexWarning,
+            decoration: BoxDecoration(
+              color: barColor,
             ),
           ),
           const SizedBox(width: 8),
@@ -390,6 +392,9 @@ class _HooperIndexItem extends StatelessWidget {
     required this.value,
   });
 
+  // 원형 색상
+  Color get circleColor => ColorUtils.convertWellness(value);
+
   final _textStyle = const TextStyle(
     fontSize: 10,
     fontWeight: FontWeight.w400,
@@ -399,7 +404,7 @@ class _HooperIndexItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          const _Circle(color: ColorRes.hooperIndexDanger),
+          _Circle(color: circleColor),
           const SizedBox(width: 6),
           Text('$label($value)', style: _textStyle),
           const SizedBox(width: 7),

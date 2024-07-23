@@ -28,9 +28,9 @@ class GetWellnessPaginateModel {
       json['muscleSorenessAvg'] as double?,
       json['urineAvg'] as double?,
       json['weightAvg'] as double?,
-      json['welllnessList'] != null
+      json['wellnessList'] != null
           ? PaginateModel<GetWellnessResponseModel>.fromJson(
-              json['welllnessList'],
+              json['wellnessList'],
               (itemJson) => GetWellnessResponseModel.fromJson(itemJson))
           : null,
     );

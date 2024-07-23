@@ -62,7 +62,7 @@ class WellnessAPI extends API {
     required String sortDirection,
   }) async {
     logger.i(
-        "getWellnessList: page: $page, peroid: $period, sortDirection: $sortDirection");
+        "getWellnessList: page: $page, period: $period, sortDirection: $sortDirection");
     final response = await get(
       '$requestUrl/list?page=$page&period=$period&sortDirection=$sortDirection',
     );

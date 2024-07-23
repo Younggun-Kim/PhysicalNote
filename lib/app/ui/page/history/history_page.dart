@@ -51,20 +51,22 @@ class HistoryPage extends GetView<HistoryController> {
               ],
             ),
             Expanded(
-                child: TabBarView(
-              controller: controller.tabController,
-              children: [
-                HistoryWellnessPage(
-                  key: HistoryPageKeyType.wellness.key,
-                ),
-                HistoryIntensityPage(
-                  key: HistoryPageKeyType.intensity.key,
-                ),
-                HistoryInjuryPage(
-                  key: HistoryPageKeyType.injury.key,
-                ),
-              ],
-            ))
+              child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: controller.tabController,
+                children: [
+                  HistoryWellnessPage(
+                    key: HistoryPageKeyType.wellness.key,
+                  ),
+                  HistoryIntensityPage(
+                    key: HistoryPageKeyType.intensity.key,
+                  ),
+                  HistoryInjuryPage(
+                    key: HistoryPageKeyType.injury.key,
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       );
