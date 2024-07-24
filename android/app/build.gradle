@@ -27,12 +27,12 @@ if (flutterVersionName == null) {
 
 def flutterMinSdkVersion = localProperties.getProperty('flutter.flutterMinSdkVersion')
 if (flutterMinSdkVersion == null) {
-    flutterMinSdkVersion = '30'
+    flutterMinSdkVersion = '34'
 }
 
 def flutterTargetSdkVersion = localProperties.getProperty('flutter.flutterTargetSdkVersion')
 if (flutterTargetSdkVersion == null) {
-    flutterTargetSdkVersion = '34'
+    flutterTargetSdkVersion = '35'
 }
 
 // start of Gradle 서명 구성
