@@ -15,7 +15,7 @@ class SearchCategoryPage extends GetView<SearchCategoryController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
-        resize: false,
+        resize: true,
         child: Column(
           children: [
             _Header(),
