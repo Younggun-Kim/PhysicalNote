@@ -58,26 +58,28 @@ class InjuryCheckPage extends GetView<DataController> {
             _Pain(),
             const SizedBox(height: 50),
             const Spacer(),
-            Obx(() => Visibility(
-              visible: controller.isShowDetailUi.value &&
-                  controller.injuryRecoveryType.value ==
-                      InjuryRecoveryType.progress,
-              child: BaseButton(
-                width: double.infinity,
-                height: 56,
-                text: StringRes.recovery.tr,
-                defaultTextStyle: const TextStyle(
-                  fontSize: 16,
-                  color: ColorRes.white,
-                  fontWeight: FontWeight.w500,
-                ),
-                defaultBackgroundColor: ColorRes.disable,
-                // onPressed: controller.onPressedInjuryCheckRecovery,
-                onPressed: () {
-                  controller.showRecoveryDialog();
-                },
-              ).marginOnly(bottom: 20),
-            ),),
+            Obx(
+              () => Visibility(
+                visible: controller.isShowDetailUi.value &&
+                    controller.injuryRecoveryType.value ==
+                        InjuryRecoveryType.progress,
+                child: BaseButton(
+                  width: double.infinity,
+                  height: 56,
+                  text: StringRes.recovery.tr,
+                  defaultTextStyle: const TextStyle(
+                    fontSize: 16,
+                    color: ColorRes.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  defaultBackgroundColor: ColorRes.disable,
+                  // onPressed: controller.onPressedInjuryCheckRecovery,
+                  onPressed: () {
+                    controller.showRecoveryDialog();
+                  },
+                ).marginOnly(bottom: 20),
+              ),
+            ),
             Obx(
               () => Row(
                 children: [
@@ -151,6 +153,7 @@ class _Disease extends GetView<DataController> {
             maxLines: 4,
             hint: StringRes.injuryCheckDiseaseHint.tr,
             keyboardType: TextInputType.multiline,
+            textInputAction: TextInputAction.newline,
             inputFormatter: [
               LengthLimitingTextInputFormatter(40),
             ],
