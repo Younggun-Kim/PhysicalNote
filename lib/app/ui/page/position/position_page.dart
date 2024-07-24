@@ -14,6 +14,7 @@ class PositionPage extends GetView<PositionController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
+        resize: true,
         child: Column(
           children: [
             _Header(),

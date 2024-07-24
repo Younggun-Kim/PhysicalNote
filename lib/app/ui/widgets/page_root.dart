@@ -65,7 +65,6 @@ class PageRoot extends StatelessWidget {
             child: Scaffold(
               backgroundColor: backgroundColor,
               resizeToAvoidBottomInset: resize,
-              bottomSheet: _KeyboardCloseButton(),
               body: isFullPage
                   ? SizedBox(
                       width: double.infinity,
@@ -74,11 +73,17 @@ class PageRoot extends StatelessWidget {
                   : SafeArea(
                       top: safeStatusBar,
                       bottom: safeNavigationBar,
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: child,
-                      ),
-                    ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: child,
+                            ),
+                          ),
+                          _KeyboardCloseButton(),
+                        ],
+                      )),
             ),
           ),
           _createLoading(),
@@ -98,46 +103,41 @@ class PageRoot extends StatelessWidget {
       );
 }
 
+
 /// iOS 키보드 닫기 버튼
 class _KeyboardCloseButton extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => SafeArea(
-        child: KeyboardVisibilityBuilder(
-          builder: (context, isKeyboardVisible) => GetPlatform.isIOS
-              ? Visibility(
-                  visible: isKeyboardVisible,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                          color: ColorRes.white,
-                          border: Border(
-                              top: BorderSide(
-                                  width: 1, color: ColorRes.borderDeselect))),
-                      child: Row(
-                        children: [
-                          const Spacer(),
-                          InkWellOver(
-                            onTap: () {
-                              unFocus();
-                            },
-                            child: Text(
-                              StringRes.complete.tr,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.lightBlue,
-                              ),
-                            ),
+  Widget build(BuildContext context) => KeyboardVisibilityBuilder(
+        builder: (context, isKeyboardVisible) => GetPlatform.isIOS
+            ? Visibility(
+                visible: isKeyboardVisible,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                      color: ColorRes.white,
+                      border: Border(
+                          top: BorderSide(
+                              width: 1, color: ColorRes.borderDeselect))),
+                  child: Row(
+                    children: [
+                      const Spacer(),
+                      InkWellOver(
+                        onTap: () {
+                          unFocus();
+                        },
+                        child: Text(
+                          StringRes.complete.tr,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.lightBlue,
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                )
-              : const SizedBox(),
-        ),
+                ),
+              )
+            : const SizedBox(),
       );
 }
