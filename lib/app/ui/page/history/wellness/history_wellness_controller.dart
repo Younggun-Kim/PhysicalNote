@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:intl/intl.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/wellness/model/get_wellness_paginate_model.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
@@ -25,8 +25,7 @@ mixin HistoryWellnessController on BaseController {
     wellnessPagingController.start((pageKey) => _loadPage(pageKey));
   }
 
-  final wellnessScrollController = ScrollController();
-
+  /// 웰리니스 페이징 스크롤.
   final wellnessPagingController =
       PagingController<int, HistoryWellnessItemUiState>(firstPageKey: 0);
 
@@ -72,18 +71,23 @@ mixin HistoryWellnessController on BaseController {
   }
 
   /// 웰리니스 상세 이동
-  void _moveWellnessDetail({required int? wellnessId}) {
-    final args = WellnessDetailArgs(wellnessId: wellnessId);
+  void _moveWellnessDetail(
+      {required int? wellnessId, required DateTime recordDate}) {
+    final args = WellnessDetailArgs(
+      wellnessId: wellnessId,
+      recordDate: recordDate,
+    );
     Get.toNamed(RouteType.WELLNESS_DETAIL, arguments: args);
   }
 
   /// 웰리니스 생성
-  void recordWellness() {
-    _moveWellnessDetail(wellnessId: null);
+  void recordWellness({required DateTime recordDate}) {
+    _moveWellnessDetail(wellnessId: null, recordDate: recordDate);
   }
 
   /// 웰리니스 수정
-  void onPressedWellnessItem(int wellnessId) {
-    _moveWellnessDetail(wellnessId: wellnessId);
+  void onPressedWellnessItem(HistoryWellnessItemUiState uiState) {
+    final recordDate = DateFormat('yyyy-MM-dd').parse(uiState.recordDate);
+    _moveWellnessDetail(wellnessId: uiState.id, recordDate: recordDate);
   }
 }

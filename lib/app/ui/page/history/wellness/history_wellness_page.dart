@@ -30,7 +30,7 @@ class _List extends GetView<HistoryController> {
                   uiState: item,
                   isFirst: index == 0,
                   onPressed: () {
-                    controller.onPressedWellnessItem(item.id);
+                    controller.onPressedWellnessItem(item);
                   },
                 ),
                 noItemsFoundIndicatorBuilder: (context) => const SizedBox(),

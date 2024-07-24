@@ -19,6 +19,9 @@ class HistoryController extends BaseController
 
   final scrollController = ScrollController();
 
+  /// 기록날짜
+  DateTime recordDate = DateTime.now();
+
   /// 현재 필터
   late final filter = HistoryFilterType.all.obs;
 
@@ -50,14 +53,16 @@ class HistoryController extends BaseController
 
   @override
   onClose() {
-    tabController.dispose();
+    _tabController.dispose();
   }
 
   /// MainScreen에서 화면 전환 시 필요
   void scrollToTop() {}
 
   /// MainScreen의 날짜 sync 맞추는 메소드
-  void syncDate(DateTime date) {}
+  void syncDate(DateTime date) {
+    recordDate = date;
+  }
 
   /// 탭 변경
   void changeTab(int index) {
@@ -119,9 +124,13 @@ class HistoryController extends BaseController
   void onPressedFloatingButton() {
     final tab = _tabManager.tab;
 
-    switch(tab) {
+    switch (tab) {
       case HistoryTabType.wellness:
-        recordWellness();
+        recordWellness(recordDate: recordDate);
+      case HistoryTabType.intensity:
+        break;
+      case HistoryTabType.injury:
+        break;
       default:
         break;
     }

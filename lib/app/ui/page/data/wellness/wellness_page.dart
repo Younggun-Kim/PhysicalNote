@@ -7,6 +7,7 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/widgets/text_field/bottom_border_text_field.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
+import 'package:physical_note/app/utils/utils.dart';
 
 import 'data_wellness_hooper_index_ui_state.dart';
 
@@ -238,7 +239,7 @@ class _Urine extends StatelessWidget {
               hint: StringRes.myAnswer.tr,
               contentPadding: EdgeInsets.zero,
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(r'^\d{0,3}(\.\d?)?$')), // 소수점만 입력받도록 정규식 설정
+                InputFormatterUtils.digitAndDot,
               ],
             ),
             const SizedBox(height: 24),

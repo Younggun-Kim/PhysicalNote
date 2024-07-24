@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
@@ -6,6 +7,9 @@ import 'package:physical_note/app/data/wellness/model/post_wellness_request_mode
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart';
+import 'package:physical_note/app/ui/dialog/wellness_guide/wellness_guide_dialog.dart';
+import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail_ui_mapper.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 import 'item/hooper_index_ui_state.dart';
@@ -14,14 +18,22 @@ import 'wellness_detail_args.dart';
 // TODO: 상세 조회 API 추가
 // TODO: FCM 이동 추가
 class WellnessDetailController extends BaseController {
+  @override
+  void onReady() {
+    _loadWellness();
+    super.onReady();
+  }
+
   final args = Get.arguments as WellnessDetailArgs;
 
   /// 웰리니스 Id
   late final wellnessId = args.wellnessId.obs;
 
   /// 기록 날짜
-  // TODO: args에서 받도록 변경하기
-  final recordDate = DateTime.now().obs;
+  late final recordDate = args.recordDate.obs;
+
+  String get formattedRecordDate =>
+      recordDate.value.toFormattedString('yyyy-MM-dd');
 
   /// 후퍼인덱스.
   final hooperIndexUiState = HooperIndexUiState().obs;
@@ -39,8 +51,15 @@ class WellnessDetailController extends BaseController {
    * Methods
    */
 
-  /// 웰리니스란 클릭
-  void onTapWellnessGuideButton() {}
+  /// 웰리니스란 가이드 클릭
+  void onTapWellnessGuideButton() async {
+    await Get.dialog(
+      const WellnessGuideDialog(),
+      barrierDismissible: true,
+      barrierColor: Colors.transparent,
+      transitionDuration: const Duration(milliseconds: 100),
+    );
+  }
 
   /// 후퍼인덱스 슬라이드 값 변경
   void onChangeHooperIndex(HooperIndexType type, double value) {
@@ -61,7 +80,6 @@ class WellnessDetailController extends BaseController {
   void onChangedUrine(int value) {
     urineTable.value = value;
   }
-
 
   /// 달력 클릭.
   Future<void> onPressedCalendar() async {
@@ -89,7 +107,7 @@ class WellnessDetailController extends BaseController {
       urine: urineTable.value,
       bodyFat: double.tryParse(urineBmi.value) ?? 0.0,
       emptyStomachWeight: double.tryParse(urineWeight.value) ?? 0.0,
-      recordDate: '',
+      recordDate: formattedRecordDate,
     );
 
     logger.w("requestData: ${requestData.toJson()}");
@@ -111,7 +129,7 @@ class WellnessDetailController extends BaseController {
 
     if (response is GetWellnessResponseModel) {
       wellnessId.value = response.id;
-      showToast("웰리니스 저장 성공.");
+      close();
     } else {
       wellnessId.value = null;
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
@@ -136,7 +154,7 @@ class WellnessDetailController extends BaseController {
 
     if (response is GetWellnessResponseModel) {
       wellnessId.value = response.id;
-      showToast("웰리니스 수정 성공.");
+      close();
     } else {
       wellnessId.value = null;
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
@@ -145,5 +163,23 @@ class WellnessDetailController extends BaseController {
     }
     await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
+  }
+
+  /// 웰리니스 불러오기.
+  Future<void> _loadWellness() async {
+    final wellnessApi = Get.find<WellnessAPI>();
+    final date = recordDate.value.toFormattedString('yyyy-MM-dd');
+    final response = await wellnessApi.getWellness(date);
+
+    if (response is GetWellnessResponseModel) {
+      wellnessId.value = response.id;
+      setWellness(response);
+    } else {
+      wellnessId.value = null;
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
+      showToast(message);
+      setWellness(null); // 값 초기화
+    }
   }
 }

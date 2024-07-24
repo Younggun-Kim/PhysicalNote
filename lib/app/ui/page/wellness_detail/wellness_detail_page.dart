@@ -9,6 +9,7 @@ import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
 import 'package:physical_note/app/ui/widgets/text_field/bottom_border_text_field.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
+import 'package:physical_note/app/utils/input_formatter_utils.dart';
 
 /// 웰리니스 상세
 class WellnessDetailPage extends GetView<WellnessDetailController> {
@@ -309,7 +310,7 @@ class _Urine extends StatelessWidget {
               hint: StringRes.myAnswer.tr,
               contentPadding: EdgeInsets.zero,
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp(r'^\d{0,3}(\.\d?)?$')),
+                InputFormatterUtils.digitAndDot,
                 // 소수점만 입력받도록 정규식 설정
               ],
             ),
@@ -324,7 +325,10 @@ class _Urine extends StatelessWidget {
               obscureText: false,
               hint: StringRes.writeInBodyRecord.tr,
               contentPadding: EdgeInsets.zero,
-              maxLength: 3,
+              maxLength: 4,
+              inputFormatters: <TextInputFormatter>[
+                InputFormatterUtils.digitAndDot,
+              ],
             ),
           ],
         ),

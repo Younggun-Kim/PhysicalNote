@@ -1,5 +1,10 @@
 class WellnessDetailArgs {
   final int? wellnessId;
 
-  WellnessDetailArgs({required this.wellnessId});
+  final DateTime recordDate;
+
+  WellnessDetailArgs({
+    required this.wellnessId,
+    required this.recordDate,
+  });
 }
