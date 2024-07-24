@@ -1,8 +1,6 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
@@ -12,6 +10,8 @@ import 'package:physical_note/app/utils/utils.dart';
 import 'history_wellness_item_ui_state.dart';
 
 /// 웰리니스 목록 아이템
+/// TODO: 소변검사 평균의 Description 정책 필요
+/// TODO: item의 소변 1-3 양호 4-7 (정책필요)
 class HistoryWellnessItem extends StatelessWidget {
   final HistoryWellnessItemUiState uiState;
 

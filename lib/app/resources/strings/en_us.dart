@@ -290,4 +290,5 @@ final enUs = {
   StringRes.historyFilterOldest: '오래된 순',
   StringRes.historyFilterProgressInjury: '진행중인 부상',
   StringRes.historyFilterHealedInjury: '완치된부상',
+  StringRes.whatWellness: '웰리니스란?',
 };

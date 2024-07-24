@@ -37,12 +37,12 @@ class GetWellnessPaginateModel {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'sleepAvg': this.sleepAvg,
-        'stressAvg': this.stressAvg,
-        'fatigueAvg': this.fatigueAvg,
-        'muscleSorenessAvg': this.muscleSorenessAvg,
-        'urineAvg': this.urineAvg,
-        'weightAvg': this.weightAvg,
-        'wellnessList': this.wellnessList?.toJson(),
+        'sleepAvg': sleepAvg,
+        'stressAvg': stressAvg,
+        'fatigueAvg': fatigueAvg,
+        'muscleSorenessAvg': muscleSorenessAvg,
+        'urineAvg': urineAvg,
+        'weightAvg': weightAvg,
+        'wellnessList': wellnessList?.toJson(),
       };
 }

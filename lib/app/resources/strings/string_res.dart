@@ -310,4 +310,5 @@ class StringRes {
   static final yes = _generateId();
   static final no = _generateId();
   static final myHistory = _generateId();
+  static final whatWellness = _generateId();
 }
