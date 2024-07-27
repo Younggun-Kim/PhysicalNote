@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
+import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_ui_state.dart';
 import 'package:physical_note/app/utils/getx/toast_message.dart';
 import 'custom_picker_selection_overlay.dart';
 
 class TimePicker extends StatelessWidget {
-  final IntensityPageUiState? uiState;
+  final IntensityDetailUiState? uiState;
 
   final double height;
 

@@ -1,6 +1,9 @@
+import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/ui/page/history/intensity/item/history_intensity_item_ui_state.dart';
+import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -62,7 +65,11 @@ mixin HistoryIntensityController on BaseController {
     required int? intensityId,
     required DateTime recordDate,
   }) {
-    // Get.toNamed(RouteType.WELLNESS_DETAIL, arguments: args);
+    final args = IntensityDetailArgs(
+      intensityId: intensityId,
+      recordDate: recordDate,
+    );
+    Get.toNamed(RouteType.INTENSITY_DETAIL, arguments: args);
   }
 
   /// 운동강도 생성

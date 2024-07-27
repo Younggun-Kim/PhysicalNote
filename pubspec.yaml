@@ -99,8 +99,6 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - android/build.gradle
-    - lib/app/ui/widgets/level_progress_bar/
   fonts:
     - family: NotoSans
       fonts:

@@ -59,16 +59,16 @@ class IntensityPage extends GetView<DataController> {
               ),
             ),
             const SizedBox(height: 45),
-            Obx(
-              () => TimePicker(
-                uiState: controller.intensityCurrentUiState.value,
-                hourController: controller.intensityHourController,
-                minuteController: controller.intensityMinuteController,
-                isEnabled: controller.intensityTimePickerEnabled.value,
-                onSelectedHourChanged: controller.onSelectedHourChanged,
-                onSelectedMinChanged: controller.onSelectedMinChanged,
-              ),
-            ),
+            // Obx(
+            //   () => TimePicker(
+            //     uiState: controller.intensityCurrentUiState.value,
+            //     hourController: controller.intensityHourController,
+            //     minuteController: controller.intensityMinuteController,
+            //     isEnabled: controller.intensityTimePickerEnabled.value,
+            //     onSelectedHourChanged: controller.onSelectedHourChanged,
+            //     onSelectedMinChanged: controller.onSelectedMinChanged,
+            //   ),
+            // ),
             const SizedBox(height: 30),
             Text(
               StringRes.workoutIntensityKorEng.tr,

@@ -132,7 +132,7 @@ class HistoryController extends BaseController
       case HistoryTabType.wellness:
         recordWellness(recordDate: recordDate);
       case HistoryTabType.intensity:
-        break;
+        recordIntensity(recordDate: recordDate);
       case HistoryTabType.injury:
         break;
       default:

@@ -29,4 +29,5 @@ abstract class RouteType {
   static const POSITION = "/position";
   static const TEAM_REQUEST = "/team_request";
   static const WELLNESS_DETAIL = '/wellness_detail';
+  static const INTENSITY_DETAIL = '/intensity_detail';
 }
