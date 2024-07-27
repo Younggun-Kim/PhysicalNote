@@ -191,6 +191,9 @@ class ColorRes {
   /// bababa.
   static const grayBababa = Color(0xffbababa);
 
+  /// ededed.
+  static const grayEdeded = Color(0xffededed);
+
   /// 소변검사표 8색상 - 1
   static const urineTable1 = Color(0xfffffef8);
 

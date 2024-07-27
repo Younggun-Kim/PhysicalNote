@@ -312,4 +312,6 @@ class StringRes {
   static final myHistory = _generateId();
   static final whatWellness = _generateId();
   static final wellnessGuide = _generateId();
+  static final workoutTimeAverage = _generateId();
+  static final workoutIntensityAverage = _generateId();
 }

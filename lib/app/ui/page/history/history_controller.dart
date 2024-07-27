@@ -7,10 +7,14 @@ import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
 import 'package:physical_note/app/ui/page/history/wellness/history_wellness_controller.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
+import 'intensity/history_intensity_controller.dart';
 import 'type/history_filter_type.dart';
 
 class HistoryController extends BaseController
-    with GetSingleTickerProviderStateMixin, HistoryWellnessController {
+    with
+        GetSingleTickerProviderStateMixin,
+        HistoryWellnessController,
+        HistoryIntensityController {
   late final HistoryTabManager _tabManager;
 
   TabController get tabController => _tabController;
