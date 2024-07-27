@@ -91,7 +91,6 @@ class IntensityDetailController extends BaseController {
    * 메소드
    */
 
-
   /// 웰리니스란 가이드 클릭
   void onTapGuideButton() async {
     // await Get.dialog(
@@ -115,6 +114,7 @@ class IntensityDetailController extends BaseController {
 
     if (newDateTime != null) {
       recordDate.value = newDateTime;
+      _loadIntensity();
     }
   }
 
@@ -187,15 +187,16 @@ class IntensityDetailController extends BaseController {
       return;
     }
 
+    final intensityId = uiState.id;
     final level = uiState.level;
     final time = uiState.time;
-    final intensityId = uiState.id;
+    final date = recordDate.value.toFormattedString('yyyy-MM-dd');
 
     final requestData = PostIntensityRequestModel(
       intensityLevel: level,
       workoutTime: time,
       workoutType: uiState.type.remote,
-      recordDate: '',
+      recordDate: date,
     );
 
     if (intensityId == null) {
@@ -212,12 +213,12 @@ class IntensityDetailController extends BaseController {
     final response = await intensityApi.getIntensity(date);
 
     if (response is GetIntensityListResponseModel) {
-      // setIntensity(response);
+      _setIntensity(response);
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
       showToast(message);
-      // setIntensity(null); // 값 초기화
+      _setIntensity(null); // 값 초기화
     }
   }
 
@@ -229,6 +230,8 @@ class IntensityDetailController extends BaseController {
 
     if (response is PostIntensityResponseModel) {
       showToast("운동 강도 저장 성공.");
+      await Future.delayed(const Duration(seconds: 1));
+      close();
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
@@ -247,6 +250,8 @@ class IntensityDetailController extends BaseController {
 
     if (response is PostIntensityResponseModel) {
       showToast("운동 강도 저장 성공.");
+      await Future.delayed(const Duration(seconds: 1));
+      close();
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
@@ -254,5 +259,61 @@ class IntensityDetailController extends BaseController {
     }
     await Future.delayed(const Duration(seconds: 1));
     setLoading(false);
+  }
+
+  /// UI Mapper 역할
+  void _setIntensity(GetIntensityListResponseModel? list) {
+    final data = list?.data;
+    if (data == null) {
+      hourController.jumpToItem(0);
+      minuteController.jumpToItem(0);
+      _workoutType.value = null;
+    } else {
+      final sportsData = data.firstWhereOrNull(
+        (e) => e.workoutType == WorkoutType.sports.remote,
+      );
+      final physicalData = data.firstWhereOrNull(
+        (e) => e.workoutType == WorkoutType.physical.remote,
+      );
+
+      var sportUiState = _sportUiState.value;
+      sportUiState.id = sportsData?.id;
+      sportUiState.level = sportsData?.intensityType;
+      sportUiState.hour = _convertTimeToHour(sportsData?.workoutTime);
+      sportUiState.minute = _convertTimeToMinute(sportsData?.workoutTime);
+      _sportUiState.value = sportUiState;
+
+      var physicalUiState = _physicalUiState.value;
+      physicalUiState.id = physicalData?.id;
+      physicalUiState.level = physicalData?.intensityType;
+      physicalUiState.hour = _convertTimeToHour(physicalData?.workoutTime);
+      physicalUiState.minute = _convertTimeToMinute(physicalData?.workoutTime);
+      _physicalUiState.value = physicalUiState;
+
+      /// 재선택 처리.
+      _workoutType.refresh();
+      _updateUiState();
+      _updateWorkoutTime();
+    }
+  }
+
+  /// HH:mm:ss의 시간 가져오기
+  int _convertTimeToHour(String? time) {
+    final splitTime = time?.split(":");
+    if (splitTime != null && splitTime.isNotEmpty && splitTime.length == 3) {
+      return int.tryParse(splitTime.first.toString()) ?? 0;
+    } else {
+      return 0;
+    }
+  }
+
+  /// HH:mm:ss의 분 가져오기
+  int _convertTimeToMinute(String? time) {
+    final splitTime = time?.split(":");
+    if (splitTime != null && splitTime.isNotEmpty && splitTime.length == 3) {
+      return int.tryParse(splitTime[1].toString()) ?? 0;
+    } else {
+      return 0;
+    }
   }
 }

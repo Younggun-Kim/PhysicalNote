@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/page/data/intensity/intensity_table.dart';
+import 'package:physical_note/app/ui/page/intensity_detail/intensity_table.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_controller.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
@@ -67,22 +67,13 @@ class _IntensityDetailPage extends GetView<IntensityDetailController> {
               ),
             ),
             const SizedBox(height: 40),
-            Obx(
-              () => TimePicker(
-                uiState: controller.currentUiState.value,
-                hourController: controller.hourController,
-                minuteController: controller.minuteController,
-                isEnabled: controller.timePickerEnabled.value,
-                onSelectedHourChanged: controller.onSelectedHourChanged,
-                onSelectedMinChanged: controller.onSelectedMinChanged,
-              ),
-            ),
-            const SizedBox(height: 30),
+            _TimePicker(),
+            const SizedBox(height: 40),
             Text(
               StringRes.workoutIntensityKorEng.tr,
               style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
                 color: ColorRes.fontBlack,
               ),
             ),
@@ -158,12 +149,26 @@ class _Date extends GetView<IntensityDetailController> {
               formattedDate,
               style: const TextStyle(
                 fontSize: 16,
+                color: ColorRes.gray9f9f9f,
               ),
             ),
             const SizedBox(width: 5),
             SvgPicture.asset(Assets.codeBrowser),
           ],
         ),
+      ));
+}
+
+/// 타임 피커
+class _TimePicker extends GetView<IntensityDetailController> {
+  @override
+  Widget build(BuildContext context) => Obx(() => TimePicker(
+        uiState: controller.currentUiState.value,
+        hourController: controller.hourController,
+        minuteController: controller.minuteController,
+        isEnabled: controller.timePickerEnabled.value,
+        onSelectedHourChanged: controller.onSelectedHourChanged,
+        onSelectedMinChanged: controller.onSelectedMinChanged,
       ));
 }
 

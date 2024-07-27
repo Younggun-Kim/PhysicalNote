@@ -178,6 +178,7 @@ class _Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) => InkWellOver(
         onTap: onPressed,
+        borderRadius: BorderRadius.circular(20),
         child: Container(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
           decoration: BoxDecoration(
@@ -195,7 +196,7 @@ class _Content extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                uiState.recordDate,
+                uiState.formattedRecordDate,
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,

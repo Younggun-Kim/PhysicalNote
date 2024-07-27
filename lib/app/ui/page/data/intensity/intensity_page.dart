@@ -6,7 +6,7 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
-import 'intensity_table.dart';
+import '../../intensity_detail/intensity_table.dart';
 
 class IntensityPage extends GetView<DataController> {
   const IntensityPage({

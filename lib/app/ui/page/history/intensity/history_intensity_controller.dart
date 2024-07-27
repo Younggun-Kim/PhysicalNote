@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:intl/intl.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/ui/page/history/intensity/item/history_intensity_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
@@ -20,11 +19,6 @@ mixin HistoryIntensityController on BaseController {
       PagingController<int, HistoryIntensityItemUiState>(
     firstPageKey: 0,
   );
-
-  /// 운동강도 아이템 선택
-  void onPressedIntensityItem(HistoryIntensityItemUiState uiState) {
-    logger.i('운동강도 선택');
-  }
 
   /**
    * 메소드
@@ -52,7 +46,7 @@ mixin HistoryIntensityController on BaseController {
             sportTime: '2시간 10분',
             physicalLevel: 3,
             physicalTime: '2시간',
-            recordDate: '2024.06.23 화요일'));
+            recordDate: DateTime.now()));
     return LoadPage(
       items: toUiState,
       isLastPage: true,
@@ -78,8 +72,7 @@ mixin HistoryIntensityController on BaseController {
   }
 
   /// 운동강도 수정
-  void onPressedIntensityITem(HistoryIntensityItemUiState uiState) {
-    final recordDate = DateFormat('yyyy-MM-dd').parse(uiState.recordDate);
-    _modeIntensityDetail(intensityId: uiState.id, recordDate: recordDate);
+  void onPressedIntensityItem(HistoryIntensityItemUiState uiState) {
+    _modeIntensityDetail(intensityId: uiState.id, recordDate: uiState.recordDate);
   }
 }

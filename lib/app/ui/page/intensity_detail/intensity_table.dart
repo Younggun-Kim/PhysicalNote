@@ -4,7 +4,7 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'package:physical_note/app/utils/extensions/border_extensions.dart';
 
-import 'intensity_level_type.dart';
+import '../data/intensity/intensity_level_type.dart';
 
 /// Intensity 테이블.
 class IntensityTable extends StatelessWidget {
@@ -19,19 +19,7 @@ class IntensityTable extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         children: [
           _TableHeader(),
-          _TableCellOver(
-            level: level,
-            onPressed: onPressed,
-          ),
-          _TableCellVeryHard(
-            level: level,
-            onPressed: onPressed,
-          ),
-          _TableCellHard(
-            level: level,
-            onPressed: onPressed,
-          ),
-          _TableCellNormal(
+          _TableCellVeryEasy(
             level: level,
             onPressed: onPressed,
           ),
@@ -39,10 +27,22 @@ class IntensityTable extends StatelessWidget {
             level: level,
             onPressed: onPressed,
           ),
-          _TableCellVeryEasy(
+          _TableCellNormal(
             level: level,
             onPressed: onPressed,
-          )
+          ),
+          _TableCellHard(
+            level: level,
+            onPressed: onPressed,
+          ),
+          _TableCellVeryHard(
+            level: level,
+            onPressed: onPressed,
+          ),
+          _TableCellOver(
+            level: level,
+            onPressed: onPressed,
+          ),
         ],
       );
 }
@@ -190,7 +190,7 @@ class _TableCellOver extends StatelessWidget {
             Expanded(
               child: _TableDescription(
                 text: IntensityLevelType.over.toDescription(),
-                textLineHeight: 1.2,
+                textLineHeight: 1.5,
               ),
             ),
             Expanded(
@@ -226,7 +226,7 @@ class _TableCellVeryHard extends StatelessWidget {
             Expanded(
               child: _TableDescription(
                 text: IntensityLevelType.veryHard.toDescription(),
-                textLineHeight: 1.2,
+                textLineHeight: 1.5,
               ),
             ),
             Expanded(
@@ -258,9 +258,9 @@ class _TableCellHard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _TableLevel(level: "8"),
-                  SizedBox(height: 24),
                   _TableLevel(level: "7"),
+                  SizedBox(height: 24),
+                  _TableLevel(level: "8"),
                 ],
               ),
             ),
@@ -281,7 +281,7 @@ class _TableCellHard extends StatelessWidget {
             Expanded(
               child: _TableDescription(
                 text: IntensityLevelType.hard.toDescription(),
-                textLineHeight: 1.2,
+                textLineHeight: 1.5,
               ),
             ),
             Expanded(
@@ -325,11 +325,11 @@ class _TableCellNormal extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _TableLevel(level: "6"),
+                  _TableLevel(level: "4"),
                   SizedBox(height: 24),
                   _TableLevel(level: "5"),
                   SizedBox(height: 24),
-                  _TableLevel(level: "4"),
+                  _TableLevel(level: "6"),
                 ],
               ),
             ),
@@ -351,7 +351,7 @@ class _TableCellNormal extends StatelessWidget {
             Expanded(
               child: _TableDescription(
                 text: IntensityLevelType.normal.toDescription(),
-                textLineHeight: 1.2,
+                textLineHeight: 1.5,
               ),
             ),
             Expanded(
@@ -401,9 +401,9 @@ class _TableCellEasy extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _TableLevel(level: "3"),
-                  SizedBox(height: 24),
                   _TableLevel(level: "2"),
+                  SizedBox(height: 24),
+                  _TableLevel(level: "3"),
                 ],
               ),
             ),
@@ -424,7 +424,7 @@ class _TableCellEasy extends StatelessWidget {
             Expanded(
               child: _TableDescription(
                 text: IntensityLevelType.easy.toDescription(),
-                textLineHeight: 1.2,
+                textLineHeight: 1.5,
               ),
             ),
             Expanded(
@@ -473,7 +473,7 @@ class _TableCellVeryEasy extends StatelessWidget {
             Expanded(
               child: _TableDescription(
                 text: IntensityLevelType.veryEasy.toDescription(),
-                textLineHeight: 1.2,
+                textLineHeight: 1.5,
               ),
             ),
             Expanded(
