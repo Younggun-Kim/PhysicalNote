@@ -12,9 +12,10 @@ import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
+import '../interface/history_filter_base.dart';
 import 'item/history_wellness_item_ui_state.dart';
 
-mixin HistoryWellnessController on BaseController {
+mixin HistoryWellnessController on BaseController implements HistoryFilterBase {
   @override
   void onInit() {
     super.onInit();
@@ -41,8 +42,8 @@ mixin HistoryWellnessController on BaseController {
     final wellnessApi = Get.find<WellnessAPI>();
     final response = await wellnessApi.getWellnessList(
       page: pageKey,
-      period: 'ALL',
-      sortDirection: 'ASC',
+      period: dateFilter.value.name.toUpperCase(),
+      sortDirection: orderFilter.value.name.toUpperCase(),
     );
 
     if (response is GetWellnessPaginateModel && response.wellnessList != null) {
@@ -71,13 +72,23 @@ mixin HistoryWellnessController on BaseController {
   }
 
   /// 웰리니스 상세 이동
-  void _moveWellnessDetail(
-      {required int? wellnessId, required DateTime recordDate}) {
+  void _moveWellnessDetail({
+    required int? wellnessId,
+    required DateTime recordDate,
+  }) async {
     final args = WellnessDetailArgs(
       wellnessId: wellnessId,
       recordDate: recordDate,
     );
-    Get.toNamed(RouteType.WELLNESS_DETAIL, arguments: args);
+
+    final response = await Get.toNamed(
+      RouteType.WELLNESS_DETAIL,
+      arguments: args,
+    );
+
+    if (response is bool && response) {
+      onRefreshWellness();
+    }
   }
 
   /// 웰리니스 생성

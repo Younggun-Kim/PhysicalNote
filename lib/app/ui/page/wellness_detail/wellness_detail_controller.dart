@@ -15,8 +15,10 @@ import 'package:physical_note/app/utils/utils.dart';
 import 'item/hooper_index_ui_state.dart';
 import 'wellness_detail_args.dart';
 
-// TODO: 상세 조회 API 추가
 // TODO: FCM 이동 추가
+/**
+ * 등록/수저 성공시 return true;
+ */
 class WellnessDetailController extends BaseController {
   @override
   void onReady() {
@@ -129,7 +131,7 @@ class WellnessDetailController extends BaseController {
 
     if (response is GetWellnessResponseModel) {
       wellnessId.value = response.id;
-      close();
+      close(result: true);
     } else {
       wellnessId.value = null;
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
@@ -154,7 +156,7 @@ class WellnessDetailController extends BaseController {
 
     if (response is GetWellnessResponseModel) {
       wellnessId.value = response.id;
-      close();
+      close(result: true);
     } else {
       wellnessId.value = null;
       final message = (response as ServerResponseFailModel?)?.toastMessage ??

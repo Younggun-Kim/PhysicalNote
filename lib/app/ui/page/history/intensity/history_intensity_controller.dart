@@ -2,12 +2,13 @@ import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/ui/page/history/intensity/item/history_intensity_item_ui_state.dart';
+import 'package:physical_note/app/ui/page/history/interface/history_filter_base.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
-mixin HistoryIntensityController on BaseController {
+mixin HistoryIntensityController on BaseController implements HistoryFilterBase {
   @override
   void onInit() {
     super.onInit();

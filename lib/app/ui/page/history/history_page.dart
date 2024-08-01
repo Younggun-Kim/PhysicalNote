@@ -73,6 +73,7 @@ class HistoryPage extends GetView<HistoryController> {
       );
 }
 
+/// 헤더 영역
 class _Header extends GetView<HistoryController> {
   @override
   Widget build(BuildContext context) => Padding(
@@ -90,24 +91,21 @@ class _Header extends GetView<HistoryController> {
               ),
             ),
             Obx(
-              () => InkWellOver(
+              () => _Filter(
                 key: HistoryPageKeyType.filterButton.key,
-                onTap: () {
-                  controller.setFilterModalVisibility();
+                text: controller.dateFilter.toString(),
+                onPressed: () {
+                  controller.showDateFilterDialog();
                 },
-                child: Row(
-                  children: [
-                    Text(
-                      controller.filter.toString(),
-                      style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: ColorRes.fontBlack),
-                    ),
-                    const SizedBox(width: 14),
-                    SvgPicture.asset(Assets.chevronDownBlack),
-                  ],
-                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Obx(
+              () => _Filter(
+                text: controller.orderFilter.toString(),
+                onPressed: () {
+                  controller.showOrderFilterDialog();
+                },
               ),
             ),
           ],
@@ -115,11 +113,39 @@ class _Header extends GetView<HistoryController> {
       );
 }
 
-class _FloatingButton  extends GetView<HistoryController> {
+/// 필터
+class _Filter extends StatelessWidget {
+  final String text;
+
+  final VoidCallback onPressed;
+
+  const _Filter({super.key, required this.text, required this.onPressed});
+
   @override
   Widget build(BuildContext context) => InkWellOver(
-    onTap: controller.onPressedFloatingButton,
-    borderRadius: BorderRadius.circular(50),
-    child: SvgPicture.asset(Assets.wellnessFloatingButton),
-  );
+        key: key,
+        onTap: onPressed,
+        child: Row(
+          children: [
+            Text(
+              text,
+              style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: ColorRes.fontBlack),
+            ),
+            const SizedBox(width: 14),
+            SvgPicture.asset(Assets.chevronDownBlack),
+          ],
+        ),
+      );
+}
+
+class _FloatingButton extends GetView<HistoryController> {
+  @override
+  Widget build(BuildContext context) => InkWellOver(
+        onTap: controller.onPressedFloatingButton,
+        borderRadius: BorderRadius.circular(50),
+        child: SvgPicture.asset(Assets.wellnessFloatingButton),
+      );
 }

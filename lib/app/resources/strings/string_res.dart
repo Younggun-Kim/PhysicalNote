@@ -72,8 +72,8 @@ class StringRes {
   static final historyFilterAll = _generateId();
   static final historyFilterWeek = _generateId();
   static final historyFilterMonth = _generateId();
-  static final historyFilterLatest = _generateId();
-  static final historyFilterOldest = _generateId();
+  static final historyFilterDesc = _generateId();
+  static final historyFilterAsc = _generateId();
   static final historyFilterProgressInjury = _generateId();
   static final historyFilterHealedInjury = _generateId();
 

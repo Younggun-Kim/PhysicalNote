@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/dialog/dropdown/dropdown_dialog.dart';
 import 'package:physical_note/app/ui/page/history/history_tab_manager.dart';
+import 'package:physical_note/app/ui/page/history/type/history_order_filter_type.dart';
 import 'package:physical_note/app/ui/page/history/type/history_page_key_type.dart';
 import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
 import 'package:physical_note/app/ui/page/history/wellness/history_wellness_controller.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 import 'intensity/history_intensity_controller.dart';
-import 'type/history_filter_type.dart';
+import 'type/history_date_filter_type.dart';
 
-// TODO: 등록 후 리프레시 추가 해야 할 듯
+// TODO: 등록 후 리프레시 추가 해야 할 듯(운동강도, 부상체크)
 class HistoryController extends BaseController
     with
         GetSingleTickerProviderStateMixin,
@@ -27,21 +28,27 @@ class HistoryController extends BaseController
   /// 기록날짜
   DateTime recordDate = DateTime.now();
 
-  /// 현재 필터
-  late final filter = HistoryFilterType.all.obs;
+  /// 날짜 필터
+  @override
+  final dateFilter = HistoryDateFilterType.all.obs;
 
-  /// 각 탭의 필터
-  final _tabFilter = <HistoryFilterType>[
-    HistoryFilterType.all,
-    HistoryFilterType.all,
-    HistoryFilterType.all,
+  /// 각 탭의 날짜 필터
+  final _tabDateFilter = <HistoryDateFilterType>[
+    HistoryDateFilterType.all,
+    HistoryDateFilterType.all,
+    HistoryDateFilterType.all,
   ].obs;
 
-  /// 필터 목록
-  final filterList = <HistoryFilterType>[].obs;
+  /// 순서 필터
+  @override
+  final orderFilter = HistoryOrderFilterType.asc.obs;
 
-  /// 필터 모달 visible
-  final isVisibleFilterModal = false.obs;
+  /// 각 탭의 날짜 필터
+  final _tabOrderFilter = <HistoryOrderFilterType>[
+    HistoryOrderFilterType.asc,
+    HistoryOrderFilterType.asc,
+    HistoryOrderFilterType.asc,
+  ].obs;
 
   /// LifeCycle
   @override
@@ -52,7 +59,6 @@ class HistoryController extends BaseController
       vsync: this,
     );
     _tabManager = HistoryTabManager(_tabController);
-    _setFilterList(_tabManager.tab);
     super.onInit();
   }
 
@@ -72,38 +78,39 @@ class HistoryController extends BaseController
   /// 탭 변경
   void changeTab(int index) {
     _tabManager.changeTab(index: index);
-    _setFilterList(_tabManager.tab);
+    _updateDateFilterByTab();
+    _updateOrderByTab();
   }
 
-  /// 필터 목록 변경
-  void _setFilterList(HistoryTabType tab) {
-    switch (tab) {
-      case HistoryTabType.wellness:
-      case HistoryTabType.intensity:
-        filterList.value = HistoryFilterType.commonList;
-      case HistoryTabType.injury:
-        filterList.value = HistoryFilterType.injuryList;
-    }
-    _updateFilter();
+  /// 탭에 맞춰 날짜 필터 업데이트
+  void _updateDateFilterByTab() {
+    dateFilter.value = _tabDateFilter[_tabController.index];
   }
 
-  /// 현재 필터에 맞게 업데이트
-  void _updateFilter() {
-    filter.value = _tabFilter[_tabController.index];
+  /// 날짜 필터 설정
+  void _setDateFilter(HistoryDateFilterType filter) {
+    var tabFilter = _tabDateFilter.toList();
+    tabFilter[_tabController.index] = filter;
+    _tabDateFilter.value = tabFilter;
+    _updateDateFilterByTab();
   }
 
-  /// 필터 설정
-  void _setFilter(HistoryFilterType newFilter) {
-    var tabFilter = _tabFilter.toList();
-    tabFilter[_tabController.index] = newFilter;
-    _tabFilter.value = tabFilter;
-    _updateFilter();
+  /// 탭에 맞춰 순서 필터 업데이트
+  void _updateOrderByTab() {
+    orderFilter.value = _tabOrderFilter[_tabController.index];
+  }
+
+  /// 순서 필터 설정
+  void _setOrderFilter(HistoryOrderFilterType filter) {
+    var tabFilter = _tabOrderFilter.toList();
+    tabFilter[_tabController.index] = filter;
+    _tabOrderFilter.value = tabFilter;
+    _updateOrderByTab();
   }
 
   /// 필터 모달 visible 설정
-  void setFilterModalVisibility() async {
-    isVisibleFilterModal.value = true;
-
+  void showDateFilterDialog() async {
+    const filterList = HistoryDateFilterType.values;
     final list = filterList.map((e) => e.toString()).toList();
     final response = await Get.dialog(
       DropdownDialog(
@@ -117,11 +124,33 @@ class HistoryController extends BaseController
       transitionDuration: const Duration(milliseconds: 300),
     );
 
-    isVisibleFilterModal.value = false;
+    if (response is String) {
+      final index = list.indexOf(response);
+      _setDateFilter(filterList[index]);
+      onRefreshWellness();
+    }
+  }
+
+  /// 필터 모달 visible 설정
+  void showOrderFilterDialog() async {
+    const filterList = HistoryOrderFilterType.values;
+    final list = filterList.map((e) => e.toString()).toList();
+    final response = await Get.dialog(
+      DropdownDialog(
+        key: HistoryPageKeyType.dropDownDialog.key,
+        items: list,
+        top: 80,
+        right: 20,
+      ),
+      barrierDismissible: true,
+      barrierColor: Colors.transparent,
+      transitionDuration: const Duration(milliseconds: 300),
+    );
 
     if (response is String) {
       final index = list.indexOf(response);
-      _setFilter(filterList[index]);
+      _setOrderFilter(filterList[index]);
+      onRefreshWellness();
     }
   }
 
