@@ -314,4 +314,5 @@ class StringRes {
   static final wellnessGuide = _generateId();
   static final workoutTimeAverage = _generateId();
   static final workoutIntensityAverage = _generateId();
+  static final step = _generateId();
 }

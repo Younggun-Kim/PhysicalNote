@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/ui/dialog/dropdown/dropdown_dialog.dart';
 import 'package:physical_note/app/ui/page/history/history_tab_manager.dart';
+import 'package:physical_note/app/ui/page/history/injury/history_injury_controller.dart';
 import 'package:physical_note/app/ui/page/history/type/history_order_filter_type.dart';
 import 'package:physical_note/app/ui/page/history/type/history_page_key_type.dart';
 import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
@@ -16,7 +17,8 @@ class HistoryController extends BaseController
     with
         GetSingleTickerProviderStateMixin,
         HistoryWellnessController,
-        HistoryIntensityController {
+        HistoryIntensityController,
+        HistoryInjuryController {
   late final HistoryTabManager _tabManager;
 
   TabController get tabController => _tabController;
@@ -164,7 +166,7 @@ class HistoryController extends BaseController
       case HistoryTabType.intensity:
         recordIntensity(recordDate: recordDate);
       case HistoryTabType.injury:
-        break;
+        recordInjury(recordDate: recordDate);
       default:
         break;
     }
