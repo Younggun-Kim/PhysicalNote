@@ -65,7 +65,6 @@ mixin HistoryIntensityController on BaseController
         toUiState[0].thisWeekAverageTime = response.thisWeekAvgWorkoutTime;
         // toUiState[0].sportLevelAverage = response.lastWeekAvgIntensityLevel;
         // toUiState[0].thisWeekAverageTime = response.thisWeekAvgWorkoutTime;
-
       }
 
       return LoadPage(
@@ -81,11 +80,15 @@ mixin HistoryIntensityController on BaseController
   /// 운동강도 상세 이동
   void _modeIntensityDetail({
     required DateTime recordDate,
-  }) {
+  }) async {
     final args = IntensityDetailArgs(
       recordDate: recordDate,
     );
-    Get.toNamed(RouteType.INTENSITY_DETAIL, arguments: args);
+    final result =
+        await Get.toNamed(RouteType.INTENSITY_DETAIL, arguments: args);
+    if (result is bool && result) {
+      onRefreshIntensity();
+    }
   }
 
   /// 운동강도 생성

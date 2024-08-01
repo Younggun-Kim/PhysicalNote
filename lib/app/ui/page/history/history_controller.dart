@@ -108,7 +108,7 @@ class HistoryController extends BaseController
     _updateOrderByTab();
   }
 
-  /// 필터 모달 visible 설정
+  /// 날짜 필터 모달 visible 설정
   void showDateFilterDialog() async {
     const filterList = HistoryDateFilterType.values;
     final list = filterList.map((e) => e.toString()).toList();
@@ -117,7 +117,7 @@ class HistoryController extends BaseController
         key: HistoryPageKeyType.dropDownDialog.key,
         items: list,
         top: 80,
-        right: 20,
+        right: 100,
       ),
       barrierDismissible: true,
       barrierColor: Colors.transparent,
@@ -131,7 +131,7 @@ class HistoryController extends BaseController
     }
   }
 
-  /// 필터 모달 visible 설정
+  /// 순서 필터 모달 visible 설정
   void showOrderFilterDialog() async {
     const filterList = HistoryOrderFilterType.values;
     final list = filterList.map((e) => e.toString()).toList();

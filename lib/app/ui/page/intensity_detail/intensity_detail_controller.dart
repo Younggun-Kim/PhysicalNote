@@ -14,6 +14,11 @@ import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
+/**
+ * 운동강도 등록/수정 컨트롤러
+ *
+ * 등록/수정 성공시 true 리턴
+ */
 class IntensityDetailController extends BaseController {
   final args = Get.arguments as IntensityDetailArgs;
 
@@ -70,8 +75,11 @@ class IntensityDetailController extends BaseController {
   }).toObs(null as IntensityDetailUiState?);
 
   /// 운동강도 - 타임피커 enabled
-  late final timePickerEnabled =
-      _workoutType.behaviorStream.map((event) => event != null).toObs(false);
+  late final timePickerEnabled = _workoutType.behaviorStream
+      .map(
+        (event) => event != null,
+      )
+      .toObs(false);
 
   /**
    * LifeCycle
@@ -228,7 +236,7 @@ class IntensityDetailController extends BaseController {
     if (response is PostIntensityResponseModel) {
       showToast("운동 강도 저장 성공.");
       await Future.delayed(const Duration(seconds: 1));
-      close();
+      close(result: true);
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
@@ -248,7 +256,7 @@ class IntensityDetailController extends BaseController {
     if (response is PostIntensityResponseModel) {
       showToast("운동 강도 저장 성공.");
       await Future.delayed(const Duration(seconds: 1));
-      close();
+      close(result: true);
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
