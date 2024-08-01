@@ -272,14 +272,14 @@ enum MuscleType {
   /// 앞 - 팔 근육.
   static List<MuscleType> getFrontArmMuscles() {
     return [
-      deltoid,
       biceps,
-      brachioradialis,
-      serratusAnterior,
-      rotatorcuff,
-      triceps,
       brachialis,
-      pronatorTeres
+      brachioradialis,
+      deltoid,
+      pronatorTeres,
+      rotatorcuff,
+      serratusAnterior,
+      triceps,
     ];
   }
 
@@ -313,6 +313,31 @@ enum MuscleType {
       quadratusLumborum,
       latissimusDorsi,
       semitendinosus,
+    ];
+  }
+
+  /// 앞 - 하체 - 왼쪽 - 다리 목록
+  static List<MuscleType> getFrontLeftLegMuscles() {
+    return [
+      adductorLongus,
+      adductorMagnus,
+      extensorDigitorumBrevis,
+      extensorDigitorumLongus,
+      gracilis,
+      iliacus,
+      largeRetirement,
+      lateralGastrocnemius,
+      medialGastrocnemius,
+      peroneusBrevis,
+      peroneusLongus,
+      psoasMajor,
+      pubicus,
+      sartorius,
+      semimembranosus,
+      soleus,
+      tensorFasciaeLatae,
+      teresMajor,
+      tibialisAnterior,
     ];
   }
 }
