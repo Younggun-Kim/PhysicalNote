@@ -17,9 +17,6 @@ import 'package:rxdart/rxdart.dart';
 class IntensityDetailController extends BaseController {
   final args = Get.arguments as IntensityDetailArgs;
 
-  /// 운동강도 id
-  late final _intensityId = args.intensityId;
-
   /// 기록 날짜
   late final recordDate = args.recordDate.obs;
 

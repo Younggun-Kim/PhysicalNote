@@ -1,14 +1,19 @@
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/intensity/intensity_api.dart';
+import 'package:physical_note/app/data/intensity/model/get_intensity_paginate_model.dart';
+import 'package:physical_note/app/ui/page/history/intensity/item/history_intensity_item_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/history/intensity/item/history_intensity_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/history/interface/history_filter_base.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
+import 'package:physical_note/app/utils/extensions/list_extension.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
-mixin HistoryIntensityController on BaseController implements HistoryFilterBase {
+mixin HistoryIntensityController on BaseController
+    implements HistoryFilterBase {
   @override
   void onInit() {
     super.onInit();
@@ -39,29 +44,45 @@ mixin HistoryIntensityController on BaseController implements HistoryFilterBase 
   Future<LoadPage<int, HistoryIntensityItemUiState>> _loadPage(
     int pageKey,
   ) async {
-    final toUiState = List.generate(
-        10,
-        (index) => HistoryIntensityItemUiState(
-            id: index + 1,
-            sportLevel: 4,
-            sportTime: '2시간 10분',
-            physicalLevel: 3,
-            physicalTime: '2시간',
-            recordDate: DateTime.now()));
-    return LoadPage(
-      items: toUiState,
-      isLastPage: true,
-      nextPageKey: pageKey + 1,
+    final intensityApi = Get.find<IntensityAPI>();
+    final response = await intensityApi.getIntensityList(
+      pageKey: pageKey,
+      period: dateFilter.value.name.toUpperCase(),
+      sortDirection: orderFilter.value.name.toUpperCase(),
     );
+
+    if (response is GetIntensityPaginateModel &&
+        response.workoutIntensityList != null) {
+      final list = response.workoutIntensityList!;
+      final isLastPage = list.last;
+      var toUiState = list.content
+          .compactMap((e) => historyIntensityItemUiStateFrom(e))
+          .toList();
+
+      if (toUiState.isNotEmpty) {
+        // 0번의 평균 값들 넣기
+        toUiState[0].lastWeekAverageTime = response.lastWeekAvgWorkoutTime;
+        toUiState[0].thisWeekAverageTime = response.thisWeekAvgWorkoutTime;
+        // toUiState[0].sportLevelAverage = response.lastWeekAvgIntensityLevel;
+        // toUiState[0].thisWeekAverageTime = response.thisWeekAvgWorkoutTime;
+
+      }
+
+      return LoadPage(
+        items: toUiState,
+        isLastPage: isLastPage,
+        nextPageKey: pageKey + 1,
+      );
+    } else {
+      return LoadPage(items: [], isLastPage: true, nextPageKey: 0);
+    }
   }
 
   /// 운동강도 상세 이동
   void _modeIntensityDetail({
-    required int? intensityId,
     required DateTime recordDate,
   }) {
     final args = IntensityDetailArgs(
-      intensityId: intensityId,
       recordDate: recordDate,
     );
     Get.toNamed(RouteType.INTENSITY_DETAIL, arguments: args);
@@ -69,11 +90,11 @@ mixin HistoryIntensityController on BaseController implements HistoryFilterBase 
 
   /// 운동강도 생성
   void recordIntensity({required DateTime recordDate}) {
-    _modeIntensityDetail(intensityId: null, recordDate: recordDate);
+    _modeIntensityDetail(recordDate: recordDate);
   }
 
   /// 운동강도 수정
   void onPressedIntensityItem(HistoryIntensityItemUiState uiState) {
-    _modeIntensityDetail(intensityId: uiState.id, recordDate: uiState.recordDate);
+    _modeIntensityDetail(recordDate: uiState.recordDate);
   }
 }

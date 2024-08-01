@@ -22,8 +22,8 @@ class HistoryIntensityItem extends StatelessWidget {
       ? Column(
           children: [
             _Average(
-              lastWeekWorkoutTime: '2시간 30분',
-              weekWorkoutTime: '1시간',
+              lastWeekWorkoutTime: uiState.lastWeekAverageTime,
+              weekWorkoutTime: uiState.thisWeekAverageTime,
             ),
             _Content(uiState: uiState, onPressed: onPressed),
           ],
@@ -32,9 +32,9 @@ class HistoryIntensityItem extends StatelessWidget {
 }
 
 class _Average extends StatelessWidget {
-  final String lastWeekWorkoutTime;
+  final String? lastWeekWorkoutTime;
 
-  final String weekWorkoutTime;
+  final String? weekWorkoutTime;
 
   const _Average({
     required this.lastWeekWorkoutTime,
@@ -62,13 +62,13 @@ class _Average extends StatelessWidget {
                   const SizedBox(height: 18),
                   _WorkoutTimeAverageItem(
                     title: StringRes.lastWeek.tr,
-                    time: lastWeekWorkoutTime,
+                    time: lastWeekWorkoutTime ?? '-',
                     fontColor: ColorRes.grayEdeded,
                   ),
                   const SizedBox(height: 10),
                   _WorkoutTimeAverageItem(
                     title: StringRes.thisWeek.tr,
-                    time: weekWorkoutTime,
+                    time: weekWorkoutTime ?? '-',
                     fontColor: ColorRes.fontBlack,
                   ),
                 ],
@@ -212,9 +212,9 @@ class _Content extends StatelessWidget {
                     Expanded(
                       child: Row(
                         children: [
-                          const SizedBox(width: 8),
+                          SizedBox(width: uiState.sportLevel == 10 ? 0 : 8),
                           _Level(level: uiState.sportLevel),
-                          const SizedBox(width: 24),
+                          SizedBox(width: uiState.sportLevel == 10 ? 12 : 24),
                           _IntensityTime(
                             title: StringRes.sports.tr,
                             time: uiState.sportTime,
@@ -229,9 +229,11 @@ class _Content extends StatelessWidget {
                     Expanded(
                       child: Row(
                         children: [
-                          const SizedBox(width: 24),
+                          SizedBox(
+                              width: uiState.physicalLevel == 10 ? 16 : 24),
                           _Level(level: uiState.physicalLevel),
-                          const SizedBox(width: 24),
+                          SizedBox(
+                              width: uiState.physicalLevel == 10 ? 12 : 24),
                           Expanded(
                             child: _IntensityTime(
                               title: StringRes.physical.tr,
@@ -251,13 +253,13 @@ class _Content extends StatelessWidget {
 }
 
 class _Level extends StatelessWidget {
-  final int level;
+  final int? level;
 
   const _Level({required this.level});
 
   @override
   Widget build(BuildContext context) => Text(
-        level.toString(),
+        level?.toString() ?? '-',
         style: const TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.w700,
@@ -269,7 +271,7 @@ class _Level extends StatelessWidget {
 
 class _IntensityTime extends StatelessWidget {
   final String title;
-  final String time;
+  final String? time;
 
   const _IntensityTime({
     required this.title,
@@ -292,7 +294,7 @@ class _IntensityTime extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            time,
+            time ?? '-',
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,

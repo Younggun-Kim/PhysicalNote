@@ -6,3 +6,10 @@ extension DateEx on DateTime {
     return DateFormat(format, 'ko_KR').format(this);
   }
 }
+
+extension StringToDateEx on String {
+  ///
+  DateTime toDate(String format) {
+    return DateFormat(format, 'ko_KR').parse(this);
+  }
+}
