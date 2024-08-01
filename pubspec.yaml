@@ -99,6 +99,16 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/muscles/front/left_leg/
+    - assets/images/muscles/front/right_leg/
+    - assets/images/muscles/front/left_arm/
+    - assets/images/muscles/front/right_arm/
+    - assets/images/muscles/front/body/
+    - assets/images/muscles/back/left_leg/
+    - assets/images/muscles/back/right_leg/
+    - assets/images/muscles/back/left_arm/
+    - assets/images/muscles/back/right_arm/
+    - assets/images/muscles/back/body/
   fonts:
     - family: NotoSans
       fonts:
