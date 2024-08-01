@@ -34,10 +34,11 @@ class MainScreenPage extends GetView<MainScreenController> {
           ),
           bottomNavigationBar: Obx(() => Container(
                 decoration: const BoxDecoration(
+                  color: Colors.white,
                   border: Border(
                     top: BorderSide(
                       color: ColorRes.borderWhite,
-                      width: 1.0,
+                      width: 0.5,
                     ),
                   ),
                 ),
@@ -50,8 +51,9 @@ class MainScreenPage extends GetView<MainScreenController> {
                   currentIndex: controller.uiState.value.tabIndex.index,
                   selectedLabelStyle: const TextStyle(
                     fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: ColorRes.fontBlack,
+                    height: 20/14
                   ),
                   selectedItemColor: ColorRes.fontBlack,
                   unselectedLabelStyle: const TextStyle(
@@ -63,7 +65,8 @@ class MainScreenPage extends GetView<MainScreenController> {
                     BottomNavigationBarItem(
                       icon: SvgPicture.asset(Assets.navigationHistory),
                       label: StringRes.bottomTabHistory.tr,
-                      activeIcon: SvgPicture.asset(Assets.navigationHistorySelect),
+                      activeIcon:
+                          SvgPicture.asset(Assets.navigationHistorySelect),
                     ),
                     BottomNavigationBarItem(
                       icon: SvgPicture.asset(Assets.navigationHome),
