@@ -22,8 +22,6 @@ class HistoryInjuryItem extends StatelessWidget {
 
   bool get isDisease => uiState.injuryType == InjuryType.disease;
 
-  String get comment => _comment();
-
   @override
   Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -39,114 +37,75 @@ class HistoryInjuryItem extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                SvgPicture.asset(
-                  Assets.frontLeftLegADDUCTORLONGUS,
-                  width: 75,
-                  height: 75,
-                ),
-                const SizedBox(height: 6),
-                _InjuryLevel(
-                  isDisease: isDisease,
-                  type: uiState.injuryLevelType,
-                ),
-              ],
-            ),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        uiState.muscleType?.toKor() ?? '-',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: ColorRes.fontBlack,
-                          height: 26 / 16,
-                          letterSpacing: -0.5,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      _RecoveryDate(
-                        recordDate: uiState.recordDate,
-                        recoveryYn: uiState.recoveryYn,
-                        recoveryDate: uiState.recoveryDate,
-                      ),
-                      const Spacer(),
-                      InkWellOver(
-                        onTap: onPressed,
-                        borderRadius: BorderRadius.circular(20),
-                        child: SvgPicture.asset(
-                          Assets.edit03,
-                          width: 17,
-                          height: 17,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    uiState.injuryType.toString(),
-                    style: const TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: ColorRes.fontBlack,
-                      height: 16 / 10,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  Text(
-                    uiState.injuryLevelType.toString(),
-                    style: const TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: ColorRes.fontBlack,
-                      height: 16 / 10,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  Text(
-                    comment,
-                    style: const TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: ColorRes.fontBlack,
-                      height: 16 / 10,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                ],
+        child: isDisease
+            ? _DiseaseContent(
+                uiState: uiState,
+                onPressedEdit: onPressed,
+              )
+            : _InjuryContent(
+                uiState: uiState,
+                onPressedEdit: onPressed,
               ),
-            ),
-          ],
-        ),
       );
+}
 
-  /// 코멘트 문자열.
-  String _comment() {
-    final isDisease = uiState.injuryType == InjuryType.disease;
-    final comment =
-        isDisease ? uiState.comment : uiState.injuryLevelType.toString() ?? "";
-    final colons = isDisease ? "" : ": ";
-    return "$colons$comment";
-  }
+// 공통 헤더
+class _ItemHeader extends StatelessWidget {
+  final String title;
+
+  final String? recordDate;
+
+  final bool? recoveryYn;
+
+  final String? recoveryDate;
+
+  final VoidCallback onPressedEdit;
+
+  const _ItemHeader({
+    required this.title,
+    required this.recordDate,
+    required this.recoveryYn,
+    required this.recoveryDate,
+    required this.onPressedEdit,
+  });
+
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.fontBlack,
+              height: 26 / 16,
+              letterSpacing: -0.5,
+            ),
+          ),
+          const SizedBox(width: 5),
+          _RecoveryDate(
+            recordDate: recoveryDate,
+            recoveryYn: recoveryYn,
+            recoveryDate: recoveryDate,
+          ),
+          const Spacer(),
+          InkWellOver(
+            onTap: onPressedEdit,
+            borderRadius: BorderRadius.circular(20),
+            child: SvgPicture.asset(
+              Assets.edit03,
+              width: 17,
+              height: 17,
+            ),
+          ),
+        ],
+      );
 }
 
 class _InjuryLevel extends StatelessWidget {
-  final bool isDisease;
-
   final InjuryLevelType? type;
 
   const _InjuryLevel({
-    required this.isDisease,
     required this.type,
   });
 
@@ -200,5 +159,133 @@ class _RecoveryDate extends StatelessWidget {
           height: 16 / 10,
           letterSpacing: -0.5,
         ),
+      );
+}
+
+class _InjuryContent extends StatelessWidget {
+  final HistoryInjuryItemUiState uiState;
+
+  final VoidCallback onPressedEdit;
+
+  const _InjuryContent({
+    required this.uiState,
+    required this.onPressedEdit,
+  });
+
+  String get comment => ': ${uiState.injuryLevelType?.toDescription() ?? ""}';
+
+  @override
+  Widget build(BuildContext context) => Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              SvgPicture.asset(
+                Assets.frontLeftLegADDUCTORLONGUS,
+                width: 75,
+                height: 75,
+              ),
+              const SizedBox(height: 6),
+              _InjuryLevel(
+                type: uiState.injuryLevelType,
+              ),
+            ],
+          ),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _ItemHeader(
+                    title: uiState.muscleType?.toKor() ?? '-',
+                    recordDate: uiState.recordDate,
+                    recoveryYn: uiState.recoveryYn,
+                    recoveryDate: uiState.recoveryDate,
+                    onPressedEdit: onPressedEdit),
+                const SizedBox(height: 16),
+                Text(
+                  uiState.injuryType.toString(),
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontBlack,
+                    height: 16 / 10,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                Text(
+                  uiState.injuryLevelType.toString(),
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontBlack,
+                    height: 16 / 10,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                Text(
+                  comment,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontBlack,
+                    height: 16 / 10,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+}
+
+class _DiseaseContent extends StatelessWidget {
+  final HistoryInjuryItemUiState uiState;
+
+  final VoidCallback onPressedEdit;
+
+  const _DiseaseContent({
+    required this.uiState,
+    required this.onPressedEdit,
+  });
+
+  @override
+  Widget build(BuildContext context) => Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            Assets.disease,
+            width: 75,
+            height: 75,
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _ItemHeader(
+                  title: StringRes.injuryTypeDisease.tr,
+                  recordDate: uiState.recoveryDate ?? '-',
+                  recoveryYn: uiState.recoveryYn,
+                  recoveryDate: uiState.recoveryDate,
+                  onPressedEdit: onPressedEdit,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  uiState.comment ?? '',
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    height: 16 / 10,
+                    letterSpacing: -0.5,
+                    color: ColorRes.fontBlack,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       );
 }

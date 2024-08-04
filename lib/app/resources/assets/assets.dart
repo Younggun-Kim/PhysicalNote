@@ -51,6 +51,7 @@ class Assets {
   static const String chevronRight = 'assets/images/chevron-right.svg';
   static const String codeBrowser = 'assets/images/code_browser.svg';
   static const String delete = 'assets/images/delete.svg';
+  static const String disease = 'assets/images/disease.svg';
   static const String edit03 = 'assets/images/edit03.svg';
   static const String foot = 'assets/images/foot.svg';
   static const String frontBodyEXTERNALOBLIQUE = 'assets/images/muscles/front/body/front_body_EXTERNAL_OBLIQUE.svg';

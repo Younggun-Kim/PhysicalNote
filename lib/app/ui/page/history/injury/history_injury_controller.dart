@@ -69,7 +69,8 @@ mixin HistoryInjuryController on BaseController implements HistoryFilterBase {
           injuryType: InjuryType.disease,
           direction: null,
           bodyPart: null,
-          comment: 'feffefefefefefefeefe',
+          comment:
+              'feffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefe',
         ),
       ],
       isLastPage: true,
