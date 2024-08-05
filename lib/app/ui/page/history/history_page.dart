@@ -90,24 +90,13 @@ class _Header extends GetView<HistoryController> {
                 ),
               ),
             ),
-            Obx(
-              () => _Filter(
-                key: HistoryPageKeyType.filterButton.key,
-                text: controller.dateFilter.toString(),
-                onPressed: () {
-                  controller.showDateFilterDialog();
-                },
-              ),
+            _Filter(
+              key: HistoryPageKeyType.filterButton.key,
+              onPressed: () {
+                controller.showFilterDialog();
+              },
             ),
             const SizedBox(width: 10),
-            Obx(
-              () => _Filter(
-                text: controller.orderFilter.toString(),
-                onPressed: () {
-                  controller.showOrderFilterDialog();
-                },
-              ),
-            ),
           ],
         ),
       );
@@ -115,11 +104,9 @@ class _Header extends GetView<HistoryController> {
 
 /// 필터
 class _Filter extends StatelessWidget {
-  final String text;
-
   final VoidCallback onPressed;
 
-  const _Filter({super.key, required this.text, required this.onPressed});
+  const _Filter({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) => InkWellOver(
@@ -128,7 +115,7 @@ class _Filter extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              text,
+              StringRes.filter.tr,
               style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,

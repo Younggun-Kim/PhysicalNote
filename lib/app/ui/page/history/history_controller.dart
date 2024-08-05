@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/ui/dialog/dropdown/dropdown_dialog.dart';
+import 'package:physical_note/app/ui/dialog/history_filter/history_filter_dialog.dart';
+import 'package:physical_note/app/ui/dialog/history_filter/history_filter_dialog_args.dart';
 import 'package:physical_note/app/ui/page/history/history_tab_manager.dart';
 import 'package:physical_note/app/ui/page/history/injury/history_injury_controller.dart';
 import 'package:physical_note/app/ui/page/history/type/history_order_filter_type.dart';
-import 'package:physical_note/app/ui/page/history/type/history_page_key_type.dart';
 import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
 import 'package:physical_note/app/ui/page/history/wellness/history_wellness_controller.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -51,6 +51,9 @@ class HistoryController extends BaseController
     HistoryOrderFilterType.asc,
     HistoryOrderFilterType.asc,
   ].obs;
+
+  @override
+  final isRecovery = (null as bool?).obs;
 
   /// LifeCycle
   @override
@@ -110,49 +113,40 @@ class HistoryController extends BaseController
     _updateOrderByTab();
   }
 
-  /// 날짜 필터 모달 visible 설정
-  void showDateFilterDialog() async {
-    const filterList = HistoryDateFilterType.values;
-    final list = filterList.map((e) => e.toString()).toList();
-    final response = await Get.dialog(
-      DropdownDialog(
-        key: HistoryPageKeyType.dropDownDialog.key,
-        items: list,
-        top: 80,
-        right: 100,
-      ),
-      barrierDismissible: true,
-      barrierColor: Colors.transparent,
-      transitionDuration: const Duration(milliseconds: 300),
-    );
+  void _onRefresh() {
+    final tab = _tabManager.tab;
 
-    if (response is String) {
-      final index = list.indexOf(response);
-      _setDateFilter(filterList[index]);
-      onRefreshWellness();
+    switch (tab) {
+      case HistoryTabType.wellness:
+        onRefreshWellness();
+      case HistoryTabType.intensity:
+        onRefreshIntensity();
+      case HistoryTabType.injury:
+        onRefreshInjury();
+      default:
+        break;
     }
   }
 
-  /// 순서 필터 모달 visible 설정
-  void showOrderFilterDialog() async {
-    const filterList = HistoryOrderFilterType.values;
-    final list = filterList.map((e) => e.toString()).toList();
+  void showFilterDialog() async {
     final response = await Get.dialog(
-      DropdownDialog(
-        key: HistoryPageKeyType.dropDownDialog.key,
-        items: list,
-        top: 80,
-        right: 20,
+      HistoryFilterDialog(
+        args: HistoryFilterDialogArgs(
+          dateType: dateFilter.value,
+          orderType: orderFilter.value,
+          isRecovery: _tabController.index == 2 ? isRecovery.value : null,
+        ),
       ),
       barrierDismissible: true,
       barrierColor: Colors.transparent,
       transitionDuration: const Duration(milliseconds: 300),
     );
 
-    if (response is String) {
-      final index = list.indexOf(response);
-      _setOrderFilter(filterList[index]);
-      onRefreshWellness();
+    if (response is HistoryFilterDialogArgs) {
+      _setDateFilter(response.dateType);
+      _setOrderFilter(response.orderType);
+      isRecovery.value = response.isRecovery;
+      _onRefresh();
     }
   }
 

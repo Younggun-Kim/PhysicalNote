@@ -173,5 +173,6 @@ class Assets {
   static const String wellnessWeight = 'assets/images/wellness_weight.svg';
   static const String wellnessWeightGreen = 'assets/images/wellness_weight_green.svg';
   static const String xClose = 'assets/images/x-close.svg';
+  static const String xCloseGray = 'assets/images/x-close-gray.svg';
 
 }

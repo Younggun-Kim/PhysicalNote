@@ -296,4 +296,7 @@ final enUs = {
   StringRes.workoutTimeAverage: '운동시간 평균',
   StringRes.workoutIntensityAverage: '운동강도 평균',
   StringRes.step: '단계',
+  StringRes.filter: '필터',
+  StringRes.sortBy: '정렬기준',
+  StringRes.inquiryPeriod: '조회 기간',
 };

@@ -315,4 +315,7 @@ class StringRes {
   static final workoutTimeAverage = _generateId();
   static final workoutIntensityAverage = _generateId();
   static final step = _generateId();
+  static final filter = _generateId();
+  static final sortBy = _generateId();
+  static final inquiryPeriod = _generateId();
 }

@@ -4,10 +4,15 @@ import 'package:physical_note/app/config/constant/injury_level_type.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/data/injury/injury_api.dart';
+import 'package:physical_note/app/data/injury/model/get_injury_response_model.dart';
+import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/history/injury/item/history_injury_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/history/interface/history_filter_base.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -42,9 +47,22 @@ mixin HistoryInjuryController on BaseController implements HistoryFilterBase {
   }
 
   /// 부상체크 목록 조회.
+  /// TODO: API 필요
   Future<LoadPage<int, HistoryInjuryItemUiState>> _loadPage(
     int pageKey,
   ) async {
+    final injuryApi = Get.find<InjuryAPI>();
+    final response = injuryApi.getInjury(
+      recordDate: DateTime.now().toFormattedString('yyyy-MM-dd'),
+      recoveryYn: true,
+      );
+
+    if (response is GetInjuryResponseModel) {
+    } else {
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
+      showToast(message);
+    }
     return LoadPage(
       items: [
         HistoryInjuryItemUiState(
