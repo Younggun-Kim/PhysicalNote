@@ -64,6 +64,7 @@ class Assets {
   static const String frontLeftArmDELTOID = 'assets/images/muscles/front/left_arm/front_left_arm_DELTOID.svg';
   static const String frontLeftArmINFRASPINATUS = 'assets/images/muscles/front/left_arm/front_left_arm_INFRASPINATUS.svg';
   static const String frontLeftArmPRONATORTERES = 'assets/images/muscles/front/left_arm/front_left_arm_PRONATOR_TERES.svg';
+  static const String frontLeftArmROTATORCUFF = 'assets/images/muscles/front/left_arm/front_left_arm_ROTATORCUFF.svg';
   static const String frontLeftArmSERRATUSANTERIOR = 'assets/images/muscles/front/left_arm/front_left_arm_SERRATUS_ANTERIOR.svg';
   static const String frontLeftArmTRICEPS = 'assets/images/muscles/front/left_arm/front_left_arm_TRICEPS.svg';
   static const String frontLeftLegADDUCTORLONGUS = 'assets/images/muscles/front/left_leg/front_left_leg_ADDUCTOR_LONGUS.svg';
@@ -90,6 +91,7 @@ class Assets {
   static const String frontRightArmBRACHIORADIALIS = 'assets/images/muscles/front/right_arm/front_right_arm_BRACHIORADIALIS.svg';
   static const String frontRightArmDELTOID = 'assets/images/muscles/front/right_arm/front_right_arm_DELTOID.svg';
   static const String frontRightArmPRONATORTERES = 'assets/images/muscles/front/right_arm/front_right_arm_PRONATOR_TERES.svg';
+  static const String frontRightArmROTATORCUFF = 'assets/images/muscles/front/right_arm/front_right_arm_ROTATORCUFF.svg';
   static const String frontRightArmSERRATUSANTERIOR = 'assets/images/muscles/front/right_arm/front_right_arm_SERRATUS_ANTERIOR.svg';
   static const String frontRightArmTRICEPS = 'assets/images/muscles/front/right_arm/front_right_arm_TRICEPS.svg';
   static const String frontRightLegADDUCTORLONGUS = 'assets/images/muscles/front/right_leg/front_right_leg_ADDUCTOR_LONGUS.svg';

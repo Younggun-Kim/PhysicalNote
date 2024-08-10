@@ -1,23 +1,19 @@
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:physical_note/app/config/constant/injury_level_type.dart';
-import 'package:physical_note/app/config/constant/injury_type.dart';
-import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/injury/injury_api.dart';
-import 'package:physical_note/app/data/injury/model/get_injury_response_model.dart';
+import 'package:physical_note/app/data/network/model/base_list_model/paginate_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
+import 'package:physical_note/app/ui/page/history/injury/item/history_injury_item_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/history/injury/item/history_injury_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/history/interface/history_filter_base.dart';
-import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
+import 'package:physical_note/app/utils/extensions/list_extension.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
-import '../../injury_check/type/injury_check_direction_type.dart';
 
 mixin HistoryInjuryController on BaseController implements HistoryFilterBase {
   @override
@@ -47,51 +43,34 @@ mixin HistoryInjuryController on BaseController implements HistoryFilterBase {
   }
 
   /// 부상체크 목록 조회.
-  /// TODO: API 필요
   Future<LoadPage<int, HistoryInjuryItemUiState>> _loadPage(
     int pageKey,
   ) async {
     final injuryApi = Get.find<InjuryAPI>();
-    final response = injuryApi.getInjury(
-      recordDate: DateTime.now().toFormattedString('yyyy-MM-dd'),
-      recoveryYn: true,
-      );
+    final response = await injuryApi.getInjuryList(
+      page: pageKey,
+      period: dateFilter.value.name.toUpperCase(),
+      sortDirection: orderFilter.value.name.toUpperCase(),
+      recoveryYn: isRecovery.value ?? true,
+    );
 
-    if (response is GetInjuryResponseModel) {
+    var isLastPage = true;
+    var toUiStates = <HistoryInjuryItemUiState>[];
+
+    if (response is PaginateModel) {
+      isLastPage = response.last;
+      toUiStates = response.content
+          .compactMap((e) => historyInjuryItemUiStateFrom(e))
+          .toList();
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
       showToast(message);
     }
+
     return LoadPage(
-      items: [
-        HistoryInjuryItemUiState(
-          id: 1,
-          injuryLevelType: InjuryLevelType.fromLevel(2),
-          muscleType: MuscleType.adductorMagnus,
-          recoveryYn: true,
-          recordDate: '23.07.15',
-          recoveryDate: '23.08.30',
-          injuryType: InjuryType.contact,
-          direction: InjuryCheckDirectionType.front,
-          bodyPart: InjuryCheckBodyPartsType.leftLeg,
-          comment: 'fefefe',
-        ),
-        HistoryInjuryItemUiState(
-          id: 2,
-          injuryLevelType: null,
-          muscleType: null,
-          recoveryYn: true,
-          recordDate: '23.07.15',
-          recoveryDate: '23.08.30',
-          injuryType: InjuryType.disease,
-          direction: null,
-          bodyPart: null,
-          comment:
-              'feffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefefeffefefefefefefeefe',
-        ),
-      ],
-      isLastPage: true,
+      items: toUiStates,
+      isLastPage: isLastPage,
       nextPageKey: pageKey + 1,
     );
   }

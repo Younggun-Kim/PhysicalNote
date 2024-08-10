@@ -61,6 +61,7 @@ class _ItemHeader extends StatelessWidget {
 
   final VoidCallback onPressedEdit;
 
+
   const _ItemHeader({
     required this.title,
     required this.recordDate,
@@ -181,7 +182,7 @@ class _InjuryContent extends StatelessWidget {
           Column(
             children: [
               SvgPicture.asset(
-                Assets.frontLeftLegADDUCTORLONGUS,
+                uiState.muscleImage,
                 width: 75,
                 height: 75,
               ),
