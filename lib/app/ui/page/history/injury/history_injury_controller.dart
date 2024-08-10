@@ -8,12 +8,12 @@ import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/history/injury/item/history_injury_item_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/history/injury/item/history_injury_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/history/interface/history_filter_base.dart';
+import 'package:physical_note/app/ui/page/injury_detail/injury_detail.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
 import 'package:physical_note/app/utils/extensions/list_extension.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';
-
 
 mixin HistoryInjuryController on BaseController implements HistoryFilterBase {
   @override
@@ -77,13 +77,17 @@ mixin HistoryInjuryController on BaseController implements HistoryFilterBase {
 
   /// 부상관리 상세 이동
   void _modeInjuryDetail({
+    required int? injuryId,
     required DateTime recordDate,
   }) async {
-    final args = IntensityDetailArgs(
+    final args = InjuryDetailArgs(
+      injuryId: injuryId,
       recordDate: recordDate,
     );
-    final result =
-        await Get.toNamed(RouteType.INTENSITY_DETAIL, arguments: args);
+    final result = await Get.toNamed(
+      RouteType.INJURY_DETAIL,
+      arguments: args,
+    );
     if (result is bool && result) {
       onRefreshInjury();
     }
@@ -91,11 +95,12 @@ mixin HistoryInjuryController on BaseController implements HistoryFilterBase {
 
   /// 부상관리 생성
   void recordInjury({required DateTime recordDate}) {
-    _modeInjuryDetail(recordDate: recordDate);
+    _modeInjuryDetail(injuryId: null, recordDate: recordDate);
   }
 
   /// 부상관리 수정
   void onPressedInjuryItem(HistoryInjuryItemUiState uiState) {
-    // _modeInjuryDetail(recordDate: uiState.recordDate);
+    // TODO: 날짜 변경 필요
+    _modeInjuryDetail(injuryId: uiState.id, recordDate: DateTime.now());
   }
 }

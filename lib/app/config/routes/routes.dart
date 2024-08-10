@@ -5,6 +5,7 @@ import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart
 import 'package:physical_note/app/ui/page/find_password/find_password.dart';
 import 'package:physical_note/app/ui/page/information_registration/information_registration.dart';
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide.dart';
+import 'package:physical_note/app/ui/page/injury_detail/injury_detail.dart';
 import 'package:physical_note/app/ui/page/inline_webview/inline_webview.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_bindings.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_page.dart';
@@ -159,6 +160,11 @@ class Routes {
       name: RouteType.INTENSITY_DETAIL,
       page: () => const IntensityDetailPage(),
       binding: IntensityDetailBindings(),
+    ),
+    GetPage(
+      name: RouteType.INJURY_DETAIL,
+      page: () => const InjuryDetailPage(),
+      binding: InjuryDetailBindings(),
     ),
   ];
 }

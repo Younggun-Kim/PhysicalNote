@@ -12,7 +12,6 @@ import 'package:physical_note/app/utils/utils.dart';
 import 'intensity/history_intensity_controller.dart';
 import 'type/history_date_filter_type.dart';
 
-// TODO: 등록 후 리프레시 추가 해야 할 듯(운동강도, 부상체크)
 class HistoryController extends BaseController
     with
         GetSingleTickerProviderStateMixin,
