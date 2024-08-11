@@ -10,6 +10,7 @@ import 'package:physical_note/app/ui/page/injury_detail/injury_detail_pain_sympt
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail_pain_symptom_ui_state.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail_pain_symptom_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
 /// 부상체크 상세 UI
 class InjuryDetailPage extends GetView<InjuryDetailController> {
@@ -17,133 +18,180 @@ class InjuryDetailPage extends GetView<InjuryDetailController> {
 
   @override
   Widget build(BuildContext context) => PageRoot(
-        controller: controller,
-        child: FlexibleScrollView(
-          child: Obx(
-                () => AbsorbPointer(
-              absorbing: controller.isRecovered.value,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 24),
-                  Text(
-                    StringRes.injuryCheck.tr,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
-                      color: ColorRes.fontBlack,
-                    ),
+      controller: controller,
+      child: Column(
+        children: [
+          _Header(),
+          Expanded(child: _InjuryDetailPage()),
+        ],
+      ));
+}
+
+class _InjuryDetailPage extends GetView<InjuryDetailController> {
+  @override
+  Widget build(BuildContext context) => FlexibleScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Obx(
+          () => AbsorbPointer(
+            absorbing: controller.isRecovered.value,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                _Title(),
+                const SizedBox(height: 16),
+                _Date(),
+                const SizedBox(height: 40),
+                Text(
+                  StringRes.injuryLocationSelection.tr,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.fontBlack,
                   ),
-                  Text(
-                    StringRes.painCheckLocation.tr,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: ColorRes.fontDisable,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    StringRes.injuryLocationSelection.tr,
-                    style: const TextStyle(
+                ),
+                const SizedBox(height: 20),
+                _InjuryType(),
+                _Disease(),
+                _Contact(),
+                _MuscleImage(),
+                _Muscles(),
+                const SizedBox(height: 40),
+                _Pain(),
+                const SizedBox(height: 50),
+                const Spacer(),
+                Visibility(
+                  // visible: controller.isShowDetailUi &&
+                  //     controller.injuryRecoveryType.value ==
+                  //         InjuryRecoveryType.progress,
+                  visible: controller.isShowDetailUi,
+                  child: BaseButton(
+                    width: double.infinity,
+                    height: 56,
+                    text: StringRes.recovery.tr,
+                    defaultTextStyle: const TextStyle(
                       fontSize: 16,
+                      color: ColorRes.white,
                       fontWeight: FontWeight.w500,
-                      color: ColorRes.fontBlack,
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  _InjuryType(),
-                  _Disease(),
-                  _Contact(),
-                  const SizedBox(height: 20),
-                  _MuscleImage(),
-                  const SizedBox(height: 20),
-                  _Muscles(),
-                  const SizedBox(height: 40),
-                  _Pain(),
-                  const SizedBox(height: 50),
-                  const Spacer(),
-                  Obx(
-                        () => Visibility(
-                      // visible: controller.isShowDetailUi &&
-                      //     controller.injuryRecoveryType.value ==
-                      //         InjuryRecoveryType.progress,
-                      visible: controller.isShowDetailUi,
-                      child: BaseButton(
-                        width: double.infinity,
-                        height: 56,
-                        text: StringRes.recovery.tr,
-                        defaultTextStyle: const TextStyle(
-                          fontSize: 16,
-                          color: ColorRes.white,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        defaultBackgroundColor: ColorRes.disable,
-                        // onPressed: controller.onPressedInjuryCheckRecovery,
-                        onPressed: () {
-                          controller.showRecoveryDialog();
-                        },
-                      ).marginOnly(bottom: 20),
-                    ),
-                  ),
-                  Obx(
-                        () => Row(
-                      children: [
-                        Visibility(
-                          visible: controller.isShowDetailUi &&
-                              !controller.isRecovered.value,
-                          child: Expanded(
-                            child: BaseButton(
-                              width: double.infinity,
-                              height: 56,
-                              text: StringRes.delete.tr,
-                              defaultTextStyle: const TextStyle(
-                                fontSize: 16,
-                                color: ColorRes.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              defaultBackgroundColor: ColorRes.disable,
-                              onPressed: controller.showDeleteDialog,
+                    defaultBackgroundColor: ColorRes.disable,
+                    // onPressed: controller.onPressedInjuryCheckRecovery,
+                    onPressed: controller.onPressedRecovery,
+                  ).marginOnly(bottom: 20),
+                ),
+                Obx(
+                  () => Row(
+                    children: [
+                      Visibility(
+                        visible: controller.isShowDetailUi &&
+                            !controller.isRecovered.value,
+                        child: Expanded(
+                          child: BaseButton(
+                            width: double.infinity,
+                            height: 56,
+                            text: StringRes.delete.tr,
+                            defaultTextStyle: const TextStyle(
+                              fontSize: 16,
+                              color: ColorRes.white,
+                              fontWeight: FontWeight.w500,
                             ),
+                            defaultBackgroundColor: ColorRes.disable,
+                            onPressed: controller.onPressedDelete,
                           ),
                         ),
-                        Visibility(
-                          visible: controller.isShowDetailUi &&
-                              !controller.isRecovered.value,
-                          child: const SizedBox(
-                            width: 10,
-                          ),
+                      ),
+                      Visibility(
+                        visible: controller.isShowDetailUi &&
+                            !controller.isRecovered.value,
+                        child: const SizedBox(
+                          width: 10,
                         ),
-                        Visibility(
-                          visible: !controller.isRecovered.value,
-                          child: Expanded(
-                            child: BaseButton(
-                              width: double.infinity,
-                              height: 56,
-                              isEnabled: controller.injuryType.value ==
-                                  InjuryType.disease
-                                  ? controller.isEnabledDiseaseSubmit.value
-                                  : controller.isEnabledSubmit.value,
-                              text: StringRes.save.tr,
-                              defaultTextStyle: const TextStyle(
-                                fontSize: 16,
-                                color: ColorRes.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              defaultBackgroundColor: ColorRes.primary,
-                              onPressed: controller.onPressedSubmit,
+                      ),
+                      Visibility(
+                        visible: !controller.isRecovered.value,
+                        child: Expanded(
+                          child: BaseButton(
+                            width: double.infinity,
+                            height: 56,
+                            isEnabled: controller.injuryType.value ==
+                                    InjuryType.disease
+                                ? controller.isEnabledDiseaseSubmit.value
+                                : controller.isEnabledSubmit.value,
+                            text: StringRes.save.tr,
+                            defaultTextStyle: const TextStyle(
+                              fontSize: 16,
+                              color: ColorRes.white,
+                              fontWeight: FontWeight.w500,
                             ),
+                            defaultBackgroundColor: ColorRes.primary,
+                            onPressed: controller.onPressedSubmit,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                ],
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ),
+      );
+}
+
+/// 헤더.
+class _Header extends GetView<InjuryDetailController> {
+  @override
+  Widget build(BuildContext context) => Header(
+        title: '',
+        showBack: true,
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        onPressed: controller.close,
+      );
+}
+
+/// 타이틀
+class _Title extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              StringRes.injuryCheck.tr,
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 20,
+                color: ColorRes.fontBlack,
               ),
             ),
           ),
-        )
+        ],
       );
+}
+
+/// 날짜
+class _Date extends GetView<InjuryDetailController> {
+  String get formattedDate =>
+      controller.recordDate.value.toFormattedString('yy년 M월 d일 (E)');
+
+  @override
+  Widget build(BuildContext context) => Obx(() => InkWellOver(
+        onTap: controller.onPressedCalendar,
+        child: Row(
+          children: [
+            Text(
+              formattedDate,
+              style: const TextStyle(
+                fontSize: 16,
+                color: ColorRes.gray9f9f9f,
+              ),
+            ),
+            const SizedBox(width: 5),
+            SvgPicture.asset(Assets.codeBrowser),
+          ],
+        ),
+      ));
 }
 
 /// 질병.
@@ -265,8 +313,7 @@ class _Contact extends GetView<InjuryDetailController> {
                   children: [
                     BaseButton(
                       text: StringRes.upperBody.tr,
-                      isSelected: controller.bodyType.value ==
-                          BodyType.upper,
+                      isSelected: controller.bodyType.value == BodyType.upper,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
                       selectedBackgroundColor: controller.isRecovered.value
@@ -279,8 +326,7 @@ class _Contact extends GetView<InjuryDetailController> {
                     const SizedBox(width: 10),
                     BaseButton(
                       text: StringRes.lowerBody.tr,
-                      isSelected: controller.bodyType.value ==
-                          BodyType.lower,
+                      isSelected: controller.bodyType.value == BodyType.lower,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
                       selectedBackgroundColor: controller.isRecovered.value
@@ -301,16 +347,15 @@ class _Contact extends GetView<InjuryDetailController> {
                   children: [
                     BaseButton(
                       text: StringRes.torso.tr,
-                      isSelected: controller.bodyPartsType.value ==
-                          BodyPartsType.body,
+                      isSelected:
+                          controller.bodyPartsType.value == BodyPartsType.body,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
                       selectedBackgroundColor: controller.isRecovered.value
                           ? ColorRes.gray9f9f9f
                           : ColorRes.primary,
                       onPressed: () {
-                        controller.onPressedBodyPartsType(
-                            BodyPartsType.body);
+                        controller.onPressedBodyPartsType(BodyPartsType.body);
                       },
                     ),
                     const SizedBox(width: 10),
@@ -324,8 +369,8 @@ class _Contact extends GetView<InjuryDetailController> {
                           ? ColorRes.gray9f9f9f
                           : ColorRes.primary,
                       onPressed: () {
-                        controller.onPressedBodyPartsType(
-                            BodyPartsType.leftArm);
+                        controller
+                            .onPressedBodyPartsType(BodyPartsType.leftArm);
                       },
                     ),
                     const SizedBox(width: 10),
@@ -339,8 +384,8 @@ class _Contact extends GetView<InjuryDetailController> {
                           ? ColorRes.gray9f9f9f
                           : ColorRes.primary,
                       onPressed: () {
-                        controller.onPressedBodyPartsType(
-                            BodyPartsType.rightArm);
+                        controller
+                            .onPressedBodyPartsType(BodyPartsType.rightArm);
                       },
                     ),
                   ],
@@ -361,8 +406,8 @@ class _Contact extends GetView<InjuryDetailController> {
                           ? ColorRes.gray9f9f9f
                           : ColorRes.primary,
                       onPressed: () {
-                        controller.onPressedBodyPartsType(
-                            BodyPartsType.leftLeg);
+                        controller
+                            .onPressedBodyPartsType(BodyPartsType.leftLeg);
                       },
                     ),
                     const SizedBox(width: 10),
@@ -376,8 +421,8 @@ class _Contact extends GetView<InjuryDetailController> {
                           ? ColorRes.gray9f9f9f
                           : ColorRes.primary,
                       onPressed: () {
-                        controller.onPressedBodyPartsType(
-                            BodyPartsType.rightLeg);
+                        controller
+                            .onPressedBodyPartsType(BodyPartsType.rightLeg);
                       },
                     ),
                   ],

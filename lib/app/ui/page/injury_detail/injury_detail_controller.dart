@@ -9,6 +9,7 @@ import 'package:physical_note/app/data/injury/model/put_injury_detail_recovery_r
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/base_dialog.dart';
+import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail_ui_mapper.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
@@ -21,11 +22,21 @@ import 'injury_detail_pain_symptom_ui_state.dart';
 class InjuryDetailController extends BaseController {
   final args = Get.arguments as InjuryDetailArgs;
 
+  @override
+  onReady() {
+    super.onReady();
+
+    final injuryId = args.injuryId;
+    if (injuryId != null) {
+      _loadInjuryDetail(injuryId);
+    }
+  }
+
+  /// 등록일
+  late final recordDate = args.recordDate.obs;
+
   /// 상세(or 수정)일 때 ui 노출 플래그.
   bool get isShowDetailUi => args.injuryId != null;
-
-  // TODO: UI에 맞게 변경 필요
-  var injuryCheckDate = DateTime.now().obs;
 
   /// 부상 타입.
   final injuryType = InjuryType.nonContact.obs;
@@ -137,6 +148,23 @@ class InjuryDetailController extends BaseController {
   /// 완치여부
   final isRecovered = false.obs;
 
+  /// 달력 클릭.
+  Future<void> onPressedCalendar() async {
+    final response = await Get.dialog(
+      CalendarDialog(
+        currentDate: recordDate.value,
+        focusedDate: recordDate.value,
+      ),
+    );
+
+    final newDateTime = response as DateTime?;
+
+    if (newDateTime != null) {
+      recordDate.value = newDateTime;
+      // _loadInjuryDetail(args.injuryId);
+    }
+  }
+
   /// 부상 타입 클릭.
   void onPressedInjuryType(InjuryType type) {
     injuryType.value = type;
@@ -197,29 +225,6 @@ class InjuryDetailController extends BaseController {
     painTimingWorkout.value = newValue;
   }
 
-  /// Svg Path 색상 변경. - Path가 한줄일 때
-  String changeSvgPathColor(String svgString, String pathId, String color) {
-    var svgList = svgString.split("\n");
-
-    logger.i(svgList);
-    var pathIndex =
-        svgList.indexWhere((element) => element.contains('id="$pathId"'));
-    var pathString = svgList[pathIndex];
-    var colorIndex = pathString.indexOf('fill="#');
-
-    if (colorIndex == -1) {
-      return "";
-    }
-
-    final startIndex = colorIndex + 7;
-    final endIndex = colorIndex + 13;
-    final colorChangedPath =
-        pathString.replaceRange(startIndex, endIndex, color);
-    svgList[pathIndex] = colorChangedPath;
-
-    return svgList.join("\n");
-  }
-
   /// 근육 Svg String 설정.
   void _setMuscleSvgStringFrom() async {
     final direction = directionType.value;
@@ -271,9 +276,48 @@ class InjuryDetailController extends BaseController {
     muscleImage.value = muscleImageString;
   }
 
+  /// 완치 버튼 클릭
+  void onPressedRecovery() {
+    Get.dialog(
+      BaseDialog(
+          text: StringRes.recoveryCompleteQuestion.tr,
+          yesText: StringRes.yes.tr,
+          onPressedYes: () async {
+            final result = await _recoveryInjury();
+            Get.back();
+            await Future.delayed(const Duration(milliseconds: 500));
+            close(result: result);
+          },
+          noText: StringRes.no.tr,
+          onPressedNo: () {
+            Get.back();
+          }),
+      barrierDismissible: true,
+    );
+  }
+
+  /// 삭제 버튼 클릭.
+  void onPressedDelete() {
+    Get.dialog(
+      BaseDialog(
+          text: StringRes.deleteDialog.tr,
+          yesText: StringRes.yes.tr,
+          onPressedYes: () async {
+            final bool result = await _deleteInjury();
+            Get.back();
+            await Future.delayed(const Duration(milliseconds: 500));
+            close(result: result);
+          },
+          noText: StringRes.no.tr,
+          onPressedNo: () {
+            Get.back();
+          }),
+      barrierDismissible: true,
+    );
+  }
+
   /// API - 부상 체크 등록 / 수정.
-  Future<bool> onPressedSubmit() async {
-    var result = false;
+  Future onPressedSubmit() async {
     final requestData = _getRequestData();
     final injuryApi = Get.find<InjuryAPI>();
     final id = args.injuryId;
@@ -294,7 +338,9 @@ class InjuryDetailController extends BaseController {
 
     if (response is PostInjuryResponseModel) {
       if (response.id != null) {
-        result = true;
+        showToast("부상 체크 저장 성공.");
+        await Future.delayed(const Duration(seconds: 1));
+        close(result: true);
       }
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
@@ -303,8 +349,6 @@ class InjuryDetailController extends BaseController {
     }
 
     setLoading(false);
-
-    return result;
   }
 
   /// 등록/수정 RequestData
@@ -344,7 +388,7 @@ class InjuryDetailController extends BaseController {
       requestData = PostInjuryRequestModel(
         injuryType: injuryTypeKey,
         comment: comment,
-        recordDate: injuryCheckDate.value.toFormattedString("yyyy-MM-dd"),
+        recordDate: recordDate.value.toFormattedString("yyyy-MM-dd"),
       );
     } else {
       requestData = PostInjuryRequestModel(
@@ -357,7 +401,7 @@ class InjuryDetailController extends BaseController {
         painCharacteristicList: symptoms,
         painTimes: painTime,
         comment: comment,
-        recordDate: injuryCheckDate.value.toFormattedString("yyyy-MM-dd"),
+        recordDate: recordDate.value.toFormattedString("yyyy-MM-dd"),
       );
     }
 
@@ -389,7 +433,7 @@ class InjuryDetailController extends BaseController {
 
   /// API - 부상 정보 삭제..
   Future<bool> _deleteInjury() async {
-    var result = false;
+    bool result = false;
     final injuryId = args.injuryId;
     if (injuryId == null) {
       return result;
@@ -397,90 +441,56 @@ class InjuryDetailController extends BaseController {
 
     setLoading(true);
     final injuryApi = Get.find<InjuryAPI>();
-
     final response = await injuryApi.deleteInjury(injuryId: injuryId);
+    String? message = '';
 
     if (response is DeleteInjuryResponseModel && response.deleted == true) {
       close(result: true);
       result = true;
+      message = response.message;
     } else {
-      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+      message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
+    }
+
+    if (message != null) {
       showToast(message);
-      result = false;
+      await Future.delayed(const Duration(seconds: 1));
     }
 
     setLoading(false);
     return result;
   }
 
-  /// 삭제 버튼 클릭.
-  Future<bool> onPressedInjuryCheckDelete() async {
-    return await _deleteInjury();
-  }
-
-
-  /// 부상 완치 클릭
-
-  /// 부상관리 - 부상체크 삭제 성공시.
-  Future<bool> onPressedInjuryCheckRecovery() async {
+  /// API - 부상 완치.
+  Future<bool> _recoveryInjury() async {
     var injuryId = args.injuryId;
     var result = false;
     if (injuryId == null) {
+      logger.e('유효하지 않은 부상입니다.');
       return result;
     }
 
-    final injuryApi = Get.find<InjuryAPI>();
-
     setLoading(true);
-    final response =
-    await injuryApi.putInjuryDetailRecovery(userInjuryId: injuryId);
+    String? message;
+    final injuryApi = Get.find<InjuryAPI>();
+    final response = await injuryApi.putInjuryDetailRecovery(
+      userInjuryId: injuryId,
+    );
 
     if (response is PutInjuryDetailRecoveryResponseModel &&
         response.status == true) {
+      message = response.message;
       result = true;
     } else {
-      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+      message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
-      showToast(message);
     }
 
+    if (message != null) {
+      showToast(message);
+    }
     setLoading(false);
-
     return result;
-  }
-
-  void showRecoveryDialog() {
-    Get.dialog(
-      BaseDialog(
-          text: StringRes.recoveryCompleteQuestion.tr,
-          yesText: StringRes.yes.tr,
-          onPressedYes: () async {
-            await onPressedInjuryCheckRecovery();
-            Get.back();
-          },
-          noText: StringRes.no.tr,
-          onPressedNo: () {
-            Get.back();
-          }),
-      barrierDismissible: true,
-    );
-  }
-
-  void showDeleteDialog() {
-    Get.dialog(
-      BaseDialog(
-          text: StringRes.deleteDialog.tr,
-          yesText: StringRes.yes.tr,
-          onPressedYes: () async {
-            await onPressedInjuryCheckDelete();
-            Get.back();
-          },
-          noText: StringRes.no.tr,
-          onPressedNo: () {
-            Get.back();
-          }),
-      barrierDismissible: true,
-    );
   }
 }

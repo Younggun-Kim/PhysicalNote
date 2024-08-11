@@ -1,4 +1,5 @@
 import 'package:physical_note/app/config/constant/index.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
 class HistoryInjuryItemUiState {
   final int id;
@@ -7,7 +8,7 @@ class HistoryInjuryItemUiState {
   final MuscleType? muscleType;
   final DistinctionType? direction;
   final BodyPartsType? bodyPart;
-  final String? recordDate;
+  final String recordDate;
   final String? comment;
   final bool? recoveryYn;
   final String? recoveryDate;
@@ -26,4 +27,7 @@ class HistoryInjuryItemUiState {
     required this.recoveryDate,
     required this.muscleImage,
   });
+
+  /// formatted Record Date
+  DateTime get formattedRecordDate => recordDate.toDate('yyy-MM-dd');
 }

@@ -52,7 +52,7 @@ class HistoryController extends BaseController
   ].obs;
 
   @override
-  final isRecovery = (null as bool?).obs;
+  final isRecovery = true.obs;
 
   /// LifeCycle
   @override
@@ -133,7 +133,7 @@ class HistoryController extends BaseController
         args: HistoryFilterDialogArgs(
           dateType: dateFilter.value,
           orderType: orderFilter.value,
-          isRecovery: _tabController.index == 2 ? isRecovery.value : null,
+          isRecovery: _tabManager.tab.index == 2 ? isRecovery.value : null,
         ),
       ),
       barrierDismissible: true,

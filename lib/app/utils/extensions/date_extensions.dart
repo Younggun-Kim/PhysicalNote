@@ -8,7 +8,7 @@ extension DateEx on DateTime {
 }
 
 extension StringToDateEx on String {
-  ///
+  /// String To Date
   DateTime toDate(String format) {
     return DateFormat(format, 'ko_KR').parse(this);
   }

@@ -9,7 +9,6 @@ import 'package:physical_note/app/ui/page/history/injury/item/history_injury_ite
 import 'package:physical_note/app/ui/page/history/injury/item/history_injury_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/history/interface/history_filter_base.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail.dart';
-import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
 import 'package:physical_note/app/utils/extensions/list_extension.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
@@ -100,7 +99,9 @@ mixin HistoryInjuryController on BaseController implements HistoryFilterBase {
 
   /// 부상관리 수정
   void onPressedInjuryItem(HistoryInjuryItemUiState uiState) {
-    // TODO: 날짜 변경 필요
-    _modeInjuryDetail(injuryId: uiState.id, recordDate: DateTime.now());
+    _modeInjuryDetail(
+      injuryId: uiState.id,
+      recordDate: uiState.formattedRecordDate,
+    );
   }
 }
