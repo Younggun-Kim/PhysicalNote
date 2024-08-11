@@ -52,7 +52,7 @@ class HistoryController extends BaseController
   ].obs;
 
   @override
-  final isRecovery = true.obs;
+  final isRecovery = (null as bool?).obs;
 
   /// LifeCycle
   @override
@@ -127,13 +127,15 @@ class HistoryController extends BaseController
     }
   }
 
+  /// 필터 다이얼로그 보기.
   void showFilterDialog() async {
     final response = await Get.dialog(
       HistoryFilterDialog(
         args: HistoryFilterDialogArgs(
           dateType: dateFilter.value,
           orderType: orderFilter.value,
-          isRecovery: _tabManager.tab.index == 2 ? isRecovery.value : null,
+          isVisibleRecovery: _tabManager.tab.index == 2,
+          isRecovery: isRecovery.value,
         ),
       ),
       barrierDismissible: true,

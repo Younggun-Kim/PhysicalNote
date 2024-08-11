@@ -50,7 +50,7 @@ mixin HistoryInjuryController on BaseController implements HistoryFilterBase {
       page: pageKey,
       period: dateFilter.value.name.toUpperCase(),
       sortDirection: orderFilter.value.name.toUpperCase(),
-      recoveryYn: isRecovery.value ?? true,
+      recoveryYn: isRecovery.value,
     );
 
     var isLastPage = true;

@@ -8,12 +8,14 @@ class HistoryFilterDialogArgs {
   final HistoryOrderFilterType orderType;
 
   /// 부상 완치여부 - 부상 관리에서만Ï 사용
-  /// null이면 화면에서 안 보임
   final bool? isRecovery;
+
+  final bool isVisibleRecovery;
 
   HistoryFilterDialogArgs({
     required this.dateType,
     required this.orderType,
+    required this.isVisibleRecovery,
     required this.isRecovery,
   });
 }

@@ -147,15 +147,17 @@ class InjuryAPI extends API {
     required int page,
     required String period,
     required String sortDirection,
-    required bool recoveryYn,
+    required bool? recoveryYn,
   }) async {
     try {
-
       List<String> params = [];
       params.add('page=$page');
       params.add('period=$period');
       params.add('sortDirection=$sortDirection');
-      params.add('recoveryYn=$recoveryYn');
+
+      if (recoveryYn != null) {
+        params.add('recoveryYn=$recoveryYn');
+      }
 
       final response = await get(
         requestUrl + "/list?${params.join('&')}",
