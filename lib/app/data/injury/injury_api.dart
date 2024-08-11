@@ -150,9 +150,6 @@ class InjuryAPI extends API {
     required bool recoveryYn,
   }) async {
     try {
-      logger.i(
-        "getInjuryList page-$page period-$period sortDirection-$sortDirection recoveryYn-$recoveryYn",
-      );
 
       List<String> params = [];
       params.add('page=$page');

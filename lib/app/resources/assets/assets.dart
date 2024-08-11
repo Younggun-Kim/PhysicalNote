@@ -22,6 +22,7 @@ class Assets {
   static const String backLeftLegILIOTIBIALBAND = 'assets/images/muscles/back/left_leg/back_left_leg_ILIOTIBIAL_BAND.svg';
   static const String backLeftLegRECTUSFEMORIS = 'assets/images/muscles/back/left_leg/back_left_leg_RECTUS_FEMORIS.svg';
   static const String backLeftLegSARTORIUS = 'assets/images/muscles/back/left_leg/back_left_leg_SARTORIUS.svg';
+  static const String backLeftLegSEMIMEMBRANOSUS = 'assets/images/muscles/back/left_leg/back_left_leg_SEMIMEMBRANOSUS.svg';
   static const String backLeftLegSOLEUS = 'assets/images/muscles/back/left_leg/back_left_leg_SOLEUS.svg';
   static const String backRightArmBRACHIORADIALIS = 'assets/images/muscles/back/right_arm/back_right_arm_BRACHIORADIALIS.svg';
   static const String backRightArmDELTOID = 'assets/images/muscles/back/right_arm/back_right_arm_DELTOID.svg';
@@ -37,6 +38,7 @@ class Assets {
   static const String backRightLegILIOTIBIALBAND = 'assets/images/muscles/back/right_leg/back_right_leg_ILIOTIBIAL_BAND.svg';
   static const String backRightLegRECTUSFEMORIS = 'assets/images/muscles/back/right_leg/back_right_leg_RECTUS_FEMORIS.svg';
   static const String backRightLegSARTORIUS = 'assets/images/muscles/back/right_leg/back_right_leg_SARTORIUS.svg';
+  static const String backRightLegSEMIMEMBRANOSUS = 'assets/images/muscles/back/right_leg/back_right_leg_SEMIMEMBRANOSUS.svg';
   static const String backRightLegSOLEUS = 'assets/images/muscles/back/right_leg/back_right_leg_SOLEUS.svg';
   static const String backgroundBottom = 'assets/images/background_bottom.svg';
   static const String backgroundTop = 'assets/images/background_top.svg';

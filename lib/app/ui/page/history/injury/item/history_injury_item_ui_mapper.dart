@@ -8,7 +8,7 @@ extension HistoryInjuryItemUiMapper on HistoryInjuryController {
   HistoryInjuryItemUiState? historyInjuryItemUiStateFrom(
       InjuryResponseModel model) {
     final id = model.id;
-    final recordDate = model.recoveryDate;
+    final recordDate = model.recordDate;
 
     if (id == null || recordDate == null) {
       return null;

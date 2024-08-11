@@ -349,12 +349,11 @@ class MuscleUtils {
               return null;
           }
         case BodyPartsType.leftLeg:
-          switch(muscle) {
+          switch (muscle) {
             case MuscleType.gluteus:
               return Assets.backLeftLegGLUTEUS;
             case MuscleType.semimembranosus:
-              // TODO: 장경인대 이미지 변경 필요
-              return Assets.backLeftLegGLUTEUS;
+              return Assets.backLeftLegSEMIMEMBRANOSUS;
             case MuscleType.rectusFemoris:
               return Assets.backLeftLegRECTUSFEMORIS;
             case MuscleType.gracilis:
@@ -371,12 +370,11 @@ class MuscleUtils {
               return null;
           }
         case BodyPartsType.rightLeg:
-          switch(muscle) {
+          switch (muscle) {
             case MuscleType.gluteus:
               return Assets.backRightLegGLUTEUS;
             case MuscleType.semimembranosus:
-            // TODO: 장경인대 이미지 변경 필요
-              return Assets.backRightLegGLUTEUS;
+              return Assets.backRightLegSEMIMEMBRANOSUS;
             case MuscleType.rectusFemoris:
               return Assets.backRightLegRECTUSFEMORIS;
             case MuscleType.gracilis:
