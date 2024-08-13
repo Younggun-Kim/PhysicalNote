@@ -75,6 +75,7 @@ class Assets {
   static const String frontLeftLegEXTENSORDIGITORUMLONGUS = 'assets/images/muscles/front/left_leg/front_left_leg_EXTENSOR_DIGITORUM_LONGUS.svg';
   static const String frontLeftLegGRACILIS = 'assets/images/muscles/front/left_leg/front_left_leg_GRACILIS.svg';
   static const String frontLeftLegILIACUS = 'assets/images/muscles/front/left_leg/front_left_leg_ILIACUS.svg';
+  static const String frontLeftLegILIOTIBIALBAND = 'assets/images/muscles/front/left_leg/front_left_leg_ILIOTIBIAL_BAND.svg';
   static const String frontLeftLegLARGERETIREMENT = 'assets/images/muscles/front/left_leg/front_left_leg_LARGE_RETIREMENT.svg';
   static const String frontLeftLegLATERALGASTROCNEMIUS = 'assets/images/muscles/front/left_leg/front_left_leg_LATERAL_GASTROCNEMIUS.svg';
   static const String frontLeftLegMEDIALGASTROCNEMIUS = 'assets/images/muscles/front/left_leg/front_left_leg_MEDIAL_GASTROCNEMIUS.svg';
@@ -102,6 +103,7 @@ class Assets {
   static const String frontRightLegEXTENSORDIGITORUMLONGUS = 'assets/images/muscles/front/right_leg/front_right_leg_EXTENSOR_DIGITORUM_LONGUS.svg';
   static const String frontRightLegGRACILIS = 'assets/images/muscles/front/right_leg/front_right_leg_GRACILIS.svg';
   static const String frontRightLegILIACUS = 'assets/images/muscles/front/right_leg/front_right_leg_ILIACUS.svg';
+  static const String frontRightLegILIOTIBIALBAND = 'assets/images/muscles/front/right_leg/front_right_leg_ILIOTIBIAL_BAND.svg';
   static const String frontRightLegLARGERETIREMENT = 'assets/images/muscles/front/right_leg/front_right_leg_LARGE_RETIREMENT.svg';
   static const String frontRightLegLATERALGASTROCNEMIUS = 'assets/images/muscles/front/right_leg/front_right_leg_LATERAL_GASTROCNEMIUS.svg';
   static const String frontRightLegMEDIALGASTROCNEMIUS = 'assets/images/muscles/front/right_leg/front_right_leg_MEDIAL_GASTROCNEMIUS.svg';

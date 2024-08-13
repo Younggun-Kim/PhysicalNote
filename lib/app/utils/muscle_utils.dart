@@ -216,8 +216,8 @@ class MuscleUtils {
               return Assets.frontLeftLegLATERALGASTROCNEMIUS;
             case MuscleType.largeRetirement:
               return Assets.frontLeftLegLARGERETIREMENT;
-            case MuscleType.semimembranosus:
-              return Assets.frontLeftLegSEMIMEMBRANOSUS;
+            case MuscleType.iliotibialBAND:
+              return Assets.frontLeftLegILIOTIBIALBAND;
             case MuscleType.extensorDigitorumLongus:
               return Assets.frontLeftLegEXTENSORDIGITORUMLONGUS;
             case MuscleType.tibialisAnterior:
@@ -259,8 +259,8 @@ class MuscleUtils {
               return Assets.frontRightLegLATERALGASTROCNEMIUS;
             case MuscleType.largeRetirement:
               return Assets.frontRightLegLARGERETIREMENT;
-            case MuscleType.semimembranosus:
-              return Assets.frontRightLegSEMIMEMBRANOSUS;
+            case MuscleType.iliotibialBAND:
+              return Assets.frontRightLegILIOTIBIALBAND;
             case MuscleType.extensorDigitorumLongus:
               return Assets.frontRightLegEXTENSORDIGITORUMLONGUS;
             case MuscleType.tibialisAnterior:
@@ -352,8 +352,8 @@ class MuscleUtils {
           switch (muscle) {
             case MuscleType.gluteus:
               return Assets.backLeftLegGLUTEUS;
-            case MuscleType.semimembranosus:
-              return Assets.backLeftLegSEMIMEMBRANOSUS;
+            case MuscleType.iliotibialBAND:
+              return Assets.backLeftLegILIOTIBIALBAND;
             case MuscleType.rectusFemoris:
               return Assets.backLeftLegRECTUSFEMORIS;
             case MuscleType.gracilis:
@@ -373,8 +373,8 @@ class MuscleUtils {
           switch (muscle) {
             case MuscleType.gluteus:
               return Assets.backRightLegGLUTEUS;
-            case MuscleType.semimembranosus:
-              return Assets.backRightLegSEMIMEMBRANOSUS;
+            case MuscleType.iliotibialBAND:
+              return Assets.backRightLegILIOTIBIALBAND;
             case MuscleType.rectusFemoris:
               return Assets.backRightLegRECTUSFEMORIS;
             case MuscleType.gracilis:
