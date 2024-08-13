@@ -175,7 +175,7 @@ class _InjuryState extends StatelessWidget {
               Expanded(
                 child: _Button(
                   text: StringRes.historyFilterProgressInjury.tr,
-                  isSelected: isRecovery == true,
+                  isSelected: isRecovery == false,
                   onPressed: () {
                     onPressed(false);
                   },
@@ -185,7 +185,7 @@ class _InjuryState extends StatelessWidget {
               Expanded(
                 child: _Button(
                   text: StringRes.historyFilterHealedInjury.tr,
-                  isSelected: isRecovery == false,
+                  isSelected: isRecovery == true,
                   onPressed: () {
                     onPressed(true);
                   },
