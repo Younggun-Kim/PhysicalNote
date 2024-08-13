@@ -23,8 +23,8 @@ extension HistoryInjuryItemUiMapper on HistoryInjuryController {
       muscleType: muscleType,
       direction: direction,
       bodyPart: bodyPart,
-      recordDate: recordDate,
       comment: model.comment,
+      recordDate: recordDate,
       recoveryYn: model.recoveryYn,
       recoveryDate: model.recoveryDate,
       muscleImage: MuscleUtils.getMusclePartAsset(

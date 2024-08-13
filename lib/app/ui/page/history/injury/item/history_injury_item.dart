@@ -85,7 +85,7 @@ class _ItemHeader extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           _RecoveryDate(
-            recordDate: recoveryDate,
+            recordDate: recordDate,
             recoveryYn: recoveryYn,
             recoveryDate: recoveryDate,
           ),
