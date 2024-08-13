@@ -62,8 +62,11 @@ class HistoryPage extends GetView<HistoryController> {
                   HistoryIntensityPage(
                     key: HistoryPageKeyType.intensity.key,
                   ),
-                  HistoryInjuryPage(
-                    key: HistoryPageKeyType.injury.key,
+                  SizedBox(
+                    height: double.infinity,
+                    child: HistoryInjuryPage(
+                      key: HistoryPageKeyType.injury.key,
+                    ),
                   ),
                 ],
               ),

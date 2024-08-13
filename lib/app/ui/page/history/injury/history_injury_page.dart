@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/history/history.dart';
 
 import 'item/history_injury_item.dart';
@@ -19,7 +20,8 @@ class _List extends GetView<HistoryController> {
   Widget build(BuildContext context) => Stack(
         children: [
           RefreshIndicator(
-            color: Colors.black,
+            color: ColorRes.primary,
+            backgroundColor: ColorRes.white,
             onRefresh: controller.onRefreshInjury,
             child: PagedListView<int, HistoryInjuryItemUiState>.separated(
               shrinkWrap: true,

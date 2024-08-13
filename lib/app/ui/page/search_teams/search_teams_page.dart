@@ -103,6 +103,8 @@ class _CoachList extends GetView<SearchTeamsController> {
         child: Stack(
           children: [
             RefreshIndicator(
+              color: ColorRes.primary,
+              backgroundColor: ColorRes.white,
               onRefresh: controller.onRefresh,
               child: PagedListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
