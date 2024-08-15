@@ -302,4 +302,6 @@ final koKr = {
   StringRes.inquiryPeriod: '조회 기간',
   StringRes.todayTraining: '오늘의 훈련',
   StringRes.noRegisteredTrainingToday: '오늘 등록된 훈련이 없습니다.',
+  StringRes.beCarefulWorkingOutToday: '오늘 운동할때 주의하세요!',
+  StringRes.moreShow: '더보기',
 };

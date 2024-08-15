@@ -10,7 +10,7 @@ class HomeTodayTrainingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: const EdgeInsets.only(right: 24),
+        margin: const EdgeInsets.symmetric(horizontal: 24),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: ColorRes.thirdPrimary,

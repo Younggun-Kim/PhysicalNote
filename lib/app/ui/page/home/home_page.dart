@@ -1029,10 +1029,11 @@ class _StatisticsChart extends StatelessWidget {
 
   /// 마커(툴팁).
   get lineTouchData => const LineTouchData(
-          touchTooltipData: LineTouchTooltipData(
-        tooltipBgColor: ColorRes.white,
-        tooltipBorder: BorderSide(color: ColorRes.disable),
-      ));
+        touchTooltipData: LineTouchTooltipData(
+          tooltipBgColor: ColorRes.white,
+          tooltipBorder: BorderSide(color: ColorRes.disable),
+        ),
+      );
 
   /// Bar 데이터.
   List<LineChartBarData> get lineBarData =>

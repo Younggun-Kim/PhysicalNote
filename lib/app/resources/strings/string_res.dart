@@ -320,4 +320,6 @@ class StringRes {
   static final inquiryPeriod = _generateId();
   static final todayTraining = _generateId();
   static final noRegisteredTrainingToday = _generateId();
+  static final beCarefulWorkingOutToday = _generateId();
+  static final moreShow = _generateId();
 }
