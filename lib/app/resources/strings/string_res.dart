@@ -318,4 +318,6 @@ class StringRes {
   static final filter = _generateId();
   static final sortBy = _generateId();
   static final inquiryPeriod = _generateId();
+  static final todayTraining = _generateId();
+  static final noRegisteredTrainingToday = _generateId();
 }

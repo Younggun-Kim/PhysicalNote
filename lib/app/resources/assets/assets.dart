@@ -55,6 +55,7 @@ class Assets {
   static const String delete = 'assets/images/delete.svg';
   static const String disease = 'assets/images/disease.svg';
   static const String edit03 = 'assets/images/edit03.svg';
+  static const String editGreen = 'assets/images/edit_green.svg';
   static const String foot = 'assets/images/foot.svg';
   static const String frontBodyEXTERNALOBLIQUE = 'assets/images/muscles/front/body/front_body_EXTERNAL_OBLIQUE.svg';
   static const String frontBodyPECTORALISMAJOR = 'assets/images/muscles/front/body/front_body_PECTORALIS_MAJOR.svg';
@@ -124,10 +125,12 @@ class Assets {
   static const String icChevronright = 'assets/images/ic_chevronright.svg';
   static const String icNotification = 'assets/images/ic_notification.svg';
   static const String imgEmail = 'assets/images/img_email.png';
+  static const String injuryIcon = 'assets/images/injury_icon.svg';
   static const String injuryRiskMan1 = 'assets/images/injury_risk_man1.png';
   static const String injuryRiskMan2 = 'assets/images/injury_risk_man2.png';
   static const String injuryRiskMan3 = 'assets/images/injury_risk_man3.png';
   static const String injuryRiskMan4 = 'assets/images/injury_risk_man4.png';
+  static const String intensityIcon = 'assets/images/intensity_icon.svg';
   static const String kakaotalk = 'assets/images/kakaotalk.svg';
   static const String logo = 'assets/images/logo.svg';
   static const String muscleBackBody = 'assets/images/muscle_back_body.svg';
@@ -171,9 +174,11 @@ class Assets {
   static const String triangle = 'assets/images/triangle.png';
   static const String userDefault = 'assets/images/user_default.svg';
   static const String userDefaultBasic = 'assets/images/user_default_basic.svg';
+  static const String userDefaultGreen = 'assets/images/user_default_green.svg';
   static const String walkMan = 'assets/images/walk_man.svg';
   static const String walkManBlack = 'assets/images/walk_man_black.svg';
   static const String wellnessFloatingButton = 'assets/images/wellness_floating_button.svg';
+  static const String wellnessIcon = 'assets/images/wellness_icon.svg';
   static const String wellnessUrine = 'assets/images/wellness_urine.svg';
   static const String wellnessWater = 'assets/images/wellness_water.svg';
   static const String wellnessWeight = 'assets/images/wellness_weight.svg';

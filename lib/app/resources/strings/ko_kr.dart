@@ -300,4 +300,6 @@ final koKr = {
   StringRes.filter: '필터',
   StringRes.sortBy: '정렬기준',
   StringRes.inquiryPeriod: '조회 기간',
+  StringRes.todayTraining: '오늘의 훈련',
+  StringRes.noRegisteredTrainingToday: '오늘 등록된 훈련이 없습니다.',
 };
