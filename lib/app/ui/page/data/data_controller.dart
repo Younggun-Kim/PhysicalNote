@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
-import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/injury/injury_api.dart';
 import 'package:physical_note/app/data/injury/model/get_injury_response_model.dart';
 import 'package:physical_note/app/data/intensity/intensity_api.dart';
@@ -16,20 +15,25 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
+import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/data_ui_mapper.dart';
+import 'package:physical_note/app/ui/page/data/injury/injury_menu_type.dart';
 import 'package:physical_note/app/ui/page/data/intensity/intensity_page_ui_state.dart';
 import 'package:physical_note/app/ui/page/data/wellness/data_wellness_hooper_index_ui_state.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
-import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
+import 'package:physical_note/app/ui/page/injury_check/injury_check_controller.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
+import 'package:rxdart/rxdart.dart';
 
-class DataController extends BaseController {
+import 'injury/injury_recovery_type.dart';
+
+class DataController extends BaseController with InjuryCheckController {
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
 
@@ -65,7 +69,7 @@ class DataController extends BaseController {
   var wellnessUrineTable = 0.obs;
 
   /// 웰리니스 - 소변검사 몸무게.
-  var wellnessUrineWeight = "".obsWithController;
+  var wellnessUrineWeight = "".obsWithNumberController;
 
   /// 웰리니스 - 소변검사 Bmi.
   var wellnessUrineBmi = "".obsWithController;
@@ -83,7 +87,9 @@ class DataController extends BaseController {
   }
 
   /// 날짜 싱크 맞추기.
+  /// 날짜를 받아와서 해당 날짜로 초기화하네.
   void syncDate(DateTime date) {
+    super.resetInjuryCheck(date);
     calendarUiState.value.focusedDate = date;
     calendarUiState.refresh();
 
@@ -159,8 +165,17 @@ class DataController extends BaseController {
     _updateDate(newDate);
   }
 
-  /// 메뉴 선택.
-  Future onTapMenu(DataMenuType type) async {
+  /// 메뉴 탭 변경 - subMenu 안 열림
+  Future<void> changeMenu(DataMenuType type) =>
+      _onTapMenu(type: type, isTap: false);
+
+  /// 메뉴 탭 클릭 - subMenu 열림.
+  late var onTapMenu = PublishSubject<DataMenuType>()
+    ..doOnData((event) async {
+      await _onTapMenu(type: event, isTap: true);
+    }).collect();
+
+  Future _onTapMenu({required DataMenuType type, required bool isTap}) async {
     menu.value = type;
 
     /// 운동강도 타임피커 초기화 버그 방지.
@@ -186,6 +201,14 @@ class DataController extends BaseController {
       /// 초기화가 다시.
       pageController.value = PageController(initialPage: type.index);
       await loadApi();
+    }
+
+    /// 부상체크 서브 메뉴 열기/닫기.
+    if (type == DataMenuType.injury && isTap) {
+      var isOpen = isOpenInjuryMenu.value;
+      isOpenInjuryMenu.value = !isOpen;
+    } else {
+      isOpenInjuryMenu.value = false;
     }
   }
 
@@ -370,6 +393,25 @@ class DataController extends BaseController {
   final intensityPhysicalUiState =
       IntensityPageUiState(type: WorkoutType.physical).obs;
 
+  /// 운동강도 - 현재 선택된 Ui State
+  late final intensityCurrentUiState =
+      CombineLatestStream<dynamic, IntensityPageUiState?>([
+    intensityWorkoutType.behaviorStream,
+    intensitySportsUiState.behaviorStream,
+    intensityPhysicalUiState.behaviorStream,
+  ], (values) {
+    final workoutType = values[0];
+    final sportsUiState = values[1];
+    final physicalUiState = values[2];
+    if (workoutType == WorkoutType.sports) {
+      return sportsUiState;
+    } else if (workoutType == WorkoutType.physical) {
+      return physicalUiState;
+    } else {
+      return null;
+    }
+  }).toObs(null as IntensityPageUiState?);
+
   /// 운동 강도 - 종류 선택.
   void onPressedWorkout(WorkoutType type) {
     intensityWorkoutType.value = type;
@@ -381,11 +423,11 @@ class DataController extends BaseController {
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
       intensitySportsUiState.value.hour = value;
-      intensitySportsUiState.refresh();
     } else if (type == WorkoutType.physical) {
       intensityPhysicalUiState.value.hour = value;
-      intensityPhysicalUiState.refresh();
     } else {}
+
+    updateIntensityUiState();
   }
 
   /// 운동 강도 - 시간 변경.
@@ -393,11 +435,11 @@ class DataController extends BaseController {
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
       intensitySportsUiState.value.minute = value;
-      intensitySportsUiState.refresh();
     } else if (type == WorkoutType.physical) {
       intensityPhysicalUiState.value.minute = value;
-      intensityPhysicalUiState.refresh();
     } else {}
+
+    updateIntensityUiState();
   }
 
   /// 운동강도 - 레벨 선택.
@@ -405,13 +447,12 @@ class DataController extends BaseController {
     final type = intensityWorkoutType.value;
     if (type == WorkoutType.sports) {
       intensitySportsUiState.value.level = level;
-      intensitySportsUiState.refresh();
     } else if (type == WorkoutType.physical) {
       intensityPhysicalUiState.value.level = level;
-      intensityPhysicalUiState.refresh();
     } else {
       showToast("운동 종류를 선택해주세요.");
     }
+    updateIntensityUiState();
   }
 
   /// 운동강도 - api 조회.
@@ -514,9 +555,16 @@ class DataController extends BaseController {
     setLoading(false);
   }
 
+  /// 운동 강도 Ui State refresh
+  void updateIntensityUiState() {
+    intensitySportsUiState.refresh();
+    intensityPhysicalUiState.refresh();
+    intensityCurrentUiState.refresh();
+  }
+
   // ignore: slash_for_doc_comments
   /**
-   * 부상체크
+   * 부상관리 - 부상이력
    */
 
   late var injuryList = <HomeInjuryCheckItemUiState>[].obs
@@ -524,20 +572,53 @@ class DataController extends BaseController {
       _setHumanMuscleColor();
     });
 
+  var isOpenInjuryMenu = false.obs;
+
+  var currentInjuryMenu = InjuryMenuType.check.obs;
+
+  var injuryRecoveryType = InjuryRecoveryType.progress.obs;
+
   var _humanFrontOriginImage = "";
 
   var _humanBackOriginImage = "";
 
-  final Rx<String> humanFrontImage = "".obs;
+  final humanFrontImage = "".obs;
 
-  final Rx<String> humanBackImage = "".obs;
+  final humanBackImage = "".obs;
+
+  /// 부상 체크 메뉴 선택.
+  void onPressedInjuryMenu(InjuryMenuType type) {
+    final oldMenu = currentInjuryMenu.value;
+
+    // 부상이력 -> 부상체크로 가면 등록 동작
+    if (oldMenu != type && type == InjuryMenuType.check) {
+      resetInjuryCheck(calendarUiState.value.focusedDate);
+    }
+    currentInjuryMenu.value = type;
+    isOpenInjuryMenu.value = false;
+  }
+
+  /// 부상 체크 메뉴 닫기.
+  void closeInjuryMenu() {
+    isOpenInjuryMenu.value = false;
+  }
+
+  /// 부상 상태 타입 버튼 클릭
+  void onPressedInjuryStateType(InjuryRecoveryType type) {
+    injuryRecoveryType.value = type;
+    _reloadInjury();
+  }
 
   /// 부상체크 조회.
   Future _loadInjury() async {
     final injuryApi = Get.find<InjuryAPI>();
     final date =
         calendarUiState.value.focusedDate.toFormattedString('yyyy-MM-dd');
-    final response = await injuryApi.getInjury(recordDate: date);
+    final isRecovery = injuryRecoveryType.value == InjuryRecoveryType.recovery;
+    final response = await injuryApi.getInjury(
+      recordDate: date,
+      recoveryYn: isRecovery,
+    );
 
     if (response is GetInjuryResponseModel) {
       setInjury(response);
@@ -575,24 +656,47 @@ class DataController extends BaseController {
     );
   }
 
-  /// 부상체크 추가 클릭.
-  void onPressedAdd() async {
-    await _moveInjuryDetail(null);
-  }
-
   /// 부상 체크 편집 클릭.
   void onPressedEdit(HomeInjuryCheckItemUiState uiState) async {
-    await _moveInjuryDetail(uiState.id);
+    injuryDetailId.value = uiState.id;
+    currentInjuryMenu.value = InjuryMenuType.check;
   }
 
-  /// 부상 체크 상세로 이동.
-  Future _moveInjuryDetail(int? injuryId) async {
-    final args =
-        InjuryCheckArgs(date: calendarUiState.value.focusedDate, id: injuryId);
-    final result = await Get.toNamed(RouteType.INJURY_CHECK, arguments: args);
-    if (result is bool && result == true) {
-      isLoadInjury = false;
-      loadApi();
+  /// 부상관리 - 부상체크 삭제 성공시.
+  @override
+  Future<bool> onPressedInjuryCheckDelete() async {
+    final isSuccess = await super.onPressedInjuryCheckDelete();
+    injuryApiSuccessAction(isSuccess);
+    return true;
+  }
+
+  /// 부상 완치 클릭.
+  @override
+  Future<bool> onPressedInjuryCheckRecovery() async {
+    final isSuccess = await super.onPressedInjuryCheckRecovery();
+    injuryApiSuccessAction(isSuccess);
+    return true;
+  }
+
+  @override
+  Future<bool> onPressedSubmit() async {
+    final isSuccess = await super.onPressedSubmit();
+    injuryApiSuccessAction(isSuccess);
+    return true;
+  }
+
+  /// 부상관리 리로딩.
+  void _reloadInjury() {
+    isLoadInjury = false;
+    loadApi();
+  }
+
+  /// 부상체크 - API 등록/수정/삭제/완치 후 동작
+  void injuryApiSuccessAction(bool result) {
+    if (result) {
+      _reloadInjury();
+      onPressedInjuryMenu(InjuryMenuType.history);
     }
+    scrollToTop();
   }
 }

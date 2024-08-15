@@ -77,10 +77,10 @@ class RoundButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: isEnabled ? onPressed : null,
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(buttonBackgroundColor),
+            backgroundColor: WidgetStateProperty.all(buttonBackgroundColor),
             alignment: alignment,
-            overlayColor: MaterialStateProperty.all(ColorRes.clickOverlayColor),
-            shape: MaterialStateProperty.all(
+            overlayColor: WidgetStateProperty.all(ColorRes.clickOverlayColor),
+            shape: WidgetStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(radius),
               ),

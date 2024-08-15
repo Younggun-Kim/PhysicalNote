@@ -8,7 +8,7 @@ part of 'injury_info_model.dart';
 
 InjuryInfoModel _$InjuryInfoModelFromJson(Map<String, dynamic> json) =>
     InjuryInfoModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       injuryType: json['injuryType'] as String?,
       distinctionType: json['distinctionType'] as String?,
       bodyType: json['bodyType'] as String?,
@@ -18,6 +18,8 @@ InjuryInfoModel _$InjuryInfoModelFromJson(Map<String, dynamic> json) =>
       injuryLevelType: json['injuryLevelType'] as String?,
       injuryLevelString: json['injuryLevelString'] as String?,
       comment: json['comment'] as String?,
+      recoveryYn: json['recoveryYn'] as bool?,
+      recoveryDate: json['recoveryDate'] as String?,
     );
 
 Map<String, dynamic> _$InjuryInfoModelToJson(InjuryInfoModel instance) =>
@@ -32,4 +34,6 @@ Map<String, dynamic> _$InjuryInfoModelToJson(InjuryInfoModel instance) =>
       'injuryLevelType': instance.injuryLevelType,
       'injuryLevelString': instance.injuryLevelString,
       'comment': instance.comment,
+      'recoveryYn': instance.recoveryYn,
+      'recoveryDate': instance.recoveryDate,
     };

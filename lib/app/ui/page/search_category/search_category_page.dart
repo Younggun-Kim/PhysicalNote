@@ -15,7 +15,7 @@ class SearchCategoryPage extends GetView<SearchCategoryController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
-        resize: false,
+        resize: true,
         child: Column(
           children: [
             _Header(),
@@ -76,7 +76,8 @@ class _SearchList extends GetView<SearchCategoryController> {
         child: Stack(
           children: [
             RefreshIndicator(
-              color: Colors.black,
+              color: ColorRes.primary,
+              backgroundColor: ColorRes.white,
               onRefresh: controller.onRefresh,
               child: PagedListView<int, SearchCategoryListItemUiState>(
                 padding: const EdgeInsets.symmetric(horizontal: 30),

@@ -8,7 +8,7 @@ part of 'teams_response_model.dart';
 
 TeamsResponseModel _$TeamsResponseModelFromJson(Map<String, dynamic> json) =>
     TeamsResponseModel(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['name'] as String,
       json['coachName'] as String?,
       json['profile'] as String?,

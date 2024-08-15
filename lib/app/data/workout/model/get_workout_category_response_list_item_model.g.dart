@@ -10,7 +10,7 @@ GetWorkoutCategoryResponseListItemModel
     _$GetWorkoutCategoryResponseListItemModelFromJson(
             Map<String, dynamic> json) =>
         GetWorkoutCategoryResponseListItemModel(
-          json['id'] as int,
+          (json['id'] as num).toInt(),
           json['name'] as String,
         );
 

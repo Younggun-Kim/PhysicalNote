@@ -120,17 +120,19 @@ class _TodayFeedback extends GetView<FeedbackController> {
             ),
           ],
         ),
-        child: Text(
-          controller.todayFeedback.value.isEmpty
-              ? StringRes.emptyFeedback.tr
-              : controller.todayFeedback.value,
-          style: TextStyle(
-            fontSize: 16,
-            color: controller.todayFeedback.value.isEmpty
-                ? ColorRes.fontDisable
-                : ColorRes.fontBlack,
-            fontWeight: FontWeight.w400,
-          ),
+        child: Obx(
+          () => SingleChildScrollView(child: Text(
+            controller.todayFeedback.value.isEmpty
+                ? StringRes.emptyFeedback.tr
+                : controller.todayFeedback.value,
+            style: TextStyle(
+              fontSize: 16,
+              color: controller.todayFeedback.value.isEmpty
+                  ? ColorRes.fontDisable
+                  : ColorRes.fontBlack,
+              fontWeight: FontWeight.w400,
+            ),
+          ),),
         ),
       );
 }

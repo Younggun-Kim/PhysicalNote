@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/data/data_controller.dart';
 import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
+import 'package:physical_note/app/ui/page/data/injury/injury_menu.dart';
 import 'package:physical_note/app/ui/page/data/injury/injury_page.dart';
 import 'package:physical_note/app/ui/page/data/wellness/wellness_page.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar.dart';
@@ -16,7 +18,9 @@ class DataPage extends GetView<DataController> {
 
   @override
   Widget build(BuildContext context) => PageRoot(
-        controller: controller,
+      controller: controller,
+      child: GestureDetector(
+        onTap: controller.closeInjuryMenu,
         child: NestedScrollView(
           controller: controller.scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -40,7 +44,9 @@ class DataPage extends GetView<DataController> {
                     Obx(
                       () => _DataMenu(
                         currentMenu: controller.menu.value,
-                        onTap: controller.onTapMenu,
+                        onTap: (DataMenuType type) {
+                          controller.onTapMenu.add(type);
+                        },
                       ),
                     ),
                   ],
@@ -49,19 +55,33 @@ class DataPage extends GetView<DataController> {
             ];
           },
           body: Obx(
-            () => PageView(
-              controller: controller.pageController.value,
-              physics: const NeverScrollableScrollPhysics(),
-              onPageChanged: controller.onChangedPage,
-              children: const [
-                SizedBox.expand(child: WellnessPage()),
-                SizedBox.expand(child: IntensityPage()),
-                SizedBox.expand(child: InjuryPage()),
+            () => Stack(
+              children: [
+                PageView(
+                  controller: controller.pageController.value,
+                  physics: const NeverScrollableScrollPhysics(),
+                  onPageChanged: controller.onChangedPage,
+                  children: const [
+                    SizedBox.expand(child: WellnessPage()),
+                    SizedBox.expand(child: IntensityPage()),
+                    SizedBox.expand(child: InjuryPage()),
+                  ],
+                ),
+                Positioned(
+                  top: 0,
+                  right: 30,
+                  child: Obx(
+                    () => Visibility(
+                      visible: controller.isOpenInjuryMenu.value,
+                      child: const DataInjuryMenu(),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
-      );
+      ));
 }
 
 class _DataMenu extends StatelessWidget {
@@ -69,7 +89,10 @@ class _DataMenu extends StatelessWidget {
 
   final Function(DataMenuType type) onTap;
 
-  const _DataMenu({required this.currentMenu, required this.onTap});
+  const _DataMenu({
+    required this.currentMenu,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) => Container(
@@ -98,13 +121,11 @@ class _DataMenu extends StatelessWidget {
                   child: _DataMenuItem(
                     type: DataMenuType.injury,
                     isSelected: currentMenu == DataMenuType.injury,
+                    showIcon: true,
                     onTap: onTap,
                   ),
                 ),
                 const SizedBox(width: 5),
-                const Expanded(
-                  child: SizedBox(),
-                ),
               ],
             ),
             Container(
@@ -122,11 +143,14 @@ class _DataMenuItem extends StatelessWidget {
 
   final bool isSelected;
 
+  final bool showIcon;
+
   final Function(DataMenuType type) onTap;
 
   const _DataMenuItem({
     required this.type,
     required this.isSelected,
+    this.showIcon = false,
     required this.onTap,
   });
 
@@ -137,12 +161,24 @@ class _DataMenuItem extends StatelessWidget {
         },
         child: Column(
           children: [
-            Text(
-              type.toString(),
-              style: TextStyle(
-                fontSize: 16,
-                color: isSelected ? ColorRes.fontBlack : ColorRes.fontDisable,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  type.toString(),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color:
+                        isSelected ? ColorRes.fontBlack : ColorRes.fontDisable,
+                  ),
+                ),
+                const SizedBox(width: 5),
+                Visibility(
+                  visible: showIcon,
+                  child: SvgPicture.asset(Assets.chevronDownBlack),
+                ),
+              ],
             ),
             const SizedBox(height: 5),
             Container(

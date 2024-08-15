@@ -73,20 +73,20 @@ class HomeController extends BaseController {
 
     final differenceFat = double.parse(
         urineData.differenceFat.replaceAll(RegExp(r'[^\d.-]'), ''));
-    final isPositiveType = urineData.urine.isPositive();
+    final isPositiveUrine = urineData.urine.isPositive();
 
-    logger.i('differenceFat : $differenceFat,, type: ${urineData.urine}');
-
-    if (differenceFat > 2) {
-      return isPositiveType
-          ? StringRes.urineWeightOver.tr
-          : StringRes.urineWeightVeryOver.tr;
-    } else if (differenceFat < -2) {
-      return StringRes.urineWeightLess.tr;
+    if (differenceFat >= 2) {
+      return isPositiveUrine
+          ? StringRes.urineWeightOverMoistureGood.tr
+          : StringRes.urineWeightOverMoistureBad.tr;
+    } else if (differenceFat <= -2) {
+      return isPositiveUrine
+          ? StringRes.urineWeightLessMoistureGood.tr
+          : StringRes.urineWeightLessMoistureBad.tr;
     } else {
-      return isPositiveType
-          ? StringRes.urineWeightVeryLess.tr
-          : StringRes.urineWeightWaterRequired.tr;
+      return isPositiveUrine
+          ? StringRes.urineWeightGoodMoistureGood.tr
+          : StringRes.urineWeightGoodMoistureBad.tr;
     }
   }
 

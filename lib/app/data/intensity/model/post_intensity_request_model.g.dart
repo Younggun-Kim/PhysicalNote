@@ -9,7 +9,7 @@ part of 'post_intensity_request_model.dart';
 PostIntensityRequestModel _$PostIntensityRequestModelFromJson(
         Map<String, dynamic> json) =>
     PostIntensityRequestModel(
-      intensityLevel: json['intensityLevel'] as int?,
+      intensityLevel: (json['intensityLevel'] as num?)?.toInt(),
       workoutTime: json['workoutTime'] as String?,
       workoutType: json['workoutType'] as String?,
       recordDate: json['recordDate'] as String?,

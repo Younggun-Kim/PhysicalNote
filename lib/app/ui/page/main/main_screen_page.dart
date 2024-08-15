@@ -3,9 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
-import 'package:physical_note/app/ui/page/home/home.dart';
+import 'package:physical_note/app/ui/page/history/history.dart';
+import 'package:physical_note/app/ui/page/home2/home.dart';
 import 'package:physical_note/app/ui/page/main/main_screen_controller.dart';
 
 import 'main_tab_index.dart';
@@ -24,7 +24,7 @@ class MainScreenPage extends GetView<MainScreenController> {
                 () => LazyLoadIndexedStack(
                   index: controller.uiState.value.tabIndex.index,
                   children: const [
-                    DataPage(),
+                    HistoryPage(),
                     HomePage(),
                     FeedbackPage(),
                   ],
@@ -34,10 +34,11 @@ class MainScreenPage extends GetView<MainScreenController> {
           ),
           bottomNavigationBar: Obx(() => Container(
                 decoration: const BoxDecoration(
+                  color: Colors.white,
                   border: Border(
                     top: BorderSide(
                       color: ColorRes.borderWhite,
-                      width: 1.0,
+                      width: 0.5,
                     ),
                   ),
                 ),
@@ -50,8 +51,9 @@ class MainScreenPage extends GetView<MainScreenController> {
                   currentIndex: controller.uiState.value.tabIndex.index,
                   selectedLabelStyle: const TextStyle(
                     fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                     color: ColorRes.fontBlack,
+                    height: 20/14
                   ),
                   selectedItemColor: ColorRes.fontBlack,
                   unselectedLabelStyle: const TextStyle(
@@ -61,9 +63,10 @@ class MainScreenPage extends GetView<MainScreenController> {
                   ),
                   items: [
                     BottomNavigationBarItem(
-                      icon: SvgPicture.asset(Assets.navigationData),
-                      label: StringRes.bottomTabData.tr,
-                      activeIcon: SvgPicture.asset(Assets.navigationDataSelect),
+                      icon: SvgPicture.asset(Assets.navigationHistory),
+                      label: StringRes.bottomTabHistory.tr,
+                      activeIcon:
+                          SvgPicture.asset(Assets.navigationHistorySelect),
                     ),
                     BottomNavigationBarItem(
                       icon: SvgPicture.asset(Assets.navigationHome),

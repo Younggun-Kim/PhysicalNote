@@ -1,6 +1,8 @@
+import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/injury_level_type.dart';
 import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/config/constant/muscle_type.dart';
+import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 
@@ -15,6 +17,8 @@ class HomeInjuryCheckItemUiState {
   final InjuryCheckBodyPartsType? bodyPart;
   final String? recordDate;
   final String? comment;
+  final bool? recoveryYn;
+  final String? recoveryDate;
 
   HomeInjuryCheckItemUiState({
     required this.id,
@@ -26,5 +30,24 @@ class HomeInjuryCheckItemUiState {
     required this.muscleType,
     required this.bodyPart,
     required this.direction,
+    required this.recoveryYn,
+    required this.recoveryDate,
   });
+
+  @override
+  String toString() {
+    return "$id";
+  }
+
+  /// 완치 여부 문자
+  String get recoveryString =>
+      recoveryYn == true ? StringRes.recovery.tr : StringRes.proceeding.tr;
+
+  /// 완치 날짜 존재 여부.
+  bool get hasRecoveryData => recoveryDate?.isNotEmpty ?? false;
+
+  /// 표시 날짜
+  String get recordAndRecoveryDate => recoveryDate?.isEmpty ?? true
+      ? '$recordDate'
+      : '$recordDate - $recoveryDate';
 }

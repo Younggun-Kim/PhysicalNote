@@ -3,6 +3,7 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/data/wellness/model/post_wellness_request_model.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
+import 'model/get_wellness_paginate_model.dart';
 import 'model/get_wellness_response_model.dart';
 
 class WellnessAPI extends API {
@@ -50,6 +51,28 @@ class WellnessAPI extends API {
       return failResponse;
     } else {
       final successResponse = GetWellnessResponseModel.fromJson(response.body);
+      return successResponse;
+    }
+  }
+
+  /// 웰리니스 목록 조회
+  Future<dynamic> getWellnessList({
+    required int page,
+    required String period,
+    required String sortDirection,
+  }) async {
+    logger.i(
+        "getWellnessList: page: $page, period: $period, sortDirection: $sortDirection");
+    final response = await get(
+      '$requestUrl/list?page=$page&period=$period&sortDirection=$sortDirection',
+    );
+
+    if (response.status.hasError) {
+      final failResponse = ServerResponseFailModel.fromJson(response.body);
+      return failResponse;
+    } else {
+      final successResponse = GetWellnessPaginateModel.fromJson(response.body);
+
       return successResponse;
     }
   }

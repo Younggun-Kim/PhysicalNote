@@ -10,10 +10,11 @@ import 'package:physical_note/app/data/injury/model/delete_injury_response_model
 import 'package:physical_note/app/data/injury/model/injury_response_model.dart';
 import 'package:physical_note/app/data/injury/model/post_injury_request_model.dart';
 import 'package:physical_note/app/data/injury/model/post_injury_response_model.dart';
+import 'package:physical_note/app/data/injury/model/put_injury_detail_recovery_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
-import 'package:physical_note/app/ui/page/injury_check/injury_check_args.dart';
+import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/page/injury_check/injury_check_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
 import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
@@ -24,14 +25,40 @@ import 'package:rxdart/rxdart.dart';
 
 import 'injury_check_pain_symptom_ui_state.dart';
 
-class InjuryCheckController extends BaseController {
-  @override
-  void onInit() async {
-    super.onInit();
-    await _loadInjuryDetail();
+mixin InjuryCheckController on BaseController {
+  /// 부상 체크 초기화.
+  void resetInjuryCheck(DateTime? date) {
+    injuryDetailId.value = null;
+    injuryCheckDate.value = date ?? injuryCheckDate.value;
+    injuryType.value = InjuryType.nonContact;
+    diseaseController.value = "";
+    directionType.value = null;
+    bodyType.value = null;
+    bodyPartsType.value = null;
+    selectedMuscleType.value = null;
+    muscleImage.value = "";
+    painLevel.value = InjuryLevelType.noPain;
+    painSymptoms.value = PainType.values
+        .map((e) => InjuryCheckPainSymptomUiState(type: e))
+        .toList();
+    painTimingIntermittent.value = null;
+    painTimingRest.value = false;
+    painTimingWorkout.value = false;
+    painTimingDescription.value = "";
+
+    isRecovered.value = false;
   }
 
-  final args = Get.arguments as InjuryCheckArgs;
+  late var injuryDetailId = (null as int?).obs
+    ..listen((p0) {
+      _loadInjuryDetail(p0);
+    });
+
+  // 상세(or 수정)일 때 ui 노출 플래그.
+  late var isShowDetailUi =
+      injuryDetailId.behaviorStream.map((event) => event != null).toObs(false);
+
+  var injuryCheckDate = DateTime.now().obs;
 
   /// 부상 타입.
   final injuryType = InjuryType.nonContact.obs;
@@ -139,6 +166,9 @@ class InjuryCheckController extends BaseController {
   late final isEnabledDiseaseSubmit = diseaseController.behaviorStream
       .map((event) => event.isNotEmpty)
       .toObs(false);
+
+  /// 완치여부
+  final isRecovered = false.obs;
 
   /// 부상 타입 클릭.
   void onPressedInjuryType(InjuryType type) {
@@ -275,12 +305,14 @@ class InjuryCheckController extends BaseController {
   }
 
   /// API - 부상 체크 등록 / 수정.
-  Future<void> onPressedSubmit() async {
-    setLoading(true);
+  Future<bool> onPressedSubmit() async {
+    var result = false;
     final requestData = _getRequestData();
     final injuryApi = Get.find<InjuryAPI>();
-    final injuryId = args.id;
+    final injuryId = injuryDetailId.value;
     dynamic response;
+
+    setLoading(true);
 
     if (injuryId == null) {
       response = await injuryApi.postInjury(
@@ -295,7 +327,7 @@ class InjuryCheckController extends BaseController {
 
     if (response is PostInjuryResponseModel) {
       if (response.id != null) {
-        close(result: true);
+        result = true;
       }
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
@@ -304,6 +336,8 @@ class InjuryCheckController extends BaseController {
     }
 
     setLoading(false);
+
+    return result;
   }
 
   /// 등록/수정 RequestData
@@ -343,7 +377,7 @@ class InjuryCheckController extends BaseController {
       requestData = PostInjuryRequestModel(
         injuryType: injuryTypeKey,
         comment: comment,
-        recordDate: args.date.toFormattedString("yyyy-MM-dd"),
+        recordDate: injuryCheckDate.value.toFormattedString("yyyy-MM-dd"),
       );
     } else {
       requestData = PostInjuryRequestModel(
@@ -356,7 +390,7 @@ class InjuryCheckController extends BaseController {
         painCharacteristicList: symptoms,
         painTimes: painTime,
         comment: comment,
-        recordDate: args.date.toFormattedString("yyyy-MM-dd"),
+        recordDate: injuryCheckDate.value.toFormattedString("yyyy-MM-dd"),
       );
     }
 
@@ -364,8 +398,8 @@ class InjuryCheckController extends BaseController {
   }
 
   /// API - 상세 조회.
-  Future _loadInjuryDetail() async {
-    final injuryId = args.id;
+  Future _loadInjuryDetail(int? id) async {
+    final injuryId = id;
     if (injuryId == null) {
       return;
     }
@@ -387,10 +421,11 @@ class InjuryCheckController extends BaseController {
   }
 
   /// API - 부상 정보 삭제..
-  Future _deleteInjury() async {
-    final injuryId = args.id;
+  Future<bool> _deleteInjury() async {
+    var result = false;
+    final injuryId = injuryDetailId.value;
     if (injuryId == null) {
-      return;
+      return result;
     }
 
     setLoading(true);
@@ -400,6 +435,43 @@ class InjuryCheckController extends BaseController {
 
     if (response is DeleteInjuryResponseModel && response.deleted == true) {
       close(result: true);
+      resetInjuryCheck(null);
+      result = true;
+    } else {
+      final message = (response as ServerResponseFailModel?)?.toastMessage ??
+          StringRes.serverError.tr;
+      showToast(message);
+      result = false;
+    }
+
+    setLoading(false);
+    return result;
+  }
+
+  /// 삭제 버튼 클릭.
+  Future<bool> onPressedInjuryCheckDelete() async {
+    return await _deleteInjury();
+  }
+
+  /// 부상 완치 클릭
+
+  /// 부상관리 - 부상체크 삭제 성공시.
+  Future<bool> onPressedInjuryCheckRecovery() async {
+    var injuryId = injuryDetailId.value;
+    var result = false;
+    if (injuryId == null) {
+      return result;
+    }
+
+    final injuryApi = Get.find<InjuryAPI>();
+
+    setLoading(true);
+    final response =
+        await injuryApi.putInjuryDetailRecovery(userInjuryId: injuryId);
+
+    if (response is PutInjuryDetailRecoveryResponseModel &&
+        response.status == true) {
+      result = true;
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
@@ -407,10 +479,41 @@ class InjuryCheckController extends BaseController {
     }
 
     setLoading(false);
+
+    return result;
   }
 
-  /// 삭제 버튼 클릭.
-  void onPressedDelete() async {
-    await _deleteInjury();
+  void showRecoveryDialog() {
+    Get.dialog(
+      BaseDialog(
+          text: StringRes.recoveryCompleteQuestion.tr,
+          yesText: StringRes.yes.tr,
+          onPressedYes: () async {
+            await onPressedInjuryCheckRecovery();
+            Get.back();
+          },
+          noText: StringRes.no.tr,
+          onPressedNo: () {
+            Get.back();
+          }),
+      barrierDismissible: true,
+    );
+  }
+
+  void showDeleteDialog() {
+    Get.dialog(
+      BaseDialog(
+          text: StringRes.deleteDialog.tr,
+          yesText: StringRes.yes.tr,
+          onPressedYes: () async {
+            await onPressedInjuryCheckDelete();
+            Get.back();
+          },
+          noText: StringRes.no.tr,
+          onPressedNo: () {
+            Get.back();
+          }),
+      barrierDismissible: true,
+    );
   }
 }

@@ -88,7 +88,7 @@ extension HomeUiMapper on HomeController {
 
     return HomeUrineModel(
       id: urineId,
-      weight: data.weight?.toInt() ?? 0,
+      weight: data.weight ?? 0,
       differenceFat: data.differenceFat ?? '0',
       urine: UrineStatusType.typeFrom(data.urine ?? ""),
     );
@@ -296,6 +296,8 @@ extension HomeUiMapper on HomeController {
             muscleType: muscleType,
             bodyPart: bodyPart,
             direction: InjuryCheckDirectionType.from(e.distinctionType),
+            recoveryYn: e.recoveryYn,
+            recoveryDate: e.recoveryDate,
           );
         })
         .whereType<HomeInjuryCheckItemUiState>()

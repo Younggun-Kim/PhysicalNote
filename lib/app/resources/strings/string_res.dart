@@ -68,6 +68,15 @@ class StringRes {
   static final sharpPain = _generateId();
   static final radiatingPain = _generateId();
 
+  // 이력 공통 필터
+  static final historyFilterAll = _generateId();
+  static final historyFilterWeek = _generateId();
+  static final historyFilterMonth = _generateId();
+  static final historyFilterDesc = _generateId();
+  static final historyFilterAsc = _generateId();
+  static final historyFilterProgressInjury = _generateId();
+  static final historyFilterHealedInjury = _generateId();
+
   /// 생성자.
   const StringRes._();
 
@@ -75,7 +84,7 @@ class StringRes {
 
   static final appName = _generateId();
   static final serverError = _generateId();
-  static final bottomTabData = _generateId();
+  static final bottomTabHistory = _generateId();
   static final bottomTabHome = _generateId();
   static final bottomTabFeedback = _generateId();
   static final notification = _generateId();
@@ -147,7 +156,9 @@ class StringRes {
   static final myState = _generateId();
   static final noData = _generateId();
   static final hooperIndex = _generateId();
+  static final hooperIndexAverage = _generateId();
   static final urinalysis = _generateId();
+  static final urinalysisAverage = _generateId();
   static final urinalysisTable = _generateId();
   static final injuryRisk = _generateId();
   static final workoutIntensity = _generateId();
@@ -162,6 +173,7 @@ class StringRes {
   static final monthly = _generateId();
   static final weekly = _generateId();
   static final sleep = _generateId();
+  static final sleepNoSpace = _generateId();
   static final sleepKorEng = _generateId();
   static final sleepEng = _generateId();
   static final stress = _generateId();
@@ -195,7 +207,10 @@ class StringRes {
   static final wellness = _generateId();
   static final wellnessKorEng = _generateId();
   static final wellnessDescription = _generateId();
+  static final injuryManagement = _generateId();
   static final injuryCheck = _generateId();
+  static final injuryHistory = _generateId();
+  static final injuryHistoryDescription = _generateId();
   static final close = _generateId();
   static final open = _generateId();
   static final veryVeryGood = _generateId();
@@ -271,6 +286,7 @@ class StringRes {
   static final authCodeHint = _generateId();
   static final managementRequired = _generateId();
   static final delete = _generateId();
+  static final deleteDialog = _generateId();
   static final painPosition = _generateId();
   static final signUpComplete = _generateId();
   static final registrationCompletedAfterAdminApproval = _generateId();
@@ -281,9 +297,27 @@ class StringRes {
   static final trainingBalanceLess = _generateId();
   static final trainingBalanceNormal = _generateId();
   static final trainingBalanceOver = _generateId();
-  static final urineWeightVeryLess = _generateId();
-  static final urineWeightLess = _generateId();
-  static final urineWeightWaterRequired = _generateId();
-  static final urineWeightOver = _generateId();
-  static final urineWeightVeryOver = _generateId();
+  static final urineWeightLessMoistureGood = _generateId();
+  static final urineWeightLessMoistureBad = _generateId();
+  static final urineWeightGoodMoistureGood = _generateId();
+  static final urineWeightGoodMoistureBad = _generateId();
+  static final urineWeightOverMoistureGood = _generateId();
+  static final urineWeightOverMoistureBad = _generateId();
+  static final progress = _generateId();
+  static final proceeding = _generateId();
+  static final recovery = _generateId();
+  static final recoveryCompleteQuestion = _generateId();
+  static final yes = _generateId();
+  static final no = _generateId();
+  static final myHistory = _generateId();
+  static final whatWellness = _generateId();
+  static final wellnessGuide = _generateId();
+  static final workoutTimeAverage = _generateId();
+  static final workoutIntensityAverage = _generateId();
+  static final step = _generateId();
+  static final filter = _generateId();
+  static final sortBy = _generateId();
+  static final inquiryPeriod = _generateId();
+  static final todayTraining = _generateId();
+  static final noRegisteredTrainingToday = _generateId();
 }

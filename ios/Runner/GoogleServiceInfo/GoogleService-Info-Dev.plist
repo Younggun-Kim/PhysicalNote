@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBvfrBcaIF94y78czHX4cIHth7DT_-yfiw</string>
+	<string>AIzaSyA3Es7DQy06bQO4TGNNPDaIz5MiYuFQpZU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>304934157647</string>
+	<string>1042105708192</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.conner.physicalNote.dev</string>
 	<key>PROJECT_ID</key>
-	<string>physicalnote-77739</string>
+	<string>physicalnote-b14ad</string>
 	<key>STORAGE_BUCKET</key>
-	<string>physicalnote-77739.appspot.com</string>
+	<string>physicalnote-b14ad.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:304934157647:ios:7d899be3147d799e8f993a</string>
+	<string>1:1042105708192:ios:1369dd0e57190115bfa3c5</string>
 </dict>
 </plist>

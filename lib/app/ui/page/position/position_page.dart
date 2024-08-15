@@ -14,6 +14,7 @@ class PositionPage extends GetView<PositionController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
+        resize: true,
         child: Column(
           children: [
             _Header(),
@@ -78,6 +79,8 @@ class _PositionList extends GetView<PositionController> {
         child: Stack(
           children: [
             RefreshIndicator(
+              color: ColorRes.primary,
+              backgroundColor: ColorRes.white,
               onRefresh: controller.onRefresh,
               child: PagedListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 30),

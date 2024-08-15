@@ -9,7 +9,7 @@ part of 'post_login_sign_in_response_model.dart';
 PostLoginSignInResponseModel _$PostLoginSignInResponseModelFromJson(
         Map<String, dynamic> json) =>
     PostLoginSignInResponseModel(
-      userId: json['userId'] as int?,
+      userId: (json['userId'] as num?)?.toInt(),
       loginId: json['loginId'] as String?,
       message: json['message'] as String?,
       name: json['name'] as String?,

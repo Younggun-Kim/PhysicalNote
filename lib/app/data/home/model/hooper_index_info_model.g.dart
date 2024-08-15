@@ -9,7 +9,7 @@ part of 'hooper_index_info_model.dart';
 HooperIndexInfoModel _$HooperIndexInfoModelFromJson(
         Map<String, dynamic> json) =>
     HooperIndexInfoModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       fatigue: json['fatigue'] as String?,
       muscleSoreness: json['muscleSoreness'] as String?,
       sleep: json['sleep'] as String?,

@@ -103,7 +103,7 @@ enum MuscleType {
   sartorius("SARTORIUS"),
 
   /// 장경인대
-  semimembranosus("SEMIMEMBRANOSUS"),
+  iliotibialBAND("ILIOTIBIAL_BAND"),
 
   /// 척추기립근
   semitendinosus("SEMITENDINOSUS"),
@@ -207,7 +207,7 @@ enum MuscleType {
         return "대퇴이두근";
       case sartorius:
         return "가자미근";
-      case semimembranosus:
+      case iliotibialBAND:
         return "장경인대";
       case semitendinosus:
         return "척추기립근";
@@ -237,7 +237,7 @@ enum MuscleType {
       teresMajor,
       lateralGastrocnemius,
       largeRetirement,
-      semimembranosus,
+      iliotibialBAND,
       extensorDigitorumLongus,
       tibialisAnterior,
       peroneusBrevis,
@@ -259,7 +259,7 @@ enum MuscleType {
   static List<MuscleType> getBackLegMuscles() {
     return [
       gluteus,
-      semimembranosus,
+      iliotibialBAND,
       rectusFemoris,
       gracilis,
       sartorius,
@@ -272,14 +272,14 @@ enum MuscleType {
   /// 앞 - 팔 근육.
   static List<MuscleType> getFrontArmMuscles() {
     return [
-      deltoid,
       biceps,
-      brachioradialis,
-      serratusAnterior,
-      rotatorcuff,
-      triceps,
       brachialis,
-      pronatorTeres
+      brachioradialis,
+      deltoid,
+      pronatorTeres,
+      rotatorcuff,
+      serratusAnterior,
+      triceps,
     ];
   }
 
@@ -313,6 +313,31 @@ enum MuscleType {
       quadratusLumborum,
       latissimusDorsi,
       semitendinosus,
+    ];
+  }
+
+  /// 앞 - 하체 - 왼쪽 - 다리 목록
+  static List<MuscleType> getFrontLeftLegMuscles() {
+    return [
+      adductorLongus,
+      adductorMagnus,
+      extensorDigitorumBrevis,
+      extensorDigitorumLongus,
+      gracilis,
+      iliacus,
+      largeRetirement,
+      lateralGastrocnemius,
+      medialGastrocnemius,
+      peroneusBrevis,
+      peroneusLongus,
+      psoasMajor,
+      pubicus,
+      sartorius,
+      iliotibialBAND,
+      soleus,
+      tensorFasciaeLatae,
+      teresMajor,
+      tibialisAnterior,
     ];
   }
 }

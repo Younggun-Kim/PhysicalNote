@@ -24,6 +24,10 @@ class BaseButton extends StatelessWidget {
 
   final Color selectedBackgroundColor;
 
+  final bool showBorder;
+
+  final bool showShadow;
+
   /// Text Widget.
   final String text;
 
@@ -43,6 +47,8 @@ class BaseButton extends StatelessWidget {
     this.defaultBackgroundColor = ColorRes.white,
     this.disableBackgroundColor = ColorRes.disable,
     this.selectedBackgroundColor = ColorRes.primary,
+    this.showBorder = true,
+    this.showShadow = true,
     required this.text,
     this.defaultTextStyle = const TextStyle(
       fontSize: 14,
@@ -67,7 +73,7 @@ class BaseButton extends StatelessWidget {
       ? isSelected
           ? selectedBackgroundColor
           : defaultBackgroundColor
-      : ColorRes.disable;
+      : disableBackgroundColor;
 
   /// 텍스트 스타일.
   TextStyle get textStyle => isEnabled
@@ -87,19 +93,21 @@ class BaseButton extends StatelessWidget {
           padding: padding,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            border: Border.all(color: ColorRes.borderWhite),
+            border: showBorder ? Border.all(color: ColorRes.borderWhite) : null,
             borderRadius:
                 BorderRadius.circular(MediaQuery.of(context).size.height * 0.5),
             color: backgroundColor,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.25),
-                spreadRadius: 1,
-                blurRadius: 4,
-                offset: const Offset(0, 2),
-                blurStyle: BlurStyle.normal,
-              ),
-            ],
+            boxShadow: showShadow
+                ? [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.25),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                      blurStyle: BlurStyle.normal,
+                    ),
+                  ]
+                : null,
           ),
           child: Text(
             text,

@@ -37,7 +37,7 @@ class IntensityPageUiState {
   bool _hasTimeSelected() {
     if (hour > 0) {
       return true;
-    } else if (minute >= 30) {
+    } else if (minute >= 1) {
       return true;
     } else {
       return false;

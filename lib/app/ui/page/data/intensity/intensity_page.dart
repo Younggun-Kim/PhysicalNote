@@ -6,7 +6,7 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
-import 'intensity_table.dart';
+import '../../intensity_detail/intensity_table.dart';
 
 class IntensityPage extends GetView<DataController> {
   const IntensityPage({
@@ -59,15 +59,16 @@ class IntensityPage extends GetView<DataController> {
               ),
             ),
             const SizedBox(height: 45),
-            Obx(
-              () => TimePicker(
-                hourController: controller.intensityHourController,
-                minuteController: controller.intensityMinuteController,
-                isEnabled: controller.intensityTimePickerEnabled.value,
-                onSelectedHourChanged: controller.onSelectedHourChanged,
-                onSelectedMinChanged: controller.onSelectedMinChanged,
-              ),
-            ),
+            // Obx(
+            //   () => TimePicker(
+            //     uiState: controller.intensityCurrentUiState.value,
+            //     hourController: controller.intensityHourController,
+            //     minuteController: controller.intensityMinuteController,
+            //     isEnabled: controller.intensityTimePickerEnabled.value,
+            //     onSelectedHourChanged: controller.onSelectedHourChanged,
+            //     onSelectedMinChanged: controller.onSelectedMinChanged,
+            //   ),
+            // ),
             const SizedBox(height: 30),
             Text(
               StringRes.workoutIntensityKorEng.tr,
@@ -79,13 +80,7 @@ class IntensityPage extends GetView<DataController> {
             ),
             const SizedBox(height: 12),
             Obx(() {
-              final workoutType = controller.intensityWorkoutType.value;
-              final uiState = workoutType == null
-                  ? null
-                  : workoutType == WorkoutType.sports
-                      ? controller.intensitySportsUiState.value
-                      : controller.intensityPhysicalUiState.value;
-
+              final uiState = controller.intensityCurrentUiState.value;
               return Column(
                 children: [
                   IntensityTable(

@@ -28,4 +28,7 @@ abstract class RouteType {
   static const NAVER_LOGIN = "/naver_login";
   static const POSITION = "/position";
   static const TEAM_REQUEST = "/team_request";
+  static const WELLNESS_DETAIL = '/wellness_detail';
+  static const INTENSITY_DETAIL = '/intensity_detail';
+  static const INJURY_DETAIL = '/injuryDetail';
 }

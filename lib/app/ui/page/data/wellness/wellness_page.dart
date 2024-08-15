@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/hooper_index_type.dart';
@@ -6,6 +7,7 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/data/data.dart';
 import 'package:physical_note/app/ui/widgets/text_field/bottom_border_text_field.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
+import 'package:physical_note/app/utils/utils.dart';
 
 import 'data_wellness_hooper_index_ui_state.dart';
 
@@ -196,8 +198,8 @@ class _Urine extends StatelessWidget {
 
   const _Urine({
     required this.table,
-    required this.weightController,
     required this.bmiController,
+    required this.weightController,
     required this.onChangedUrine,
   });
 
@@ -232,10 +234,13 @@ class _Urine extends StatelessWidget {
             ),
             BottomBorderTextField(
               controller: weightController,
-              keyboardType: TextInputType.number,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
               obscureText: false,
               hint: StringRes.myAnswer.tr,
               contentPadding: EdgeInsets.zero,
+              inputFormatters: <TextInputFormatter>[
+                InputFormatterUtils.digitAndDot,
+              ],
             ),
             const SizedBox(height: 24),
             _FieldName(
@@ -248,6 +253,7 @@ class _Urine extends StatelessWidget {
               obscureText: false,
               hint: StringRes.writeInBodyRecord.tr,
               contentPadding: EdgeInsets.zero,
+              maxLength: 3,
             ),
           ],
         ),

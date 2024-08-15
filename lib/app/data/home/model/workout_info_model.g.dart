@@ -11,14 +11,16 @@ WorkoutInfoModel _$WorkoutInfoModelFromJson(Map<String, dynamic> json) =>
       recordDate: json['recordDate'] as String?,
       todayWorkoutTime: json['todayWorkoutTime'] as String?,
       yesterdayCompareTime: json['yesterdayCompareTime'] as String?,
-      thisWeekWorkoutRoad: json['thisWeekWorkoutRoad'] as int?,
+      thisWeekWorkoutRoad: (json['thisWeekWorkoutRoad'] as num?)?.toInt(),
       thisWeekWorkoutRoadString: json['thisWeekWorkoutRoadString'] as String?,
-      lastWeekWorkoutRoad: json['lastWeekWorkoutRoad'] as int?,
+      lastWeekWorkoutRoad: (json['lastWeekWorkoutRoad'] as num?)?.toInt(),
       lastWeekWorkoutRoadString: json['lastWeekWorkoutRoadString'] as String?,
-      lastFourWeekWorkoutRoad: json['lastFourWeekWorkoutRoad'] as int?,
+      lastFourWeekWorkoutRoad:
+          (json['lastFourWeekWorkoutRoad'] as num?)?.toInt(),
       lastFourWeekWorkoutRoadString:
           json['lastFourWeekWorkoutRoadString'] as String?,
-      lastEightWeekWorkoutRoad: json['lastEightWeekWorkoutRoad'] as int?,
+      lastEightWeekWorkoutRoad:
+          (json['lastEightWeekWorkoutRoad'] as num?)?.toInt(),
       lastEightWeekWorkoutRoadString:
           json['lastEightWeekWorkoutRoadString'] as String?,
     );
