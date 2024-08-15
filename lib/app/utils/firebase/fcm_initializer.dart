@@ -39,6 +39,7 @@ class FcmInitializer {
 
   /// 초기화.
   static void init() async {
+
     final token = await FirebaseMessaging.instance.getToken();
 
     if (kDebugMode) {

@@ -1,10 +1,9 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:physical_note/app/resources/assets/assets.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/history/history.dart';
-import 'package:physical_note/app/ui/page/home/home.dart';
+import 'package:physical_note/app/ui/page/home2/home.dart';
 import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/main/main_ui_state.dart';
 import 'package:physical_note/app/utils/getx/base_main_controller.dart';
@@ -17,7 +16,6 @@ class MainScreenController extends BaseMainController<MainUiState> {
   @override
   void onInit() async {
     super.onInit();
-    await _loadHumanMuscleImage();
     await loadApi();
   }
 
@@ -76,7 +74,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
         final isRegistered = Get.isRegistered<HomeController>();
         if (isRegistered) {
           final controller = Get.find<HomeController>();
-          controller.scrollToTop();
+          // controller.scrollToTop();
         }
         break;
       case MainTabIndex.history:
@@ -153,7 +151,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
     final historyController = Get.find<HistoryController>();
     final feedbackController = Get.find<FeedbackController>();
 
-    homeController.syncDate(date);
+    // homeController.syncDate(date);
     historyController.syncDate(date);
     feedbackController.syncDate(date);
 
@@ -170,22 +168,10 @@ class MainScreenController extends BaseMainController<MainUiState> {
         // await historyController.loadApi();
       case MainTabIndex.home:
         final homeController = Get.find<HomeController>();
-        await homeController.loadHome();
+        // await homeController.loadHome();
       case MainTabIndex.feedback:
         final feedbackController = Get.find<FeedbackController>();
         await feedbackController.loadFeedback();
     }
-  }
-
-  /// 사람 근육 이미지 로딩.
-  Future _loadHumanMuscleImage() async {
-    humanFrontOriginImage = await MuscleUtils.loadSvgFile(Assets.humanFront);
-    humanBackOriginImage = await MuscleUtils.loadSvgFile(Assets.humanBack);
-
-    final homeController = Get.find<HomeController>();
-    homeController.initHumanMuscleImage(
-      humanFrontOriginImage,
-      humanBackOriginImage,
-    );
   }
 }

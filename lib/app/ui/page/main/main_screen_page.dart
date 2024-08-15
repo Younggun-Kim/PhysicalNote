@@ -5,7 +5,7 @@ import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/history/history.dart';
-import 'package:physical_note/app/ui/page/home/home.dart';
+import 'package:physical_note/app/ui/page/home2/home.dart';
 import 'package:physical_note/app/ui/page/main/main_screen_controller.dart';
 
 import 'main_tab_index.dart';
