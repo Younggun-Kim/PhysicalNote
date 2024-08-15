@@ -47,7 +47,7 @@ dependencies:
   easy_rich_text: ^2.0.0
   intl: any
   dotted_line: ^3.2.2
-  fl_chart: ^0.68.0
+  fl_chart: ^0.66.1
   sleek_circular_slider: ^2.0.1
   fluttertoast:
   build_runner: ^2.4.6
@@ -75,6 +75,7 @@ dependencies:
   flutter_local_notifications: ^17.2.2
   package_info_plus: ^8.0.2
   mockito: ^5.4.4
+  smooth_page_indicator: ^1.2.0+3
 
 dev_dependencies:
   flutter_test:
