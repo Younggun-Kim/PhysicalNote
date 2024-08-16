@@ -74,6 +74,7 @@ final enUs = {
   StringRes.sir: "님",
   StringRes.myState: "나의 상태",
   StringRes.noData: "데이터\n없음",
+  StringRes.dataNotAvailable: "데이터가 없습니다.",
   StringRes.hooperIndex: "후퍼인덱스",
   StringRes.hooperIndexAverage: "후퍼인덱스 평균",
   StringRes.urinalysis: "소변검사",
@@ -84,6 +85,7 @@ final enUs = {
   StringRes.workoutIntensityKorEng: "운동강도(Intensity)",
   StringRes.noRecordAndRecordYourStatusToday: "기록가 없습니다. 오늘 상태를 기록하세요!",
   StringRes.emptyWeightParams: "공복 몸무게 : @weightkg",
+  StringRes.emptyWeight: "공복몸무게",
   StringRes.emptyWeightWarning: "수분 섭취 상태와 함께 식단 조절에 신경쓰세요.",
   StringRes.emptyWeightGood: "식단조절에 신경쓰세요.",
   StringRes.workoutIntensityStatistics: "운동 강도 통계",
@@ -303,4 +305,6 @@ final enUs = {
   StringRes.noRegisteredTrainingToday: '오늘 등록된 훈련이 없습니다.',
   StringRes.beCarefulWorkingOutToday: '오늘 운동할때 주의하세요!',
   StringRes.moreShow: '더보기',
+  StringRes.urineState: '소변상태',
+  StringRes.injuryCurrentSituation: '부상현황',
 };

@@ -174,6 +174,7 @@ class Assets {
   static const String starYellow = 'assets/images/star_yellow.svg';
   static const String teamRequest = 'assets/images/team_request.png';
   static const String triangle = 'assets/images/triangle.png';
+  static const String urineEmptyBox = 'assets/images/urine_empty_box.svg';
   static const String userDefault = 'assets/images/user_default.svg';
   static const String userDefaultBasic = 'assets/images/user_default_basic.svg';
   static const String userDefaultGreen = 'assets/images/user_default_green.svg';

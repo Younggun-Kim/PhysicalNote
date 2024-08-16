@@ -155,6 +155,7 @@ class StringRes {
   static final sir = _generateId();
   static final myState = _generateId();
   static final noData = _generateId();
+  static final dataNotAvailable = _generateId();
   static final hooperIndex = _generateId();
   static final hooperIndexAverage = _generateId();
   static final urinalysis = _generateId();
@@ -165,6 +166,7 @@ class StringRes {
   static final workoutIntensityKorEng = _generateId();
   static final noRecordAndRecordYourStatusToday = _generateId();
   static final emptyWeightParams = _generateId();
+  static final emptyWeight = _generateId();
   static final emptyWeightWarning = _generateId();
   static final emptyWeightGood = _generateId();
   static final workoutIntensityStatistics = _generateId();
@@ -322,4 +324,6 @@ class StringRes {
   static final noRegisteredTrainingToday = _generateId();
   static final beCarefulWorkingOutToday = _generateId();
   static final moreShow = _generateId();
+  static final urineState = _generateId();
+  static final injuryCurrentSituation = _generateId();
 }
