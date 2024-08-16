@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/hooper_index_status.dart';
 import 'package:physical_note/app/config/constant/urine_status_type.dart';
 import 'package:physical_note/app/data/home/model/home_model.dart';
 import 'package:physical_note/app/resources/resources.dart';
@@ -8,7 +7,7 @@ import 'package:physical_note/app/ui/page/home2/home_controller.dart';
 extension HomeUiMapper on HomeController {
   void setScreen(GetHomeResponseModel? model) {
     /// 후퍼인덱스
-    final hooperIndex = model?.hooperIndexInfo;
+    // final hooperIndex = model?.hooperIndexInfo;
 
     /// 웰리니스 - 소변검사
     urineDescription.value = _urineDescription(model?.urineInfo);

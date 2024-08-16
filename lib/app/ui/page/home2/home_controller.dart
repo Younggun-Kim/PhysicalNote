@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/hooper_index_status.dart';
-import 'package:physical_note/app/config/constant/hooper_index_type.dart';
 import 'package:physical_note/app/config/constant/urine_status_type.dart';
 import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/data/home/model/home_model.dart';
