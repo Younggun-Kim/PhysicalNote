@@ -8,7 +8,6 @@ import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/page/home2/home_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/home2/items/today_training/home_today_training_item_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
-import 'package:physical_note/app/utils/getx/base_controller.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
 
 /// V2. Home 컨트롤러
@@ -23,29 +22,7 @@ class HomeController extends BaseController {
   final todayTrainingController = PageController();
 
   /// 오늘 훈련 목록
-  final todayTrainingItems = <HomeTodayTrainingItemUiState>[
-    HomeTodayTrainingItemUiState(
-      id: 1,
-      imageUrl: '',
-      name: '전술훈련',
-      place: '강릉종합운동장',
-      time: '09:00 - 11:00',
-    ),
-    HomeTodayTrainingItemUiState(
-      id: 2,
-      imageUrl: '',
-      name: '전술훈련',
-      place: '강릉종합운동장',
-      time: '09:00 - 11:00',
-    ),
-    HomeTodayTrainingItemUiState(
-      id: 3,
-      imageUrl: '',
-      name: '전술훈련',
-      place: '강릉종합운동장',
-      time: '09:00 - 11:00',
-    ),
-  ].obs;
+  final todayTrainingItems = <HomeTodayTrainingItemUiState>[].obs;
 
   /// 웰리니스 - 후퍼인덱스 - 평균
   final hooperIndexAverage = (null as int?).obs;

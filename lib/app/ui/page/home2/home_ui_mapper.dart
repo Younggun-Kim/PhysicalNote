@@ -6,6 +6,8 @@ import 'package:physical_note/app/ui/page/home2/home_controller.dart';
 
 extension HomeUiMapper on HomeController {
   void setScreen(GetHomeResponseModel? model) {
+    /// 오늘의 훈련
+    todayTrainingItems.value = [];
     /// 후퍼인덱스
     // final hooperIndex = model?.hooperIndexInfo;
 

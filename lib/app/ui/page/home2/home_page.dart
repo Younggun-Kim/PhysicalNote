@@ -30,8 +30,8 @@ class HomePage extends GetView<HomeController> {
               const SizedBox(height: 20),
               _FieldName(text: StringRes.todayTraining.tr),
               const SizedBox(height: 12),
-              SizedBox(
-                height: 104,
+              AspectRatio(
+                aspectRatio: 375 / 104,
                 child: _TodayTraining(),
               ),
               const SizedBox(height: 10),
@@ -242,19 +242,51 @@ class _RecordButton extends StatelessWidget {
       );
 }
 
-/// 오늘의 훈려
+/// 오늘의 훈련
 class _TodayTraining extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => Obx(
-        () => PageView.builder(
-          controller: controller.todayTrainingController,
-          scrollDirection: Axis.horizontal,
-          itemCount: controller.todayTrainingItems.length,
-          itemBuilder: (BuildContext context, int index) {
-            final items = controller.todayTrainingItems.toList();
-            final uiState = items[index];
-            return HomeTodayTrainingItem(uiState: uiState);
-          },
+        () {
+          if (controller.todayTrainingItems.isEmpty) {
+            return Center(
+              child: _TodayTrainingEmpty(),
+            );
+          } else {
+            return PageView.builder(
+              controller: controller.todayTrainingController,
+              scrollDirection: Axis.horizontal,
+              itemCount: controller.todayTrainingItems.length,
+              itemBuilder: (BuildContext context, int index) {
+                final items = controller.todayTrainingItems.toList();
+                final uiState = items[index];
+                return HomeTodayTrainingItem(uiState: uiState);
+              },
+            );
+          }
+        },
+      );
+}
+
+/// 오늘의 훈련 Empty Case
+class _TodayTrainingEmpty extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Container(
+        width: double.infinity,
+        alignment: Alignment.center,
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        decoration: BoxDecoration(
+          color: ColorRes.thirdPrimary,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          StringRes.noRegisteredTrainingToday.tr,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: ColorRes.fontBlack,
+            letterSpacing: -0.5,
+            height: 20 / 14,
+          ),
         ),
       );
 }
