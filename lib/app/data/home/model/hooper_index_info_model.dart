@@ -11,6 +11,11 @@ class HooperIndexInfoModel {
   final String? sleep;
   final String? stress;
   final String? recordDate;
+  final int? fatigueValue;
+  final int? hooperIndex;
+  final int? muscleSorenessValue;
+  final int? sleepValue;
+  final int? stressValue;
 
   HooperIndexInfoModel({
     this.id,
@@ -19,6 +24,12 @@ class HooperIndexInfoModel {
     this.sleep,
     this.stress,
     this.recordDate,
+    this.fatigueValue,
+    this.hooperIndex,
+    this.muscleSorenessValue,
+    this.sleepValue,
+    this.stressValue,
+
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

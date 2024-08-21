@@ -5,3 +5,4 @@ export 'muscle_type.dart';
 export 'distinction_type.dart';
 export 'body_part_type.dart';
 export 'body_type.dart';
+export 'intensity_type.dart';

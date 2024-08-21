@@ -221,6 +221,7 @@ class StringRes {
   static final insufficient = _generateId();
   static final urineTestWeightKg = _generateId();
   static final myAnswer = _generateId();
+  static final bmi = _generateId();
   static final bmiPercent = _generateId();
   static final compellingRequest = _generateId();
   static final doSave = _generateId();
@@ -326,4 +327,8 @@ class StringRes {
   static final moreShow = _generateId();
   static final urineState = _generateId();
   static final injuryCurrentSituation = _generateId();
+  static final risk7LessThan = _generateId();
+  static final risk7To14 = _generateId();
+  static final risk14To21 = _generateId();
+  static final risk21More = _generateId();
 }

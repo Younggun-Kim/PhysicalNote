@@ -141,6 +141,7 @@ final enUs = {
   StringRes.insufficient: "부족한",
   StringRes.urineTestWeightKg: "소변 검사 직후 공복 상태 몸무게 (kg)",
   StringRes.myAnswer: "내 답변",
+  StringRes.bmi: "체지방",
   StringRes.bmiPercent: "체지방률(%)",
   StringRes.compellingRequest: "대략적으로 작성해주세요.",
   StringRes.doSave: "저장하기",
@@ -307,4 +308,8 @@ final enUs = {
   StringRes.moreShow: '더보기',
   StringRes.urineState: '소변상태',
   StringRes.injuryCurrentSituation: '부상현황',
+  StringRes.risk7LessThan: '새로운 기록을 세워도 되는 컨디션입니다.',
+  StringRes.risk7To14: '운동을 위한 적합한 컨디션입니다.',
+  StringRes.risk14To21: '운동 시 집중해야 되는 컨디션입니다.',
+  StringRes.risk21More: '부상 위험이 매우 높습니다. 운동 강도와 양을 조절하세요.',
 };

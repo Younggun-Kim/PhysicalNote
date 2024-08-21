@@ -9,6 +9,7 @@ class UrineInfoModel {
   final double? weight;
   final String? differenceFat;
   final String? urine;
+  final double? bodyFat;
   final String? recordDate;
 
   UrineInfoModel({
@@ -16,6 +17,7 @@ class UrineInfoModel {
     this.weight,
     this.differenceFat,
     this.urine,
+    this.bodyFat,
     this.recordDate,
   });
 

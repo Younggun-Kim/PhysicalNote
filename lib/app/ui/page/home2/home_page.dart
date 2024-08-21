@@ -6,6 +6,7 @@ import 'package:physical_note/app/config/constant/index.dart';
 import 'package:physical_note/app/config/constant/urine_status_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/home2/home.dart';
+import 'package:physical_note/app/ui/page/home2/items/injury/home_injury_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/home2/items/today_training/home_today_training_item.dart';
 import 'package:physical_note/app/ui/widgets/flexible_scroll_view.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
@@ -38,16 +39,18 @@ class HomePage extends GetView<HomeController> {
               _TodayTrainingIndicator(),
               const SizedBox(height: 20),
               _FieldName(text: StringRes.injuryRisk.tr),
-              Text(
-                StringRes.beCarefulWorkingOutToday.tr,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: ColorRes.grayBababa,
-                  letterSpacing: -0.5,
-                  height: 20 / 14,
-                ),
-              ).marginSymmetric(horizontal: 24),
+              Obx(
+                () => Text(
+                  controller.riskDescription.value,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.grayBababa,
+                    letterSpacing: -0.5,
+                    height: 20 / 14,
+                  ),
+                ).marginSymmetric(horizontal: 24),
+              ),
               const SizedBox(height: 20),
               _InjuryRisk(),
               const SizedBox(height: 20),
@@ -94,10 +97,29 @@ class _UserInfo extends GetView<HomeController> {
   Widget build(BuildContext context) => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            Assets.userDefaultGreen,
-            width: 54,
-            height: 54,
+          Obx(
+            () => Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Image.network(
+                controller.userImage.value ?? '',
+                width: 54,
+                height: 54,
+                fit: BoxFit.fill,
+                errorBuilder: (
+                  BuildContext context,
+                  Object error,
+                  StackTrace? stackTrace,
+                ) =>
+                    SvgPicture.asset(
+                  Assets.userDefaultGreen,
+                  width: 54,
+                  height: 54,
+                ),
+              ),
+            ),
           ),
           const SizedBox(width: 18),
           Expanded(
@@ -105,50 +127,56 @@ class _UserInfo extends GetView<HomeController> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RichText(
-                  text: TextSpan(children: [
-                    TextSpan(
-                      text: '홍길동 ',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                        color: ColorRes.fontBlack,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    const WidgetSpan(child: SizedBox(width: 2)),
-                    TextSpan(
-                      text: StringRes.sir.tr,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: ColorRes.fontBlack,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    const WidgetSpan(child: SizedBox(width: 8)),
-                    WidgetSpan(
-                      child: InkWellOver(
-                        onTap: () {},
-                        child: SvgPicture.asset(
-                          Assets.editGreen,
-                          width: 19,
-                          height: 19,
+                Obx(
+                  () => RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '${controller.userName.value ?? ''} ',
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                            color: ColorRes.fontBlack,
+                            letterSpacing: -0.5,
+                          ),
                         ),
-                      ),
+                        const WidgetSpan(child: SizedBox(width: 2)),
+                        TextSpan(
+                          text: StringRes.sir.tr,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: ColorRes.fontBlack,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                        const WidgetSpan(child: SizedBox(width: 8)),
+                        WidgetSpan(
+                          child: InkWellOver(
+                            onTap: () {},
+                            child: SvgPicture.asset(
+                              Assets.editGreen,
+                              width: 19,
+                              height: 19,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ]),
-                ),
-                const Text(
-                  '여기저기FC / 정하진',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorRes.fontBlack,
-                    letterSpacing: -0.5,
-                    height: 20 / 14,
                   ),
-                )
+                ),
+                Obx(
+                  () => Text(
+                    controller.userTeamAndCoach.value ?? '',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                      letterSpacing: -0.5,
+                      height: 20 / 14,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -328,21 +356,25 @@ class _InjuryRisk extends GetView<HomeController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SvgPicture.asset(Assets.runningManDeepGreen),
-              const Text(
-                '65%',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w500,
-                  color: ColorRes.intensity0,
+              Obx(
+                () => Text(
+                  '${controller.riskPercent.value ?? 0}%',
+                  style: const TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.intensity0,
+                  ),
                 ),
-              )
+              ),
             ],
           ),
-          const _ProgressBar(
-            height: 10,
-            value: 7,
-            maxValue: 28,
-            color: ColorRes.intensity0,
+          Obx(
+            () => _ProgressBar(
+              height: 10,
+              value: controller.riskValue.value ?? 0,
+              maxValue: 28,
+              color: ColorRes.intensity0,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -493,16 +525,18 @@ class _Wellness extends GetView<HomeController> {
                 const SizedBox(width: 12),
                 Expanded(
                   flex: 1,
-                  child: _WellnessEmptyWeight(
-                    weight: 72.1,
-                    difference: -2,
-                  ),
+                  child: Obx(() => _WellnessEmptyWeight(
+                        weight: controller.emptyWeight.value,
+                        difference: controller.differenceWeight.value,
+                      )),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   flex: 1,
-                  child: _WellnessBmi(
-                    bmi: 14,
+                  child: Obx(
+                    () => _WellnessBmi(
+                      bmi: controller.bmi.value,
+                    ),
                   ),
                 ),
               ],
@@ -737,9 +771,9 @@ class _WellnessUrine extends StatelessWidget {
 
 /// 공복몸무게
 class _WellnessEmptyWeight extends StatelessWidget {
-  final double weight;
+  final double? weight;
 
-  final double difference;
+  final String? difference;
 
   const _WellnessEmptyWeight({
     required this.weight,
@@ -763,7 +797,7 @@ class _WellnessEmptyWeight extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            '${weight}kg',
+            '${weight ?? 0}kg',
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
@@ -772,23 +806,25 @@ class _WellnessEmptyWeight extends StatelessWidget {
               height: 28 / 20,
             ),
           ),
-          Text(
-            '($difference%)',
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: ColorRes.fontBlack,
-              letterSpacing: -0.5,
-              height: 16 / 12,
+          Center(
+            child: Text(
+              difference == null ? '' : '($difference%)',
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorRes.grayBababa,
+                letterSpacing: -0.5,
+                height: 16 / 12,
+              ),
             ),
-          ),
+          )
         ],
       );
 }
 
 /// 체지방
 class _WellnessBmi extends StatelessWidget {
-  final double bmi;
+  final double? bmi;
 
   const _WellnessBmi({
     required this.bmi,
@@ -800,7 +836,7 @@ class _WellnessBmi extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            StringRes.emptyWeight.tr,
+            StringRes.bmi.tr,
             style: const TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w500,
@@ -811,7 +847,7 @@ class _WellnessBmi extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            '$bmi%',
+            '${bmi ?? 0}%',
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
@@ -853,7 +889,7 @@ class _Intensity extends GetView<HomeController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  StringRes.intensity.tr,
+                  StringRes.workoutIntensity.tr,
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -889,23 +925,25 @@ class _Intensity extends GetView<HomeController> {
               ),
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                LevelProgressBar(
-                  size: 56,
-                  title: StringRes.sports.tr,
-                  value: 4,
-                  primaryColor: ColorRes.intensity0,
-                ),
-                LevelProgressBar(
-                  size: 56,
-                  title: StringRes.physical.tr,
-                  value: 6,
-                  primaryColor: ColorRes.intensity0,
-                ),
-              ],
-            )
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  LevelProgressBar(
+                    size: 56,
+                    title: StringRes.sports.tr,
+                    value: controller.intensitySports.value,
+                    primaryColor: ColorRes.intensity0,
+                  ),
+                  LevelProgressBar(
+                    size: 56,
+                    title: StringRes.physical.tr,
+                    value: controller.intensityPhysical.value,
+                    primaryColor: ColorRes.intensity0,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       );
@@ -964,15 +1002,51 @@ class _Injury extends GetView<HomeController> {
               ],
             ),
             const SizedBox(height: 14),
-            const _InjuryItem(
-              level: InjuryLevelType.veryHighPain,
-              muscleType: MuscleType.iliotibialBAND,
-              injuryType: InjuryType.contact,
+            Obx(
+              () {
+                if (controller.injuryList.isEmpty) {
+                  return Expanded(
+                    child: Center(
+                      child: Text(
+                        StringRes.dataNotAvailable.tr,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: ColorRes.fontBlack,
+                          letterSpacing: -0.5,
+                          height: 17 / 12,
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
             ),
-            const _InjuryItem(
-              level: InjuryLevelType.noPain,
-              muscleType: MuscleType.iliotibialBAND,
-              injuryType: InjuryType.contact,
+            Obx(
+              () {
+                final injuryList = controller.injuryList.toList();
+
+                if (injuryList.isEmpty) {
+                  return const SizedBox();
+                }
+                return _InjuryItem(
+                  uiState: injuryList[0],
+                );
+              },
+            ),
+            Obx(
+              () {
+                final injuryList = controller.injuryList.toList();
+
+                if (injuryList.length < 2) {
+                  return const SizedBox();
+                }
+                return _InjuryItem(
+                  uiState: injuryList[1],
+                );
+              },
             ),
           ],
         ),
@@ -981,16 +1055,16 @@ class _Injury extends GetView<HomeController> {
 
 /// 부상현황 아이템
 class _InjuryItem extends StatelessWidget {
-  final InjuryLevelType level;
+  final HomeInjuryItemUiState uiState;
 
-  final MuscleType muscleType;
+  InjuryLevelType get level => uiState.injuryLevel;
 
-  final InjuryType injuryType;
+  MuscleType get muscleType => uiState.muscle;
+
+  InjuryType get injuryType => uiState.injury;
 
   const _InjuryItem({
-    required this.level,
-    required this.muscleType,
-    required this.injuryType,
+    required this.uiState,
   });
 
   @override
