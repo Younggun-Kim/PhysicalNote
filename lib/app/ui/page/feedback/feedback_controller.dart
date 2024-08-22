@@ -13,6 +13,12 @@ import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 class FeedbackController extends BaseController {
+
+  @override
+  void onReady() {
+    super.onReady();
+    loadFeedback();
+  }
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
 

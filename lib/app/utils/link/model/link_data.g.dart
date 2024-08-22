@@ -28,9 +28,7 @@ const _$LinkTypeEnumMap = {
 
 const _$LinkScreenEnumMap = {
   LinkScreen.home: 'home',
-  LinkScreen.data: 'data',
   LinkScreen.wellness: 'wellness',
-  LinkScreen.injury: 'injury',
   LinkScreen.feedback: 'feedback',
   LinkScreen.calendar: 'calendar',
 };

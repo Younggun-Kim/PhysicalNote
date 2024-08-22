@@ -93,4 +93,14 @@ class MainScreenController extends BaseMainController<MainUiState> {
     final historyController = Get.find<HistoryController>();
     historyController.changeTab(tab.index);
   }
+
+  /// 피드백탭으로 이동
+  void moveFeedback(DateTime? recordDate) {
+    setTabIndex(tabIndex: MainTabIndex.feedback);
+
+    if (recordDate != null) {
+      final feedbackController = Get.find<FeedbackController>();
+      feedbackController.onChangedDate(recordDate);
+    }
+  }
 }

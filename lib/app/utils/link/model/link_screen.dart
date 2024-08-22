@@ -10,14 +10,8 @@ enum LinkScreen {
   /// 메인 - 홈
   home,
 
-  /// 메인 - 데이터
-  data,
-
-  /// 메인 - 데이터 - 웰리니스.
+  /// 웰리니스 작성.
   wellness,
-
-  /// 메인 - 데이터 - 부상관리
-  injury,
 
   /// 메인 - 피드백
   feedback,
