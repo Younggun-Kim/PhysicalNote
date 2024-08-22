@@ -8,13 +8,11 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/home2/home_controller.dart';
 import 'package:physical_note/app/ui/page/home2/items/injury/home_injury_item_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/list_extension.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 
 import 'items/today_training/home_today_training_item_ui_state.dart';
 
 extension HomeUiMapper on HomeController {
   void setScreen(GetHomeResponseModel? model) {
-
     /// 유저
     userImage.value = model?.userSimpleInfo?.profile;
     userName.value = model?.userSimpleInfo?.name;
@@ -163,15 +161,31 @@ extension HomeUiMapper on HomeController {
             final injuryLevel = InjuryLevelType.from(injury.injuryLevelType);
             final muscle = MuscleType.from(injury.muscleType);
             final injuryType = InjuryType.from(injury.injuryType);
-            if (injuryLevel == null || muscle == null || injuryType == null) {
-              return null;
-            }
+            final comment = injury.comment;
 
-            return HomeInjuryItemUiState(
-              injuryLevel: injuryLevel,
-              muscle: muscle,
-              injury: injuryType,
-            );
+            if (injuryType == InjuryType.disease) {
+              if (injuryType == null || comment == null) {
+                return null;
+              }
+
+              return HomeInjuryItemUiState(
+                injuryLevel: null,
+                muscle: null,
+                injury: injuryType,
+                comment: comment,
+              );
+            } else {
+              if (injuryType == null || muscle == null || injuryLevel == null) {
+                return null;
+
+              }
+              return HomeInjuryItemUiState(
+                injuryLevel: injuryLevel,
+                muscle: muscle,
+                injury: injuryType,
+                comment: '',
+              );
+            }
           },
         ).toList() ??
         [];

@@ -6,6 +6,8 @@ import 'package:physical_note/app/config/constant/index.dart';
 import 'package:physical_note/app/config/constant/urine_status_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/home2/home.dart';
+import 'package:physical_note/app/ui/page/home2/items/injury/home_injuiry_item.dart';
+import 'package:physical_note/app/ui/page/home2/items/injury/home_injuiry_item.dart';
 import 'package:physical_note/app/ui/page/home2/items/injury/home_injury_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/home2/items/today_training/home_today_training_item.dart';
 import 'package:physical_note/app/ui/widgets/flexible_scroll_view.dart';
@@ -1031,7 +1033,7 @@ class _Injury extends GetView<HomeController> {
                 if (injuryList.isEmpty) {
                   return const SizedBox();
                 }
-                return _InjuryItem(
+                return HomeInjuryItem(
                   uiState: injuryList[0],
                 );
               },
@@ -1043,7 +1045,7 @@ class _Injury extends GetView<HomeController> {
                 if (injuryList.length < 2) {
                   return const SizedBox();
                 }
-                return _InjuryItem(
+                return HomeInjuryItem(
                   uiState: injuryList[1],
                 );
               },
@@ -1051,72 +1053,4 @@ class _Injury extends GetView<HomeController> {
           ],
         ),
       );
-}
-
-/// 부상현황 아이템
-class _InjuryItem extends StatelessWidget {
-  final HomeInjuryItemUiState uiState;
-
-  InjuryLevelType get level => uiState.injuryLevel;
-
-  MuscleType get muscleType => uiState.muscle;
-
-  InjuryType get injuryType => uiState.injury;
-
-  const _InjuryItem({
-    required this.uiState,
-  });
-
-  @override
-  Widget build(BuildContext context) => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 2),
-            decoration: BoxDecoration(
-                border: Border.all(color: level.toBorderColor()),
-                borderRadius: BorderRadius.circular(20),
-                color: level.toBackgroundColor()),
-            child: Text(
-              '${level.level}단계',
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w300,
-                color: level.toFontColor(),
-                letterSpacing: -0.5,
-                height: 14 / 10,
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  muscleType.toKor(),
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: ColorRes.fontBlack,
-                    letterSpacing: -0.5,
-                    height: 14 / 10,
-                  ),
-                ),
-                Text(
-                  injuryType.toString(),
-                  style: const TextStyle(
-                    fontSize: 8,
-                    fontWeight: FontWeight.w500,
-                    color: ColorRes.fontBlack,
-                    letterSpacing: -0.5,
-                    height: 20 / 8,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ).marginOnly(bottom: 6);
 }
