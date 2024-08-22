@@ -8,7 +8,6 @@ import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/feedback/items/feedback_schedule_item_ui_state.dart';
-import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';

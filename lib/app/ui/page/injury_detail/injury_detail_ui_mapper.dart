@@ -9,6 +9,7 @@ import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/constant/pain_type.dart';
 import 'package:physical_note/app/data/injury/model/injury_response_model.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail.dart';
+import 'package:physical_note/app/utils/logger/logger.dart';
 
 extension InjuryDetailUiMapper on InjuryDetailController {
   void setScreen(InjuryResponseModel remoteData) {
@@ -21,33 +22,16 @@ extension InjuryDetailUiMapper on InjuryDetailController {
     injuryType.value = _injuryType;
 
     /// 앞/뒤
-    final _directionType =
-    DistinctionType.from(remoteData.distinctionType);
-    if (_directionType == null) {
-      return;
-    }
-    directionType.value = _directionType;
+    directionType.value = DistinctionType.from(remoteData.distinctionType);
 
     /// 상/하체
-    final _bodyType = BodyType.from(remoteData.bodyType);
-    if (_bodyType == null) {
-      return;
-    }
-    bodyType.value = _bodyType;
+    bodyType.value = BodyType.from(remoteData.bodyType);
 
     /// 부위
-    final _bodyPartsType = BodyPartsType.from(remoteData.bodyPart);
-    if (_bodyPartsType == null) {
-      return;
-    }
-    bodyPartsType.value = _bodyPartsType;
+    bodyPartsType.value = BodyPartsType.from(remoteData.bodyPart);
 
     /// 상세 근육.
-    final _muscleType = MuscleType.from(remoteData.muscleType);
-    if (_muscleType == null) {
-      return;
-    }
-    selectedMuscleType.value = _muscleType;
+    selectedMuscleType.value = MuscleType.from(remoteData.muscleType);
 
     /// 통증 정도.
     painLevel.value = InjuryLevelType.from(remoteData.injuryLevelType) ??
@@ -88,11 +72,12 @@ extension InjuryDetailUiMapper on InjuryDetailController {
       }
     });
 
-    /// 질병, 부경위
+    /// 질병, 부상경위
+    logger.w(remoteData.comment);
     diseaseController.value = remoteData.comment ?? "";
     painTimingDescription.value = remoteData.comment ?? "";
 
-    // 완치여부
+    /// 완치여부
     isRecovered.value = remoteData.recoveryYn == true;
   }
 }

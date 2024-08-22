@@ -28,7 +28,7 @@ class InjuryDetailController extends BaseController {
 
     final injuryId = args.injuryId;
     if (injuryId != null) {
-      _loadInjuryDetail(injuryId);
+      _loadApi(injuryId);
     }
   }
 
@@ -161,7 +161,7 @@ class InjuryDetailController extends BaseController {
 
     if (newDateTime != null) {
       recordDate.value = newDateTime;
-      // _loadInjuryDetail(args.injuryId);
+      // _loadApi(args.injuryId);
     }
   }
 
@@ -409,7 +409,7 @@ class InjuryDetailController extends BaseController {
   }
 
   /// API - 상세 조회.
-  Future _loadInjuryDetail(int? id) async {
+  Future _loadApi(int? id) async {
     final injuryId = id;
     if (injuryId == null) {
       return;
@@ -417,7 +417,6 @@ class InjuryDetailController extends BaseController {
 
     setLoading(true);
     final injuryApi = Get.find<InjuryAPI>();
-
     final response = await injuryApi.getInjuryDetail(id: injuryId);
 
     if (response is InjuryResponseModel) {

@@ -27,7 +27,6 @@ class InjuryAPI extends API {
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
-        logger.i(response.body);
         return GetInjuryResponseModel.fromJson({"list": response.body});
       }
     } catch (e) {
@@ -85,7 +84,8 @@ class InjuryAPI extends API {
     required PostInjuryRequestModel requestData,
   }) async {
     try {
-      logger.i("putInjury: ${requestData.toJson()}");
+      logger.i("putInjury: $injuryId");
+      logger.i(requestData.toJson);
       final response = await put(
         requestUrl + "/$injuryId",
         requestData.toJson(),
