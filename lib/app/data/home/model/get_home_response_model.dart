@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:physical_note/app/data/feedback/model/today_workout_item_model.dart';
 
 import 'home_today_workout_item_model.dart';
 import 'hooper_index_info_model.dart';
