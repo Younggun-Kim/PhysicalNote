@@ -1,8 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/history/history.dart';
+import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
 import 'package:physical_note/app/ui/page/main/main_ui_state.dart';
 import 'package:physical_note/app/utils/getx/base_main_controller.dart';
@@ -40,16 +40,9 @@ class MainScreenController extends BaseMainController<MainUiState> {
   @override
   final Rx<MainUiState> uiState = MainUiState().obs;
 
-  /// 사람 앞모습.
-  var humanFrontOriginImage = "";
-
-  /// 사람 뒷모습.
-  var humanBackOriginImage = "";
-
   /// 메인 탭 인덱스 변경.
   Future setTabIndex({
     required MainTabIndex tabIndex,
-    bool canLoad = true,
   }) async {
     unFocus();
     if (uiState.value.tabIndex == tabIndex) {
@@ -67,7 +60,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
         final isRegistered = Get.isRegistered<HomeController>();
         if (isRegistered) {
           final controller = Get.find<HomeController>();
-          // controller.scrollToTop();
+          controller.scrollToTop();
         }
         break;
       case MainTabIndex.history:
@@ -92,9 +85,12 @@ class MainScreenController extends BaseMainController<MainUiState> {
     setTabIndex(tabIndex: MainTabIndex.home);
   }
 
-  /// 데이터탭으로 이동.
-  void moveData() {
-    /// 데이터 탭으로 이동.
+  /// 이력탭으로 이동.
+  void moveHistory(HistoryTabType tab) {
     setTabIndex(tabIndex: MainTabIndex.history);
+
+    /// 이력 탭내의 탭 이동
+    final historyController = Get.find<HistoryController>();
+    historyController.changeTab(tab.index);
   }
 }

@@ -74,11 +74,6 @@ class HistoryController extends BaseController
   /// MainScreen에서 화면 전환 시 필요
   void scrollToTop() {}
 
-  /// MainScreen의 날짜 sync 맞추는 메소드
-  void syncDate(DateTime date) {
-    recordDate = date;
-  }
-
   /// 탭 변경
   void changeTab(int index) {
     _tabManager.changeTab(index: index);

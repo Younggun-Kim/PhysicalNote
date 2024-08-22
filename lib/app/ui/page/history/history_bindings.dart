@@ -10,8 +10,8 @@ class HistoryBindings extends Bindings {
     Get.lazyPut(() => HistoryController());
 
     // API DI
-    Get.lazyPut(() => WellnessAPI());
-    Get.lazyPut(() => IntensityAPI());
-    Get.lazyPut(() => InjuryAPI());
+    Get.put(WellnessAPI());
+    Get.put(IntensityAPI());
+    Get.put(InjuryAPI());
   }
 }

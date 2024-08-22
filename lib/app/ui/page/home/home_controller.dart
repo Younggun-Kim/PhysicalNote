@@ -1,18 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/urine_status_type.dart';
+import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/data/home/model/home_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
+import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/home/items/today_training/home_today_training_item_ui_state.dart';
+import 'package:physical_note/app/ui/page/injury_detail/injury_detail.dart';
+import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
+import 'package:physical_note/app/ui/page/main/main_screen.dart';
+import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
+import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
 
 import 'items/injury/home_injury_item_ui_state.dart';
 
-/// V2. Home 컨트롤러
+/// Home 컨트롤러
 class HomeController extends BaseController {
   @override
   void onReady() {
@@ -40,6 +47,7 @@ class HomeController extends BaseController {
 
   /// 부상위험도 - 수치
   final riskValue = (null as int?).obs;
+
   /// 부상위험도 - %
   final riskPercent = (null as int?).obs;
 
@@ -84,6 +92,95 @@ class HomeController extends BaseController {
 
   /// 부상현황
   final injuryList = <HomeInjuryItemUiState>[].obs;
+
+  /// MainScreen에서 화면 전환 시 필요
+  void scrollToTop() {}
+
+  /// 내정보 화면으로 이동
+  void onPressedUserEditButton() async {
+    final args = MyInformationArgs(
+      isEnteredFromHome: true,
+    );
+
+    final result = await Get.toNamed(
+      RouteType.MY_INFORMATION,
+      arguments: args,
+    );
+
+    if (result is bool && result == true) {
+      _loadApi();
+    }
+  }
+
+  /// 웰리니스 기록으로 이동
+  void onPressedWellnessWriteButton() async {
+    final args = WellnessDetailArgs(
+      wellnessId: null,
+      recordDate: DateTime.now(),
+    );
+
+    final response = await Get.toNamed(
+      RouteType.WELLNESS_DETAIL,
+      arguments: args,
+    );
+
+    if (response is bool && response) {
+      _loadApi();
+    }
+  }
+
+  /// 운동강도 기록으로 이동
+  void onPressedIntensityWriteButton() async {
+    final args = IntensityDetailArgs(
+      recordDate: DateTime.now(),
+    );
+
+    final result = await Get.toNamed(
+      RouteType.INTENSITY_DETAIL,
+      arguments: args,
+    );
+
+    if (result is bool && result) {
+      _loadApi();
+    }
+  }
+
+  /// 부상체크 기록으로 이동
+  void onPressedInjuryWriteButton() async {
+    final args = InjuryDetailArgs(
+      injuryId: null,
+      recordDate: DateTime.now(),
+    );
+
+    final result = await Get.toNamed(
+      RouteType.INJURY_DETAIL,
+      arguments: args,
+    );
+
+    if (result is bool && result) {
+      _loadApi();
+    }
+  }
+
+  /// 이력 - 웰리니스 탭으로 이동
+  void onPressedWellnessMore() {
+    _moveHistory(HistoryTabType.wellness);
+  }
+
+  /// 이력 - 운동강도 탭으로 이동
+  void onPressedIntensityMore() {
+    _moveHistory(HistoryTabType.intensity);
+  }
+
+  /// 이력 - 부상체크 탭으로 이동
+  void onPressedInjuryMore() {
+    _moveHistory(HistoryTabType.injury);
+  }
+
+  void _moveHistory(HistoryTabType tab) {
+    final mainController = Get.find<MainScreenController>();
+    mainController.moveHistory(tab);
+  }
 
   /// API - 홈 조회
   Future<void> _loadApi() async {

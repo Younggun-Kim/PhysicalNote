@@ -152,7 +152,7 @@ class _UserInfo extends GetView<HomeController> {
                         const WidgetSpan(child: SizedBox(width: 8)),
                         WidgetSpan(
                           child: InkWellOver(
-                            onTap: () {},
+                            onTap: controller.onPressedUserEditButton,
                             child: SvgPicture.asset(
                               Assets.editGreen,
                               width: 19,
@@ -192,7 +192,7 @@ class _RecordButtons extends GetView<HomeController> {
             child: _RecordButton(
               text: StringRes.wellness.tr,
               asset: Assets.wellnessIcon,
-              onPressed: () {},
+              onPressed: controller.onPressedWellnessWriteButton,
             ),
           ),
           const SizedBox(width: 12),
@@ -200,7 +200,7 @@ class _RecordButtons extends GetView<HomeController> {
             child: _RecordButton(
               text: StringRes.workoutIntensity.tr,
               asset: Assets.intensityIcon,
-              onPressed: () {},
+              onPressed: controller.onPressedIntensityWriteButton,
             ),
           ),
           const SizedBox(width: 12),
@@ -208,7 +208,7 @@ class _RecordButtons extends GetView<HomeController> {
             child: _RecordButton(
               text: StringRes.injuryCheck.tr,
               asset: Assets.injuryIcon,
-              onPressed: () {},
+              onPressed: controller.onPressedInjuryWriteButton,
             ),
           ),
         ],
@@ -471,7 +471,7 @@ class _Wellness extends GetView<HomeController> {
                   ),
                 ),
                 InkWellOver(
-                  onTap: () {},
+                  onTap: controller.onPressedWellnessMore,
                   child: Text(
                     StringRes.moreShow.tr,
                     style: const TextStyle(
@@ -898,7 +898,7 @@ class _Intensity extends GetView<HomeController> {
                   ),
                 ),
                 InkWellOver(
-                  onTap: () {},
+                  onTap: controller.onPressedIntensityMore,
                   child: Text(
                     StringRes.moreShow.tr,
                     style: const TextStyle(
@@ -988,7 +988,7 @@ class _Injury extends GetView<HomeController> {
                   ),
                 ),
                 InkWellOver(
-                  onTap: () {},
+                  onTap: controller.onPressedInjuryMore,
                   child: Text(
                     StringRes.moreShow.tr,
                     style: const TextStyle(
