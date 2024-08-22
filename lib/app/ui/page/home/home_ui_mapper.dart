@@ -1,318 +1,195 @@
-import 'dart:math';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:physical_note/app/config/constant/injury_level_type.dart';
-import 'package:physical_note/app/config/constant/injury_type.dart';
-import 'package:physical_note/app/config/constant/muscle_type.dart';
+import 'package:physical_note/app/config/constant/index.dart';
 import 'package:physical_note/app/config/constant/urine_status_type.dart';
 import 'package:physical_note/app/data/home/model/home_model.dart';
-import 'package:physical_note/app/config/constant/hooper_index_status.dart';
+import 'package:physical_note/app/data/home/model/home_today_workout_item_model.dart';
 import 'package:physical_note/app/data/home/model/injury_info_model.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/page/home/home.dart';
-import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_item_model.dart';
-import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
-import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
-import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
+import 'package:physical_note/app/ui/page/home/home_controller.dart';
+import 'package:physical_note/app/ui/page/home/items/injury/home_injury_item_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
+import 'package:physical_note/app/utils/extensions/list_extension.dart';
 
-import 'home_constant.dart';
-import 'item/home_injury_check_item/home_injury_check_item_ui_state.dart';
-import 'item/home_training_balance_item/home_training_balance_type.dart';
-import 'item/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
-import 'model/home_urine_model.dart';
+import 'items/today_training/home_today_training_item_ui_state.dart';
 
 extension HomeUiMapper on HomeController {
-  void setScreenData(GetHomeResponseModel? data) {
-    userName.value = data?.userSimpleInfo?.name ?? "";
-    userClub.value = data?.userSimpleInfo?.teamName ?? "";
-    userClubCoach.value = data?.userSimpleInfo?.teamCoachName ?? "";
-    userImageUrl.value = data?.userSimpleInfo?.profile ?? "";
-    hooperIndexData.value = setHooperIndexDataFrom(data?.hooperIndexInfo);
-    risk.value = data?.riskInfo?.injuryLevel;
-    riskPercent.value = data?.riskInfo?.injuryPercent;
-    urineData.value = setHomeUrineModelFrom(data?.urineInfo);
-    workoutIntensityList.value =
-        setHomeWorkoutIntensityChartUiStateFrom(data?.intensityInfo);
-    weeklyDataList.value =
-        setHomeStatisticsWeeklyDataFrom(data?.weekIntensityGraph);
-    monthlyDataList.value =
-        setHomeStatisticsMonthlyFrom(data?.monthIntensityGraph);
-    workoutTodayTime.value =
-        _parseWorkoutTodayTime(data?.workoutInfo?.todayWorkoutTime);
-    workoutYesterdayCompareTime.value =
-        data?.workoutInfo?.yesterdayCompareTime ?? "";
-    workoutThisWeek.value = data?.workoutInfo?.thisWeekWorkoutRoad ?? 0;
-    workoutThisWeekStatus.value = HomeTrainingBalanceType.from(
-        data?.workoutInfo?.thisWeekWorkoutRoadString);
-    workoutLastWeek.value = data?.workoutInfo?.lastWeekWorkoutRoad ?? 0;
-    workoutLastWeekStatus.value = HomeTrainingBalanceType.from(
-        data?.workoutInfo?.lastWeekWorkoutRoadString);
-    workoutLastFourWeek.value = data?.workoutInfo?.lastFourWeekWorkoutRoad ?? 0;
-    workoutLastFourWeekStatus.value = HomeTrainingBalanceType.from(
-        data?.workoutInfo?.lastFourWeekWorkoutRoadString);
-    workoutLastEightWeek.value =
-        data?.workoutInfo?.lastEightWeekWorkoutRoad ?? 0;
-    workoutLastEightWeekStatus.value = HomeTrainingBalanceType.from(
-        data?.workoutInfo?.lastEightWeekWorkoutRoadString);
-    injuryCheckList.value =
-        setHomeInjuryCheckItemUiStateFrom(remoteData: data?.injuryInfo) ?? [];
-  }
+  void setScreen(GetHomeResponseModel? model) {
+    /// 유저
+    userImage.value = model?.userSimpleInfo?.profile;
+    userName.value = model?.userSimpleInfo?.name;
+    userTeamAndCoach.value = model?.userSimpleInfo?.teamCoachName;
 
-  /// 후퍼인덱스 매핑
-  HooperIndexData? setHooperIndexDataFrom(HooperIndexInfoModel? remoteData) {
-    final data = remoteData;
-
-    if (data == null) {
-      return null;
-    }
-
-    return HooperIndexData(
-      sleep: HooperIndexStatus.changeFrom(data.sleep),
-      stress: HooperIndexStatus.changeFrom(data.stress),
-      fatigue: HooperIndexStatus.changeFrom(data.fatigue),
-      musclePain: HooperIndexStatus.changeFrom(data.muscleSoreness),
+    /// 오늘의 훈련
+    todayTrainingItems.value = _todayTrainingList(
+      model?.todayWorkoutList,
     );
-  }
 
-  /// 소변검사 매핑
-  HomeUrineModel? setHomeUrineModelFrom(UrineInfoModel? remoteData) {
-    final data = remoteData;
-    final urineId = data?.id;
+    /// 부상위험도
+    riskDescription.value = _riskDescription(model?.riskInfo?.injuryLevel);
+    riskValue.value = model?.riskInfo?.injuryLevel;
+    riskPercent.value = model?.riskInfo?.injuryPercent;
 
-    if (data == null || urineId == null) {
-      return null;
-    }
+    /// 웰리니스 - 후퍼인덱스
+    hooperIndexAverage.value = model?.hooperIndexInfo?.hooperIndex;
+    hooperIndexSleep.value = model?.hooperIndexInfo?.sleepValue;
+    hooperIndexStress.value = model?.hooperIndexInfo?.stressValue;
+    hooperIndexFatigue.value = model?.hooperIndexInfo?.fatigueValue;
+    hooperIndexMuscleSoreness.value =
+        model?.hooperIndexInfo?.muscleSorenessValue;
 
-    return HomeUrineModel(
-      id: urineId,
-      weight: data.weight ?? 0,
-      differenceFat: data.differenceFat ?? '0',
-      urine: UrineStatusType.typeFrom(data.urine ?? ""),
+    /// 웰리니스 - 소변검사
+    urine.value = UrineStatusType.typeFrom(model?.urineInfo?.urine);
+    urineDescription.value = _urineDescription(model?.urineInfo);
+
+    /// 웰리니스 - 공복몸무게
+    emptyWeight.value = model?.urineInfo?.weight;
+    differenceWeight.value = model?.urineInfo?.differenceFat;
+
+    /// 웰리니스 - 체지방
+    bmi.value = model?.urineInfo?.bodyFat;
+
+    /// 운동강도
+    intensityTime.value = _intensityTime(model?.todayWorkoutTime);
+    intensitySports.value = _intensityTypeValue(
+      model?.intensityInfo,
+      IntensityType.sports,
     );
+    intensityPhysical.value = _intensityTypeValue(
+      model?.intensityInfo,
+      IntensityType.physical,
+    );
+
+    /// 부상현황
+    // injuryList.value =[];
+    injuryList.value = _injuryList(model?.injuryInfo);
   }
 
-  /// 운동강도 매핑
-  List<HomeWorkoutIntensityChartUiState>
-      setHomeWorkoutIntensityChartUiStateFrom(
-          List<IntensityInfoModel>? remoteData) {
-    var data = remoteData;
-
-    if (data == null || data.isEmpty) {
+  /// 오늘의 훈련
+  List<HomeTodayTrainingItemUiState> _todayTrainingList(
+      List<HomeTodayWorkoutItemModel>? modelList) {
+    if (modelList == null || modelList.isEmpty) {
       return [];
-    } else {
-      return data
-          .map(
-            (e) => HomeWorkoutIntensityChartUiState(
-              name: e.type ?? "",
-              value: e.level?.toDouble() ?? 0.0,
-            ),
-          )
-          .toList();
     }
-  }
 
-  /// 통계 - 주간 매핑
-  List<HomeStatisticsChartModel> setHomeStatisticsWeeklyDataFrom(
-      List<WeekIntensityGraphModel>? remoteData) {
-    var data = remoteData;
-    if (data == null || data.isEmpty) {
-      return [
-        HomeStatisticsChartModel(
-          list: [],
-          lineColor: Colors.transparent,
-        ),
-      ];
-    } else {
-      final sportChartData = _weeklyRawToHomeHomeStatisticsModel(
-          remoteData: data,
-          type: StringRes.sports.tr,
-          color: ColorRes.intensityLine1);
-      final physicalChartData = _weeklyRawToHomeHomeStatisticsModel(
-        remoteData: data,
-        type: StringRes.physical.tr,
-        color: ColorRes.homePhysicalPurple,
+    return modelList.compactMap((model) {
+      final id = model.id;
+
+      if (id == null) {
+        return null;
+      }
+
+      return HomeTodayTrainingItemUiState(
+        id: id,
+        imageUrl: model.images?.first,
+        name: model.workoutName,
+        place: model.address,
+        time: model.workoutTime,
       );
-
-      var result = <HomeStatisticsChartModel>[];
-
-      if (sportChartData != null) {
-        result.add(sportChartData);
-      }
-
-      if (physicalChartData != null) {
-        result.add(physicalChartData);
-      }
-
-      return result;
-    }
+    }).toList();
   }
 
-  /// 통계 - 월간 매핑.
-  List<HomeStatisticsChartModel> setHomeStatisticsMonthlyFrom(
-      List<MonthIntensityGraphModel>? remoteData) {
-    var data = remoteData;
-    if (data == null || data.isEmpty) {
-      return [];
+  /// 부상위험도 설명
+  String _riskDescription(int? level) {
+    if (level == null) {
+      return StringRes.beCarefulWorkingOutToday.tr;
+    } else if (level < 7) {
+      return StringRes.risk7LessThan.tr;
+    } else if (level >= 7 && level < 14) {
+      return StringRes.risk7To14.tr;
+    } else if (level >= 14 && level < 21) {
+      return StringRes.risk14To21.tr;
     } else {
-      final sportChartData = _monthlyRawToHomeHomeStatisticsModel(
-          remoteData: data,
-          type: StringRes.sports.tr,
-          color: ColorRes.intensityLine1);
-      final physicalChartData = _monthlyRawToHomeHomeStatisticsModel(
-          remoteData: data,
-          type: StringRes.physical.tr,
-          color: ColorRes.homePhysicalPurple);
-
-      var result = <HomeStatisticsChartModel>[];
-
-      if (sportChartData != null) {
-        result.add(sportChartData);
-      }
-      if (physicalChartData != null) {
-        result.add(physicalChartData);
-      }
-
-      return result;
+      return StringRes.risk21More.tr;
     }
   }
 
-  /// 주간 차트 데이터 -> 홈 모델로 변경.
-  HomeStatisticsChartModel? _weeklyRawToHomeHomeStatisticsModel({
-    required List<WeekIntensityGraphModel> remoteData,
-    required String type,
-    required Color color,
-  }) {
-    final dataList = remoteData
-        .where((element) => element.type == type)
-        .map((data) {
-          final itemId = data.id;
-          final x = _weeklyXValeToDouble(data.xvalue);
-          if (itemId == null || x == null) {
-            return null;
-          } else {
-            return HomeStatisticsChartItemModel(
-                id: itemId, x: x, y: data.level?.toDouble() ?? 0);
-          }
-        })
-        .whereType<HomeStatisticsChartItemModel>()
-        .toList();
+  /// 소변 데이터를 설명으로 변경
+  String _urineDescription(UrineInfoModel? urineData) {
+    final urine = UrineStatusType.typeFrom(urineData?.urine ?? '');
+    final differenceFat = urineData?.differenceFat;
 
-    if (dataList.isEmpty) {
-      return null;
+    if (urine == UrineStatusType.none || differenceFat == null) {
+      return StringRes.dataNotAvailable.tr;
     }
 
-    return HomeStatisticsChartModel(
-      list: dataList,
-      lineColor: color,
+    final differenceFatNum = double.parse(
+      differenceFat.replaceAll(RegExp(r'[^\d.-]'), ''),
     );
-  }
 
-  /// 주간 X Value 매핑
-  double? _weeklyXValeToDouble(String? xValue) {
-    if (xValue?.contains("월요일") == true) {
-      return 0;
-    } else if (xValue?.contains("화요일") == true) {
-      return 1;
-    } else if (xValue?.contains("수요일") == true) {
-      return 2;
-    } else if (xValue?.contains("목요일") == true) {
-      return 3;
-    } else if (xValue?.contains("금요일") == true) {
-      return 4;
-    } else if (xValue?.contains("토요일") == true) {
-      return 5;
-    } else if (xValue?.contains("일요일") == true) {
-      return 6;
+    final isPositiveUrine = urine.isPositive();
+
+    if (differenceFatNum >= 2) {
+      return isPositiveUrine
+          ? StringRes.urineWeightOverMoistureGood.tr
+          : StringRes.urineWeightOverMoistureBad.tr;
+    } else if (differenceFatNum <= -2) {
+      return isPositiveUrine
+          ? StringRes.urineWeightLessMoistureGood.tr
+          : StringRes.urineWeightLessMoistureBad.tr;
     } else {
-      return null;
+      return isPositiveUrine
+          ? StringRes.urineWeightGoodMoistureGood.tr
+          : StringRes.urineWeightGoodMoistureBad.tr;
     }
   }
 
-  /// 월간 차트 데이터 -> 홈 모델로 변경.
-  HomeStatisticsChartModel? _monthlyRawToHomeHomeStatisticsModel({
-    required List<MonthIntensityGraphModel> remoteData,
-    required String type,
-    required Color color,
-  }) {
-    final dataList = remoteData
-        .where((element) => element.type == type)
-        .map((data) {
-          final year = myStateDate.value.year;
-          final month = myStateDate.value.month;
-          final remoteDataDate = DateFormat('yyyy-MM').parse(data.xvalue ?? "");
-          final remoteDataYear = remoteDataDate.year;
-          final remoteDataMonth = remoteDataDate.month;
-          final yearOffset = year - remoteDataYear > 0 ? 12 : 0;
-          final index = max(
-              0,
-              remoteDataMonth -
-                  month -
-                  yearOffset +
-                  HomeConstant.monthMaxXLength);
-
-          return HomeStatisticsChartItemModel(
-              id: 0,
-              x: index.toDouble(),
-              y: data.level?.toDouble() ?? 0,
-              xName: data.xvalue ?? "");
-        })
-        .whereType<HomeStatisticsChartItemModel>()
-        .toList();
-
-    if (dataList.isEmpty) {
+  /// 운동강도 - 시간
+  String? _intensityTime(String? todayWorkoutTime) {
+    if(todayWorkoutTime == null) {
       return null;
     }
 
-    return HomeStatisticsChartModel(
-      list: dataList,
-      lineColor: color,
-    );
+    return todayWorkoutTime.toHourAndMinute();
   }
 
-  /// 부상체크 목록 매핑.
-  List<HomeInjuryCheckItemUiState>? setHomeInjuryCheckItemUiStateFrom(
-      {required List<InjuryInfoModel>? remoteData}) {
-    return remoteData
-        ?.map((e) {
-          final injuryId = e.id;
-          final injuryType = InjuryType.from(e.injuryType);
-          final injuryLevel = InjuryLevelType.from(e.injuryLevelType);
-          final muscleType = MuscleType.from(e.muscleType);
-          final bodyPart = InjuryCheckBodyPartsType.from(e.bodyPart);
+  /// 운동강도 - 타입에 따른 값 얻기
+  double _intensityTypeValue(
+    List<IntensityInfoModel>? model,
+    IntensityType type,
+  ) {
+    final typeName = type.toKor;
 
-          if (injuryId == null || injuryType == null || bodyPart == null) {
-            return null;
-          }
-          return HomeInjuryCheckItemUiState(
-            id: injuryId,
-            injuryType: injuryType,
-            injuryLevelType: injuryLevel,
-            injuryLevelTypeString: e.injuryLevelString,
-            recordDate: e.recordDate,
-            comment: e.comment,
-            muscleType: muscleType,
-            bodyPart: bodyPart,
-            direction: InjuryCheckDirectionType.from(e.distinctionType),
-            recoveryYn: e.recoveryYn,
-            recoveryDate: e.recoveryDate,
-          );
-        })
-        .whereType<HomeInjuryCheckItemUiState>()
-        .toList();
+    return model
+            ?.firstWhereOrNull((intensity) => intensity.type == typeName)
+            ?.level
+            ?.toDouble() ??
+        0;
   }
 
-  /// 운동시간 - 오늘 운동 시간 파싱
-  String _parseWorkoutTodayTime(String? time) {
-    final value = time;
+  /// 부상현황
+  List<HomeInjuryItemUiState> _injuryList(List<InjuryInfoModel>? model) {
+    return model?.compactMap(
+          (injury) {
+            final injuryLevel = InjuryLevelType.from(injury.injuryLevelType);
+            final muscle = MuscleType.from(injury.muscleType);
+            final injuryType = InjuryType.from(injury.injuryType);
+            final comment = injury.comment;
 
-    if (value == null) {
-      return "";
-    } else {
-      final date = DateFormat("HH:mm:ss").parse(value);
-      return date.toFormattedString("H시간 m분");
-    }
+            if (injuryType == InjuryType.disease) {
+              if (injuryType == null || comment == null) {
+                return null;
+              }
+
+              return HomeInjuryItemUiState(
+                injuryLevel: null,
+                muscle: null,
+                injury: injuryType,
+                comment: comment,
+              );
+            } else {
+              if (injuryType == null || muscle == null || injuryLevel == null) {
+                return null;
+
+              }
+              return HomeInjuryItemUiState(
+                injuryLevel: injuryLevel,
+                muscle: muscle,
+                injury: injuryType,
+                comment: '',
+              );
+            }
+          },
+        ).toList() ??
+        [];
   }
 }

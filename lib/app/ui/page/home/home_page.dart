@@ -1,1344 +1,1054 @@
-// ignore_for_file: invalid_use_of_protected_member
-
-import 'dart:math';
-
-import 'package:dotted_border/dotted_border.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/hooper_index_status.dart';
-import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
-import 'package:physical_note/app/ui/page/home/item/home_training_balance_item/home_training_balance_type.dart';
-import 'package:physical_note/app/ui/page/home/model/home_statistics_chart_model.dart';
-import 'package:physical_note/app/ui/page/home/model/home_urine_model.dart';
-import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
-
-import '../../../resources/resources.dart';
-import 'home_constant.dart';
-import 'home_controller.dart';
-import 'item/home_injury_check_item/home_injury_check_item.dart';
-import 'item/home_training_balance_item/home_training_balance_item.dart';
-import 'item/home_workout_intensity_chart/home_workout_intensity_chart_ui_state.dart';
-import 'item/home_workout_intensity_chart/home_workout_intensity_progress_bar.dart';
+import 'package:physical_note/app/config/constant/hooper_index_type.dart';
+import 'package:physical_note/app/config/constant/urine_status_type.dart';
+import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/page/home/home.dart';
+import 'package:physical_note/app/ui/page/home/items/injury/home_injuiry_item.dart';
+import 'package:physical_note/app/ui/page/home/items/today_training/home_today_training_item.dart';
+import 'package:physical_note/app/ui/widgets/flexible_scroll_view.dart';
+import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
+import 'package:physical_note/app/ui/widgets/level_progress_bar/level_progress_bar.dart';
+import 'package:physical_note/app/ui/widgets/page_root.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) => PageRoot(
-      controller: controller,
-      child: FlexibleScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            const _UserInformation(),
-            const SizedBox(height: 48),
-            const _MyStateHeader(),
-            const SizedBox(height: 10),
-            Obx(
-              () => Expanded(
+        controller: controller,
+        child: FlexibleScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 26),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _UserInfo(),
+              const SizedBox(height: 20),
+              _RecordButtons(),
+              const SizedBox(height: 20),
+              _FieldName(text: StringRes.todayTraining.tr),
+              const SizedBox(height: 12),
+              AspectRatio(
+                aspectRatio: 375 / 104,
+                child: _TodayTraining(),
+              ),
+              const SizedBox(height: 10),
+              _TodayTrainingIndicator(),
+              const SizedBox(height: 20),
+              _FieldName(text: StringRes.injuryRisk.tr),
+              Obx(
+                () => Text(
+                  controller.riskDescription.value,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.grayBababa,
+                    letterSpacing: -0.5,
+                    height: 20 / 14,
+                  ),
+                ).marginSymmetric(horizontal: 24),
+              ),
+              const SizedBox(height: 20),
+              _InjuryRisk(),
+              const SizedBox(height: 20),
+              _Wellness(),
+              const SizedBox(height: 12),
+              IntrinsicHeight(
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Visibility(
-                      visible: controller.myStatePageFirst.value == true,
-                      child: Expanded(child: _FirstBody()),
-                    ),
-                    Visibility(
-                      visible: controller.myStatePageFirst.value == false,
-                      child: Expanded(child: _SecondBody()),
-                    ),
+                    Expanded(child: _Intensity()),
+                    const SizedBox(width: 12),
+                    Expanded(child: _Injury()),
                   ],
                 ),
-              ),
-            ),
-          ],
-        ),
-      ));
-}
-
-class _FirstBody extends GetView<HomeController> {
-  @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          Obx(
-            () => _MyStateContainer(
-              hooperIndexData: controller.hooperIndexData.value,
-              risk: controller.risk.value,
-              riskPercent: controller.riskPercent.value,
-              urineData: controller.urineData.value,
-              urineDescription: controller.urineDescription.value,
-              workoutIntensityData: controller.workoutIntensityList.value,
-              onPressedHooperIndex: controller.onPressedHooperIndex,
-              onPressedUrine: controller.onPressedUrine,
-              onPressedRisk: controller.onPressedRisk,
-              onPressedWorkoutIntensity: controller.onPressedWorkoutIntensity,
-            ),
+              )
+            ],
           ),
-          const SizedBox(height: 20),
-          _Statistics(),
-          const SizedBox(height: 40),
-        ],
+        ),
       );
 }
 
-class _SecondBody extends GetView<HomeController> {
+/// 필드명
+class _FieldName extends StatelessWidget {
+  final String text;
+
+  const _FieldName({required this.text});
+
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) => Text(
+        text,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: ColorRes.fontBlack,
+          letterSpacing: -0.5,
+          height: 24 / 16,
+        ),
+      ).marginSymmetric(horizontal: 24);
+}
+
+/// 로그인한 유저의 정보
+class _UserInfo extends GetView<HomeController> {
+  @override
+  Widget build(BuildContext context) => Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Obx(
-            () => _SecondState(
-              todayTime: controller.workoutTodayTime.value,
-              yesterdayCompareTime:
-                  controller.workoutYesterdayCompareTime.value,
-              injuryCheckList: controller.injuryCheckList.value,
-              thisWeek: controller.workoutThisWeek.value,
-              thisWeekLoad: controller.workoutThisWeekStatus.value,
-              lastWeek: controller.workoutLastWeek.value,
-              lastWeekLoad: controller.workoutLastWeekStatus.value,
-              lastFourWeek: controller.workoutLastFourWeek.value,
-              lastFourWeekLoad: controller.workoutLastFourWeekStatus.value,
-              lastEightWeek: controller.workoutLastEightWeek.value,
-              lastEightWeekLoad: controller.workoutLastEightWeekStatus.value,
-              onPressedWorkoutTime: controller.onPressedWorkoutTime,
-              onPressedInjuryCheckEdit: controller.onPressedInjuryCheckEdit,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Text(
-              StringRes.painPosition.tr,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: ColorRes.fontBlack,
+            () => Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Image.network(
+                controller.userImage.value ?? '',
+                width: 54,
+                height: 54,
+                fit: BoxFit.fill,
+                errorBuilder: (
+                  BuildContext context,
+                  Object error,
+                  StackTrace? stackTrace,
+                ) =>
+                    SvgPicture.asset(
+                  Assets.userDefaultGreen,
+                  width: 54,
+                  height: 54,
+                ),
               ),
             ),
           ),
-          const SizedBox(height: 20),
-          Obx(
-            () => Row(
+          const SizedBox(width: 18),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: AspectRatio(
-                    aspectRatio: 528 / 1205,
-                    child: SvgPicture.string(controller.humanFrontImage.value),
+                Obx(
+                  () => RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '${controller.userName.value ?? ''} ',
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                            color: ColorRes.fontBlack,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                        const WidgetSpan(child: SizedBox(width: 2)),
+                        TextSpan(
+                          text: StringRes.sir.tr,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: ColorRes.fontBlack,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                        const WidgetSpan(child: SizedBox(width: 8)),
+                        WidgetSpan(
+                          child: InkWellOver(
+                            onTap: controller.onPressedUserEditButton,
+                            child: SvgPicture.asset(
+                              Assets.editGreen,
+                              width: 19,
+                              height: 19,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                Expanded(
-                  child: AspectRatio(
-                    aspectRatio: 528 / 1205,
-                    child: SvgPicture.string(controller.humanBackImage.value),
+                Obx(
+                  () => Text(
+                    controller.userTeamAndCoach.value ?? '',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.fontBlack,
+                      letterSpacing: -0.5,
+                      height: 20 / 14,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
         ],
-      );
+      ).marginSymmetric(horizontal: 24);
 }
 
-/// User 정보
-class _UserInformation extends GetView<HomeController> {
-  const _UserInformation();
-
+/// 기록 버튼 목록
+class _RecordButtons extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          Obx(
-            () => Container(
-                width: 54,
-                height: 54,
-                clipBehavior: Clip.hardEdge,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: controller.userImageUrl.value.isEmpty
-                    ? SvgPicture.asset(
-                        Assets.userDefault,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.network(
-                        controller.userImageUrl.value,
-                        fit: BoxFit.cover,
-                        errorBuilder: profileErrorBuilder,
-                      )),
+          Expanded(
+            child: _RecordButton(
+              text: StringRes.wellness.tr,
+              asset: Assets.wellnessIcon,
+              onPressed: controller.onPressedWellnessWriteButton,
+            ),
           ),
           const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Obx(
-                () => Text(
-                  "${controller.userClub.value} / ${controller.userClubCoach.value}",
-                  style:
-                      const TextStyle(fontSize: 12, color: ColorRes.fontBlack),
-                ),
-              ),
-              const SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Obx(
-                    () => Text(
-                      controller.userName.value,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                        color: ColorRes.fontBlack,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    StringRes.sir.tr,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: ColorRes.fontBlack,
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  InkWellOver(
-                    onTap: controller.onPressedUserEdit,
-                    child: SvgPicture.asset(
-                      Assets.edit03,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          )
-        ],
-      ).paddingSymmetric(horizontal: 20);
-
-  /// 프로필 에러 빌더.
-  Widget profileErrorBuilder(
-    BuildContext context,
-    Object error,
-    StackTrace? stackTrace,
-  ) =>
-      SvgPicture.asset(
-        Assets.userDefault,
-        fit: BoxFit.cover,
-      );
-}
-
-/// 나의상태 헤더.
-class _MyStateHeader extends GetView<HomeController> {
-  const _MyStateHeader();
-
-  @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            StringRes.myState.tr,
-            style: const TextStyle(
-              fontSize: 30,
-              color: ColorRes.fontBlack,
+          Expanded(
+            child: _RecordButton(
+              text: StringRes.workoutIntensity.tr,
+              asset: Assets.intensityIcon,
+              onPressed: controller.onPressedIntensityWriteButton,
             ),
           ),
-          Row(
-            children: [
-              Obx(
-                () => Text(
-                  controller.myStateDate.value.toFormattedString('yyyy년 M월 d일'),
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 5),
-              InkWellOver(
-                onTap: controller.onPressedCalendar,
-                child: SvgPicture.asset(Assets.codeBrowser),
-              ),
-              const Spacer(),
-              Obx(
-                () => BaseButton(
-                  text: controller.myStatePageButtonName.value,
-                  height: 24,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  onPressed: controller.onPressedNextButton,
-                ),
-              ),
-            ],
-          )
-        ],
-      ).paddingSymmetric(horizontal: 30);
-}
-
-/// 나의 상태 컨테이너.
-class _MyStateContainer extends StatelessWidget {
-  final HooperIndexData? hooperIndexData;
-
-  final int? risk;
-
-  final int? riskPercent;
-
-  final HomeUrineModel? urineData;
-
-  final String urineDescription;
-
-  final List<HomeWorkoutIntensityChartUiState> workoutIntensityData;
-
-  final VoidCallback onPressedHooperIndex;
-  final VoidCallback onPressedUrine;
-  final VoidCallback onPressedRisk;
-  final VoidCallback onPressedWorkoutIntensity;
-
-  const _MyStateContainer({
-    required this.hooperIndexData,
-    required this.risk,
-    required this.riskPercent,
-    required this.urineData,
-    required this.urineDescription,
-    required this.workoutIntensityData,
-    required this.onPressedHooperIndex,
-    required this.onPressedUrine,
-    required this.onPressedRisk,
-    required this.onPressedWorkoutIntensity,
-  });
-
-  @override
-  Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.all(16),
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-          color: ColorRes.white,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: ColorRes.borderWhite),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.25),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: const Offset(0, 2), // changes position of shadow
+          const SizedBox(width: 12),
+          Expanded(
+            child: _RecordButton(
+              text: StringRes.injuryCheck.tr,
+              asset: Assets.injuryIcon,
+              onPressed: controller.onPressedInjuryWriteButton,
             ),
-          ],
-        ),
-        child: IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    _MyStateTitle(
-                      title: StringRes.hooperIndex.tr,
-                      onPressed: onPressedHooperIndex,
-                    ),
-                    const SizedBox(height: 10),
-                    if (hooperIndexData == null)
-                      _EmptyDataText()
-                    else
-                      _MyStateHooperIndex(hooperIndexData: hooperIndexData!),
-                    const SizedBox(height: 16),
-                    _MyStateTitle(
-                        title: StringRes.injuryRisk.tr,
-                        onPressed: onPressedRisk),
-                    if (risk == null) const SizedBox(height: 10),
-                    if (risk == null)
-                      _EmptyDataText()
-                    else
-                      _MyStateRisk(
-                        risk: risk ?? 0,
-                        percent: riskPercent ?? 0,
-                      ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 16),
-              DottedBorder(
-                borderType: BorderType.Rect,
-                dashPattern: const [6, 4],
-                color: ColorRes.disable,
-                customPath: (size) {
-                  return Path()
-                    ..moveTo(0, 0)
-                    ..lineTo(0, size.height);
-                },
-                child: Container(),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  children: [
-                    _MyStateTitle(
-                        title: StringRes.urinalysis.tr,
-                        onPressed: onPressedUrine),
-                    const SizedBox(height: 10),
-                    if (urineData == null)
-                      _EmptyDataText()
-                    else
-                      _MyStateUrinalysis(
-                        urineData: urineData!,
-                        urineDescription: urineDescription,
-                      ),
-                    const SizedBox(height: 16),
-                    _MyStateTitle(
-                        title: StringRes.workoutIntensity.tr,
-                        onPressed: onPressedWorkoutIntensity),
-                    const SizedBox(height: 10),
-                    if (workoutIntensityData.isEmpty)
-                      _EmptyDataText()
-                    else
-                      _MyStateWorkoutIntensity(
-                        uiStates: workoutIntensityData,
-                      ),
-                  ],
-                ),
-              ),
-            ],
           ),
-        ),
-      );
+        ],
+      ).marginSymmetric(horizontal: 24);
 }
 
-/// 데이터 없음.
-class _EmptyDataText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Text(
-          StringRes.noData.tr,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: ColorRes.fontBlack,
-          ),
-        ),
-      );
-}
+/// 기록 버튼
+class _RecordButton extends StatelessWidget {
+  final String asset;
 
-/// 나의 상태 - 타이틀.
-class _MyStateTitle extends StatelessWidget {
-  final String title;
+  final String text;
 
   final VoidCallback onPressed;
 
-  const _MyStateTitle({
-    required this.title,
+  const _RecordButton({
+    required this.asset,
+    required this.text,
     required this.onPressed,
   });
 
   @override
-  Widget build(BuildContext context) => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 16,
-              color: ColorRes.fontBlack,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(width: 5),
-          InkWellOver(
-            onTap: onPressed,
-            borderRadius: BorderRadius.circular(20),
-            child: SvgPicture.asset(
-              Assets.edit03,
-            ),
-          ),
-          const Spacer(),
-        ],
-      );
-}
-
-/// 나의 상태 - 후퍼인덱스.
-class _MyStateHooperIndex extends StatelessWidget {
-  final HooperIndexData hooperIndexData;
-
-  const _MyStateHooperIndex({
-    required this.hooperIndexData,
-  });
-
-  @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          _MyStateHooperIndexItem(
-            text: StringRes.sleep.tr,
-            status: hooperIndexData.sleep,
-          ),
-          const SizedBox(height: 6),
-          _MyStateHooperIndexItem(
-            text: StringRes.stress.tr,
-            status: hooperIndexData.stress,
-          ),
-          const SizedBox(height: 6),
-          _MyStateHooperIndexItem(
-            text: StringRes.fatigue.tr,
-            status: hooperIndexData.fatigue,
-          ),
-          const SizedBox(height: 6),
-          _MyStateHooperIndexItem(
-            text: StringRes.musclePain.tr,
-            status: hooperIndexData.musclePain,
-          ),
-        ],
-      );
-}
-
-/// 나의 상태 - 후퍼인덱스 아이템.
-class _MyStateHooperIndexItem extends StatelessWidget {
-  final String text;
-
-  final HooperIndexStatus? status;
-
-  const _MyStateHooperIndexItem({
-    required this.text,
-    this.status,
-  });
-
-  @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 14,
-                color: ColorRes.fontBlack,
-              ),
-            ),
-          ),
-          Text(
-            status?.toString() ?? "",
-            style: const TextStyle(
-              fontSize: 14,
-              color: ColorRes.disable,
-            ),
-          ),
-          const SizedBox(width: 4),
-          Container(
-            width: 16,
-            height: 16,
+  Widget build(BuildContext context) => InkWellOver(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(24),
+        child: AspectRatio(
+          aspectRatio: 100 / 82,
+          child: Container(
+            alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: status?.toColor() ?? ColorRes.disable,
-              borderRadius: BorderRadius.circular(8),
+              color: ColorRes.white,
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, 2),
+                  blurRadius: 8,
+                  spreadRadius: 0,
+                ),
+              ],
             ),
-          ),
-        ],
-      );
-}
-
-/// 나의상태 - 소변검사.
-class _MyStateUrinalysis extends StatelessWidget {
-  // 소변 데이터
-  final HomeUrineModel urineData;
-
-  /// 소변 상태 설명
-  final String urineDescription;
-
-  late final isPositiveWeight = urineData.differenceFat.contains('+');
-
-  late final checkImagePath =
-      isPositiveWeight ? Assets.checkRed : Assets.checkBlue;
-
-  _MyStateUrinalysis({
-    required this.urineData,
-    required this.urineDescription,
-  });
-
-  @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              Text(
-                StringRes.emptyWeightParams.trParams(
-                  {
-                    "weight": urineData.weight.toString(),
-                  },
-                ),
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              const SizedBox(width: 2),
-              Text(
-                "(${urineData.differenceFat}%)",
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: _getDifferenceFatColor(),
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 14,
-                  decoration: BoxDecoration(
-                    color: urineData.urine.toColor(),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 2,
-                        offset: const Offset(0, 0),
-                      ),
-                    ],
-                  ),
-                  // color: ColorRes.urine3,
-                ),
-              ),
-              // TODO: 240503 수정예정.
-              Text(
-                " : ${urineData.urine.toString()}",
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 3),
-                child: SvgPicture.asset(
-                  checkImagePath,
-                  width: 9,
-                  height: 9,
-                ),
-              ),
-              const SizedBox(width: 4),
-              Expanded(
-                child: Text(
-                  urineDescription,
-                  softWrap: true,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: _getDifferenceFatColor(),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
-
-  /// 공복몸무게 차이 문구 색상
-  Color _getDifferenceFatColor() {
-    return isPositiveWeight ? ColorRes.fontRed : ColorRes.fontBlue;
-  }
-}
-
-/// 나의 상태 - 운동강도.
-class _MyStateWorkoutIntensity extends StatelessWidget {
-  final List<HomeWorkoutIntensityChartUiState> uiStates;
-
-  const _MyStateWorkoutIntensity({
-    required this.uiStates,
-  });
-
-  @override
-  Widget build(BuildContext context) => AspectRatio(
-        aspectRatio: 141 / (95 * max(1, uiStates.length / 2)),
-        child: GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: uiStates.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, //1 개의 행에 보여줄 item 개수
-            childAspectRatio: 1 / 1.5, //item 의 가로 1, 세로 1 의 비율
-            mainAxisSpacing: 10, //수평 Padding
-            crossAxisSpacing: 10, //수직 Padding
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return HomeWorkoutIntensityProgressBar(uiState: uiStates[index]);
-          },
-        ),
-      );
-}
-
-/// 나의 상태 - 부상위험도.
-class _MyStateRisk extends StatelessWidget {
-  final int risk;
-
-  final int percent;
-
-  const _MyStateRisk({
-    required this.risk,
-    required this.percent,
-  });
-
-  @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            StringRes.unitPercent.tr,
-            style: const TextStyle(
-              fontSize: 10,
-              color: ColorRes.disable,
-            ),
-          ),
-          const SizedBox(height: 10),
-          AspectRatio(
-            aspectRatio: 127 / 37,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
               children: [
-                Expanded(
-                  child: _square(
-                      number: risk,
-                      backgroundColor: ColorRes.risk0,
-                      isWhiteImage: false,
-                      isShowImage: risk < 7),
-                ),
-                const SizedBox(width: 4),
-                Expanded(
-                  child: _square(
-                      number: risk,
-                      backgroundColor: ColorRes.risk1,
-                      isWhiteImage: false,
-                      isShowImage: risk > 6 && risk < 14),
-                ),
-                const SizedBox(width: 4),
-                Expanded(
-                  child: _square(
-                      number: risk,
-                      backgroundColor: ColorRes.risk2,
-                      isWhiteImage: true,
-                      isShowImage: risk > 13 && risk < 21),
-                ),
-                const SizedBox(width: 4),
-                Expanded(
-                  child: _square(
-                      number: risk,
-                      backgroundColor: ColorRes.risk3,
-                      isWhiteImage: true,
-                      isShowImage: risk > 20 && risk < 29),
+                Expanded(child: SvgPicture.asset(asset)),
+                Text(
+                  text,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontBlack,
+                    letterSpacing: -0.5,
+                    height: 24 / 12,
+                  ),
                 ),
               ],
             ),
           ),
-          Row(
-            children: [
-              _numberText(0),
-              const Spacer(),
-              _numberText(7),
-              const Spacer(),
-              _numberText(14),
-              const Spacer(),
-              _numberText(21),
-              const Spacer(),
-              _numberText(28),
-            ],
+        ),
+      );
+}
+
+/// 오늘의 훈련
+class _TodayTraining extends GetView<HomeController> {
+  @override
+  Widget build(BuildContext context) => Obx(
+        () {
+          if (controller.todayTrainingItems.isEmpty) {
+            return Center(
+              child: _TodayTrainingEmpty(),
+            );
+          } else {
+            return PageView.builder(
+              controller: controller.todayTrainingController,
+              scrollDirection: Axis.horizontal,
+              itemCount: controller.todayTrainingItems.length,
+              itemBuilder: (BuildContext context, int index) {
+                final items = controller.todayTrainingItems.toList();
+                final uiState = items[index];
+                return HomeTodayTrainingItem(uiState: uiState);
+              },
+            );
+          }
+        },
+      );
+}
+
+/// 오늘의 훈련 Empty Case
+class _TodayTrainingEmpty extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Container(
+        width: double.infinity,
+        alignment: Alignment.center,
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        decoration: BoxDecoration(
+          color: ColorRes.thirdPrimary,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          StringRes.noRegisteredTrainingToday.tr,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: ColorRes.fontBlack,
+            letterSpacing: -0.5,
+            height: 20 / 14,
           ),
-          const SizedBox(height: 4),
+        ),
+      );
+}
+
+/// 오늘의 훈련 - Indicator
+class _TodayTrainingIndicator extends GetView<HomeController> {
+  @override
+  Widget build(BuildContext context) => Obx(
+        () => Center(
+          child: SmoothPageIndicator(
+            controller: controller.todayTrainingController,
+            count: controller.todayTrainingItems.length,
+            effect: const WormEffect(
+              dotHeight: 6,
+              dotWidth: 6,
+              type: WormType.thinUnderground,
+              dotColor: ColorRes.grayD9d9d9,
+              activeDotColor: ColorRes.intensity0,
+            ),
+          ),
+        ),
+      );
+}
+
+/// 부상위험도
+class _InjuryRisk extends GetView<HomeController> {
+  /// x label text style
+  final labelTextStyle = const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: ColorRes.grayBababa,
+    height: 20 / 14,
+  );
+
+  @override
+  Widget build(BuildContext context) => Column(
+        children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                _getInjuryRiskLevelDescription(risk),
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: ColorRes.fontRed,
+              SvgPicture.asset(Assets.runningManDeepGreen),
+              Obx(
+                () => Text(
+                  '${controller.riskPercent.value ?? 0}%',
+                  style: const TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.intensity0,
+                  ),
                 ),
               ),
-              const SizedBox(width: 3),
+            ],
+          ),
+          Obx(
+            () => _ProgressBar(
+              height: 10,
+              value: controller.riskValue.value ?? 0,
+              maxValue: 28,
+              color: ColorRes.intensity0,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('0', style: labelTextStyle),
+              Text('7', style: labelTextStyle),
+              Text('14', style: labelTextStyle),
+              Text('21', style: labelTextStyle),
+              Text('28', style: labelTextStyle),
+            ],
+          )
+        ],
+      ).marginSymmetric(horizontal: 24);
+}
+
+/// 프로그레스 바
+class _ProgressBar extends StatelessWidget {
+  final double height;
+
+  final int value;
+
+  final int maxValue;
+
+  final Color? color;
+
+  const _ProgressBar({
+    required this.height,
+    required this.value,
+    required this.maxValue,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) => Container(
+        height: height,
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: ColorRes.fourthPrimary),
+        clipBehavior: Clip.hardEdge,
+        child: Row(
+          children: [
+            Expanded(
+              flex: value,
+              child: Container(
+                width: (context.width - 48) * (value / maxValue),
+                height: 10,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+            ),
+            Expanded(flex: maxValue - value, child: const SizedBox()),
+          ],
+        ),
+      );
+}
+
+/// 웰리니스
+class _Wellness extends GetView<HomeController> {
+  @override
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 2),
+              blurRadius: 8,
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  StringRes.wellness.tr,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: ColorRes.fontBlack,
+                    letterSpacing: -0.5,
+                    height: 20 / 12,
+                  ),
+                ),
+                InkWellOver(
+                  onTap: controller.onPressedWellnessMore,
+                  child: Text(
+                    StringRes.moreShow.tr,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.grayBababa,
+                      letterSpacing: -0.5,
+                      height: 18 / 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Obx(
+                  () => _HooperIndexAverage(
+                    value: controller.hooperIndexAverage.value ?? 0,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Obx(
+                    () => _HooperIndexItems(
+                      sleep: controller.hooperIndexSleep.value ?? 0,
+                      stress: controller.hooperIndexStress.value ?? 0,
+                      fatigue: controller.hooperIndexFatigue.value ?? 0,
+                      muscleSoreness:
+                          controller.hooperIndexMuscleSoreness.value ?? 0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Obx(
+                    () => _WellnessUrine(
+                      urine: controller.urine.value,
+                      description: controller.urineDescription.value,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  flex: 1,
+                  child: Obx(() => _WellnessEmptyWeight(
+                        weight: controller.emptyWeight.value,
+                        difference: controller.differenceWeight.value,
+                      )),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  flex: 1,
+                  child: Obx(
+                    () => _WellnessBmi(
+                      bmi: controller.bmi.value,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+}
+
+/// 후퍼인덱스 평균
+class _HooperIndexAverage extends StatelessWidget {
+  final int value;
+
+  const _HooperIndexAverage({
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) => Container(
+        width: 95,
+        height: 110,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: ColorRes.intensity0,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Stack(
+          clipBehavior: Clip.hardEdge,
+          children: [
+            Positioned(
+              bottom: 0,
+              right: -8,
+              child: Image.asset(
+                Assets.homeWellnessHuman,
+                width: 84,
+                height: 84,
+              ),
+            ),
+            Positioned(
+              top: 8,
+              left: 8,
+              child: Text(
+                StringRes.hooperIndexAverage.tr,
+                style: const TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: ColorRes.grayBababa,
+                  letterSpacing: -0.5,
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 7,
+              left: 9,
+              child: Text(
+                '$value',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                  color: ColorRes.intensity0,
+                  letterSpacing: -0.5,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+}
+
+/// 후퍼인덱스 아이템
+class _HooperIndexItem extends StatelessWidget {
+  final HooperIndexType type;
+
+  final int value;
+
+  final Color color;
+
+  const _HooperIndexItem({
+    required this.type,
+    required this.value,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) => Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Text(
-                "$percent%",
+                type.toString(),
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   color: ColorRes.fontBlack,
+                  letterSpacing: -0.5,
+                  height: 18 / 12,
                 ),
               ),
-            ],
-          )
-        ],
-      );
-
-  Widget _square({
-    required int number,
-    required Color backgroundColor,
-    required bool isWhiteImage,
-    required bool isShowImage,
-  }) =>
-      Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: backgroundColor,
-        ),
-        child: Visibility(
-          visible: isShowImage,
-          child: Stack(
-            children: [
-              Positioned(
-                top: 6,
-                left: 6,
-                child: _getRiskManImage(number),
-              ),
-              Positioned(
-                bottom: 4,
-                right: 4,
-                child: Text(
-                  risk.toString(),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: isWhiteImage ? ColorRes.white : ColorRes.gray9f9f9f,
-                    fontWeight: FontWeight.w500,
-                  ),
+              Text(
+                value.toString(),
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: ColorRes.grayBababa,
+                  letterSpacing: -0.5,
+                  height: 18 / 12,
                 ),
-              )
+              ),
             ],
           ),
-        ),
+          const SizedBox(height: 2),
+          _ProgressBar(
+            height: 8,
+            value: value,
+            maxValue: 7,
+            color: color,
+          ),
+        ],
       );
-
-  Widget _numberText(int number) => Text(
-        number.toString(),
-        style: const TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w500,
-          color: ColorRes.fontDisable,
-        ),
-      );
-
-  /// 부상위험도 레벨 문구.
-  String _getInjuryRiskLevelDescription(int riskLevel) {
-    if (riskLevel < 8) {
-      return StringRes.injuryRiskVeryGood.tr;
-    } else if (riskLevel < 15) {
-      return StringRes.injuryRiskGood.tr;
-    } else if (riskLevel < 22) {
-      return StringRes.injuryRiskDangerous.tr;
-    } else {
-      return StringRes.injuryRiskVeryDangerous.tr;
-    }
-  }
-
-  /// 부상위험도 이미지.
-  Widget _getRiskManImage(int riskLevel) {
-    late String asset;
-    late double width;
-    late double height;
-    if (riskLevel < 8) {
-      asset = Assets.injuryRiskMan1;
-      width = 13;
-      height = 19;
-    } else if (riskLevel < 15) {
-      asset = Assets.injuryRiskMan2;
-      width = 10;
-      height = 18;
-    } else if (riskLevel < 22) {
-      asset = Assets.injuryRiskMan3;
-      width = 10;
-      height = 17;
-    } else {
-      asset = Assets.injuryRiskMan4;
-      width = 15;
-      height = 12;
-    }
-
-    return Image.asset(
-      asset,
-      width: width,
-      height: height,
-    );
-  }
 }
 
-/// 통계.
-class _Statistics extends GetView<HomeController> {
+/// 후퍼인덱스 아이템s
+class _HooperIndexItems extends StatelessWidget {
+  final int sleep;
+  final int stress;
+  final int fatigue;
+  final int muscleSoreness;
+
+  const _HooperIndexItems({
+    required this.sleep,
+    required this.stress,
+    required this.fatigue,
+    required this.muscleSoreness,
+  });
+
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          Obx(
-            () => _StatisticsTitle(
-              isWeekly: controller.isWeekly.value,
-              onPressedMonthlyOrWeekly: controller.onPressedMonthlyOrWeekly,
-            ),
+          _HooperIndexItem(
+            type: HooperIndexType.sleep,
+            value: sleep,
+            color: ColorRes.wellness5,
           ),
-          const SizedBox(height: 20),
-          _StatisticsChartTitle(),
-          const SizedBox(height: 10),
-          Obx(
-            () => _StatisticsChart(
-              currentDate: controller.myStateDate.value,
-              isWeekly: controller.isWeekly.value,
-              chartData: controller.isWeekly.value
-                  ? controller.weeklyDataList.value
-                  : controller.monthlyDataList.value,
-            ),
+          const SizedBox(height: 12),
+          _HooperIndexItem(
+            type: HooperIndexType.stress,
+            value: stress,
+            color: ColorRes.wellness3,
           ),
-        ],
-      ).paddingSymmetric(horizontal: 20);
-}
-
-/// 통계 타이틀.
-class _StatisticsTitle extends StatelessWidget {
-  final bool isWeekly;
-
-  final Function(bool weekly) onPressedMonthlyOrWeekly;
-
-  final _selectedStyle = const TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w700,
-    color: ColorRes.fontBlack,
-  );
-
-  final _normalStyle = const TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w700,
-    color: ColorRes.disable,
-  );
-
-  const _StatisticsTitle({
-    required this.isWeekly,
-    required this.onPressedMonthlyOrWeekly,
-  });
-
-  @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          LabelButton(
-            onPressed: () {
-              onPressedMonthlyOrWeekly(true);
-            },
-            text: StringRes.weekly.tr,
-            textStyle: isWeekly ? _selectedStyle : _normalStyle,
+          const SizedBox(height: 12),
+          _HooperIndexItem(
+            type: HooperIndexType.fatigue,
+            value: fatigue,
+            color: ColorRes.wellness6,
           ),
-          const SizedBox(width: 16),
-          LabelButton(
-            onPressed: () {
-              onPressedMonthlyOrWeekly(false);
-            },
-            text: StringRes.monthly.tr,
-            textStyle: isWeekly ? _normalStyle : _selectedStyle,
+          const SizedBox(height: 12),
+          _HooperIndexItem(
+            type: HooperIndexType.muscleSoreness,
+            value: muscleSoreness,
+            color: ColorRes.wellness2,
           ),
         ],
       );
 }
 
-/// 통계 차트 타이틀.
-class _StatisticsChartTitle extends StatelessWidget {
+/// 소변 상태
+class _WellnessUrine extends StatelessWidget {
+  final UrineStatusType urine;
+
+  final String description;
+
+  const _WellnessUrine({
+    required this.urine,
+    required this.description,
+  });
+
   @override
-  Widget build(BuildContext context) => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+  Widget build(BuildContext context) => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Text(
-              StringRes.workoutIntensityStatistics.tr,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: ColorRes.fontBlack,
+          Text(
+            StringRes.urineState.tr,
+            style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.fontBlack,
+              letterSpacing: -0.5,
+              height: 14 / 10,
+            ),
+          ),
+          const SizedBox(height: 5),
+          if (urine == UrineStatusType.none)
+            SvgPicture.asset(
+              Assets.urineEmptyBox,
+              width: 43,
+              height: 13,
+            ),
+          if (urine != UrineStatusType.none)
+            Container(
+              width: 42,
+              height: 13,
+              decoration: BoxDecoration(
+                color: urine.toColor(),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    offset: const Offset(0, 0),
+                    blurRadius: 1,
+                    spreadRadius: 0,
+                  ),
+                ],
               ),
             ),
-          ),
-          Container(
-            width: 11,
-            height: 11,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: ColorRes.intensityLine1,
-            ),
-          ),
-          const SizedBox(width: 5),
+          const SizedBox(height: 5),
           Text(
-            StringRes.sports.tr,
+            description,
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: ColorRes.fontBlack,
-            ),
-          ),
-          const SizedBox(width: 5),
-          Container(
-            width: 11,
-            height: 11,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: ColorRes.homePhysicalPurple,
-            ),
-          ),
-          const SizedBox(width: 5),
-          Text(
-            StringRes.physical.tr,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: ColorRes.fontBlack,
+              color: ColorRes.grayBababa,
+              letterSpacing: -0.5,
+              height: 16 / 12,
             ),
           ),
         ],
       );
 }
 
-/// 통계 차트.
-class _StatisticsChart extends StatelessWidget {
-  final DateTime currentDate;
+/// 공복몸무게
+class _WellnessEmptyWeight extends StatelessWidget {
+  final double? weight;
 
-  final bool isWeekly;
+  final String? difference;
 
-  final List<HomeStatisticsChartModel> chartData;
-
-  const _StatisticsChart({
-    required this.currentDate,
-    required this.isWeekly,
-    required this.chartData,
+  const _WellnessEmptyWeight({
+    required this.weight,
+    required this.difference,
   });
 
   @override
-  Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.fromLTRB(0, 24, 24, 16),
-        decoration: BoxDecoration(
-          border: Border.all(color: ColorRes.borderDeselect),
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: AspectRatio(
-          aspectRatio: 1.78,
-          child: LineChart(lineChartData),
-        ),
-      );
-
-  LineChartData get lineChartData => LineChartData(
-        lineTouchData: lineTouchData,
-        gridData: gridData,
-        borderData: borderData,
-        titlesData: titlesData,
-        lineBarsData: lineBarData,
-        minX: 0,
-        maxX: isWeekly ? 6 : 5,
-        minY: 0,
-        maxY: 10,
-      );
-
-  /// 마커(툴팁).
-  get lineTouchData => const LineTouchData(
-          touchTooltipData: LineTouchTooltipData(
-        tooltipBgColor: ColorRes.white,
-        tooltipBorder: BorderSide(color: ColorRes.disable),
-      ));
-
-  /// Bar 데이터.
-  List<LineChartBarData> get lineBarData =>
-      chartData.map((e) => makeBarData(data: e)).toList();
-
-  /// Bar Empty Data
-  List<LineChartBarData> get lineBarEmptyData => <LineChartBarData>[
-        LineChartBarData(
-          color: Colors.transparent,
-        )
-      ];
-
-  /// Bar 데이터 생성.
-  LineChartBarData makeBarData({
-    required HomeStatisticsChartModel data,
-  }) {
-    return LineChartBarData(
-      isCurved: true,
-      color: data.lineColor,
-      barWidth: 1,
-      isStrokeCapRound: true,
-      dotData: const FlDotData(show: true),
-      belowBarData: BarAreaData(show: false),
-      spots: data.toSpots(),
-    );
-  }
-
-  /// Axis 값 표시.
-  FlTitlesData get titlesData => FlTitlesData(
-        show: true,
-        leftTitles: const AxisTitles(
-          sideTitles: SideTitles(
-            reservedSize: 30,
-            showTitles: true,
+  Widget build(BuildContext context) => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            StringRes.emptyWeight.tr,
+            style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.fontBlack,
+              letterSpacing: -0.5,
+              height: 14 / 10,
+            ),
           ),
-        ),
-        rightTitles: const AxisTitles(),
-        topTitles: const AxisTitles(),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 24,
-            interval: 1,
-            getTitlesWidget: isWeekly
-                ? _weeklyBottomTitleWidgets
-                : _monthlyBottomTitleWidgets,
+          const SizedBox(height: 10),
+          Text(
+            '${weight ?? 0}kg',
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.intensity0,
+              letterSpacing: -0.5,
+              height: 28 / 20,
+            ),
           ),
-        ),
-      );
-
-  /// 주간 X Axis 매핑
-  Widget _weeklyBottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
-      fontWeight: FontWeight.w400,
-      fontSize: 12,
-    );
-
-    var weekday = "";
-
-    int xValue = value.toInt();
-    if (xValue <= HomeConstant.weeklyMaxXLength) {
-      final weekdays = [
-        StringRes.weekDayMon.tr,
-        StringRes.weekDayTue.tr,
-        StringRes.weekDayWed.tr,
-        StringRes.weekDayThu.tr,
-        StringRes.weekDayFri.tr,
-        StringRes.weekDaySat.tr,
-        StringRes.weekDaySun.tr,
-      ];
-
-      weekday = weekdays[xValue];
-    }
-
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      space: 8,
-      child: Text(weekday, style: style),
-    );
-  }
-
-  /// 월간 X Axis 매핑
-  Widget _monthlyBottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
-      fontWeight: FontWeight.w400,
-      fontSize: 12,
-    );
-
-    var month = "";
-
-    int xValue = value.toInt();
-    if (xValue <= HomeConstant.monthMaxXLength) {
-      month = DateTime(currentDate.year,
-              currentDate.month - (HomeConstant.monthMaxXLength - xValue))
-          .month
-          .toString();
-    }
-
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      space: 8,
-      child: Text("$month월", style: style),
-    );
-  }
-
-  /// Grid 설정.
-  FlGridData get gridData => FlGridData(
-        show: true,
-        drawHorizontalLine: true,
-        horizontalInterval: 1,
-        getDrawingHorizontalLine: horizontalGridLine,
-        drawVerticalLine: false,
-      );
-
-  /// Horizontal Grid Line.
-  FlLine horizontalGridLine(double value) {
-    return const FlLine(
-      color: ColorRes.disable,
-      strokeWidth: 1,
-      dashArray: null,
-    );
-  }
-
-  /// Border Data.
-  FlBorderData get borderData => FlBorderData(
-        show: true,
-        border: const Border.symmetric(
-          vertical: BorderSide.none,
-          horizontal: BorderSide(color: ColorRes.disable, width: 1),
-        ),
+          Center(
+            child: Text(
+              difference == null ? '' : '($difference%)',
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: ColorRes.grayBababa,
+                letterSpacing: -0.5,
+                height: 16 / 12,
+              ),
+            ),
+          )
+        ],
       );
 }
 
-/// 두번째 나의상태
-class _SecondState extends StatelessWidget {
-  final String todayTime;
+/// 체지방
+class _WellnessBmi extends StatelessWidget {
+  final double? bmi;
 
-  final String yesterdayCompareTime;
-
-  final List<HomeInjuryCheckItemUiState> injuryCheckList;
-
-  final int thisWeek;
-  final HomeTrainingBalanceType thisWeekLoad;
-  final int lastWeek;
-  final HomeTrainingBalanceType lastWeekLoad;
-  final int lastFourWeek;
-  final HomeTrainingBalanceType lastFourWeekLoad;
-  final int lastEightWeek;
-  final HomeTrainingBalanceType lastEightWeekLoad;
-
-  final VoidCallback onPressedWorkoutTime;
-  final Function(HomeInjuryCheckItemUiState) onPressedInjuryCheckEdit;
-
-  const _SecondState({
-    required this.todayTime,
-    required this.yesterdayCompareTime,
-    required this.injuryCheckList,
-    required this.thisWeek,
-    required this.thisWeekLoad,
-    required this.lastWeek,
-    required this.lastWeekLoad,
-    required this.lastFourWeek,
-    required this.lastFourWeekLoad,
-    required this.lastEightWeek,
-    required this.lastEightWeekLoad,
-    required this.onPressedWorkoutTime,
-    required this.onPressedInjuryCheckEdit,
+  const _WellnessBmi({
+    required this.bmi,
   });
 
-  bool get isPositiveYesterdayTime => yesterdayCompareTime.contains("+");
+  @override
+  Widget build(BuildContext context) => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            StringRes.bmi.tr,
+            style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.fontBlack,
+              letterSpacing: -0.5,
+              height: 14 / 10,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            '${bmi ?? 0}%',
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.intensity0,
+              letterSpacing: -0.5,
+              height: 28 / 20,
+            ),
+          ),
+        ],
+      );
+}
 
+/// 운동강도
+class _Intensity extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-        margin: const EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.only(left: 24),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
         decoration: BoxDecoration(
-          color: ColorRes.white,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: ColorRes.borderDeselect),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.25),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: const Offset(0, 2), // changes position of shadow
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 2),
+              blurRadius: 8,
+              spreadRadius: 0,
             ),
           ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _MyStateTitle(
-              title: StringRes.workoutTime.tr,
-              onPressed: onPressedWorkoutTime,
-            ),
-            const SizedBox(height: 16),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "${StringRes.todayTime.tr} : $todayTime",
+                  StringRes.workoutIntensity.tr,
                   style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
                     color: ColorRes.fontBlack,
+                    letterSpacing: -0.5,
+                    height: 20 / 12,
                   ),
                 ),
-                const SizedBox(width: 4),
-                Text(
-                  "($yesterdayCompareTime분)",
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: isPositiveYesterdayTime
-                        ? ColorRes.fontBlue
-                        : ColorRes.fontRed,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
-
-            /// 트레이닝 밸런스
-            Row(
-              children: [
-                Text(
-                  StringRes.trainingBalance.tr,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorRes.fontBlack,
-                  ),
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  StringRes.trainingBalanceFormula.tr,
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: ColorRes.fontDisable,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: HomeTrainingBalanceItem(
-                    type: thisWeekLoad,
-                    period: StringRes.thisWeek.tr,
-                    average: thisWeek,
-                  ),
-                ),
-                Expanded(
-                  child: HomeTrainingBalanceItem(
-                    type: lastWeekLoad,
-                    period: StringRes.lastWeek.tr,
-                    average: lastWeek,
-                  ),
-                ),
-                Expanded(
-                  child: HomeTrainingBalanceItem(
-                    type: lastFourWeekLoad,
-                    period: StringRes.lastFourWeek.tr,
-                    average: lastFourWeek,
-                  ),
-                ),
-                Expanded(
-                  child: HomeTrainingBalanceItem(
-                    type: lastEightWeekLoad,
-                    period: StringRes.lastEightWeek.tr,
-                    average: lastEightWeek,
+                InkWellOver(
+                  onTap: controller.onPressedIntensityMore,
+                  child: Text(
+                    StringRes.moreShow.tr,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.grayBababa,
+                      letterSpacing: -0.5,
+                      height: 18 / 12,
+                    ),
                   ),
                 ),
               ],
             ),
-
-            /// 부상체크.
-            const SizedBox(height: 16),
-            Text(
-              StringRes.injuryCheck.tr,
-              textAlign: TextAlign.left,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: ColorRes.fontBlack,
+            const SizedBox(height: 2),
+            Obx(
+              () => Text(
+                '시간 : ${controller.intensityTime.value}',
+                style: const TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: ColorRes.fontBlack,
+                  letterSpacing: -0.5,
+                  height: 14 / 10,
+                ),
               ),
             ),
             const SizedBox(height: 16),
-            if (injuryCheckList.isNotEmpty)
-              Column(
-                children:
-                    List<Widget>.generate(injuryCheckList.length, (index) {
-                  return HomeInjuryCheckItem(
-                    uiState: injuryCheckList[index],
-                    onPressedEdit: () {
-                      onPressedInjuryCheckEdit(injuryCheckList[index]);
-                    },
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  LevelProgressBar(
+                    size: 56,
+                    title: StringRes.sports.tr,
+                    value: controller.intensitySports.value,
+                    primaryColor: ColorRes.intensity0,
+                  ),
+                  LevelProgressBar(
+                    size: 56,
+                    title: StringRes.physical.tr,
+                    value: controller.intensityPhysical.value,
+                    primaryColor: ColorRes.intensity0,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+}
+
+/// 부상현황
+class _Injury extends GetView<HomeController> {
+  @override
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.only(right: 24),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 2),
+              blurRadius: 8,
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  StringRes.injuryCurrentSituation.tr,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: ColorRes.fontBlack,
+                    letterSpacing: -0.5,
+                    height: 20 / 12,
+                  ),
+                ),
+                InkWellOver(
+                  onTap: controller.onPressedInjuryMore,
+                  child: Text(
+                    StringRes.moreShow.tr,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.grayBababa,
+                      letterSpacing: -0.5,
+                      height: 18 / 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            Obx(
+              () {
+                if (controller.injuryList.isEmpty) {
+                  return Expanded(
+                    child: Center(
+                      child: Text(
+                        StringRes.dataNotAvailable.tr,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: ColorRes.fontBlack,
+                          letterSpacing: -0.5,
+                          height: 17 / 12,
+                        ),
+                      ),
+                    ),
                   );
-                }).toList(),
-              )
-            else
-              Center(
-                child: _EmptyDataText(),
-              ),
-            const SizedBox(height: 40),
+                } else {
+                  return const SizedBox();
+                }
+              },
+            ),
+            Obx(
+              () {
+                final injuryList = controller.injuryList.toList();
+
+                if (injuryList.isEmpty) {
+                  return const SizedBox();
+                }
+                return HomeInjuryItem(
+                  uiState: injuryList[0],
+                );
+              },
+            ),
+            Obx(
+              () {
+                final injuryList = controller.injuryList.toList();
+
+                if (injuryList.length < 2) {
+                  return const SizedBox();
+                }
+                return HomeInjuryItem(
+                  uiState: injuryList[1],
+                );
+              },
+            ),
           ],
         ),
       );

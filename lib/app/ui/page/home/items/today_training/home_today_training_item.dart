@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:physical_note/app/resources/resources.dart';
-import 'package:physical_note/app/ui/page/home2/items/today_training/home_today_training_item_ui_state.dart';
+
+import 'home_today_training_item_ui_state.dart';
 
 /// 홈 - 오늘의 훈련 Item
 class HomeTodayTrainingItem extends StatelessWidget {
@@ -10,7 +11,7 @@ class HomeTodayTrainingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: const EdgeInsets.only(right: 24),
+        margin: const EdgeInsets.symmetric(horizontal: 24),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: ColorRes.thirdPrimary,

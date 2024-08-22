@@ -5,7 +5,10 @@ import 'package:physical_note/app/ui/page/home/home.dart';
 class HomeBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => HomeAPI());
     Get.lazyPut(() => HomeController());
+
+
+    /// API
+    Get.lazyPut(() => HomeAPI());
   }
 }

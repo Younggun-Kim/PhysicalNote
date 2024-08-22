@@ -120,6 +120,7 @@ class Assets {
   static const String frontRightLegTIBIALISANTERIOR = 'assets/images/muscles/front/right_leg/front_right_leg_TIBIALIS_ANTERIOR.svg';
   static const String hand = 'assets/images/hand.svg';
   static const String hand2 = 'assets/images/hand2.png';
+  static const String homeWellnessHuman = 'assets/images/home_wellness_human.png';
   static const String humanBack = 'assets/images/human_back.svg';
   static const String humanFront = 'assets/images/human_front.svg';
   static const String icChevronright = 'assets/images/ic_chevronright.svg';
@@ -167,11 +168,13 @@ class Assets {
   static const String retiredManGray = 'assets/images/retired_man_gray.png';
   static const String retiredManWhite = 'assets/images/retired_man_white.png';
   static const String runningMan = 'assets/images/running_man.svg';
+  static const String runningManDeepGreen = 'assets/images/running_man_deep_green.svg';
   static const String searchRefraction = 'assets/images/search-refraction.svg';
   static const String splashImage = 'assets/images/splash_image.png';
   static const String starYellow = 'assets/images/star_yellow.svg';
   static const String teamRequest = 'assets/images/team_request.png';
   static const String triangle = 'assets/images/triangle.png';
+  static const String urineEmptyBox = 'assets/images/urine_empty_box.svg';
   static const String userDefault = 'assets/images/user_default.svg';
   static const String userDefaultBasic = 'assets/images/user_default_basic.svg';
   static const String userDefaultGreen = 'assets/images/user_default_green.svg';

@@ -12,6 +12,7 @@ UrineInfoModel _$UrineInfoModelFromJson(Map<String, dynamic> json) =>
       weight: (json['weight'] as num?)?.toDouble(),
       differenceFat: json['differenceFat'] as String?,
       urine: json['urine'] as String?,
+      bodyFat: (json['bodyFat'] as num?)?.toDouble(),
       recordDate: json['recordDate'] as String?,
     );
 
@@ -21,5 +22,6 @@ Map<String, dynamic> _$UrineInfoModelToJson(UrineInfoModel instance) =>
       'weight': instance.weight,
       'differenceFat': instance.differenceFat,
       'urine': instance.urine,
+      'bodyFat': instance.bodyFat,
       'recordDate': instance.recordDate,
     };

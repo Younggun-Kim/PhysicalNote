@@ -25,7 +25,7 @@ void _onMessage(RemoteMessage message) {
 /// 백그라운드 메시지 처리.
 @pragma('vm:entry-point')
 Future<void> _onBackgroundMessage(RemoteMessage message) async {
-  logger.d("_handleBackgroundMessage");
+  logger.d("_handleBackgroundMessage: ${message.data}");
 }
 
 /// 백그라운드에서 앱 실행 처리.
