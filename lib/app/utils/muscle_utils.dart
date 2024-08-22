@@ -3,8 +3,6 @@ import 'package:physical_note/app/config/constant/body_part_type.dart';
 import 'package:physical_note/app/config/constant/distinction_type.dart';
 import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/resources/assets/assets.dart';
-import 'package:physical_note/app/ui/page/home/item/home_injury_check_item/home_injury_check_item_ui_state.dart';
-import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 
 class MuscleUtils {
   /// Svg 파일 문자열로 업로드.
@@ -90,53 +88,6 @@ class MuscleUtils {
 
       return svg;
     }).toList();
-  }
-
-  /// 사람 근육 색칠하기.
-  static String setHumanMuscleColor(
-    List<HomeInjuryCheckItemUiState> list,
-    String originImage,
-    bool isFront,
-  ) {
-    if (list.isEmpty) {
-      return originImage;
-    }
-
-    final direction = isFront
-        ? InjuryCheckDirectionType.front
-        : InjuryCheckDirectionType.back;
-    final List<HomeInjuryCheckItemUiState> filteredImages =
-        list.where((element) => element.direction == direction).toList();
-
-    if (filteredImages.isEmpty) {
-      return originImage;
-    }
-
-    var svgString = originImage;
-
-    for (var element in filteredImages) {
-      final color = element.injuryLevelType?.toInjuryLevelColor();
-      final bodyPart = element.bodyPart?.serverKey;
-      final muscleType = element.muscleType?.serverKey;
-
-      if (color == null || bodyPart == null || muscleType == null) {
-      } else {
-        var pathId = "${bodyPart}_$muscleType".toLowerCase();
-
-        /// 둔근은 하나로 되어 있음.
-        if (element.muscleType == MuscleType.gluteus) {
-          pathId = muscleType.toLowerCase();
-        }
-
-        svgString = changeSvgPathColor(
-          svgString,
-          pathId,
-          color,
-        );
-      }
-    }
-
-    return svgString;
   }
 
   /// 근육 부분 이미지 가져오기

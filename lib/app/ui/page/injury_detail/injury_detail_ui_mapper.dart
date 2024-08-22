@@ -8,10 +8,6 @@ import 'package:physical_note/app/config/constant/injury_type.dart';
 import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/constant/pain_type.dart';
 import 'package:physical_note/app/data/injury/model/injury_response_model.dart';
-import 'package:physical_note/app/ui/page/injury_check/injury_check_controller.dart';
-import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_parts_type.dart';
-import 'package:physical_note/app/ui/page/injury_check/type/injury_check_body_type.dart';
-import 'package:physical_note/app/ui/page/injury_check/type/injury_check_direction_type.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail.dart';
 
 extension InjuryDetailUiMapper on InjuryDetailController {

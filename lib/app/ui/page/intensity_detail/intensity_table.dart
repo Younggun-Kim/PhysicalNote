@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/index.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'package:physical_note/app/utils/extensions/border_extensions.dart';
 
-import '../data/intensity/intensity_level_type.dart';
 
 /// Intensity 테이블.
 class IntensityTable extends StatelessWidget {

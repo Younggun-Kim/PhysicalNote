@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/ui/page/data/data.dart';
-import 'package:physical_note/app/ui/page/data/data_menu_type.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/page/main/main_tab_index.dart';
 import 'package:physical_note/app/utils/link/model/link_data.dart';
@@ -83,7 +81,7 @@ class InLink extends GetxService {
     if (Get.isRegistered<MainScreenController>()) {
       final mainController = Get.find<MainScreenController>();
       if(recordDate != null) {
-        mainController.syncDate(recordDate);
+        // mainController.syncDate(recordDate);
       }
       mainController.setTabIndex(tabIndex: index);
 
@@ -107,22 +105,23 @@ class InLink extends GetxService {
   }
 
   /// 메인 - 데이터 - 메뉴 열기
-  Future<void> _openDataMenu(DataMenuType menu) async {
-    if (Get.isRegistered<DataController>()) {
-      final dataController = Get.find<DataController>();
-      dataController.changeMenu(menu);
-    }
+  Future<void> _openDataMenu() async {
+    //DataMenuType menu
+    // if (Get.isRegistered<DataController>()) {
+    //   final dataController = Get.find<DataController>();
+    //   dataController.changeMenu(menu);
+    // }
   }
 
   /// 메인 - 데이터 - 웰리니스 탭.
   Future<void> _openDataWellness(LinkData linkData) async {
     await _openMainTab(MainTabIndex.history, linkData.recordDate);
-    await _openDataMenu(DataMenuType.wellness);
+    // await _openDataMenu(DataMenuType.wellness);
   }
 
   /// 메인 - 데이터 - 부상관리 탭.
   Future<void> _openDataInjury(LinkData linkData) async {
     await _openMainTab(MainTabIndex.history, linkData.recordDate);
-    await _openDataMenu(DataMenuType.injury);
+    // await _openDataMenu(DataMenuType.injury);
   }
 }
