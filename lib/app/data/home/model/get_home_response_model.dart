@@ -29,6 +29,7 @@ class GetHomeResponseModel {
   final WorkoutInfoModel? workoutInfo;
   final List<InjuryInfoModel>? injuryInfo;
   final List<HomeTodayWorkoutItemModel>? todayWorkoutList;
+  final String? todayWorkoutTime;
 
   GetHomeResponseModel({
     this.hooperIndexInfo,
@@ -42,6 +43,7 @@ class GetHomeResponseModel {
     this.workoutInfo,
     this.injuryInfo,
     this.todayWorkoutList,
+    this.todayWorkoutTime,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

@@ -5,8 +5,10 @@ import 'package:physical_note/app/data/home/model/home_model.dart';
 import 'package:physical_note/app/data/home/model/home_today_workout_item_model.dart';
 import 'package:physical_note/app/data/home/model/injury_info_model.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/home2/home_controller.dart';
 import 'package:physical_note/app/ui/page/home2/items/injury/home_injury_item_ui_state.dart';
+import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/extensions/list_extension.dart';
 
 import 'items/today_training/home_today_training_item_ui_state.dart';
@@ -48,8 +50,7 @@ extension HomeUiMapper on HomeController {
     bmi.value = model?.urineInfo?.bodyFat;
 
     /// 운동강도
-    // TODO: 시간 기준 필요
-    intensityTime.value = _intensityTime(model?.intensityInfo);
+    intensityTime.value = _intensityTime(model?.todayWorkoutTime);
     intensitySports.value = _intensityTypeValue(
       model?.intensityInfo,
       IntensityType.sports,
@@ -134,13 +135,15 @@ extension HomeUiMapper on HomeController {
   }
 
   /// 운동강도 - 시간
-  String? _intensityTime(List<IntensityInfoModel>? model) {
-    return model
-        ?.firstWhereOrNull((intensity) => intensity.recordDate != null)
-        ?.recordDate;
+  String? _intensityTime(String? todayWorkoutTime) {
+    if(todayWorkoutTime == null) {
+      return null;
+    }
+
+    return todayWorkoutTime.toHourAndMinute();
   }
 
-  /// 운동강도 - 타입에 따른 값 업ㄷ기
+  /// 운동강도 - 타입에 따른 값 얻기
   double _intensityTypeValue(
     List<IntensityInfoModel>? model,
     IntensityType type,

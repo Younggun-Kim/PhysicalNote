@@ -916,14 +916,16 @@ class _Intensity extends GetView<HomeController> {
               ],
             ),
             const SizedBox(height: 2),
-            const Text(
-              '시간 : 3시간30분',
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: ColorRes.fontBlack,
-                letterSpacing: -0.5,
-                height: 14 / 10,
+            Obx(
+              () => Text(
+                '시간 : ${controller.intensityTime.value}',
+                style: const TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: ColorRes.fontBlack,
+                  letterSpacing: -0.5,
+                  height: 14 / 10,
+                ),
               ),
             ),
             const SizedBox(height: 16),
