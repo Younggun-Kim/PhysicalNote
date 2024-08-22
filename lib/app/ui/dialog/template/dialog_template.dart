@@ -26,6 +26,7 @@ class DialogTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.transparent,
+        extendBodyBehindAppBar: true,
         body: Stack(
           children: [
             GestureDetector(

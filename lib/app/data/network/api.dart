@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/data/network/model/base_list_model/paginate_model.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 

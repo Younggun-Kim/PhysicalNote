@@ -133,9 +133,10 @@ class HistoryController extends BaseController
           isRecovery: isRecovery.value,
         ),
       ),
+      useSafeArea: false,
       barrierDismissible: true,
       barrierColor: Colors.transparent,
-      transitionDuration: const Duration(milliseconds: 300),
+      transitionDuration: const Duration(milliseconds: 100),
     );
 
     if (response is HistoryFilterDialogArgs) {
