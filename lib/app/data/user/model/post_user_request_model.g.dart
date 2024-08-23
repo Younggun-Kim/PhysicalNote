@@ -11,12 +11,13 @@ PostUserRequestModel _$PostUserRequestModelFromJson(
     PostUserRequestModel(
       height: (json['height'] as num).toDouble(),
       weight: (json['weight'] as num).toDouble(),
-      leftValue: json['leftValue'] as int,
-      rightValue: json['rightValue'] as int,
-      teamId: json['teamId'] as int,
-      positionIds:
-          (json['positionIds'] as List<dynamic>).map((e) => e as int).toList(),
-      workoutId: json['workoutId'] as int,
+      leftValue: (json['leftValue'] as num).toInt(),
+      rightValue: (json['rightValue'] as num).toInt(),
+      teamId: (json['teamId'] as num).toInt(),
+      positionIds: (json['positionIds'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
+      workoutId: (json['workoutId'] as num).toInt(),
       userType: json['userType'] as String,
       passCode: json['passCode'] as String?,
       profile: json['profile'] as String?,

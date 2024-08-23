@@ -26,7 +26,6 @@ class LoginAPI extends API {
       requestData.toJson(),
     );
 
-    logger.i(response.bodyString);
 
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);

@@ -8,9 +8,9 @@ part of 'risk_info_model.dart';
 
 RiskInfoModel _$RiskInfoModelFromJson(Map<String, dynamic> json) =>
     RiskInfoModel(
-      id: json['id'] as int?,
-      injuryLevel: json['injuryLevel'] as int?,
-      injuryPercent: json['injuryPercent'] as int?,
+      id: (json['id'] as num?)?.toInt(),
+      injuryLevel: (json['injuryLevel'] as num?)?.toInt(),
+      injuryPercent: (json['injuryPercent'] as num?)?.toInt(),
       recordDate: json['recordDate'] as String?,
     );
 

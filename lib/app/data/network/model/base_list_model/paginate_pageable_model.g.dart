@@ -10,9 +10,9 @@ PaginatePageableModel _$PaginatePageableModelFromJson(
         Map<String, dynamic> json) =>
     PaginatePageableModel(
       PaginateSortModel.fromJson(json['sort'] as Map<String, dynamic>),
-      json['offset'] as int,
-      json['pageNumber'] as int,
-      json['pageSize'] as int,
+      (json['offset'] as num).toInt(),
+      (json['pageNumber'] as num).toInt(),
+      (json['pageSize'] as num).toInt(),
       json['paged'] as bool,
       json['unpaged'] as bool,
     );

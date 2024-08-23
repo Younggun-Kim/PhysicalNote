@@ -42,6 +42,11 @@ GetHomeResponseModel _$GetHomeResponseModelFromJson(
       injuryInfo: (json['injuryInfo'] as List<dynamic>?)
           ?.map((e) => InjuryInfoModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      todayWorkoutList: (json['todayWorkoutList'] as List<dynamic>?)
+          ?.map((e) =>
+              HomeTodayWorkoutItemModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      todayWorkoutTime: json['todayWorkoutTime'] as String?,
     );
 
 Map<String, dynamic> _$GetHomeResponseModelToJson(
@@ -57,4 +62,6 @@ Map<String, dynamic> _$GetHomeResponseModelToJson(
       'weekIntensityGraph': instance.weekIntensityGraph,
       'workoutInfo': instance.workoutInfo,
       'injuryInfo': instance.injuryInfo,
+      'todayWorkoutList': instance.todayWorkoutList,
+      'todayWorkoutTime': instance.todayWorkoutTime,
     };

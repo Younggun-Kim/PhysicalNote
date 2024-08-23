@@ -27,6 +27,9 @@ class PageRoot extends StatelessWidget {
   /// 전체 화면 여부.
   final bool isFullPage;
 
+  /// 플로팅버튼
+  final Widget? floatingActionButton;
+
   /// 자식 위젯.
   final Widget child;
 
@@ -46,6 +49,7 @@ class PageRoot extends StatelessWidget {
     this.safeNavigationBar = true,
     this.resize = true,
     this.isFullPage = false,
+    this.floatingActionButton,
     required this.child,
     this.canPop = false,
     this.onWillPop,
@@ -65,6 +69,7 @@ class PageRoot extends StatelessWidget {
             child: Scaffold(
               backgroundColor: backgroundColor,
               resizeToAvoidBottomInset: resize,
+              floatingActionButton: floatingActionButton,
               body: isFullPage
                   ? SizedBox(
                       width: double.infinity,

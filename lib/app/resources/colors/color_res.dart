@@ -20,6 +20,12 @@ class ColorRes {
   /// 0xffe4fac1.
   static const secondPrimary = Color(0xffe4fac1);
 
+  /// 0xffE2F8BF
+  static const thirdPrimary = Color(0xffe2f8bf);
+
+  /// 0xfff1fcdf
+  static const fourthPrimary = Color(0xffF1FCDF);
+
   /// 0xffc1c1c1.
   static const disable = Color(0xffc1c1c1);
 
@@ -187,6 +193,15 @@ class ColorRes {
 
   /// 9f9f9f
   static const gray9f9f9f = Color(0xff9f9f9f);
+
+  /// bababa.
+  static const grayBababa = Color(0xffbababa);
+
+  /// ededed.
+  static const grayEdeded = Color(0xffededed);
+
+  /// d9d9d9.
+  static const grayD9d9d9 = Color(0xffd9d9d9);
 
   /// 소변검사표 8색상 - 1
   static const urineTable1 = Color(0xfffffef8);

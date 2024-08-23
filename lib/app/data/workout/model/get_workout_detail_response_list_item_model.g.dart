@@ -9,9 +9,9 @@ part of 'get_workout_detail_response_list_item_model.dart';
 GetWorkoutDetailResponseItemModel _$GetWorkoutDetailResponseItemModelFromJson(
         Map<String, dynamic> json) =>
     GetWorkoutDetailResponseItemModel(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['name'] as String,
-      json['categoryId'] as int,
+      (json['categoryId'] as num).toInt(),
       json['useMain'] as String,
     );
 

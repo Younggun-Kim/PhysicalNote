@@ -50,7 +50,7 @@ enum UrineStatusType {
   }
 
   /// String -> Type.
-  static UrineStatusType typeFrom(String urineString) {
+  static UrineStatusType typeFrom(String? urineString) {
     if (urineString == StringRes.urineVeryGood.tr) {
       return UrineStatusType.veryGood;
     } else if (urineString == StringRes.urineGood.tr) {

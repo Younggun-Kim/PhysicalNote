@@ -2,6 +2,7 @@ import 'package:physical_note/app/data/injury/model/get_injury_response_model.da
 import 'package:physical_note/app/data/injury/model/post_injury_request_model.dart';
 import 'package:physical_note/app/data/injury/model/post_injury_response_model.dart';
 import 'package:physical_note/app/data/network/api.dart';
+import 'package:physical_note/app/data/network/model/base_list_model/paginate_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
@@ -26,7 +27,6 @@ class InjuryAPI extends API {
       if (response.status.hasError) {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
-        logger.i(response.body);
         return GetInjuryResponseModel.fromJson({"list": response.body});
       }
     } catch (e) {
@@ -84,7 +84,8 @@ class InjuryAPI extends API {
     required PostInjuryRequestModel requestData,
   }) async {
     try {
-      logger.i("putInjury: ${requestData.toJson()}");
+      logger.i("putInjury: $injuryId");
+      logger.i(requestData.toJson);
       final response = await put(
         requestUrl + "/$injuryId",
         requestData.toJson(),
@@ -134,6 +135,41 @@ class InjuryAPI extends API {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
         return PutInjuryDetailRecoveryResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  /// 부상 페이징 목록 조회.
+  Future<dynamic> getInjuryList({
+    required int page,
+    required String period,
+    required String sortDirection,
+    required bool? recoveryYn,
+  }) async {
+    try {
+      List<String> params = [];
+      params.add('page=$page');
+      params.add('period=$period');
+      params.add('sortDirection=$sortDirection');
+
+      if (recoveryYn != null) {
+        params.add('recoveryYn=$recoveryYn');
+      }
+
+      final response = await get(
+        requestUrl + "/list?${params.join('&')}",
+      );
+
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return PaginateModel.fromJson(
+          response.body,
+          InjuryResponseModel.fromJson,
+        );
       }
     } catch (e) {
       logger.e(e);

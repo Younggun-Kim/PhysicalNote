@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
@@ -48,13 +46,14 @@ class API extends GetConnect {
             "[${request.method.toUpperCase()}]${request.url}";
         final statusCode = "Status Code : ${response.statusCode}";
         final logMessage = [
+          "🔥🔥🔥API RESPONE🔥🔥🔥",
           requestMethodUrl,
           statusCode,
-          response.bodyString,
         ].join("\n");
 
         // API 응답 로그
-        log("🔥🔥🔥API RESPONE🔥🔥🔥\n$logMessage");
+        logger.d(logMessage);
+        logger.d(response.body);
 
         return response;
       });

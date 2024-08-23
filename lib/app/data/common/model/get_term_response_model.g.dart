@@ -9,7 +9,7 @@ part of 'get_term_response_model.dart';
 GetTermResponseModel _$GetTermResponseModelFromJson(
         Map<String, dynamic> json) =>
     GetTermResponseModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       category: json['category'] as String?,
       content: json['content'] as String?,
       startDate: json['startDate'] as String?,

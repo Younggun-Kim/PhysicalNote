@@ -8,12 +8,17 @@ import 'package:physical_note/app/resources/strings/translations.dart';
 import 'package:physical_note/app/ui/dialog/date_month_picker_dialog.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/feedback/items/feedback_schedule_item_ui_state.dart';
-import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/widgets/custom_calendar/expansion_calendar_ui_state.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 class FeedbackController extends BaseController {
+
+  @override
+  void onReady() {
+    super.onReady();
+    loadFeedback();
+  }
   /// 스크롤 컨트롤러.
   final scrollController = ScrollController();
 
@@ -47,22 +52,11 @@ class FeedbackController extends BaseController {
     );
   }
 
-  /// 날짜 싱크 맞추기.
-  void syncDate(DateTime date) {
-    calendarUiState.value.focusedDate = date;
-    calendarUiState.refresh();
-    isLoaded = false;
-  }
-
-  /// 날짜 업데이트.
-  void _updateDate(DateTime date) {
-    final mainController = Get.find<MainScreenController>();
-    mainController.syncDate(date);
-  }
-
   /// 날짜 변경.
   void onChangedDate(DateTime newDate) {
-    _updateDate(newDate);
+    calendarUiState.value.focusedDate = newDate;
+    calendarUiState.refresh();
+    isLoaded = false;
   }
 
   /// 년 클릭
@@ -85,7 +79,7 @@ class FeedbackController extends BaseController {
 
   /// 달력 - 월 변경.
   void onPageChanged(DateTime newFocusDate) {
-    _updateDate(newFocusDate);
+    onChangedDate(newFocusDate);
   }
 
   /// 달력 - 폴딩
@@ -98,17 +92,23 @@ class FeedbackController extends BaseController {
   /// 달력 - 이전 달 클릭.
   void onPressedCalendarPrev() {
     final currentFocusedDate = calendarUiState.value.focusedDate;
-    final newDate = DateTime(currentFocusedDate.year,
-        currentFocusedDate.month - 1, currentFocusedDate.day);
-    _updateDate(newDate);
+    final newDate = DateTime(
+      currentFocusedDate.year,
+      currentFocusedDate.month - 1,
+      currentFocusedDate.day,
+    );
+    onChangedDate(newDate);
   }
 
   /// 달력 - 다음 달 클릭.
   void onPressedCalendarNext() {
     final currentFocusedDate = calendarUiState.value.focusedDate;
-    final newDate = DateTime(currentFocusedDate.year,
-        currentFocusedDate.month + 1, currentFocusedDate.day);
-    _updateDate(newDate);
+    final newDate = DateTime(
+      currentFocusedDate.year,
+      currentFocusedDate.month + 1,
+      currentFocusedDate.day,
+    );
+    onChangedDate(newDate);
   }
 
   /// API 조회.

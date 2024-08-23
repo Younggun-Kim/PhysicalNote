@@ -8,3 +8,11 @@ extension ListExt<T> on List<T> {
     return result;
   }
 }
+
+extension CompactMap<E> on Iterable<E> {
+  Iterable<T> compactMap<T>(T? Function(E) transform) {
+    return map(transform)
+        .where((element) => element != null)
+        .cast<T>();
+  }
+}

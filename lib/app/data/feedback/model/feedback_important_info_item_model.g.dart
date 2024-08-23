@@ -9,7 +9,7 @@ part of 'feedback_important_info_item_model.dart';
 FeedbackImportantInfoItemModel _$FeedbackImportantInfoItemModelFromJson(
         Map<String, dynamic> json) =>
     FeedbackImportantInfoItemModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       recordDate: json['recordDate'] as String?,
       workoutTime: json['workoutTime'] as String?,

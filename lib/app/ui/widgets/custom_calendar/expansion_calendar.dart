@@ -44,7 +44,7 @@ class ExpansionCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ExpansionWidget(
         initiallyExpanded: uiState.isExpanded,
-        onRestoreState: () => uiState.isExpanded,
+        onRestoreState: (context) => uiState.isExpanded,
         titleBuilder: (double animationValue, double easeInValue,
             bool isExpanded, Function({bool animated}) toggleFunction) {
           return _CalendarHeader(

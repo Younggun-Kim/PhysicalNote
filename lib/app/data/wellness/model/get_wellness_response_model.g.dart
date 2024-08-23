@@ -9,14 +9,14 @@ part of 'get_wellness_response_model.dart';
 GetWellnessResponseModel _$GetWellnessResponseModelFromJson(
         Map<String, dynamic> json) =>
     GetWellnessResponseModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       bodyFat: (json['bodyFat'] as num?)?.toDouble(),
       emptyStomachWeight: (json['emptyStomachWeight'] as num?)?.toDouble(),
-      fatigue: json['fatigue'] as int?,
-      muscleSoreness: json['muscleSoreness'] as int?,
-      sleep: json['sleep'] as int?,
-      stress: json['stress'] as int?,
-      urine: json['urine'] as int?,
+      fatigue: (json['fatigue'] as num?)?.toInt(),
+      muscleSoreness: (json['muscleSoreness'] as num?)?.toInt(),
+      sleep: (json['sleep'] as num?)?.toInt(),
+      stress: (json['stress'] as num?)?.toInt(),
+      urine: (json['urine'] as num?)?.toInt(),
       recordDate: json['recordDate'] as String?,
     );
 

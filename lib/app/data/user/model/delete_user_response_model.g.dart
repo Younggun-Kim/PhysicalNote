@@ -10,7 +10,7 @@ DeleteUserResponseModel _$DeleteUserResponseModelFromJson(
         Map<String, dynamic> json) =>
     DeleteUserResponseModel(
       deleted: json['deleted'] as bool?,
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       message: json['message'] as String?,
     );
 

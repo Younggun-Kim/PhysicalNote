@@ -5,7 +5,10 @@ import 'package:physical_note/app/ui/page/find_id_complete/find_id_complete.dart
 import 'package:physical_note/app/ui/page/find_password/find_password.dart';
 import 'package:physical_note/app/ui/page/information_registration/information_registration.dart';
 import 'package:physical_note/app/ui/page/information_registration_guide/information_registration_guide.dart';
+import 'package:physical_note/app/ui/page/injury_detail/injury_detail.dart';
 import 'package:physical_note/app/ui/page/inline_webview/inline_webview.dart';
+import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_bindings.dart';
+import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_page.dart';
 import 'package:physical_note/app/ui/page/localization/localization.dart';
 import 'package:physical_note/app/ui/page/login/login.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
@@ -19,6 +22,7 @@ import 'package:physical_note/app/ui/page/sign_up/sign_up.dart';
 import 'package:physical_note/app/ui/page/splash/splash.dart';
 import 'package:physical_note/app/ui/page/team_request/team_request.dart';
 import 'package:physical_note/app/ui/page/term/term.dart';
+import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
 
 part 'route_type.dart';
 
@@ -146,6 +150,21 @@ class Routes {
       name: RouteType.TEAM_REQUEST,
       page: () => const TeamRequestPage(),
       binding: TeamRequestBindings(),
+    ),
+    GetPage(
+      name: RouteType.WELLNESS_DETAIL,
+      page: () => const WellnessDetailPage(),
+      binding: WellnessDetailBindings(),
+    ),
+    GetPage(
+      name: RouteType.INTENSITY_DETAIL,
+      page: () => const IntensityDetailPage(),
+      binding: IntensityDetailBindings(),
+    ),
+    GetPage(
+      name: RouteType.INJURY_DETAIL,
+      page: () => const InjuryDetailPage(),
+      binding: InjuryDetailBindings(),
     ),
   ];
 }

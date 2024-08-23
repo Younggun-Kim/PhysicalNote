@@ -10,7 +10,6 @@ class RiskInfoModel {
   final int? injuryPercent;
   final String? recordDate;
 
-
   RiskInfoModel({
     this.id,
     this.injuryLevel,

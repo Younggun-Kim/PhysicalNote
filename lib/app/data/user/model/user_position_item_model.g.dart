@@ -9,9 +9,9 @@ part of 'user_position_item_model.dart';
 UserPositionItemModel _$UserPositionItemModelFromJson(
         Map<String, dynamic> json) =>
     UserPositionItemModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
-      userId: json['userId'] as int?,
+      userId: (json['userId'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$UserPositionItemModelToJson(

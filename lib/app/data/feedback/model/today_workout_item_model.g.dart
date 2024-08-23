@@ -9,7 +9,7 @@ part of 'today_workout_item_model.dart';
 TodayWorkoutItemModel _$TodayWorkoutItemModelFromJson(
         Map<String, dynamic> json) =>
     TodayWorkoutItemModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       categoryName: json['categoryName'] as String?,
       categoryColorCode: json['categoryColorCode'] as String?,
       workoutTime: json['workoutTime'] as String?,
