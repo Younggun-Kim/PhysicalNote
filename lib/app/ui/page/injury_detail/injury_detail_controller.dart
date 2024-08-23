@@ -285,7 +285,7 @@ class InjuryDetailController extends BaseController {
           onPressedYes: () async {
             final result = await _recoveryInjury();
             Get.back();
-            await Future.delayed(const Duration(milliseconds: 500));
+            await Future.delayed(const Duration(seconds: 1));
             close(result: result);
           },
           noText: StringRes.no.tr,
@@ -305,7 +305,7 @@ class InjuryDetailController extends BaseController {
           onPressedYes: () async {
             final bool result = await _deleteInjury();
             Get.back();
-            await Future.delayed(const Duration(milliseconds: 500));
+            await Future.delayed(const Duration(seconds: 1));
             close(result: result);
           },
           noText: StringRes.no.tr,

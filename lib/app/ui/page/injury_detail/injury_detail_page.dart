@@ -58,10 +58,8 @@ class _InjuryDetailPage extends GetView<InjuryDetailController> {
                 const SizedBox(height: 50),
                 const Spacer(),
                 Visibility(
-                  // visible: controller.isShowDetailUi &&
-                  //     controller.injuryRecoveryType.value ==
-                  //         InjuryRecoveryType.progress,
-                  visible: controller.isShowDetailUi,
+                  
+                  visible: controller.isShowDetailUi && !controller.isRecovered.value,
                   child: BaseButton(
                     width: double.infinity,
                     height: 56,

@@ -40,9 +40,9 @@ extension InjuryDetailUiMapper on InjuryDetailController {
     /// 통증 양상.
     final painTypes = remoteData.painCharacteristicList
         ?.map((element) {
-      final painType = PainType.from(element);
-      return painType;
-    })
+          final painType = PainType.from(element);
+          return painType;
+        })
         .whereType<PainType>()
         .toList();
 
@@ -73,7 +73,6 @@ extension InjuryDetailUiMapper on InjuryDetailController {
     });
 
     /// 질병, 부상경위
-    logger.w(remoteData.comment);
     diseaseController.value = remoteData.comment ?? "";
     painTimingDescription.value = remoteData.comment ?? "";
 
