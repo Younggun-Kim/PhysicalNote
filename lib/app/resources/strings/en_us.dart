@@ -312,4 +312,10 @@ final enUs = {
   StringRes.risk7To14: '운동을 위한 적합한 컨디션입니다.',
   StringRes.risk14To21: '운동 시 집중해야 되는 컨디션입니다.',
   StringRes.risk21More: '부상 위험이 매우 높습니다. 운동 강도와 양을 조절하세요.',
+  StringRes.drinkingGood: '수분 섭가 잘 이루어져 있습니다.',
+  StringRes.drinkingWarning: '수분 섭취에 주의 기울여야 합니다.',
+  StringRes.drinkingDanger: '수분 섭취 매우 부족 상태입니다.',
+  StringRes.eatingGood: '체중 변화가 양호합니다.',
+  StringRes.eatingNeed: '영양 섭취가 필요합니다.',
+  StringRes.eatingOver: '음식양 조절이 필요합니다.',
 };

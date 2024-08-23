@@ -331,4 +331,10 @@ class StringRes {
   static final risk7To14 = _generateId();
   static final risk14To21 = _generateId();
   static final risk21More = _generateId();
+  static final drinkingGood = _generateId();
+  static final drinkingWarning = _generateId();
+  static final drinkingDanger = _generateId();
+  static final eatingGood = _generateId();
+  static final eatingNeed = _generateId();
+  static final eatingOver = _generateId();
 }

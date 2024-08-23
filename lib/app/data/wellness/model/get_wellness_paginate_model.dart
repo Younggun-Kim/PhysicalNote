@@ -8,6 +8,7 @@ class GetWellnessPaginateModel {
   final double? muscleSorenessAvg;
   final double? urineAvg;
   final double? weightAvg;
+  final String? differenceFat;
   final PaginateModel<GetWellnessResponseModel>? wellnessList;
 
   GetWellnessPaginateModel(
@@ -17,6 +18,7 @@ class GetWellnessPaginateModel {
     this.muscleSorenessAvg,
     this.urineAvg,
     this.weightAvg,
+    this.differenceFat,
     this.wellnessList,
   );
 
@@ -28,6 +30,7 @@ class GetWellnessPaginateModel {
       json['muscleSorenessAvg'] as double?,
       json['urineAvg'] as double?,
       json['weightAvg'] as double?,
+      json['differenceFat'] as String?,
       json['wellnessList'] != null
           ? PaginateModel<GetWellnessResponseModel>.fromJson(
               json['wellnessList'],
@@ -43,6 +46,7 @@ class GetWellnessPaginateModel {
         'muscleSorenessAvg': muscleSorenessAvg,
         'urineAvg': urineAvg,
         'weightAvg': weightAvg,
+        'differenceFat': differenceFat,
         'wellnessList': wellnessList?.toJson(),
       };
 }

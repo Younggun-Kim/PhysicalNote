@@ -10,8 +10,6 @@ import 'package:physical_note/app/utils/utils.dart';
 import 'history_wellness_item_ui_state.dart';
 
 /// 웰리니스 목록 아이템
-/// TODO: 소변검사 평균의 Description 정책 필요
-/// TODO: item의 소변 1-3 양호 4-7 (정책필요)
 class HistoryWellnessItem extends StatelessWidget {
   final HistoryWellnessItemUiState uiState;
 
@@ -37,6 +35,7 @@ class HistoryWellnessItem extends StatelessWidget {
               musclePain: (uiState.muscleSorenessAvg ?? 0).toInt(),
               urine: uiState.urineAvg,
               weight: uiState.weightAvg,
+              differenceFat: uiState.differenceFat,
             ),
             const SizedBox(height: 24),
             _Content(
@@ -64,6 +63,8 @@ class _Average extends StatelessWidget {
 
   final double? weight;
 
+  final int? differenceFat;
+
   const _Average({
     required this.sleep,
     required this.stress,
@@ -71,6 +72,7 @@ class _Average extends StatelessWidget {
     required this.musclePain,
     required this.urine,
     required this.weight,
+    required this.differenceFat,
   });
 
   String get urineText => urine?.toStringAsFixed(1) ?? '-';
@@ -78,75 +80,115 @@ class _Average extends StatelessWidget {
   String get weightText => weight?.toStringAsFixed(1) ?? '-';
 
   @override
-  Widget build(BuildContext context) => Row(
+  Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              Text(
-                StringRes.hooperIndexAverage.tr,
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: ColorRes.fontBlack,
-                    letterSpacing: -0.7),
+              Expanded(
+                child: Text(
+                  StringRes.hooperIndexAverage.tr,
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.fontBlack,
+                      letterSpacing: -0.7),
+                ),
               ),
-              const SizedBox(height: 8),
-              _AverageHooperIndexItem(
-                text: StringRes.sleepNoSpace.tr,
-                value: sleep,
-              ),
-              _AverageHooperIndexItem(
-                text: StringRes.stress.tr,
-                value: stress,
-              ),
-              _AverageHooperIndexItem(
-                text: StringRes.fatigue.tr,
-                value: fatigue,
-              ),
-              _AverageHooperIndexItem(
-                text: StringRes.musclePain.tr,
-                value: 3,
+              Expanded(
+                child: Text(
+                  StringRes.urinalysisAverage.tr,
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.fontBlack,
+                      letterSpacing: -0.7),
+                ),
               ),
             ],
           ),
-          const Spacer(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                StringRes.urinalysisAverage.tr,
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: ColorRes.fontBlack,
-                    letterSpacing: -0.7),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  _AverageUrinalysisItem(
+          const SizedBox(height: 8),
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _AverageHooperIndexItem(
+                        text: StringRes.sleepNoSpace.tr,
+                        value: sleep,
+                      ),
+                      _AverageHooperIndexItem(
+                        text: StringRes.stress.tr,
+                        value: stress,
+                      ),
+                      _AverageHooperIndexItem(
+                        text: StringRes.fatigue.tr,
+                        value: fatigue,
+                      ),
+                      _AverageHooperIndexItem(
+                        text: StringRes.musclePain.tr,
+                        value: 7,
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: _AverageUrinalysisItem(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     svgAsset: Assets.wellnessWater,
                     value: urineText,
                     valueSuffix: '',
-                    description: '수분섭취가 부족합니다.',
+                    description: _getDrinkingDescription(urine ?? 0),
                   ),
-                  const SizedBox(width: 20),
-                  _AverageUrinalysisItem(
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: _AverageUrinalysisItem(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     svgAsset: Assets.wellnessWeightGreen,
                     value: weightText,
                     valueSuffix: 'kg',
-                    description: '체중조절이 필요합니다.',
+                    description: _getEatingDescription(differenceFat),
                   ),
-                ],
-              )
-            ],
+                ),
+              ],
+            ),
           ),
         ],
       );
+
+  /// 수분 섭취 설명
+  String _getDrinkingDescription(double urine) {
+    if (urine >= 1 && urine <= 3) {
+      return StringRes.drinkingGood.tr;
+    } else if (urine <= 6) {
+      return StringRes.drinkingWarning.tr;
+    } else if (urine <= 8) {
+      return StringRes.drinkingDanger.tr;
+    } else {
+      return '';
+    }
+  }
+
+  /// 음식 섭취 설명
+  String _getEatingDescription(int? differenceFat) {
+    if (differenceFat == null) {
+      return '';
+    }
+
+    if (differenceFat < -2) {
+      return StringRes.eatingNeed.tr;
+    } else if (differenceFat < 2) {
+      return StringRes.eatingGood.tr;
+    } else {
+      return StringRes.eatingOver.tr;
+    }
+  }
 }
 
 class _AverageHooperIndexItem extends StatelessWidget {
@@ -159,8 +201,10 @@ class _AverageHooperIndexItem extends StatelessWidget {
     required this.value,
   });
 
-  String get _emptyText =>
-      List<String>.generate(4 - text.length, (i) => '빈').join('');
+  String get _emptyText => List<String>.generate(
+        4 - text.length,
+        (i) => '빈',
+      ).join('');
 
   Color get barColor => ColorUtils.convertWellness(value);
 
@@ -188,7 +232,7 @@ class _AverageHooperIndexItem extends StatelessWidget {
           const SizedBox(width: 8),
           Container(
             width: min(77, 11 * value.toDouble()),
-            height: 5,
+            height: 8,
             decoration: BoxDecoration(
               color: barColor,
             ),
@@ -230,6 +274,7 @@ class _AverageUrinalysisItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: crossAxisAlignment,
           children: [
+            const Spacer(),
             SvgPicture.asset(svgAsset),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -258,6 +303,8 @@ class _AverageUrinalysisItem extends StatelessWidget {
             ),
             Text(
               description,
+              maxLines: 1,
+              overflow: TextOverflow.clip,
               style: const TextStyle(
                 fontSize: 8,
                 fontWeight: FontWeight.w400,

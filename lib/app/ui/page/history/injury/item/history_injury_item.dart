@@ -23,29 +23,33 @@ class HistoryInjuryItem extends StatelessWidget {
   bool get isDisease => uiState.injuryType == InjuryType.disease;
 
   @override
-  Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.25),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: const Offset(0, 2), // changes position of shadow
-            ),
-          ],
-        ),
-        child: isDisease
-            ? _DiseaseContent(
-                uiState: uiState,
-                onPressedEdit: onPressed,
-              )
-            : _InjuryContent(
-                uiState: uiState,
-                onPressedEdit: onPressed,
+  Widget build(BuildContext context) => InkWellOver(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.25),
+                spreadRadius: 3,
+                blurRadius: 5,
+                offset: const Offset(0, 2), // changes position of shadow
               ),
+            ],
+          ),
+          child: isDisease
+              ? _DiseaseContent(
+                  uiState: uiState,
+                  onPressedEdit: onPressed,
+                )
+              : _InjuryContent(
+                  uiState: uiState,
+                  onPressedEdit: onPressed,
+                ),
+        ),
       );
 }
 
@@ -59,15 +63,11 @@ class _ItemHeader extends StatelessWidget {
 
   final String? recoveryDate;
 
-  final VoidCallback onPressedEdit;
-
-
   const _ItemHeader({
     required this.title,
     required this.recordDate,
     required this.recoveryYn,
     required this.recoveryDate,
-    required this.onPressedEdit,
   });
 
   @override
@@ -88,16 +88,6 @@ class _ItemHeader extends StatelessWidget {
             recordDate: recordDate,
             recoveryYn: recoveryYn,
             recoveryDate: recoveryDate,
-          ),
-          const Spacer(),
-          InkWellOver(
-            onTap: onPressedEdit,
-            borderRadius: BorderRadius.circular(20),
-            child: SvgPicture.asset(
-              Assets.edit03,
-              width: 17,
-              height: 17,
-            ),
           ),
         ],
       );
@@ -199,11 +189,11 @@ class _InjuryContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _ItemHeader(
-                    title: uiState.muscleType?.toKor() ?? '-',
-                    recordDate: uiState.recordDate,
-                    recoveryYn: uiState.recoveryYn,
-                    recoveryDate: uiState.recoveryDate,
-                    onPressedEdit: onPressedEdit),
+                  title: uiState.muscleType?.toKor() ?? '-',
+                  recordDate: uiState.recordDate,
+                  recoveryYn: uiState.recoveryYn,
+                  recoveryDate: uiState.recoveryDate,
+                ),
                 const SizedBox(height: 16),
                 Text(
                   uiState.injuryType.toString(),
@@ -271,7 +261,6 @@ class _DiseaseContent extends StatelessWidget {
                   recordDate: uiState.recoveryDate ?? '-',
                   recoveryYn: uiState.recoveryYn,
                   recoveryDate: uiState.recoveryDate,
-                  onPressedEdit: onPressedEdit,
                 ),
                 const SizedBox(height: 16),
                 Text(

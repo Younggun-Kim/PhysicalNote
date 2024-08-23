@@ -14,6 +14,7 @@ class HistoryWellnessItemUiState {
   double? muscleSorenessAvg;
   double? urineAvg;
   double? weightAvg;
+  int? differenceFat;
 
   HistoryWellnessItemUiState({
     required this.id,
@@ -31,5 +32,6 @@ class HistoryWellnessItemUiState {
     this.muscleSorenessAvg,
     this.urineAvg,
     this.weightAvg,
+    this.differenceFat,
   });
 }

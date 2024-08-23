@@ -6,7 +6,8 @@ import 'history_wellness_item_ui_state.dart';
 extension HistoryWellnessItemUiMapper on HistoryWellnessController {
   /// 웰리니스 목록 아이템 매핑
   HistoryWellnessItemUiState? historyWellnessItemUiStateFrom(
-      GetWellnessResponseModel model) {
+    GetWellnessResponseModel model,
+  ) {
     final id = model.id;
     final recordDate = model.recordDate;
 

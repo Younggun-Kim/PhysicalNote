@@ -7,6 +7,7 @@ import 'package:physical_note/app/data/wellness/wellness_api.dart';
 import 'package:physical_note/app/ui/page/history/wellness/item/history_wellness_item_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
 import 'package:physical_note/app/utils/extensions/list_extension.dart';
+import 'package:physical_note/app/utils/extensions/string_extensions.dart';
 import 'package:physical_note/app/utils/getx/utils_getx.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
@@ -53,12 +54,14 @@ mixin HistoryWellnessController on BaseController implements HistoryFilterBase {
           .toList();
 
       if (toUiState.isNotEmpty) {
-        toUiState[0].sleepAvg = response.sleepAvg;
-        toUiState[0].stressAvg = response.stressAvg;
-        toUiState[0].fatigueAvg = response.fatigueAvg;
-        toUiState[0].muscleSorenessAvg = response.muscleSorenessAvg;
-        toUiState[0].urineAvg = response.urineAvg;
-        toUiState[0].weightAvg = response.weightAvg;
+        toUiState[0]
+          ..sleepAvg = response.sleepAvg
+          ..stressAvg = response.stressAvg
+          ..fatigueAvg = response.fatigueAvg
+          ..muscleSorenessAvg = response.muscleSorenessAvg
+          ..urineAvg = response.urineAvg
+          ..weightAvg = response.weightAvg
+          ..differenceFat = response.differenceFat?.extractParseInt();
       }
 
       return LoadPage(
