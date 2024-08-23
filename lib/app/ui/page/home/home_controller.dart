@@ -96,6 +96,10 @@ class HomeController extends BaseController {
   /// MainScreen에서 화면 전환 시 필요
   void scrollToTop() {}
 
+  Future<void> onRefresh() async {
+    _loadApi();
+  }
+
   /// 내정보 화면으로 이동
   void onPressedUserEditButton() async {
     final args = MyInformationArgs(

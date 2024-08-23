@@ -19,54 +19,64 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => PageRoot(
         controller: controller,
-        child: FlexibleScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 26),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _UserInfo(),
-              const SizedBox(height: 20),
-              _RecordButtons(),
-              const SizedBox(height: 20),
-              _FieldName(text: StringRes.todayTraining.tr),
-              const SizedBox(height: 12),
-              AspectRatio(
-                aspectRatio: 375 / 104,
-                child: _TodayTraining(),
-              ),
-              const SizedBox(height: 10),
-              _TodayTrainingIndicator(),
-              const SizedBox(height: 20),
-              _FieldName(text: StringRes.injuryRisk.tr),
-              Obx(
-                () => Text(
-                  controller.riskDescription.value,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: ColorRes.grayBababa,
-                    letterSpacing: -0.5,
-                    height: 20 / 14,
-                  ),
-                ).marginSymmetric(horizontal: 24),
-              ),
-              const SizedBox(height: 20),
-              _InjuryRisk(),
-              const SizedBox(height: 20),
-              _Wellness(),
-              const SizedBox(height: 12),
-              IntrinsicHeight(
-                child: Row(
+        child: Stack(
+          children: [
+            RefreshIndicator(
+              color: ColorRes.primary,
+              backgroundColor: ColorRes.white,
+              onRefresh: controller.onRefresh,
+              child: FlexibleScrollView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 0, vertical: 26),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: _Intensity()),
-                    const SizedBox(width: 12),
-                    Expanded(child: _Injury()),
+                    _UserInfo(),
+                    const SizedBox(height: 20),
+                    _RecordButtons(),
+                    const SizedBox(height: 20),
+                    _FieldName(text: StringRes.todayTraining.tr),
+                    const SizedBox(height: 12),
+                    AspectRatio(
+                      aspectRatio: 375 / 104,
+                      child: _TodayTraining(),
+                    ),
+                    const SizedBox(height: 10),
+                    _TodayTrainingIndicator(),
+                    const SizedBox(height: 20),
+                    _FieldName(text: StringRes.injuryRisk.tr),
+                    Obx(
+                      () => Text(
+                        controller.riskDescription.value,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: ColorRes.grayBababa,
+                          letterSpacing: -0.5,
+                          height: 20 / 14,
+                        ),
+                      ).marginSymmetric(horizontal: 24),
+                    ),
+                    const SizedBox(height: 20),
+                    _InjuryRisk(),
+                    const SizedBox(height: 20),
+                    _Wellness(),
+                    const SizedBox(height: 12),
+                    IntrinsicHeight(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(child: _Intensity()),
+                          const SizedBox(width: 12),
+                          Expanded(child: _Injury()),
+                        ],
+                      ),
+                    )
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       );
 }

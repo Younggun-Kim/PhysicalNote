@@ -9,7 +9,6 @@ import 'package:physical_note/app/config/constant/muscle_type.dart';
 import 'package:physical_note/app/config/constant/pain_type.dart';
 import 'package:physical_note/app/data/injury/model/injury_response_model.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 
 extension InjuryDetailUiMapper on InjuryDetailController {
   void setScreen(InjuryResponseModel remoteData) {
