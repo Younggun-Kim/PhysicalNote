@@ -289,16 +289,16 @@ class _TableCellHard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _TableRadio(
-                    isSelected: level == 8,
+                    isSelected: level == 7,
                     onPressed: () {
-                      onPressed(8);
+                      onPressed(7);
                     },
                   ),
                   const SizedBox(height: 32),
                   _TableRadio(
-                    isSelected: level == 7,
+                    isSelected: level == 8,
                     onPressed: () {
-                      onPressed(7);
+                      onPressed(8);
                     },
                   ),
                 ],
@@ -358,9 +358,9 @@ class _TableCellNormal extends StatelessWidget {
               child: Column(
                 children: [
                   _TableRadio(
-                    isSelected: level == 6,
+                    isSelected: level ==4,
                     onPressed: () {
-                      onPressed(6);
+                      onPressed(4);
                     },
                   ),
                   const SizedBox(height: 32),
@@ -372,9 +372,9 @@ class _TableCellNormal extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
                   _TableRadio(
-                    isSelected: level == 4,
+                    isSelected: level == 6,
                     onPressed: () {
-                      onPressed(4);
+                      onPressed(6);
                     },
                   )
                 ],
@@ -432,16 +432,16 @@ class _TableCellEasy extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   _TableRadio(
-                    isSelected: level == 3,
+                    isSelected: level == 2,
                     onPressed: () {
-                      onPressed(3);
+                      onPressed(2);
                     },
                   ),
                   const SizedBox(height: 32),
                   _TableRadio(
-                    isSelected: level == 2,
+                    isSelected: level == 3,
                     onPressed: () {
-                      onPressed(2);
+                      onPressed(3);
                     },
                   ),
                 ],

@@ -5,7 +5,6 @@ import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_table.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_controller.dart';
-import 'package:physical_note/app/ui/widgets/page_root.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 
@@ -33,7 +32,7 @@ class _IntensityDetailPage extends GetView<IntensityDetailController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _Title(
-              onTapGuide: controller.onTapGuideButton,
+              onTapGuide: () {},
             ),
             const SizedBox(height: 10),
             _Date(),

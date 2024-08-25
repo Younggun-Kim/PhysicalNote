@@ -89,21 +89,16 @@ class IntensityDetailController extends BaseController {
   @override
   void onReady() {
     super.onReady();
-    _loadIntensity();
+    _loadApi();
   }
 
   /**
    * 메소드
    */
 
-  /// 웰리니스란 가이드 클릭
-  void onTapGuideButton() async {
-    // await Get.dialog(
-    //   const WellnessGuideDialog(),
-    //   barrierDismissible: true,
-    //   barrierColor: Colors.transparent,
-    //   transitionDuration: const Duration(milliseconds: 100),
-    // );
+  /// 운동 타입 업데이트
+  void updateWorkoutType(WorkoutType type) {
+    _workoutType.value = type;
   }
 
   /// 달력 클릭.
@@ -119,7 +114,7 @@ class IntensityDetailController extends BaseController {
 
     if (newDateTime != null) {
       recordDate.value = newDateTime;
-      _loadIntensity();
+      _loadApi();
     }
   }
 
@@ -212,7 +207,7 @@ class IntensityDetailController extends BaseController {
   }
 
   /// 운동강도 - api 조회.
-  Future _loadIntensity() async {
+  Future _loadApi() async {
     final intensityApi = Get.find<IntensityAPI>();
     final date = recordDate.value.toFormattedString('yyyy-MM-dd');
     final response = await intensityApi.getIntensity(date);
@@ -280,6 +275,14 @@ class IntensityDetailController extends BaseController {
       final physicalData = data.firstWhereOrNull(
         (e) => e.workoutType == WorkoutType.physical.remote,
       );
+
+      if (sportsData != null) {
+        _workoutType.value = WorkoutType.sports;
+      } else if (physicalData != null) {
+        _workoutType.value = WorkoutType.physical;
+      } else {
+        _workoutType.value = WorkoutType.sports;
+      }
 
       var sportUiState = _sportUiState.value;
       sportUiState.id = sportsData?.id;
