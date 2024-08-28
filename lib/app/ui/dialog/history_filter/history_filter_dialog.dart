@@ -9,7 +9,7 @@ import 'package:physical_note/app/ui/page/history/type/history_order_filter_type
 import 'package:physical_note/app/ui/widgets/buttons/base_button.dart';
 import 'package:physical_note/app/ui/widgets/ink_well_over.dart';
 
-class HistoryFilterDialog extends StatelessWidget {
+class HistoryFilterDialog extends StatefulWidget {
   final HistoryFilterDialogArgs args;
 
   const HistoryFilterDialog({
@@ -17,27 +17,53 @@ class HistoryFilterDialog extends StatelessWidget {
     required this.args,
   });
 
-  void _close() {
-    Get.back();
+  @override
+  State<StatefulWidget> createState() => _HistoryFilterDialog();
+}
+
+class _HistoryFilterDialog extends State<HistoryFilterDialog> {
+  _HistoryFilterDialog();
+
+  late HistoryDateFilterType dateType;
+
+  late HistoryOrderFilterType orderType;
+
+  bool? isRecovery;
+
+  late bool isVisibleRecovery;
+
+  @override
+  void initState() {
+    super.initState();
+    dateType = widget.args.dateType;
+    orderType = widget.args.orderType;
+    isRecovery = widget.args.isRecovery;
+    isVisibleRecovery = widget.args.isVisibleRecovery;
   }
 
-  void _selectFilterAndClose(
-      {HistoryDateFilterType? dateType,
-      HistoryOrderFilterType? orderType,
-      bool? isRecovery}) {
-    Get.back(
-        result: HistoryFilterDialogArgs(
-      dateType: dateType ?? args.dateType,
-      orderType: orderType ?? args.orderType,
-      isVisibleRecovery: args.isVisibleRecovery,
-      isRecovery: isRecovery ?? args.isRecovery,
-    ));
+  /// Dialog 닫기
+  /// 값이 변하면 변한 값을 리턴
+  void _close() {
+    if (dateType != widget.args.dateType ||
+        orderType != widget.args.orderType ||
+        isRecovery != widget.args.isRecovery) {
+      Get.back(
+          result: HistoryFilterDialogArgs(
+        dateType: dateType,
+        orderType: orderType,
+        isRecovery: isRecovery ?? widget.args.isRecovery,
+        isVisibleRecovery: isVisibleRecovery,
+      ));
+    } else {
+      Get.back();
+    }
   }
 
   @override
   Widget build(BuildContext context) => DialogTemplate(
         padding: const EdgeInsets.all(30),
         backgroundColor: ColorRes.dimmed,
+        onClose: _close,
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 16),
           decoration: BoxDecoration(
@@ -57,33 +83,30 @@ class HistoryFilterDialog extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 2),
-              if (args.isVisibleRecovery)
+              if (isVisibleRecovery)
                 _InjuryState(
-                  isRecovery: args.isRecovery,
-                  onPressed: (bool isRecovery) {
-                    if (args.isRecovery == isRecovery) {
-                      return;
-                    }
-                    _selectFilterAndClose(isRecovery: isRecovery);
+                  isRecovery: isRecovery,
+                  onPressed: (bool newIsRecovery) {
+                    setState(() {
+                      isRecovery = newIsRecovery;
+                    });
                   },
                 ),
               _Order(
-                orderType: args.orderType,
-                onPressed: (HistoryOrderFilterType orderType) {
-                  if (args.orderType == orderType) {
-                    return;
-                  }
-                  _selectFilterAndClose(orderType: orderType);
+                orderType: orderType,
+                onPressed: (HistoryOrderFilterType newOrderType) {
+                  setState(() {
+                    orderType = newOrderType;
+                  });
                 },
               ),
               const SizedBox(height: 24),
               _Date(
-                dateType: args.dateType,
-                onPressed: (HistoryDateFilterType dateType) {
-                  if (args.dateType == dateType) {
-                    return;
-                  }
-                  _selectFilterAndClose(dateType: dateType);
+                dateType: dateType,
+                onPressed: (HistoryDateFilterType newDateType) {
+                  setState(() {
+                    dateType = newDateType;
+                  });
                 },
               ),
             ],

@@ -42,13 +42,13 @@ class HistoryController extends BaseController
 
   /// 순서 필터
   @override
-  final orderFilter = HistoryOrderFilterType.asc.obs;
+  final orderFilter = HistoryOrderFilterType.desc.obs;
 
   /// 각 탭의 날짜 필터
   final _tabOrderFilter = <HistoryOrderFilterType>[
-    HistoryOrderFilterType.asc,
-    HistoryOrderFilterType.asc,
-    HistoryOrderFilterType.asc,
+    HistoryOrderFilterType.desc,
+    HistoryOrderFilterType.desc,
+    HistoryOrderFilterType.desc,
   ].obs;
 
   @override
