@@ -37,7 +37,7 @@ extension WellenssDetaiUiMapper on WellnessDetailController {
   /// 소변검사표 값으로 변환
   int _convertUrineTable(int x) {
     const int minLimit = 1;
-    const int maxLimit = 7;
+    const int maxLimit = 8;
 
     int result = x;
 
