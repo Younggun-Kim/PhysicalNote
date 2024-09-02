@@ -5,6 +5,7 @@ import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/wellness/model/get_wellness_paginate_model.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
 import 'package:physical_note/app/ui/page/history/wellness/item/history_wellness_item_ui_mapper.dart';
+import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
 import 'package:physical_note/app/utils/extensions/list_extension.dart';
 import 'package:physical_note/app/utils/extensions/string_extensions.dart';
@@ -91,6 +92,11 @@ mixin HistoryWellnessController on BaseController implements HistoryFilterBase {
 
     if (response is bool && response) {
       onRefreshWellness();
+
+      if(Get.isRegistered<MainScreenController>()) {
+        final mainController = Get.find<MainScreenController>();
+        mainController.onRefresh(MainTabIndex.home);
+      }
     }
   }
 

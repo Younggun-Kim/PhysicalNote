@@ -53,6 +53,33 @@ class MainScreenController extends BaseMainController<MainUiState> {
     }
   }
 
+  /// Refresh
+  void onRefresh(MainTabIndex tabIndex)  {
+    switch (tabIndex) {
+      case MainTabIndex.home:
+        final isRegistered = Get.isRegistered<HomeController>();
+        if (isRegistered) {
+          final controller = Get.find<HomeController>();
+          controller.onRefresh();
+        }
+        break;
+      case MainTabIndex.history:
+        final isRegistered = Get.isRegistered<HistoryController>();
+        if (isRegistered) {
+          final controller = Get.find<HistoryController>();
+          controller.onRefresh();
+        }
+        break;
+      case MainTabIndex.feedback:
+        final isRegistered = Get.isRegistered<FeedbackController>();
+        if (isRegistered) {
+          final controller = Get.find<FeedbackController>();
+          controller.onRefresh();
+        }
+        break;
+    }
+  }
+
   /// 특정 탭의 스크롤을 최상단으로 이동.
   void scrollToTop(MainTabIndex tabIndex) {
     switch (tabIndex) {

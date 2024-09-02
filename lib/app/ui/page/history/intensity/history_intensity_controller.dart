@@ -7,6 +7,7 @@ import 'package:physical_note/app/ui/page/history/intensity/item/history_intensi
 import 'package:physical_note/app/ui/page/history/intensity/item/history_intensity_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/history/interface/history_filter_base.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
+import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/utils/extensions/list_extension.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
@@ -44,7 +45,7 @@ mixin HistoryIntensityController on BaseController
   Future<LoadPage<int, HistoryIntensityItemUiState>> _loadPage(
     int pageKey,
   ) async {
-    if(!Get.isRegistered<IntensityAPI>()){
+    if (!Get.isRegistered<IntensityAPI>()) {
       Get.put(IntensityAPI());
     }
 
@@ -103,10 +104,16 @@ mixin HistoryIntensityController on BaseController
     final args = IntensityDetailArgs(
       recordDate: recordDate,
     );
-    final result =
-        await Get.toNamed(RouteType.INTENSITY_DETAIL, arguments: args);
+    final result = await Get.toNamed(
+      RouteType.INTENSITY_DETAIL,
+      arguments: args,
+    );
     if (result is bool && result) {
       onRefreshIntensity();
+      if (Get.isRegistered<MainScreenController>()) {
+        final mainController = Get.find<MainScreenController>();
+        mainController.onRefresh(MainTabIndex.home);
+      }
     }
   }
 

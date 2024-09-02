@@ -9,6 +9,7 @@ import 'package:physical_note/app/ui/page/history/injury/item/history_injury_ite
 import 'package:physical_note/app/ui/page/history/injury/item/history_injury_item_ui_state.dart';
 import 'package:physical_note/app/ui/page/history/interface/history_filter_base.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail.dart';
+import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/utils/extensions/list_extension.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
@@ -89,6 +90,11 @@ mixin HistoryInjuryController on BaseController implements HistoryFilterBase {
     );
     if (result is bool && result) {
       onRefreshInjury();
+
+      if(Get.isRegistered<MainScreenController>()) {
+        final mainController = Get.find<MainScreenController>();
+        mainController.onRefresh(MainTabIndex.home);
+      }
     }
   }
 

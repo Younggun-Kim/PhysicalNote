@@ -52,6 +52,12 @@ class FeedbackController extends BaseController {
     );
   }
 
+  /// 리프레시
+  void onRefresh() {
+    isLoaded = false;
+    loadFeedback();
+  }
+
   /// 날짜 변경.
   void onChangedDate(DateTime newDate) {
     calendarUiState.value.focusedDate = newDate;

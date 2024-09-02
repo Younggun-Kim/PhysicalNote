@@ -149,7 +149,7 @@ class HistoryController extends BaseController
     _updateOrderByTab();
   }
 
-  void _onRefresh() {
+  void onRefresh() {
     final tab = _tabManager.tab;
 
     switch (tab) {
@@ -195,7 +195,7 @@ class HistoryController extends BaseController
         isRecovery: response.isRecovery,
       );
 
-      _onRefresh();
+      onRefresh();
     }
   }
 
