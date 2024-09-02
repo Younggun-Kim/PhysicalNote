@@ -30,6 +30,8 @@ class Logout {
 
     userStorage.snsType.val = "";
 
+    userStorage.removeFilter();
+
     /// 로그인으로 이동.
     Get.offAllNamed(RouteType.LOGIN);
   }

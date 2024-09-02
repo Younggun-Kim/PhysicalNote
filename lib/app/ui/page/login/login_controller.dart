@@ -3,6 +3,7 @@ import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_request_model.dart';
+import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/page/term/term_args.dart';
 import 'package:physical_note/app/utils/sns/apple_login.dart';
 import 'package:physical_note/app/utils/sns/kakao_login.dart';
@@ -16,6 +17,15 @@ class LoginController extends BaseController {
   final LoginAPI api;
 
   LoginController({required this.api});
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    // 로그인
+    final userStorage = UserStorage();
+    userStorage.removeFilter();
+  }
 
   /// 이메일 컨트롤러.
   final email = "".obsWithController;
