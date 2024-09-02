@@ -17,7 +17,21 @@ extension HomeUiMapper on HomeController {
     /// 유저
     userImage.value = model?.userSimpleInfo?.profile;
     userName.value = model?.userSimpleInfo?.name;
-    userTeamAndCoach.value = model?.userSimpleInfo?.teamCoachName;
+
+    List<String> teamAndCoach = [];
+    final userInfo = model?.userSimpleInfo;
+
+    if (userInfo
+        case UserSimpleInfoModel(
+          teamName: String? team?,
+          teamCoachName: String? coach?,
+        )) {
+      teamAndCoach
+        ..add(team)
+        ..add(coach);
+    }
+
+    userTeamAndCoach.value = teamAndCoach.join(' / ');
 
     /// 오늘의 훈련
     todayTrainingItems.value = _todayTrainingList(
@@ -135,7 +149,7 @@ extension HomeUiMapper on HomeController {
 
   /// 운동강도 - 시간
   String? _intensityTime(String? todayWorkoutTime) {
-    if(todayWorkoutTime == null) {
+    if (todayWorkoutTime == null) {
       return null;
     }
 
@@ -179,7 +193,6 @@ extension HomeUiMapper on HomeController {
             } else {
               if (injuryType == null || muscle == null || injuryLevel == null) {
                 return null;
-
               }
               return HomeInjuryItemUiState(
                 injuryLevel: injuryLevel,
