@@ -24,6 +24,7 @@ class _List extends GetView<HistoryController> {
             onRefresh: controller.onRefreshWellness,
             child: PagedListView<int, HistoryWellnessItemUiState>.separated(
               shrinkWrap: true,
+              clipBehavior: Clip.none,
               padding: const EdgeInsets.fromLTRB(30, 24, 30, 48),
               pagingController: controller.wellnessPagingController,
               builderDelegate:

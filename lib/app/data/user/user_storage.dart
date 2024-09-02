@@ -27,7 +27,10 @@ enum UserStorageKey {
   injuryOrder,
 
   /// 부상체크 조회기간
-  injuryDate;
+  injuryDate,
+
+  /// 부상체크 완치 여부
+  injuryRecovery;
 }
 
 class UserStorage extends BaseStorage {
@@ -51,9 +54,20 @@ class UserStorage extends BaseStorage {
     return ReadWriteValue<String>(key.name, '', getBox).val;
   }
 
+  /// get bool
+  bool? getBool(UserStorageKey key) {
+    return ReadWriteValue<bool?>(key.name, null, getBox).val;
+  }
+
   /// set string
   void setString(UserStorageKey key, String value) {
     final storageValue = ReadWriteValue<String>(key.name, '', getBox);
+    storageValue.val = value;
+  }
+
+  /// set bool
+  void setBool(UserStorageKey key, bool? value) {
+    final storageValue = ReadWriteValue<bool?>(key.name, null, getBox);
     storageValue.val = value;
   }
 

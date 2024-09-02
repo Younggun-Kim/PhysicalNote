@@ -24,8 +24,11 @@ class HistoryIntensityItem extends StatelessWidget {
             _Average(
               lastWeekWorkoutTime: uiState.lastWeekAverageTime,
               weekWorkoutTime: uiState.thisWeekAverageTime,
+              sports: uiState.sportLevelAverage,
+              physical: uiState.physicalLevelAverage,
             ),
-            _Content(uiState: uiState, onPressed: onPressed),
+            if(!uiState.onlyAverage)
+              _Content(uiState: uiState, onPressed: onPressed),
           ],
         )
       : _Content(uiState: uiState, onPressed: onPressed);
@@ -36,9 +39,15 @@ class _Average extends StatelessWidget {
 
   final String? weekWorkoutTime;
 
+  final double? sports;
+
+  final double? physical;
+
   const _Average({
     required this.lastWeekWorkoutTime,
     required this.weekWorkoutTime,
+    required this.sports,
+    required this.physical,
   });
 
   @override
@@ -94,14 +103,14 @@ class _Average extends StatelessWidget {
                       LevelProgressBar(
                         size: _getProgressBarSize(context),
                         title: StringRes.sports.tr,
-                        value: 4,
+                        value: sports ?? 0,
                         primaryColor: ColorRes.secondPrimary,
                       ),
                       const SizedBox(width: 14), // 2nd Width
                       LevelProgressBar(
                         size: _getProgressBarSize(context),
                         title: StringRes.physical.tr,
-                        value: 6,
+                        value: physical ?? 0,
                         primaryColor: ColorRes.secondPrimary,
                       ),
                     ],

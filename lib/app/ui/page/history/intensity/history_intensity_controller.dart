@@ -44,6 +44,10 @@ mixin HistoryIntensityController on BaseController
   Future<LoadPage<int, HistoryIntensityItemUiState>> _loadPage(
     int pageKey,
   ) async {
+    if(!Get.isRegistered<IntensityAPI>()){
+      Get.put(IntensityAPI());
+    }
+
     final intensityApi = Get.find<IntensityAPI>();
     final response = await intensityApi.getIntensityList(
       pageKey: pageKey,
@@ -59,12 +63,27 @@ mixin HistoryIntensityController on BaseController
           .compactMap((e) => historyIntensityItemUiStateFrom(e))
           .toList();
 
+      // 리스트가 없어도 평균을 보여주기 위함
+      if (toUiState.isEmpty) {
+        toUiState.add(
+          HistoryIntensityItemUiState(
+            id: '1',
+            sportLevel: null,
+            sportTime: null,
+            physicalLevel: null,
+            physicalTime: null,
+            recordDate: DateTime.now(),
+            onlyAverage: true,
+          ),
+        );
+      }
+
       if (toUiState.isNotEmpty) {
         // 0번의 평균 값들 넣기
         toUiState[0].lastWeekAverageTime = response.lastWeekAvgWorkoutTime;
         toUiState[0].thisWeekAverageTime = response.thisWeekAvgWorkoutTime;
-        // toUiState[0].sportLevelAverage = response.lastWeekAvgIntensityLevel;
-        // toUiState[0].thisWeekAverageTime = response.thisWeekAvgWorkoutTime;
+        toUiState[0].sportLevelAverage = response.sportsAvgIntensityLevel;
+        toUiState[0].physicalLevelAverage = response.physicalAvgIntensityLevel;
       }
 
       return LoadPage(

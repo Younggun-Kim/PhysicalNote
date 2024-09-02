@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/ui/dialog/history_filter/history_filter_dialog.dart';
 import 'package:physical_note/app/ui/dialog/history_filter/history_filter_dialog_args.dart';
 import 'package:physical_note/app/ui/page/history/history_tab_manager.dart';
@@ -63,6 +64,8 @@ class HistoryController extends BaseController
       vsync: this,
     );
     _tabManager = HistoryTabManager(_tabController);
+
+    _loadFilterFromUserStorage();
     super.onInit();
   }
 
@@ -79,6 +82,45 @@ class HistoryController extends BaseController
     _tabManager.changeTab(index: index);
     _updateDateFilterByTab();
     _updateOrderByTab();
+  }
+
+  /// UserStorage에 저장된 값 불러오기
+  void _loadFilterFromUserStorage() {
+    /// 필터 초기화
+    final userStorage = UserStorage();
+    final wellnessOrder = HistoryOrderFilterType.from(userStorage.getString(
+      UserStorageKey.wellnessOrder,
+    ));
+    final intensityOrder = HistoryOrderFilterType.from(userStorage.getString(
+      UserStorageKey.intensityOrder,
+    ));
+    final injuryOrder = HistoryOrderFilterType.from(userStorage.getString(
+      UserStorageKey.injuryOrder,
+    ));
+    final wellnessDate = HistoryDateFilterType.from(userStorage.getString(
+      UserStorageKey.wellnessDate,
+    ));
+    final intensityDate = HistoryDateFilterType.from(userStorage.getString(
+      UserStorageKey.intensityDate,
+    ));
+    final injuryDate = HistoryDateFilterType.from(userStorage.getString(
+      UserStorageKey.injuryDate,
+    ));
+
+    _tabOrderFilter.value = [
+      wellnessOrder,
+      intensityOrder,
+      injuryOrder,
+    ];
+
+    _tabDateFilter.value = [
+      wellnessDate,
+      intensityDate,
+      injuryDate,
+    ];
+    _updateOrderByTab();
+    _updateDateFilterByTab();
+    isRecovery.value = userStorage.getBool(UserStorageKey.injuryRecovery);
   }
 
   /// 탭에 맞춰 날짜 필터 업데이트
@@ -124,12 +166,13 @@ class HistoryController extends BaseController
 
   /// 필터 다이얼로그 보기.
   void showFilterDialog() async {
+    final currentIndex = _tabManager.tab.index;
     final response = await Get.dialog(
       HistoryFilterDialog(
         args: HistoryFilterDialogArgs(
           dateType: dateFilter.value,
           orderType: orderFilter.value,
-          isVisibleRecovery: _tabManager.tab.index == 2,
+          isVisibleRecovery: currentIndex == 2,
           isRecovery: isRecovery.value,
         ),
       ),
@@ -140,10 +183,40 @@ class HistoryController extends BaseController
     );
 
     if (response is HistoryFilterDialogArgs) {
-      _setDateFilter(response.dateType);
       _setOrderFilter(response.orderType);
+      _setDateFilter(response.dateType);
       isRecovery.value = response.isRecovery;
+
+      /// userStorage에도 저장
+      _saveFilterInUserStorage(
+        index: currentIndex,
+        order: response.orderType,
+        date: response.dateType,
+        isRecovery: response.isRecovery,
+      );
+
       _onRefresh();
+    }
+  }
+
+  /// 이력 필터 값들을 UserStorage에 저장
+  void _saveFilterInUserStorage({
+    required int index,
+    required HistoryOrderFilterType order,
+    required HistoryDateFilterType date,
+    required bool? isRecovery,
+  }) {
+    final userStorage = UserStorage();
+    if (index == 0) {
+      userStorage.setString(UserStorageKey.wellnessOrder, order.name);
+      userStorage.setString(UserStorageKey.wellnessDate, date.name);
+    } else if (index == 1) {
+      userStorage.setString(UserStorageKey.intensityOrder, order.name);
+      userStorage.setString(UserStorageKey.intensityDate, date.name);
+    } else if (index == 2) {
+      userStorage.setString(UserStorageKey.injuryOrder, order.name);
+      userStorage.setString(UserStorageKey.injuryDate, date.name);
+      userStorage.setBool(UserStorageKey.injuryRecovery, isRecovery);
     }
   }
 

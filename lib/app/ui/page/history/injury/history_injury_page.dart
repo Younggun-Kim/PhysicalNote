@@ -25,6 +25,7 @@ class _List extends GetView<HistoryController> {
             onRefresh: controller.onRefreshInjury,
             child: PagedListView<int, HistoryInjuryItemUiState>.separated(
               shrinkWrap: true,
+              clipBehavior: Clip.none,
               padding: const EdgeInsets.fromLTRB(30, 24, 30, 48),
               pagingController: controller.injuryPagingController,
               builderDelegate:

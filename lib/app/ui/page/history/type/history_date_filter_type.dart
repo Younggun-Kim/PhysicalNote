@@ -7,6 +7,11 @@ enum HistoryDateFilterType {
   week,
   month;
 
+  static HistoryDateFilterType from(String? key) =>
+      HistoryDateFilterType.values
+          .firstWhereOrNull((e) => e.name == key?.toLowerCase()) ??
+          HistoryDateFilterType.all;
+
   @override
   String toString() {
     switch (this) {

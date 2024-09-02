@@ -6,6 +6,11 @@ enum HistoryOrderFilterType {
   asc,
   desc;
 
+  static HistoryOrderFilterType from(String? key) =>
+      HistoryOrderFilterType.values
+          .firstWhereOrNull((e) => e.name == key?.toLowerCase()) ??
+      HistoryOrderFilterType.desc;
+
   @override
   String toString() {
     switch (this) {

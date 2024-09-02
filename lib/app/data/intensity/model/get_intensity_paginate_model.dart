@@ -2,26 +2,26 @@ import 'package:physical_note/app/data/intensity/model/get_intensity_list_item_r
 import 'package:physical_note/app/data/network/model/base_list_model/paginate_model.dart';
 
 class GetIntensityPaginateModel {
-  final double? lastWeekAvgIntensityLevel;
   final String? lastWeekAvgWorkoutTime;
-  final double? thisWeekAvgIntensityLevel;
   final String? thisWeekAvgWorkoutTime;
+  final double? sportsAvgIntensityLevel;
+  final double? physicalAvgIntensityLevel;
   final PaginateModel<GetIntensityListItemResponseModel>? workoutIntensityList;
 
   GetIntensityPaginateModel(
-    this.lastWeekAvgIntensityLevel,
     this.lastWeekAvgWorkoutTime,
-    this.thisWeekAvgIntensityLevel,
     this.thisWeekAvgWorkoutTime,
+    this.sportsAvgIntensityLevel,
+    this.physicalAvgIntensityLevel,
     this.workoutIntensityList,
   );
 
   factory GetIntensityPaginateModel.fromJson(Map<String, dynamic> json) {
     return GetIntensityPaginateModel(
-      json['lastWeekAvgIntensityLevel'] as double?,
       json['lastWeekAvgWorkoutTime'] as String?,
-      json['thisWeekAvgIntensityLevel'] as double?,
       json['thisWeekAvgWorkoutTime'] as String?,
+      json['sportsAvgIntensityLevel'] as double?,
+      json['physicalAvgIntensityLevel'] as double?,
       json['workoutIntensityList'] != null
           ? PaginateModel<GetIntensityListItemResponseModel>.fromJson(
               json['workoutIntensityList'],
@@ -32,10 +32,10 @@ class GetIntensityPaginateModel {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'lastWeekAvgIntensityLevel': lastWeekAvgIntensityLevel,
         'lastWeekAvgWorkoutTime': lastWeekAvgWorkoutTime,
-        'thisWeekAvgIntensityLevel': thisWeekAvgIntensityLevel,
         'thisWeekAvgWorkoutTime': thisWeekAvgWorkoutTime,
+        'sportsAvgIntensityLevel': sportsAvgIntensityLevel,
+        'physicalAvgIntensityLevel': physicalAvgIntensityLevel,
         'workoutIntensityList': workoutIntensityList?.toJson(),
       };
 }

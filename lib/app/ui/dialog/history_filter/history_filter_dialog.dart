@@ -51,7 +51,7 @@ class _HistoryFilterDialog extends State<HistoryFilterDialog> {
           result: HistoryFilterDialogArgs(
         dateType: dateType,
         orderType: orderType,
-        isRecovery: isRecovery ?? widget.args.isRecovery,
+        isRecovery: isRecovery,
         isVisibleRecovery: isVisibleRecovery,
       ));
     } else {
@@ -86,7 +86,7 @@ class _HistoryFilterDialog extends State<HistoryFilterDialog> {
               if (isVisibleRecovery)
                 _InjuryState(
                   isRecovery: isRecovery,
-                  onPressed: (bool newIsRecovery) {
+                  onPressed: (bool? newIsRecovery) {
                     setState(() {
                       isRecovery = newIsRecovery;
                     });
@@ -180,7 +180,7 @@ class _Button extends StatelessWidget {
 class _InjuryState extends StatelessWidget {
   final bool? isRecovery;
 
-  final Function(bool) onPressed;
+  final Function(bool?) onPressed;
 
   const _InjuryState({
     required this.isRecovery,
@@ -200,7 +200,7 @@ class _InjuryState extends StatelessWidget {
                   text: StringRes.historyFilterProgressInjury.tr,
                   isSelected: isRecovery == false,
                   onPressed: () {
-                    onPressed(false);
+                    onPressed(isRecovery == false ? null : false);
                   },
                 ),
               ),
@@ -210,7 +210,7 @@ class _InjuryState extends StatelessWidget {
                   text: StringRes.historyFilterHealedInjury.tr,
                   isSelected: isRecovery == true,
                   onPressed: () {
-                    onPressed(true);
+                    onPressed(isRecovery == true ? null : true);
                   },
                 ),
               ),

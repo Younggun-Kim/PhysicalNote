@@ -23,10 +23,11 @@ class _List extends GetView<HistoryController> {
             onRefresh: controller.onRefreshIntensity,
             child: PagedListView<int, HistoryIntensityItemUiState>.separated(
               shrinkWrap: true,
+              clipBehavior: Clip.none,
               padding: const EdgeInsets.fromLTRB(30, 24, 30, 48),
               pagingController: controller.intensityPagingController,
               builderDelegate:
-                  PagedChildBuilderDelegate<HistoryIntensityItemUiState>(
+              PagedChildBuilderDelegate<HistoryIntensityItemUiState>(
                 itemBuilder: (context, item, index) => HistoryIntensityItem(
                   uiState: item,
                   isFirst: index == 0,
