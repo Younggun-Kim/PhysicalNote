@@ -446,7 +446,7 @@ class _UrineTable extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(width: 15),
+          const SizedBox(width: 24),
           Expanded(
             child: _UrineTableItem(
               isSelected: value == 2,
@@ -459,7 +459,7 @@ class _UrineTable extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(width: 15),
+          const SizedBox(width: 24),
           Expanded(
             child: _UrineTableItem(
               isSelected: value == 3,
@@ -471,7 +471,7 @@ class _UrineTable extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(width: 15),
+          const SizedBox(width: 24),
           Expanded(
             child: _UrineTableItem(
               isSelected: value == 4,
@@ -483,32 +483,32 @@ class _UrineTable extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(width: 15),
+          const SizedBox(width: 24),
           Expanded(
             child: _UrineTableItem(
               isSelected: value == 5,
               text: '5',
               textStyle: fontWhite,
               backgroundColor: ColorRes.urineTable5,
+              description: StringRes.moistureLack.tr,
               onTap: () {
                 onChangedUrine(5);
               },
             ),
           ),
-          const SizedBox(width: 15),
+          const SizedBox(width: 24),
           Expanded(
             child: _UrineTableItem(
               isSelected: value == 6,
               text: '6',
               textStyle: fontWhite,
               backgroundColor: ColorRes.urineTable6,
-              description: StringRes.moistureLack.tr,
               onTap: () {
                 onChangedUrine(6);
               },
             ),
           ),
-          const SizedBox(width: 15),
+          const SizedBox(width: 24),
           Expanded(
             child: _UrineTableItem(
               isSelected: value == 7,
@@ -517,18 +517,6 @@ class _UrineTable extends StatelessWidget {
               backgroundColor: ColorRes.urineTable7,
               onTap: () {
                 onChangedUrine(7);
-              },
-            ),
-          ),
-          const SizedBox(width: 15),
-          Expanded(
-            child: _UrineTableItem(
-              isSelected: value == 8,
-              text: '8',
-              textStyle: fontWhite,
-              backgroundColor: ColorRes.urineTable8,
-              onTap: () {
-                onChangedUrine(8);
               },
             ),
           ),
@@ -606,7 +594,7 @@ class _UrineTableItem extends StatelessWidget {
               ),
             ),
             Transform.translate(
-              offset: const Offset(-8, 0),
+              offset: const Offset(-8, 6),
               child: Text(
                 description,
                 textAlign: TextAlign.center,
