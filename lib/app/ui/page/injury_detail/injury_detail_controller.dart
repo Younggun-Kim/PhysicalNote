@@ -444,7 +444,6 @@ class InjuryDetailController extends BaseController {
     String? message = '';
 
     if (response is DeleteInjuryResponseModel && response.deleted == true) {
-      close(result: true);
       result = true;
       message = response.message;
     } else {
@@ -454,7 +453,7 @@ class InjuryDetailController extends BaseController {
 
     if (message != null) {
       showToast(message);
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(milliseconds: 500));
     }
 
     setLoading(false);
