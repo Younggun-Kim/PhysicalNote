@@ -15,9 +15,13 @@ class MuscleUtils {
   /// - <path>...</path>는 1줄로 구성.
   /// - color 는 hexCode 사용.
   static String changeSvgPathColor(
-      String svgString, String pathId, String color) {
+    String svgString,
+    String pathId,
+    String color,
+  ) {
     var svgList = svgString.split("\n");
 
+    // 근육, 근육명, 근육명 선 3개의 색상 변경
     var newList = _changeMuscleColor(svgList, pathId, color);
     newList = _changeMuscleNameColor(newList, pathId);
     newList = _changeMuscleLineColor(newList, pathId);
@@ -167,7 +171,7 @@ class MuscleUtils {
               return Assets.frontLeftLegLATERALGASTROCNEMIUS;
             case MuscleType.largeRetirement:
               return Assets.frontLeftLegLARGERETIREMENT;
-            case MuscleType.iliotibialBAND:
+            case MuscleType.iliotibialBand:
               return Assets.frontLeftLegILIOTIBIALBAND;
             case MuscleType.extensorDigitorumLongus:
               return Assets.frontLeftLegEXTENSORDIGITORUMLONGUS;
@@ -210,7 +214,7 @@ class MuscleUtils {
               return Assets.frontRightLegLATERALGASTROCNEMIUS;
             case MuscleType.largeRetirement:
               return Assets.frontRightLegLARGERETIREMENT;
-            case MuscleType.iliotibialBAND:
+            case MuscleType.iliotibialBand:
               return Assets.frontRightLegILIOTIBIALBAND;
             case MuscleType.extensorDigitorumLongus:
               return Assets.frontRightLegEXTENSORDIGITORUMLONGUS;
@@ -303,7 +307,7 @@ class MuscleUtils {
           switch (muscle) {
             case MuscleType.gluteus:
               return Assets.backLeftLegGLUTEUS;
-            case MuscleType.iliotibialBAND:
+            case MuscleType.iliotibialBand:
               return Assets.backLeftLegILIOTIBIALBAND;
             case MuscleType.rectusFemoris:
               return Assets.backLeftLegRECTUSFEMORIS;
@@ -324,7 +328,7 @@ class MuscleUtils {
           switch (muscle) {
             case MuscleType.gluteus:
               return Assets.backRightLegGLUTEUS;
-            case MuscleType.iliotibialBAND:
+            case MuscleType.iliotibialBand:
               return Assets.backRightLegILIOTIBIALBAND;
             case MuscleType.rectusFemoris:
               return Assets.backRightLegRECTUSFEMORIS;

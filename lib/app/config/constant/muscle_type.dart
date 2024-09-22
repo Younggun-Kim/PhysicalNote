@@ -103,7 +103,7 @@ enum MuscleType {
   sartorius("SARTORIUS"),
 
   /// 장경인대
-  iliotibialBAND("ILIOTIBIAL_BAND"),
+  iliotibialBand("ILIOTIBIAL_BAND"),
 
   /// 척추기립근
   semitendinosus("SEMITENDINOSUS"),
@@ -207,7 +207,7 @@ enum MuscleType {
         return "대퇴이두근";
       case sartorius:
         return "가자미근";
-      case iliotibialBAND:
+      case iliotibialBand:
         return "장경인대";
       case semitendinosus:
         return "척추기립근";
@@ -237,7 +237,7 @@ enum MuscleType {
       teresMajor,
       lateralGastrocnemius,
       largeRetirement,
-      iliotibialBAND,
+      iliotibialBand,
       extensorDigitorumLongus,
       tibialisAnterior,
       peroneusBrevis,
@@ -259,7 +259,7 @@ enum MuscleType {
   static List<MuscleType> getBackLegMuscles() {
     return [
       gluteus,
-      iliotibialBAND,
+      iliotibialBand,
       rectusFemoris,
       gracilis,
       sartorius,
@@ -333,7 +333,7 @@ enum MuscleType {
       psoasMajor,
       pubicus,
       sartorius,
-      iliotibialBAND,
+      iliotibialBand,
       soleus,
       tensorFasciaeLatae,
       teresMajor,
