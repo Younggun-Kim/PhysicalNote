@@ -11,12 +11,15 @@ class IntensityNotiItem extends StatelessWidget {
 
   final double value;
 
+  final String time;
+
   final Function(double) onSliderChanged;
 
   const IntensityNotiItem({
     super.key,
     required this.type,
     required this.value,
+    required this.time,
     required this.onSliderChanged,
   });
 
@@ -35,10 +38,10 @@ class IntensityNotiItem extends StatelessWidget {
             letterSpacing: -0.5,
           ),
         ),
-        const Text.rich(
+        Text.rich(
           TextSpan(
             children: [
-              TextSpan(
+              const TextSpan(
                 text: '09:30 - 11:00',
                 style: TextStyle(
                   fontSize: 24,
@@ -46,10 +49,10 @@ class IntensityNotiItem extends StatelessWidget {
                   letterSpacing: -0.5,
                 ),
               ),
-              WidgetSpan(child: SizedBox(width: 10)),
+              const WidgetSpan(child: SizedBox(width: 10)),
               TextSpan(
-                text: '(1시간30분)',
-                style: TextStyle(
+                text: '($time)',
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                   height: 20 / 16,

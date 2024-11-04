@@ -10,7 +10,6 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_ui_state.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 

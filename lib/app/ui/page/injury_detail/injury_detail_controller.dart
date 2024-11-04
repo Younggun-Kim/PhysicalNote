@@ -11,7 +11,6 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/base_dialog.dart';
 import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail_ui_mapper.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 

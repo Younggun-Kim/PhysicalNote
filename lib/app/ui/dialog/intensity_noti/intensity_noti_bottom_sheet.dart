@@ -53,6 +53,7 @@ class IntensityNotiBottomSheet extends GetView<IntensityNotiController> {
                     () => IntensityNotiItem(
                       type: IntensityType.sports,
                       value: controller.sportsSlider.value,
+                      time: controller.sportsTime.value,
                       onSliderChanged: (double value) {
                         controller.onSportsSliderChanged(value);
                       },
@@ -69,6 +70,7 @@ class IntensityNotiBottomSheet extends GetView<IntensityNotiController> {
                     () => IntensityNotiItem(
                       type: IntensityType.physical,
                       value: controller.physicalSlider.value,
+                      time: controller.physicalTime.value,
                       onSliderChanged: (double value) {
                         controller.onPhysicalSliderChanged(value);
                       },
@@ -102,8 +104,12 @@ class IntensityNotiBottomSheet extends GetView<IntensityNotiController> {
                           color: ColorRes.white,
                           fontWeight: FontWeight.w400,
                         ),
-                        onPressed:
-                            () {}, // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        onPressed: () {
+                          controller.onSaveBtnPressed(
+                            isSportsUpdated: isSportsVisible,
+                            isPhysicalUpdated: isPhysicalVisible,
+                          );
+                        }, // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       ),
                     ),
                   ],

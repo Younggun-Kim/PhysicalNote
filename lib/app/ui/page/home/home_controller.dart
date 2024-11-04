@@ -16,7 +16,6 @@ import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'items/injury/home_injury_item_ui_state.dart';
 
@@ -102,11 +101,11 @@ class HomeController extends BaseController {
 
   /// MainScreen에서 화면 전환 후 처리할 동작
   void handleMainTabChanged() async {
-    // if (intensityNoti.isEmpty) {
-    //   return;
-    // }
+    if (intensityNoti.isEmpty) {
+      return;
+    }
 
-    final isPhysicalVisible = intensityNoti.any(
+    final bool isPhysicalVisible = intensityNoti.any(
       (IntensityType e) => e.isPhysical,
     );
     final bool isSportsVisible = intensityNoti.any(
@@ -114,15 +113,17 @@ class HomeController extends BaseController {
     );
 
     Get.put(IntensityNotiController());
-    await Get.bottomSheet(
+    final isUpdated = await Get.bottomSheet(
       IntensityNotiBottomSheet(
-        // isPhysicalVisible: isPhysicalVisible,
-        isPhysicalVisible: true,
-        // isSportsVisible: isSportsVisible,
-        isSportsVisible: true,
+        isPhysicalVisible: isPhysicalVisible,
+        isSportsVisible: isSportsVisible,
       ),
     );
     Get.delete<IntensityNotiController>();
+
+    if (isUpdated is bool) {
+      _loadApi();
+    }
   }
 
   Future<void> onRefresh() async {
@@ -224,6 +225,10 @@ class HomeController extends BaseController {
 
     if (response is GetHomeResponseModel) {
       setScreen(response);
+
+      if (!Get.isRegistered<IntensityNotiController>()) {
+        handleMainTabChanged();
+      }
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;

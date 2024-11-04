@@ -7,7 +7,6 @@ import 'package:physical_note/app/config/constant/photo_model.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information.dart';
 import 'package:physical_note/app/ui/page/my_information/position/position_list_item_ui_state.dart';
-import 'package:physical_note/app/ui/widgets/buttons/hint_button.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 
 /// 내정보 뷰.
