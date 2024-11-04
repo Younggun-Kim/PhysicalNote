@@ -1,11 +1,9 @@
 import 'package:get/get.dart';
-import 'package:physical_note/app/config/constant/workout_type.dart';
 import 'package:physical_note/app/data/intensity/intensity_api.dart';
 import 'package:physical_note/app/data/intensity/model/get_intensity_response_model.dart';
 import 'package:physical_note/app/data/intensity/model/post_intensity_request_model.dart';
 import 'package:physical_note/app/data/intensity/model/post_intensity_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
-import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
