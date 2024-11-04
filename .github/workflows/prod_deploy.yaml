@@ -1,10 +1,8 @@
 name: Update Version
 
 on:
-  # 수동으로 실행할 수 있게 workflow_dispatch 추가
-  workflow_dispatch:
-#   push:
-#     branches: [ main ]
+  push:
+    branches: [ main ]
 
 jobs:
   update-version:
