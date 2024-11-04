@@ -23,6 +23,10 @@ WorkoutInfoModel _$WorkoutInfoModelFromJson(Map<String, dynamic> json) =>
           (json['lastEightWeekWorkoutRoad'] as num?)?.toInt(),
       lastEightWeekWorkoutRoadString:
           json['lastEightWeekWorkoutRoadString'] as String?,
+      isWorkoutSportNotificationRead:
+          json['isWorkoutSportNotificationRead'] as bool?,
+      isWorkoutPhysicalNotificationRead:
+          json['isWorkoutPhysicalNotificationRead'] as bool?,
     );
 
 Map<String, dynamic> _$WorkoutInfoModelToJson(WorkoutInfoModel instance) =>
@@ -38,4 +42,7 @@ Map<String, dynamic> _$WorkoutInfoModelToJson(WorkoutInfoModel instance) =>
       'lastFourWeekWorkoutRoadString': instance.lastFourWeekWorkoutRoadString,
       'lastEightWeekWorkoutRoad': instance.lastEightWeekWorkoutRoad,
       'lastEightWeekWorkoutRoadString': instance.lastEightWeekWorkoutRoadString,
+      'isWorkoutSportNotificationRead': instance.isWorkoutSportNotificationRead,
+      'isWorkoutPhysicalNotificationRead':
+          instance.isWorkoutPhysicalNotificationRead,
     };
