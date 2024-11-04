@@ -7,7 +7,6 @@ class HomeBindings extends Bindings {
   void dependencies() {
     Get.lazyPut(() => HomeController());
 
-
     /// API
     Get.lazyPut(() => HomeAPI());
   }

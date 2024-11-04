@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
-import 'package:physical_note/app/ui/page/main/main_tab_index.dart';
 import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
 import 'package:physical_note/app/utils/link/model/link_data.dart';
 import 'package:physical_note/app/utils/link/model/link_screen.dart';

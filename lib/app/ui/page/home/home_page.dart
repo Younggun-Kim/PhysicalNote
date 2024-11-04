@@ -26,8 +26,10 @@ class HomePage extends GetView<HomeController> {
               backgroundColor: ColorRes.white,
               onRefresh: controller.onRefresh,
               child: FlexibleScrollView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 0, vertical: 26),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 0,
+                  vertical: 26,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

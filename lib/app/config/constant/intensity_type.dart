@@ -20,4 +20,7 @@ enum IntensityType {
         return StringRes.physical.tr;
     }
   }
+
+  /// 피지컬 여부
+  bool get isPhysical => this == physical;
 }

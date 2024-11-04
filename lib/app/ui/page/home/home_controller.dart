@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/constant/index.dart';
 import 'package:physical_note/app/config/constant/urine_status_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/data/home/model/home_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/strings/translations.dart';
+import 'package:physical_note/app/ui/dialog/intensity_noti/intensity_noti.dart';
 import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
 import 'package:physical_note/app/ui/page/home/home_ui_mapper.dart';
 import 'package:physical_note/app/ui/page/home/items/today_training/home_today_training_item_ui_state.dart';
@@ -15,8 +17,7 @@ import 'package:physical_note/app/ui/page/main/main_screen.dart';
 import 'package:physical_note/app/ui/page/my_information/my_information_args.dart';
 import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
-import 'package:physical_note/app/utils/getx/utils_getx.dart';
-
+import 'package:physical_note/app/utils/utils.dart';
 import 'items/injury/home_injury_item_ui_state.dart';
 
 /// Home 컨트롤러
@@ -93,8 +94,36 @@ class HomeController extends BaseController {
   /// 부상현황
   final injuryList = <HomeInjuryItemUiState>[].obs;
 
+  /// 운동강도 노티 목록
+  final intensityNoti = <IntensityType>[].obs;
+
   /// MainScreen에서 화면 전환 시 필요
   void scrollToTop() {}
+
+  /// MainScreen에서 화면 전환 후 처리할 동작
+  void handleMainTabChanged() async {
+    // if (intensityNoti.isEmpty) {
+    //   return;
+    // }
+
+    final isPhysicalVisible = intensityNoti.any(
+      (IntensityType e) => e.isPhysical,
+    );
+    final bool isSportsVisible = intensityNoti.any(
+      (IntensityType e) => !e.isPhysical,
+    );
+
+    Get.put(IntensityNotiController());
+    await Get.bottomSheet(
+      IntensityNotiBottomSheet(
+        // isPhysicalVisible: isPhysicalVisible,
+        isPhysicalVisible: true,
+        // isSportsVisible: isSportsVisible,
+        isSportsVisible: true,
+      ),
+    );
+    Get.delete<IntensityNotiController>();
+  }
 
   Future<void> onRefresh() async {
     _loadApi();

@@ -15,9 +15,7 @@ import 'package:physical_note/app/utils/utils.dart';
 import 'item/hooper_index_ui_state.dart';
 import 'wellness_detail_args.dart';
 
-/**
- * 등록/수저 성공시 return true;
- */
+/// 등록/수저 성공시 return true;
 class WellnessDetailController extends BaseController {
   @override
   void onReady() {

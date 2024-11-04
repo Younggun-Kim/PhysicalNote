@@ -106,4 +106,20 @@ class RoundButton extends StatelessWidget {
           ? selectedTextStyle
           : textStyle
       : disabledTextStyle;
+
+  factory RoundButton.gray({
+    required String text,
+    required VoidCallback onPressed,
+    double? height,
+    TextStyle? textStyle,
+  }) {
+    return RoundButton(
+      height: height ?? 56,
+      text: text,
+      textStyle: textStyle,
+      border: Border.all(color: ColorRes.disable),
+      backgroundColor: ColorRes.white,
+      onPressed: onPressed,
+    );
+  }
 }

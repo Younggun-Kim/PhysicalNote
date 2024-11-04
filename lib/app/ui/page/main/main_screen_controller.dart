@@ -12,10 +12,6 @@ import 'package:physical_note/app/utils/utils.dart';
 import 'main_tab_index.dart';
 
 class MainScreenController extends BaseMainController<MainUiState> {
-  @override
-  void onInit() async {
-    super.onInit();
-  }
 
   @override
   void onReady() async {
@@ -45,6 +41,17 @@ class MainScreenController extends BaseMainController<MainUiState> {
     required MainTabIndex tabIndex,
   }) async {
     unFocus();
+
+    /// 탭 변경
+    changeTab(tabIndex: tabIndex);
+
+    /// 탭 변경 후 동작
+    afterTabChange(tabIndex: tabIndex);
+  }
+
+  void changeTab({
+    required MainTabIndex tabIndex,
+  }) {
     if (uiState.value.tabIndex == tabIndex) {
       scrollToTop(tabIndex);
     } else {
@@ -53,8 +60,27 @@ class MainScreenController extends BaseMainController<MainUiState> {
     }
   }
 
+  void afterTabChange({
+    required MainTabIndex tabIndex,
+  }) {
+    /// OCP 위배 변경 필요
+    switch(tabIndex) {
+      case MainTabIndex.home:
+        final isRegistered = Get.isRegistered<HomeController>();
+        if (isRegistered) {
+          final controller = Get.find<HomeController>();
+          controller.handleMainTabChanged();
+        }
+        break;
+      case MainTabIndex.history:
+        break;
+      case MainTabIndex.feedback:
+        break;
+    }
+  }
+
   /// Refresh
-  void onRefresh(MainTabIndex tabIndex)  {
+  void onRefresh(MainTabIndex tabIndex) {
     switch (tabIndex) {
       case MainTabIndex.home:
         final isRegistered = Get.isRegistered<HomeController>();

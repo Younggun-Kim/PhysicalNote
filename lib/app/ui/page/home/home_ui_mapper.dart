@@ -76,6 +76,16 @@ extension HomeUiMapper on HomeController {
     /// 부상현황
     // injuryList.value =[];
     injuryList.value = _injuryList(model?.injuryInfo);
+
+    /// 운동강도 노티 목록
+    intensityNoti.value = [];
+    if(model?.workoutInfo?.isWorkoutPhysicalNotificationRead == false) {
+      intensityNoti.add(IntensityType.physical);
+    }
+
+    if(model?.workoutInfo?.isWorkoutSportNotificationRead == false) {
+      intensityNoti.add(IntensityType.sports);
+    }
   }
 
   /// 오늘의 훈련
