@@ -105,18 +105,15 @@ class HomeController extends BaseController {
       return;
     }
 
-    final bool isPhysicalVisible = intensityNoti.any(
-      (IntensityType e) => e.isPhysical,
-    );
-    final bool isSportsVisible = intensityNoti.any(
-      (IntensityType e) => !e.isPhysical,
-    );
-
     Get.put(IntensityNotiController());
     final isUpdated = await Get.bottomSheet(
       IntensityNotiBottomSheet(
-        isPhysicalVisible: isPhysicalVisible,
-        isSportsVisible: isSportsVisible,
+        isPhysicalVisible: intensityNoti.any(
+          (IntensityType e) => e.isPhysical,
+        ),
+        isSportsVisible: intensityNoti.any(
+          (IntensityType e) => !e.isPhysical,
+        ),
       ),
     );
     Get.delete<IntensityNotiController>();

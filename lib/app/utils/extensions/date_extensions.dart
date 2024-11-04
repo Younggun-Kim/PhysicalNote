@@ -26,7 +26,7 @@ extension StringToStringFormatEx on String {
 
   /// '00:00:00' To '0시간 0분'
   String toHourAndMinute() {
-    if(!_isValidTimeFormat(this)) {
+    if (!_isValidTimeFormat(this)) {
       logger.e('시간 형식이 맞지 않습니다.');
       return this;
     }
