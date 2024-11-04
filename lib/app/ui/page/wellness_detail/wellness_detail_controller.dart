@@ -9,15 +9,12 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/dialog/wellness_guide/wellness_guide_dialog.dart';
 import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail_ui_mapper.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 import 'item/hooper_index_ui_state.dart';
 import 'wellness_detail_args.dart';
 
-/**
- * 등록/수저 성공시 return true;
- */
+/// 등록/수저 성공시 return true;
 class WellnessDetailController extends BaseController {
   @override
   void onReady() {

@@ -337,4 +337,6 @@ class StringRes {
   static final eatingGood = _generateId();
   static final eatingNeed = _generateId();
   static final eatingOver = _generateId();
+  static final enterIntensityBeforeForget = _generateId();
+  static final cancel = _generateId();
 }

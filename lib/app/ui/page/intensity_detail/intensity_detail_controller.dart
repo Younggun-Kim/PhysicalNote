@@ -10,15 +10,12 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/dialog/clanedar_dialog/calendar_dialog.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_ui_state.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
-/**
- * 운동강도 등록/수정 컨트롤러
- *
- * 등록/수정 성공시 true 리턴
- */
+/// 운동강도 등록/수정 컨트롤러
+///
+/// 등록/수정 성공시 true 리턴
 class IntensityDetailController extends BaseController {
   final args = Get.arguments as IntensityDetailArgs;
 

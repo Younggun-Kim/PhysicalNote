@@ -10,7 +10,6 @@ import 'package:physical_note/app/ui/page/history/injury/item/history_injury_ite
 import 'package:physical_note/app/ui/page/history/interface/history_filter_base.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail.dart';
 import 'package:physical_note/app/ui/page/main/main_screen.dart';
-import 'package:physical_note/app/utils/extensions/list_extension.dart';
 import 'package:physical_note/app/utils/pagination/load_page.dart';
 import 'package:physical_note/app/utils/pagination/paging_controller_ext.dart';
 import 'package:physical_note/app/utils/utils.dart';

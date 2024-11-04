@@ -318,4 +318,6 @@ final enUs = {
   StringRes.eatingGood: '체중 변화가 양호합니다.',
   StringRes.eatingNeed: '영양 섭취가 필요합니다.',
   StringRes.eatingOver: '음식양 조절이 필요합니다.',
+  StringRes.enterIntensityBeforeForget: "잊기 전 운동강도를 등록해주세요.",
+  StringRes.cancel: '취소',
 };

@@ -1,4 +1,3 @@
-
 // getx
 export 'getx/utils_getx.dart';
 
@@ -16,3 +15,4 @@ export 'muscle_utils.dart';
 
 export 'color_utils.dart';
 export 'input_formatter_utils.dart';
+export 'extensions/extensions.dart';

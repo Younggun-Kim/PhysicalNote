@@ -10,7 +10,6 @@ class PostIntensityRequestModel {
   final String? workoutType;
   final String? recordDate;
 
-
   PostIntensityRequestModel({
     required this.intensityLevel,
     required this.workoutTime,
@@ -22,4 +21,18 @@ class PostIntensityRequestModel {
       _$PostIntensityRequestModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$PostIntensityRequestModelToJson(this);
+
+  PostIntensityRequestModel copyWith({
+    int? intensityLevel,
+    String? workoutTime,
+    String? workoutType,
+    String? recordDate,
+  }) {
+    return PostIntensityRequestModel(
+      intensityLevel: intensityLevel ?? this.intensityLevel,
+      workoutTime: workoutTime ?? this.workoutTime,
+      workoutType: workoutType ?? this.workoutType,
+      recordDate: recordDate ?? this.recordDate,
+    );
+  }
 }

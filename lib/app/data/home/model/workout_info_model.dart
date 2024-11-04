@@ -38,6 +38,13 @@ class WorkoutInfoModel {
   /// 지난 8주 운동 부하 정도.
   final String? lastEightWeekWorkoutRoadString;
 
+  /// 운동강도 - Sports 노티 여부
+  final bool? isWorkoutSportNotificationRead;
+
+  /// 운동강도 - Physical 노티 여부
+  final bool? isWorkoutPhysicalNotificationRead;
+
+
   WorkoutInfoModel({
     this.recordDate,
     this.todayWorkoutTime,
@@ -50,6 +57,8 @@ class WorkoutInfoModel {
     this.lastFourWeekWorkoutRoadString,
     this.lastEightWeekWorkoutRoad,
     this.lastEightWeekWorkoutRoadString,
+    this.isWorkoutSportNotificationRead,
+    this.isWorkoutPhysicalNotificationRead,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`
