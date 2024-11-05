@@ -1,15 +1,20 @@
 
 default_platform(:android)
 
+# 환경변수 설정
+ENV["FLUTTER_BUILD_FLAVOR"] = "prod"
+ENV["FLUTTER_TARGET"] = "../lib/app/config/env/prod.dart"
+
+FLUTTER_BUILD_FLAVOR=ENV["FLUTTER_BUILD_FLAVOR"]
+FLUTTER_TARGET=ENV["FLUTTER_TARGET"]
+ANDROID_JSON_KEY=ENV["ANDROID_JSON_KEY"]
+
 platform :android do
   desc "Android 프로덕션 빌드 및 플레이스토어 배포"
   lane :prod_deploy do
-    # 환경변수 설정
-    ENV["FLUTTER_BUILD_FLAVOR"] = "prod"
-    ENV["FLUTTER_TARGET"] = "lib/app/config/env/prod.dart"
 
     # 앱 번들 빌드
-    sh("flutter build appbundle --release --flavor prod -t #{ENV['FLUTTER_TARGET']}")
+    sh("flutter build appbundle --release --flavor #{FLUTTER_BUILD_FLAVOR} -t #{FLUTTER_TARGET}")
 
     # 트랙 설정 (internal, alpha, beta, production)
     track = "internal"
@@ -22,7 +27,7 @@ platform :android do
       skip_upload_metadata: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
-      json_key: "#{ENV["ANDOIRD_JSON_KEY"]}"
+      json_key: "#{ANDROID_JSON_KEY}"
     )
   end
 end
