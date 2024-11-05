@@ -24,7 +24,7 @@ platform :android do
       skip_upload_metadata: true,
       skip_upload_images: true,
       skip_upload_screenshots: true,
-      json_key: "#{ANDROID_JSON_KEY}"
+      json_key_data: "#{ANDROID_JSON_KEY}"
     )
   end
 end
