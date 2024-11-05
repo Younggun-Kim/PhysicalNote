@@ -5,13 +5,12 @@ on:
     types: [ closed ]
     branches: [ main ]
   push:
-    branches:
-      - 'main'
+    branches: [ main ]
 
 jobs:
   flutter_test:
 #    if: github.event.pull_request.merged == true
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -26,7 +25,7 @@ jobs:
 
   update-version:
     needs: flutter_test
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -76,7 +75,7 @@ jobs:
   # Android 배포
   android_deploy:
     needs: update-version
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
