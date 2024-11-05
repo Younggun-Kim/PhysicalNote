@@ -22,7 +22,7 @@ jobs:
 
       - run: flutter --version
       - run: flutter pub get
-      - run: flutter pub run build_runner build
+      - run: flutter pub run build_runner build --delete-conflicting-outputs
       - run: flutter test
 
   update-version:
@@ -98,7 +98,7 @@ jobs:
 
       - run: flutter --version
       - run: flutter pub get
-      - run: flutter pub run build_runner build
+      - run: flutter pub run build_runner build --delete-conflicting-outputs
 
       # 배포
       - name: fastlane internal upload
