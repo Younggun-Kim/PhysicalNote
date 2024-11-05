@@ -87,6 +87,13 @@ jobs:
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
+      # Java 17 설정
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'  # 또는 'zulu', 'adopt' 등
+          java-version: '17'
+
       # Ruby 설치
       - uses: actions/setup-ruby@v1
 
