@@ -6,7 +6,7 @@ on:
 
 jobs:
   flutter_test:
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
 
     steps:
       - name: Clone repository
@@ -16,12 +16,13 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+
       - run: flutter --version
       - run: flutter test
 
   update-version:
+    needs: flutter_test
     runs-on: ubuntu-latest
-
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -29,11 +30,25 @@ jobs:
           # 버전 업데이트를 위해 write 권한 필요
           token: ${{ secrets.MY_GITHUB_TOKEN }}
 
+      # commit message에서 버전 업데이트 전략 추출
+      - name: Determine version strategy
+        id: version_strategy
+        run: |
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          if [[ $COMMIT_MSG =~ \[strategy=major\] ]]; then
+            echo "STRATEGY=major" >> $GITHUB_ENV
+          elif [[ $COMMIT_MSG =~ \[strategy=minor\] ]]; then
+            echo "STRATEGY=minor" >> $GITHUB_ENV
+          else
+            echo "STRATEGY=patch" >> $GITHUB_ENV
+          fi
+          echo "Selected strategy: $STRATEGY"
+
       # pubspec.yaml 버전 업데이트
       - name: Update pubspec version
         uses: stikkyapp/update-pubspec-version@v2
         with:
-          strategy: 'patch'  # major, minor, patch 중 선택
+          strategy: ${{ env.STRATEGY }}  # major, minor, patch 중 선택
           bump-build: true   # build 번호도 증가
           path: './pubspec.yaml'
 
@@ -43,6 +58,7 @@ jobs:
         run: |
           VERSION=$(grep 'version:' pubspec.yaml | sed 's/version: //')
           echo "NEW_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Updated Version: $NEW_VERSION
 
       # 변경사항 커밋 & 푸시
       - name: Commit and push changes
