@@ -84,8 +84,6 @@ jobs:
 
       # Ruby 설치
       - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
 
       # fastlane 설치
       - run: brew install fastlane
