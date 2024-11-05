@@ -76,7 +76,7 @@ jobs:
 
   # Android 배포
   android_deploy:
-    # needs: update-version
+    needs: update-version
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository

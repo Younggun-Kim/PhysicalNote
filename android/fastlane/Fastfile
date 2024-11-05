@@ -3,7 +3,7 @@ default_platform(:android)
 
 # 환경변수 설정
 ENV["FLUTTER_BUILD_FLAVOR"] = "prod"
-ENV["FLUTTER_TARGET"] = "../lib/app/config/env/prod.dart"
+ENV["FLUTTER_TARGET"] = "lib/app/config/env/prod.dart"
 
 FLUTTER_BUILD_FLAVOR=ENV["FLUTTER_BUILD_FLAVOR"]
 FLUTTER_TARGET=ENV["FLUTTER_TARGET"]
