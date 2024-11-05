@@ -39,6 +39,10 @@ deploy_dev 브랜치에 머지 -> Xcode Cloud 배포
 * Android 설정
 * git clone 직후라면, `fastlane supply init` 으로 메타데이터 받기
 * iOS 설정
+* ios 설정
+* fastlane을 사용하려면 클론 후 fastlane match를 통해서 Certification, Provisinoing Profile을 받아야 한다.
+* fastlane match appstore --readonly
+* 실행 : fastlane release
 
 # Android 키 해시 추출.
 
