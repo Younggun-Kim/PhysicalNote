@@ -70,3 +70,18 @@ jobs:
           git add pubspec.yaml
           git commit -m "chore: Bump version to ${NEW_VERSION} [skip ci]"
           git push
+
+  # Android 배포
+  android_deploy:
+    needs: update-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: fastlane internal upload
+        env:
+          ANDROID_JSON_KEY: ${{ secrets.ANDROID_JSON_KEY }}
+        run: |
+          cd android
+          fastlane prod_deploy
