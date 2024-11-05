@@ -6,7 +6,7 @@ on:
     branches: [ main ]
   push:
     branches:
-      - main
+      - 'main'
 
 jobs:
   flutter_test:
