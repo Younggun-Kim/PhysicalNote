@@ -14,7 +14,7 @@ platform :android do
   lane :prod_deploy do
 
     # 앱 번들 빌드
-    sh("flutter build appbundle --release --flavor #{FLUTTER_BUILD_FLAVOR} -t #{FLUTTER_TARGET}")
+#     sh("flutter build appbundle --release --flavor #{FLUTTER_BUILD_FLAVOR} -t #{FLUTTER_TARGET} --verbose")
 
     # 트랙 설정 (internal, alpha, beta, production)
     track = "internal"
