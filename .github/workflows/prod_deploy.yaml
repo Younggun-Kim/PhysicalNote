@@ -86,7 +86,10 @@ jobs:
       - uses: actions/setup-ruby@v1
 
       # fastlane 설치
-      - run: brew install fastlane
+      # fastlane 설치
+      - name: Install Fastlane
+        run: |
+          brew install fastlane
 
         # 플러터 설치
       - name: Set up Flutter
