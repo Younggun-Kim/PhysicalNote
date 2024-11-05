@@ -12,6 +12,11 @@ ANDROID_JSON_KEY=ENV["ANDROID_JSON_KEY"]
 platform :android do
   desc "Android 프로덕션 빌드 및 플레이스토어 배포"
   lane :prod_deploy do
+      gradle(
+        task: 'bundle',
+        build_type: 'Release',
+        flavor: 'prod'
+      )
 
     # 앱 번들 빌드
     sh("flutter build appbundle --release --flavor #{FLUTTER_BUILD_FLAVOR} -t #{FLUTTER_TARGET}")
