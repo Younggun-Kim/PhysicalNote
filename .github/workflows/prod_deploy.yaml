@@ -57,7 +57,7 @@ jobs:
         run: |
           VERSION=$(grep 'version:' pubspec.yaml | sed 's/version: //')
           echo "NEW_VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Updated Version: $NEW_VERSION
+          echo "Updated Version: $NEW_VERSION"
 
       # 변경사항 커밋 & 푸시
       - name: Commit and push changes
