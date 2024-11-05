@@ -1,2 +1,2 @@
-json_key_file("~/Downloads/physicalnote-b14ad-8516b0ac6215.json")
+json_key_file("#{ENV["ANDOIRD_JSON_KEY"]}")
 package_name("com.physical_note")
