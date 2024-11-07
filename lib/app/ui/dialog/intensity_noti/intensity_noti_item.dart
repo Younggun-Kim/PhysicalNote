@@ -41,21 +41,11 @@ class IntensityNotiItem extends StatelessWidget {
         Text.rich(
           TextSpan(
             children: [
-              const TextSpan(
-                text: '09:30 - 11:00',
-                style: TextStyle(
+              TextSpan(
+                text: time,
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w500,
-                  letterSpacing: -0.5,
-                ),
-              ),
-              const WidgetSpan(child: SizedBox(width: 10)),
-              TextSpan(
-                text: '($time)',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  height: 20 / 16,
                   letterSpacing: -0.5,
                 ),
               ),
@@ -183,6 +173,7 @@ class _SliderContent extends StatelessWidget {
         thumbShape: const CustomSliderThumbCircle(
           thumbRadius: 10,
           currentValue: 0,
+          isValueVisible: false,
         ),
         overlayShape: SliderComponentShape.noThumb,
         tickMarkShape: CustomSliderTickMarkShape(),

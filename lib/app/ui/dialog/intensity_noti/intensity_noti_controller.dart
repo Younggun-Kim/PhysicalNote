@@ -45,13 +45,20 @@ class IntensityNotiController extends BaseController {
     required bool isPhysicalUpdated,
     required bool isSportsUpdated,
   }) async {
-    logger.i('onSaveBtnPressed: $isPhysicalUpdated,   $isSportsUpdated');
+    bool isUpdated = false;
     if (isPhysicalUpdated) {
       await putPhysical();
+      isUpdated = true;
     }
 
     if (isSportsUpdated) {
+      isUpdated = false;
       await putSport();
+      isUpdated = true;
+    }
+
+    if (isUpdated) {
+      close(result: true);
     }
   }
 
@@ -79,15 +86,27 @@ class IntensityNotiController extends BaseController {
   void setPhysical(GetIntensityResponseModel? data) {
     physicalId = data?.id ?? 0;
     physicalSlider.value = data?.intensityType?.toDouble() ?? 0;
-    physicalTime.value = data?.workoutTime?.toHourAndMinute() ?? '';
+    physicalTime.value = removeZeroTimeUnits(
+      data?.workoutTime?.toHourAndMinute() ?? '',
+    );
     physicalData = data;
   }
 
   void setSports(GetIntensityResponseModel? data) {
     sportsId = data?.id ?? 0;
     sportsSlider.value = data?.intensityType?.toDouble() ?? 0;
-    sportsTime.value = data?.workoutTime?.toHourAndMinute() ?? '';
+    sportsTime.value = removeZeroTimeUnits(
+      data?.workoutTime?.toHourAndMinute() ?? '',
+    );
     sportsData = data;
+  }
+
+  // 0시간 또는 0분 제거
+  String removeZeroTimeUnits(String time) {
+    String tempTime = time;
+    tempTime = tempTime.replaceAll('0시간 ', '');
+    tempTime = tempTime.replaceAll(' 0분', '');
+    return tempTime;
   }
 
   /// 운동 강도 수정.
@@ -100,15 +119,12 @@ class IntensityNotiController extends BaseController {
     final response = await intensityApi.putIntensity(requestData, intensityId);
 
     if (response is PostIntensityResponseModel) {
-      showToast("운동 강도 저장 성공.");
-      await Future.delayed(const Duration(seconds: 1));
-      close(result: true);
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
       showToast(message);
     }
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     setLoading(false);
   }
 
@@ -127,7 +143,7 @@ class IntensityNotiController extends BaseController {
 
   Future putPhysical() async {
     final level = physicalSlider.value.toInt();
-    if (physicalId <= 0  || level == 0 || physicalData == null) {
+    if (physicalId <= 0 || level == 0 || physicalData == null) {
       return;
     }
 

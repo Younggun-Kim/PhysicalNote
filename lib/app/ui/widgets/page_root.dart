@@ -37,14 +37,14 @@ class PageRoot extends StatelessWidget {
   final bool canPop;
 
   /// 뒤로가기 콜백.
-  final Future<bool> Function(bool didPop)? onWillPop;
+  final Future<bool> Function<T>(bool didPop, T? result)? onWillPop;
 
   /// 생성자.
   const PageRoot({
     super.key,
     required this.controller,
     this.backgroundColor = Colors.white,
-    this.progressColor = Colors.black,
+    this.progressColor = ColorRes.primary,
     this.safeStatusBar = true,
     this.safeNavigationBar = true,
     this.resize = true,
@@ -57,7 +57,7 @@ class PageRoot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => PopScope(
-        onPopInvoked: onWillPop,
+        onPopInvokedWithResult: onWillPop,
         canPop: canPop,
         child: _createPage(context),
       );
@@ -107,7 +107,6 @@ class PageRoot extends StatelessWidget {
         ),
       );
 }
-
 
 /// iOS 키보드 닫기 버튼
 class _KeyboardCloseButton extends StatelessWidget {
