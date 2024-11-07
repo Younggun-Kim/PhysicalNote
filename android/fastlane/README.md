@@ -15,10 +15,10 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android deploy_production
+### android prod_deploy
 
 ```sh
-[bundle exec] fastlane android deploy_production
+[bundle exec] fastlane android prod_deploy
 ```
 
 Android 프로덕션 빌드 및 플레이스토어 배포
