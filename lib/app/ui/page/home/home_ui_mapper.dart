@@ -79,11 +79,11 @@ extension HomeUiMapper on HomeController {
 
     /// 운동강도 노티 목록
     intensityNoti.value = [];
-    if(model?.workoutInfo?.isWorkoutPhysicalNotificationRead == false) {
+    if(model?.workoutInfo?.isWorkoutPhysicalNotificationRead == true) {
       intensityNoti.add(IntensityType.physical);
     }
 
-    if(model?.workoutInfo?.isWorkoutSportNotificationRead == false) {
+    if(model?.workoutInfo?.isWorkoutSportNotificationRead == true) {
       intensityNoti.add(IntensityType.sports);
     }
   }

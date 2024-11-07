@@ -122,6 +122,16 @@ class IntensityNotiBottomSheet extends GetView<IntensityNotiController> {
             right: 20,
             child: _CloseButton(),
           ),
+          Obx(
+            () => Visibility(
+              visible: controller.isLoading.value,
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: ColorRes.primary,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

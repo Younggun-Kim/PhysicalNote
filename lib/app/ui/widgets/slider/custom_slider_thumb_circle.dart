@@ -4,11 +4,13 @@ class CustomSliderThumbCircle extends SliderComponentShape {
   final double thumbRadius;
   final double currentValue;
   final Color borderColor;
+  final bool isValueVisible;
 
   const CustomSliderThumbCircle({
     required this.thumbRadius,
     required this.currentValue,
     this.borderColor = Colors.white,
+    this.isValueVisible = true,
   });
 
   @override
@@ -43,14 +45,14 @@ class CustomSliderThumbCircle extends SliderComponentShape {
       ..color = sliderTheme!.thumbColor!
       ..style = PaintingStyle.fill;
 
-    /// valur text.
+    /// value text.
     final TextSpan span = TextSpan(
       style: const TextStyle(
         color: Colors.white,
         fontSize: 10,
         fontWeight: FontWeight.w700,
       ),
-      text: '${currentValue.round()}',
+      text: isValueVisible ? '${currentValue.round()}' : '',
     );
 
     final TextPainter textPainter = TextPainter(
@@ -59,7 +61,7 @@ class CustomSliderThumbCircle extends SliderComponentShape {
       textDirection: TextDirection.ltr,
     );
 
-    canvas.drawCircle(center, thumbRadius + 2, borderPaint);
+    canvas.drawCircle(center, thumbRadius + 3, borderPaint);
     canvas.drawCircle(center, thumbRadius, paint);
 
     textPainter.layout();
