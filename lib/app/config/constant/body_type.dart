@@ -7,11 +7,9 @@ enum BodyType {
 
   final String serverKey;
 
-
   /// Key로 초기화
   static BodyType? from(String? key) =>
       values.firstWhereOrNull((element) => element.serverKey == key);
-
 
   const BodyType({required this.serverKey});
 }

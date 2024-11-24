@@ -1,10 +1,15 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/config/env/config.dart';
 import 'package:physical_note/app/data/user/user_storage.dart';
 import 'package:physical_note/app/utils/logger/logger.dart';
 
 class API extends GetConnect {
   /// 서버 주소.
-  final server = 'https://dev.hajinj.com';
+  String get server => Config.isProd ? prodServer : devServer;
+
+  final prodServer = 'https://dev.physicalNote.com';
+
+  final devServer = 'https://dev.hajinj.com';
 
   /// 기본 Path.
   final String basePath;
