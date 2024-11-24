@@ -339,4 +339,5 @@ class StringRes {
   static final eatingOver = _generateId();
   static final enterIntensityBeforeForget = _generateId();
   static final cancel = _generateId();
+  static final waterIntakeStatus = _generateId();
 }

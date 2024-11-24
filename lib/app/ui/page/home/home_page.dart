@@ -733,7 +733,7 @@ class _WellnessUrine extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            StringRes.urineState.tr,
+            StringRes.waterIntakeStatus.tr,
             style: const TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w500,
@@ -765,17 +765,6 @@ class _WellnessUrine extends StatelessWidget {
                 ],
               ),
             ),
-          const SizedBox(height: 5),
-          Text(
-            description,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: ColorRes.grayBababa,
-              letterSpacing: -0.5,
-              height: 16 / 12,
-            ),
-          ),
         ],
       );
 }

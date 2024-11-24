@@ -320,4 +320,5 @@ final enUs = {
   StringRes.eatingOver: '음식양 조절이 필요합니다.',
   StringRes.enterIntensityBeforeForget: "잊기 전 운동강도를 등록해주세요.",
   StringRes.cancel: '취소',
+  StringRes.waterIntakeStatus: '수분 섭취 상태',
 };
