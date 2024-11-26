@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/data/common/common_api.dart';
+import 'package:physical_note/app/data/common/model/message_response_model.dart';
 import 'package:physical_note/app/data/login/login_api.dart';
 import 'package:physical_note/app/data/login/model/post_login_find_id_response_model.dart';
-import 'package:physical_note/app/data/login/model/post_phone_authentication_response_model.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/change_password/change_password_args.dart';
@@ -30,10 +31,10 @@ class FindPasswordController extends BaseController {
   /// 인증 요청 버튼 클릭.
   void onPressedAuthButton() async {
     setLoading(true);
-    final loginApi = Get.find<LoginAPI>();
-    final response = await loginApi.postPhoneAuthentication(phone: phone.value);
+    final commonApi = Get.find<CommonAPI>();
+    final response = await commonApi.postAuthPhoneSend(phone: phone.value);
 
-    if (response is PostPhoneAuthenticationResponseModel) {
+    if (response is MessageResponseModel) {
       if (response.status == true) {
         isRequestAuth.value = true;
       }

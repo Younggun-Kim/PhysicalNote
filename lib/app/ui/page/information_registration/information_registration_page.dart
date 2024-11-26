@@ -13,98 +13,97 @@ class InformationRegistrationPage
 
   @override
   Widget build(BuildContext context) => PageRoot(
-    isFullPage: true,
-    controller: controller,
-    child: Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: [
-              const Spacer(),
-              _FieldName(text: StringRes.category.tr),
-              const SizedBox(height: 10),
-              Obx(
-                    () => _ListSearchButton(
-                  text: controller.category.value?.name ?? "",
-                  onTap: controller.onPressedCategory,
+      isFullPage: true,
+      controller: controller,
+      child: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              children: [
+                const Spacer(),
+                _FieldName(text: StringRes.category.tr),
+                const SizedBox(height: 10),
+                Obx(
+                  () => _ListSearchButton(
+                    text: controller.category.value?.name ?? "",
+                    onTap: controller.onPressedCategory,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 36),
-              _FieldName(text: StringRes.sports.tr),
-              const SizedBox(height: 10),
-              Obx(
-                    () => _ListSearchButton(
-                  text: controller.sports.value?.name ?? "",
-                  onTap: controller.onPressedSports,
+                const SizedBox(height: 36),
+                _FieldName(text: StringRes.sports.tr),
+                const SizedBox(height: 10),
+                Obx(
+                  () => _ListSearchButton(
+                    text: controller.sports.value?.name ?? "",
+                    onTap: controller.onPressedSports,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 52),
-              Row(
-                children: [
-                  Expanded(
-                    child: Obx(
-                          () => RoundButton(
-                        text: StringRes.amateur.tr,
-                        isSelected: controller.isElite.value == false,
-                        backgroundColor: ColorRes.white,
-                        selectedColor: ColorRes.primary,
-                        textStyle: const TextStyle(
-                          color: ColorRes.fontBlack,
-                          fontSize: 16,
+                const SizedBox(height: 52),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Obx(
+                        () => RoundButton(
+                          text: StringRes.amateur.tr,
+                          isSelected: controller.isElite.value == false,
+                          backgroundColor: ColorRes.white,
+                          selectedColor: ColorRes.primary,
+                          textStyle: const TextStyle(
+                            color: ColorRes.fontBlack,
+                            fontSize: 16,
+                          ),
+                          selectedTextStyle: const TextStyle(
+                            color: ColorRes.fontBlack,
+                            fontSize: 16,
+                          ),
+                          border: Border.all(color: ColorRes.borderDeselect),
+                          onPressed: controller.onPressedAmateur,
                         ),
-                        selectedTextStyle: const TextStyle(
-                          color: ColorRes.fontBlack,
-                          fontSize: 16,
-                        ),
-                        border: Border.all(color: ColorRes.borderDeselect),
-                        onPressed: controller.onPressedAmateur,
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: Obx(
-                          () => RoundButton(
-                        text: StringRes.elite.tr,
-                        isEnabled: true,
-                        isSelected: controller.isElite.value == true,
-                        backgroundColor: ColorRes.white,
-                        selectedColor: ColorRes.primary,
-                        textStyle: const TextStyle(
-                          color: ColorRes.fontBlack,
-                          fontSize: 16,
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: Obx(
+                        () => RoundButton(
+                          text: StringRes.elite.tr,
+                          isEnabled: true,
+                          isSelected: controller.isElite.value == true,
+                          backgroundColor: ColorRes.white,
+                          selectedColor: ColorRes.primary,
+                          textStyle: const TextStyle(
+                            color: ColorRes.fontBlack,
+                            fontSize: 16,
+                          ),
+                          selectedTextStyle: const TextStyle(
+                            color: ColorRes.fontBlack,
+                            fontSize: 16,
+                          ),
+                          border: Border.all(color: ColorRes.borderDeselect),
+                          onPressed: controller.onPressedElite,
                         ),
-                        selectedTextStyle: const TextStyle(
-                          color: ColorRes.fontBlack,
-                          fontSize: 16,
-                        ),
-                        border: Border.all(color: ColorRes.borderDeselect),
-                        onPressed: controller.onPressedElite,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              Obx(
-                    () => RoundButton(
-                  width: double.infinity,
-                  text: StringRes.next.tr,
-                  isEnabled: controller.isEnabledNext.value,
-                  disabledColor: ColorRes.disable,
-                  onPressed: controller.onPressedNext,
+                  ],
                 ),
-              ),
-              const SizedBox(height: 40),
-            ],
+                const Spacer(),
+                Obx(
+                  () => RoundButton(
+                    width: double.infinity,
+                    text: StringRes.next.tr,
+                    isEnabled: controller.isEnabledNext.value,
+                    disabledColor: ColorRes.disable,
+                    onPressed: controller.onPressedNext,
+                  ),
+                ),
+                const SizedBox(height: 40),
+              ],
+            ),
           ),
-        ),
-        _Dialog(),
-      ],
-    )
-  );
+          _Dialog(),
+        ],
+      ));
 }
 
 /// 필드명.

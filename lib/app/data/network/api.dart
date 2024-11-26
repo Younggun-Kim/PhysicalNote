@@ -7,7 +7,7 @@ class API extends GetConnect {
   /// 서버 주소.
   String get server => Config.isProd ? prodServer : devServer;
 
-  final prodServer = 'https://dev.physicalNote.com';
+  final prodServer = 'https://dev.physicalnote.com';
 
   final devServer = 'https://dev.hajinj.com';
 

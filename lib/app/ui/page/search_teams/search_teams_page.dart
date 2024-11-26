@@ -120,7 +120,7 @@ class _CoachList extends GetView<SearchTeamsController> {
                   noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
                 ),
                 separatorBuilder: (context, itemIndex) {
-                  return const SizedBox(width: 10);
+                  return const SizedBox(width: 20);
                 },
               ),
             ),

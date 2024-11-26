@@ -22,41 +22,44 @@ class SearchTeamsListItem extends StatelessWidget {
   );
 
   @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: _Image(imageUrl: uiState.imageUrl),
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Row(
+          children: [
+            Expanded(
+              child: Align(
+                alignment: Alignment.center,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: _Image(imageUrl: uiState.imageUrl),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Text(
-              uiState.clubName,
-              style: textStyle,
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              uiState.coachName,
-              style: textStyle,
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: _SelectButton(
-                uiState: uiState,
-                onTap: onTap,
+            Expanded(
+              child: Text(
+                uiState.clubName,
+                style: textStyle,
+                textAlign: TextAlign.center,
               ),
             ),
-          )
-        ],
+            Expanded(
+              child: Text(
+                uiState.coachName,
+                style: textStyle,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.center,
+                child: _SelectButton(
+                  uiState: uiState,
+                  onTap: onTap,
+                ),
+              ),
+            )
+          ],
+        ),
       );
 }
 

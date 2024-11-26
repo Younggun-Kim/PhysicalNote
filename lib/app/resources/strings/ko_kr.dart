@@ -77,6 +77,7 @@ final koKr = {
   StringRes.noData: "데이터\n없음",
   StringRes.dataNotAvailable: "데이터가 없습니다.",
   StringRes.hooperIndex: "후퍼인덱스",
+  StringRes.homeHooperIndexAverage: "후퍼인덱스 평균",
   StringRes.hooperIndexAverage: "후퍼인덱스 평균",
   StringRes.urinalysis: "소변검사",
   StringRes.urinalysisAverage: "소변검사 평균",
@@ -322,4 +323,8 @@ final koKr = {
   StringRes.enterIntensityBeforeForget: "잊기 전 운동강도를 등록해주세요.",
   StringRes.cancel: '취소',
   StringRes.waterIntakeStatus: '수분 섭취 상태',
+  StringRes.verify: '인증',
+  StringRes.reVerify: '재인증',
+  StringRes.selectPosition: '포지션 선택',
+  StringRes.duration: '시간',
 };

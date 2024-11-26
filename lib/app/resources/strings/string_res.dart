@@ -157,6 +157,7 @@ class StringRes {
   static final noData = _generateId();
   static final dataNotAvailable = _generateId();
   static final hooperIndex = _generateId();
+  static final homeHooperIndexAverage = _generateId();
   static final hooperIndexAverage = _generateId();
   static final urinalysis = _generateId();
   static final urinalysisAverage = _generateId();
@@ -340,4 +341,8 @@ class StringRes {
   static final enterIntensityBeforeForget = _generateId();
   static final cancel = _generateId();
   static final waterIntakeStatus = _generateId();
+  static final verify = _generateId();
+  static final reVerify = _generateId();
+  static final selectPosition = _generateId();
+  static final duration = _generateId();
 }

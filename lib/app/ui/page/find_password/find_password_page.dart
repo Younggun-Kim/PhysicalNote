@@ -97,7 +97,7 @@ class _PhoneField extends GetView<FindPasswordController> {
       required bool isSelected,
       required VoidCallback onPressed}) {
     return BaseButton(
-      text: isSelected ? "재인증" : "인증",
+      text: isSelected ? StringRes.reVerify.tr : StringRes.verify.tr,
       height: 36,
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       isEnabled: isEnabled,

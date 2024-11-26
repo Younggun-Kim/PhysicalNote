@@ -33,7 +33,7 @@ class SignUpPage extends GetView<SignUpController> {
                         width: double.infinity,
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         isEnabled: controller.isEnabledLoginButton.value,
-                        text: StringRes.signUpComplete.tr,
+                        text: StringRes.login.tr,
                         onPressed: controller.onPressedLoginButton,
                       )),
                   const SizedBox(height: 20),

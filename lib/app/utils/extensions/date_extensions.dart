@@ -37,6 +37,6 @@ extension StringToStringFormatEx on String {
     int hours = int.parse(parts[0]);
     int minutes = int.parse(parts[1]);
 
-    return '$hours시간 $minutes분';
+    return '$hours:$minutes';
   }
 }

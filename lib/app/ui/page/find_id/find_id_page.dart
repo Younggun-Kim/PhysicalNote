@@ -77,8 +77,10 @@ class _PhoneField extends GetView<FindIdController> {
             fontWeight: FontWeight.w400,
             hint: StringRes.phoneHint.tr,
             keyboardType: TextInputType.phone,
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
             rightWidget: Obx(
               () => _authButton(
                 isEnabled: controller.isValidPhoneNumber.value,
@@ -91,12 +93,13 @@ class _PhoneField extends GetView<FindIdController> {
       ).paddingSymmetric(horizontal: 30);
 
   /// 인증버튼
-  Widget _authButton(
-      {required bool isEnabled,
-      required bool isSelected,
-      required VoidCallback onPressed}) {
+  Widget _authButton({
+    required bool isEnabled,
+    required bool isSelected,
+    required VoidCallback onPressed,
+  }) {
     return BaseButton(
-      text: isSelected ? "재인증" : "인증",
+      text: isSelected ? StringRes.reVerify.tr : StringRes.verify.tr,
       height: 36,
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       isEnabled: isEnabled,

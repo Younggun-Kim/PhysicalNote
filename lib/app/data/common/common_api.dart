@@ -7,6 +7,7 @@ import 'package:physical_note/app/data/network/model/server_response_fail/server
 import 'package:physical_note/app/utils/utils.dart';
 
 import 'model/get_term_response_model.dart';
+import 'model/message_response_model.dart';
 
 class CommonAPI extends API {
   CommonAPI() : super(basePath: "");
@@ -42,6 +43,23 @@ class CommonAPI extends API {
         return ServerResponseFailModel.fromJson(response.body);
       } else {
         return GetTermResponseModel.fromJson(response.body);
+      }
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  /// 문자 인증 요청
+  Future<dynamic> postAuthPhoneSend({required String phone}) async {
+    logger.i("postAuthPhoneSend: $phone");
+    try {
+      final response = await post(requestUrl + "/auth/phone/send?phoneNumber=$phone", {});
+
+      if (response.status.hasError) {
+        return ServerResponseFailModel.fromJson(response.body);
+      } else {
+        return MessageResponseModel.fromJson(response.body);
       }
     } catch (e) {
       logger.e(e);
