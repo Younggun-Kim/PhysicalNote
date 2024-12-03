@@ -8,7 +8,6 @@ import 'package:physical_note/app/ui/page/wellness_detail/item/hooper_index_ui_s
 import 'package:physical_note/app/ui/page/wellness_detail/wellness_detail.dart';
 import 'package:physical_note/app/ui/widgets/text_field/bottom_border_text_field.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/input_formatter_utils.dart';
 import 'package:physical_note/app/utils/localization/localization_utils.dart';
 
@@ -81,23 +80,21 @@ class _WellnessDetailPage extends GetView<WellnessDetailController> {
             const SizedBox(height: 42),
             Obx(() => Row(
                   children: [
-                    if (controller.wellnessId.value != null)
-                      Expanded(
-                        child: RoundButton.gray(
-                          height: 44,
-                          text: StringRes.cancel.tr,
-                          textStyle: const TextStyle(
-                            color: ColorRes.gray9f9f9f,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
-                          onPressed: () {
-                            Get.back();
-                          },
+                    Expanded(
+                      child: RoundButton.gray(
+                        height: 44,
+                        text: StringRes.cancel.tr,
+                        textStyle: const TextStyle(
+                          color: ColorRes.gray9f9f9f,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
                         ),
+                        onPressed: () {
+                          Get.back();
+                        },
                       ),
-                    if (controller.wellnessId.value != null)
-                      const SizedBox(width: 30),
+                    ),
+                    const SizedBox(width: 30),
                     Expanded(
                       child: RoundButton(
                         width: double.infinity,

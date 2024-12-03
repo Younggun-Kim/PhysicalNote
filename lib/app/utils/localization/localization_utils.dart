@@ -8,11 +8,14 @@ class LocalizationUtil {
     required String enFormat,
     String originFormat = 'yyyy-MM-dd',
   }) {
-    if (Intl.getCurrentLocale() == 'ko_KR') {
-      return date.toDate(originFormat).toFormattedString(koFormat);
-    } else {
-      return date.toDate(originFormat).toFormattedString(enFormat);
+    try {
+      if (Intl.getCurrentLocale() == 'ko_KR') {
+        return date.toDate(originFormat).toFormattedString(koFormat);
+      } else {
+        return date.toDate(originFormat).toFormattedString(enFormat);
+      }
+    } catch (e) {
+      return date;
     }
-    return '';
   }
 }

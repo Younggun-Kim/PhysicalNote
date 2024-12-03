@@ -41,6 +41,7 @@ class TimePicker extends StatelessWidget {
           SizedBox(
             height: height,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(width: 40),
                 Expanded(
@@ -49,11 +50,20 @@ class TimePicker extends StatelessWidget {
                     text: (int index) {
                       return index.toString();
                     },
-                    subFixText: '시간',
+                    subFixText: '',
                     length: 24,
                     isEnabled: isEnabled,
                     selectedIndex: uiState?.hour,
                     onSelectedItemChanged: onSelectedHourChanged,
+                  ),
+                ),
+                const Text(
+                  ':',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    color: ColorRes.fontBlack,
+                    fontWeight: FontWeight.w500,
+                    height: -0.3,
                   ),
                 ),
                 Expanded(
@@ -62,7 +72,7 @@ class TimePicker extends StatelessWidget {
                     text: (int index) {
                       return index.toString().padLeft(2, '0');
                     },
-                    subFixText: '분',
+                    subFixText: '',
                     length: 60,
                     isEnabled: isEnabled,
                     selectedIndex: uiState?.minute,
@@ -145,14 +155,7 @@ class _TimePickerItem extends StatelessWidget {
                   fontSize: 24.0,
                   color: mainFontColor,
                   fontWeight: FontWeight.w500,
-                ),
-              ),
-              TextSpan(
-                text: '  $subFixText',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  color: subFixFontColor,
-                  fontWeight: FontWeight.w500,
+                  height: 36 / 26,
                 ),
               ),
             ]),

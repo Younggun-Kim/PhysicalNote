@@ -5,15 +5,17 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'package:physical_note/app/utils/extensions/border_extensions.dart';
 
-
 /// Intensity 테이블.
 class IntensityTable extends StatelessWidget {
   final int level;
 
   final Function(int) onPressed;
 
-  const IntensityTable(
-      {super.key, required this.level, required this.onPressed});
+  const IntensityTable({
+    super.key,
+    required this.level,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) => Column(
@@ -358,7 +360,7 @@ class _TableCellNormal extends StatelessWidget {
               child: Column(
                 children: [
                   _TableRadio(
-                    isSelected: level ==4,
+                    isSelected: level == 4,
                     onPressed: () {
                       onPressed(4);
                     },
