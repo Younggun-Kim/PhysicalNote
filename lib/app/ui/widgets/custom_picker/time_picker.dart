@@ -145,8 +145,6 @@ class _TimePickerItem extends StatelessWidget {
           final isSelected = index == selectedIndex;
           final mainFontColor =
               isSelected ? ColorRes.fontBlack : ColorRes.disable;
-          final subFixFontColor =
-              isSelected ? ColorRes.fontBlack : Colors.transparent;
           return RichText(
             text: TextSpan(children: [
               TextSpan(

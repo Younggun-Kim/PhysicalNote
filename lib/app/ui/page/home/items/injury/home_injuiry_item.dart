@@ -26,11 +26,14 @@ class HomeInjuryItem extends StatelessWidget {
   /// 단계 or 질병
   String get levelString => isDisease
       ? InjuryType.disease.toString()
-      : '${level?.level ?? ''}${StringRes.step.tr}';
+      : '${level?.level ?? ''} ${StringRes.step.tr}';
 
-  /// 단계 or 질병 text color
+  /// 단계 text color
+  Color get stepColor =>
+      (level?.level ?? 0) > 3 ? ColorRes.white : ColorRes.fontBlack;
+
   Color? get levelColor =>
-      isDisease ? ColorRes.fontBlack : level?.toFontColor();
+      isDisease ? stepColor : level?.toFontColor();
 
   /// 단계 or 질병 border color
   Color get levelBorderColor =>
@@ -46,7 +49,7 @@ class HomeInjuryItem extends StatelessWidget {
 
   /// 부상 타입 or 질병 코멘트
   String get description =>
-      isDisease ? uiState.comment ?? '' : injuryType.toString();
+      isDisease ? uiState.comment ?? '' : injuryType.toSimpleString();
 
   @override
   Widget build(BuildContext context) => Row(
@@ -64,7 +67,7 @@ class HomeInjuryItem extends StatelessWidget {
               levelString,
               style: TextStyle(
                 fontSize: 10,
-                fontWeight: FontWeight.w300,
+                fontWeight: FontWeight.w400,
                 color: levelColor,
                 letterSpacing: -0.5,
                 height: 14 / 10,
@@ -89,11 +92,11 @@ class HomeInjuryItem extends StatelessWidget {
                 Text(
                   description,
                   style: const TextStyle(
-                    fontSize: 8,
+                    fontSize: 10,
                     fontWeight: FontWeight.w500,
                     color: ColorRes.fontBlack,
                     letterSpacing: -0.5,
-                    height: 20 / 8,
+                    height: 20 / 10,
                   ),
                 ),
               ],

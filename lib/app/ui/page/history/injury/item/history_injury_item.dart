@@ -53,43 +53,26 @@ class HistoryInjuryItem extends StatelessWidget {
       );
 }
 
-// 공통 헤더
-class _ItemHeader extends StatelessWidget {
+class _MuscleName extends StatelessWidget {
   final String title;
 
-  final String? recordDate;
+  final bool recoveryYn;
 
-  final bool? recoveryYn;
-
-  final String? recoveryDate;
-
-  const _ItemHeader({
+  const _MuscleName({
     required this.title,
-    required this.recordDate,
     required this.recoveryYn,
-    required this.recoveryDate,
   });
 
   @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: ColorRes.fontBlack,
-              height: 26 / 16,
-              letterSpacing: -0.5,
-            ),
-          ),
-          const SizedBox(width: 5),
-          _RecoveryDate(
-            recordDate: recordDate,
-            recoveryYn: recoveryYn,
-            recoveryDate: recoveryDate,
-          ),
-        ],
+  Widget build(BuildContext context) => Text(
+        title,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: recoveryYn ? ColorRes.gray9f9f9f : ColorRes.fontBlack,
+          height: 26 / 16,
+          letterSpacing: -0.5,
+        ),
       );
 }
 
@@ -101,9 +84,12 @@ class _InjuryLevel extends StatelessWidget {
   });
 
   String get levelString =>
-      type?.level != null ? '${type?.level}${StringRes.step.tr}' : '-';
+      type?.level != null ? '${type?.level} ${StringRes.step.tr}' : '-';
 
   Color get backgroundColor => type?.toBackgroundColor() ?? ColorRes.disable;
+
+  Color get levelColor =>
+      (type?.level ?? 0) > 3 ? ColorRes.white : ColorRes.fontBlack;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -114,10 +100,10 @@ class _InjuryLevel extends StatelessWidget {
         ),
         child: Text(
           levelString,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w500,
-            color: ColorRes.fontBlack,
+            color: levelColor,
             height: 20 / 12,
             letterSpacing: -0.5,
           ),
@@ -141,15 +127,32 @@ class _RecoveryDate extends StatelessWidget {
   String get _recoveryDate => recoveryYn == true ? ' - $recoveryDate' : '';
 
   @override
-  Widget build(BuildContext context) => Text(
-        '$recordDate$_recoveryDate',
-        style: const TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.w400,
-          color: ColorRes.gray9f9f9f,
-          height: 16 / 10,
-          letterSpacing: -0.5,
-        ),
+  Widget build(BuildContext context) => Row(
+        children: [
+          Expanded(
+            child: Text(
+              '$recordDate$_recoveryDate',
+              style: const TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                color: ColorRes.gray9f9f9f,
+                height: 16 / 10,
+                letterSpacing: -0.5,
+              ),
+            ),
+          ),
+          if (recoveryYn == true)
+            Text(
+              StringRes.recovery.tr,
+              style: const TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+                color: ColorRes.gray9f9f9f,
+                height: 16 / 10,
+                letterSpacing: -0.5,
+              ),
+            ),
+        ],
       );
 }
 
@@ -164,6 +167,9 @@ class _InjuryContent extends StatelessWidget {
   });
 
   String get comment => ': ${uiState.injuryLevelType?.toDescription() ?? ""}';
+
+  Color get recoveryColor =>
+      uiState.recoveryYn == true ? ColorRes.gray9f9f9f : ColorRes.fontBlack;
 
   @override
   Widget build(BuildContext context) => Row(
@@ -188,39 +194,46 @@ class _InjuryContent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _ItemHeader(
+                _MuscleName(
                   title: uiState.muscleType?.toKor() ?? '-',
+                  recoveryYn: uiState.recoveryYn ?? false,
+                ),
+                _RecoveryDate(
                   recordDate: uiState.recordDate,
                   recoveryYn: uiState.recoveryYn,
                   recoveryDate: uiState.recoveryDate,
                 ),
-                const SizedBox(height: 16),
-                Text(
-                  uiState.injuryType.toString(),
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: ColorRes.fontBlack,
-                    height: 16 / 10,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-                Text(
-                  uiState.injuryLevelType.toString(),
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    color: ColorRes.fontBlack,
-                    height: 16 / 10,
-                    letterSpacing: -0.5,
-                  ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text(
+                      uiState.injuryType.toString(),
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        color: recoveryColor,
+                        height: 16 / 10,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                    Text(
+                      ' (${uiState.injuryLevelType.toString()})',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        color: recoveryColor,
+                        height: 16 / 10,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                  ],
                 ),
                 Text(
                   comment,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
-                    color: ColorRes.fontBlack,
+                    color: recoveryColor,
                     height: 16 / 10,
                     letterSpacing: -0.5,
                   ),
@@ -236,6 +249,9 @@ class _DiseaseContent extends StatelessWidget {
   final HistoryInjuryItemUiState uiState;
 
   final VoidCallback onPressedEdit;
+
+  Color get recoveryColor =>
+      uiState.recoveryYn == true ? ColorRes.gray9f9f9f : ColorRes.fontBlack;
 
   const _DiseaseContent({
     required this.uiState,
@@ -256,21 +272,24 @@ class _DiseaseContent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _ItemHeader(
+                _MuscleName(
                   title: StringRes.injuryTypeDisease.tr,
-                  recordDate: uiState.recoveryDate ?? '-',
+                  recoveryYn: uiState.recoveryYn ?? false,
+                ),
+                _RecoveryDate(
+                  recordDate: uiState.recordDate,
                   recoveryYn: uiState.recoveryYn,
                   recoveryDate: uiState.recoveryDate,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 10),
                 Text(
                   uiState.comment ?? '',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
                     height: 16 / 10,
                     letterSpacing: -0.5,
-                    color: ColorRes.fontBlack,
+                    color: recoveryColor,
                   ),
                 ),
               ],

@@ -117,15 +117,18 @@ class _Filter extends StatelessWidget {
         onTap: onPressed,
         child: Row(
           children: [
+            SvgPicture.asset(Assets.filter),
+            const SizedBox(width: 12),
             Text(
               StringRes.filter.tr,
               style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: ColorRes.fontBlack),
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: ColorRes.fontBlack,
+                height: 20 / 14,
+                letterSpacing: -0.5,
+              ),
             ),
-            const SizedBox(width: 14),
-            SvgPicture.asset(Assets.chevronDownBlack),
           ],
         ),
       );

@@ -18,12 +18,12 @@ enum PainType {
   /// 통증양상 : 뭉치거나 올라올 것 같은
   tightness("TIGHTNESS"),
 
-  /// 통증양상 : 특정자세에 민감
-  postureSensitive("POSTURE_SENSITIVE"),
-
   /// 통증양상 : 쑤시는
   aching("ACHING"),
 
+  /// 통증양상 : 특정자세에 민감
+  postureSensitive("POSTURE_SENSITIVE"),
+  
   /// 통증양상 : 타이트
   stiff("STIFF"),
 
