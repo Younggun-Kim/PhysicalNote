@@ -30,6 +30,7 @@ class WellnessDetailController extends BaseController {
   /// 기록 날짜
   late final recordDate = args.recordDate.obs;
 
+  /// 기록 날짜 문자
   String get formattedRecordDate =>
       recordDate.value.toFormattedString('yyyy-MM-dd');
 

@@ -329,4 +329,6 @@ final koKr = {
   StringRes.duration: '시간',
   StringRes.urineColor: 'Urine Color',
   StringRes.bodyFat: 'Body Fat',
+  StringRes.drinkGood: '양호',
+  StringRes.drinkShortage: '부족',
 };

@@ -16,3 +16,4 @@ export 'muscle_utils.dart';
 export 'color_utils.dart';
 export 'input_formatter_utils.dart';
 export 'extensions/extensions.dart';
+export 'localization/localization_utils.dart';

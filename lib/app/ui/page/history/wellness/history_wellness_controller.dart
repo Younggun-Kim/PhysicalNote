@@ -63,7 +63,7 @@ mixin HistoryWellnessController on BaseController implements HistoryFilterBase {
           ..muscleSorenessAvg = response.muscleSorenessAvg
           ..urineAvg = response.urineAvg
           ..weightAvg = response.weightAvg
-          ..differenceFat = response.differenceFat?.extractParseInt();
+          ..differenceFat = response.differenceFat;
 
         /// 평균 데이터 저장
         avgData.value = toUiState[0];

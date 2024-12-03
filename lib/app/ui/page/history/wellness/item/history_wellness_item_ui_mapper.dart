@@ -1,5 +1,6 @@
 import 'package:physical_note/app/data/wellness/model/get_wellness_response_model.dart';
 import 'package:physical_note/app/ui/page/history/wellness/history_wellness_controller.dart';
+import 'package:physical_note/app/utils/localization/localization_utils.dart';
 
 import 'history_wellness_item_ui_state.dart';
 

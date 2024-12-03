@@ -17,12 +17,14 @@ class AverageItem extends GetView<HistoryController> {
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         children: [
-          Expanded(
-            child: _HooperIndexAvg(
-              sleep: controller.avgData.value?.sleepAvg ?? 0,
-              stress: controller.avgData.value?.stressAvg ?? 0,
-              fatigue: controller.avgData.value?.fatigueAvg ?? 0,
-              muscle: controller.avgData.value?.muscleSorenessAvg ?? 0,
+          Obx(
+            () => Expanded(
+              child: _HooperIndexAvg(
+                sleep: controller.avgData.value?.sleepAvg ?? 0,
+                stress: controller.avgData.value?.stressAvg ?? 0,
+                fatigue: controller.avgData.value?.fatigueAvg ?? 0,
+                muscle: controller.avgData.value?.muscleSorenessAvg ?? 0,
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -180,10 +182,7 @@ class UrineAndBodyFat extends GetView<HistoryController> {
             text: StringRes.urineColor.tr,
             value: controller.avgData.value?.urineAvg ?? 0,
           ),
-          _UrineAvgItem(
-            text: StringRes.bodyFat.tr,
-            value: controller.avgData.value?.weightAvg ?? 0,
-          ),
+          _BodyFat(),
           const SizedBox(height: 10),
           _UrineAvgDescription(
             urine: controller.avgData.value?.urineAvg ?? 0,
@@ -237,6 +236,70 @@ class _UrineAvgItem extends StatelessWidget {
   }
 }
 
+class _BodyFat extends GetView<HistoryController> {
+  double get value => controller.avgData.value?.weightAvg ?? 0;
+
+  String get percent => controller.avgData.value?.differenceFat ?? '-';
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Row(
+        children: [
+          Text(
+            StringRes.bodyFat.tr,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: ColorRes.gray747474,
+              height: 20 / 12,
+              letterSpacing: -0.5,
+            ),
+          ),
+          const SizedBox(width: 7),
+          Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: value.toStringAsFixed(2),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.fontBlack,
+                    height: 35 / 24,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                TextSpan(
+                  text: StringRes.kg.tr,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.fontBlack,
+                    height: 35 / 24,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            "($percent%)",
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: ColorRes.fontBlack,
+              height: 35 / 24,
+              letterSpacing: -0.5,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _UrineAvgDescription extends StatelessWidget {
   final double urine;
   final double weight;
@@ -280,7 +343,7 @@ class _UrineAvgDescription extends StatelessWidget {
       } else {
         return StringRes.urineWeightGoodMoistureGood.tr;
       }
-    } else {
+    } else if(urine > 3 && urine <= 7) {
       if (weight < -2) {
         return StringRes.urineWeightLessMoistureBad.tr;
       } else if (weight > 2) {
@@ -288,6 +351,8 @@ class _UrineAvgDescription extends StatelessWidget {
       } else {
         return StringRes.urineWeightGoodMoistureBad.tr;
       }
+    } else {
+      return '';
     }
   }
 }

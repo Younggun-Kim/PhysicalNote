@@ -16,7 +16,7 @@ final enUs = {
   StringRes.password: "Password",
   StringRes.passwordHint: "Please enter your PIN number",
   StringRes.passwordError:
-  "8 characters or more including English +\nspecial characters + numbers",
+      "8 characters or more including English +\nspecial characters + numbers",
   StringRes.passwordConfirm: "Confirm password",
   StringRes.passwordNotMatched: "Passwords do not match",
   StringRes.simpleSignUp: "Sign-Up",
@@ -63,7 +63,7 @@ final enUs = {
   StringRes.female: "Female",
   StringRes.eightDigits: "8자리",
   StringRes.positionMultipleSelectionPossible:
-  "Position (Multiple Selection Available)",
+      "Position (Multiple Selection Available)",
   StringRes.mainFoot: "Preferred Foot",
   StringRes.leftFoot: "Left Foot",
   StringRes.rightFoot: "Right Foot",
@@ -108,7 +108,7 @@ final enUs = {
   StringRes.fatigueEng: "fatigue",
   StringRes.musclePain: "Muscle soreness",
   StringRes.musclePainKorEng: "근육통(muscleSoreness)",
-  StringRes.musclePainEng: "MuscleSoreness",
+  StringRes.musclePainEng: "muscle soreness",
   StringRes.urineVeryGood: "매우 양호",
   StringRes.urineGood: "양호",
   StringRes.urineAppropriate: "적정",
@@ -127,12 +127,12 @@ final enUs = {
   StringRes.lastEightWeek: "지난8주",
   StringRes.unitPercent: "(단위: %)",
   StringRes.informationRegistrationGuide:
-  "You need to register\nadditional information\nto use the app",
+      "You need to register\nadditional information\nto use the app",
   StringRes.doInformationRegistration: "Register Information",
   StringRes.wellness: "Wellness",
   StringRes.wellnessKorEng: "웰리니스 (Wellness)",
   StringRes.wellnessDescription:
-  "팀 내 피지컬 코치 및 운동코치 또는 선수 개인이 웰리니스 관련 데이터를 수집하고 분석함으로써 운동 컨디션 및 삶의 질을 관리하고, 부상을 보다 효과적으로 예방하는데 도움이 됩니다. 뿐만아니라, 경기력 향상 및 유지하는데 또한 도움이 됩니다.",
+      "팀 내 피지컬 코치 및 운동코치 또는 선수 개인이 웰리니스 관련 데이터를 수집하고 분석함으로써 운동 컨디션 및 삶의 질을 관리하고, 부상을 보다 효과적으로 예방하는데 도움이 됩니다. 뿐만아니라, 경기력 향상 및 유지하는데 또한 도움이 됩니다.",
   StringRes.injuryManagement: "Injury",
   StringRes.injuryCheck: "Injury Check",
   StringRes.injuryHistory: "부상이력",
@@ -148,7 +148,7 @@ final enUs = {
   StringRes.bmi: "Body Fat",
   StringRes.bmiPercent: "체지방률(%)",
   StringRes.compellingRequest: "대략적으로 작성해주세요.",
-  StringRes.doSave: "저장하기",
+  StringRes.doSave: "doSave",
   StringRes.save: "저장",
   StringRes.doUpdate: "수정하기",
   StringRes.hourParams: "@hour시간",
@@ -158,22 +158,22 @@ final enUs = {
   StringRes.physicalTraining: "Physical Training",
   StringRes.intensityLevelVeryEasy: "Very easy",
   StringRes.intensityLevelVeryEasyDescription:
-  "Not quite hard but,\nfeeling hard compared\nto the state of relax",
+      "Not quite hard but,\nfeeling hard compared\nto the state of relax",
   StringRes.intensityLevelEasy: "Easy",
   StringRes.intensityLevelEasyDescription:
-  "I can workout more than\ncouple of hours.\nI can easily breath and have\nconversation with peers\nduring exercise",
+      "I can workout more than\ncouple of hours.\nI can easily breath and have\nconversation with peers\nduring exercise",
   StringRes.intensityLevelNormal: "Intermediate",
   StringRes.intensityLevelNormalDescription:
-  "Heavy breathing but, can have short conversation with peers. I still feel comfortable during exercise, but it will be hard if I do work more",
+      "Heavy breathing but, can have short conversation with peers. I still feel comfortable during exercise, but it will be hard if I do work more",
   StringRes.intensityLevelHard: "Hard",
   StringRes.intensityLevelHardDescription:
-  "Feeling uncomfortable, but I can still talk with peers in a sentence",
+      "Feeling uncomfortable, but I can still talk with peers in a sentence",
   StringRes.intensityLevelVeryHard: "Very Hard",
   StringRes.intensityLevelVeryHardDescription:
-  "Feeling difficult to keep exercise",
+      "Feeling difficult to keep exercise",
   StringRes.intensityLevelOver: "Exhausted\n(more than 100%)",
   StringRes.intensityLevelOverDescription:
-  "Can't breath and impossible of keeping conversation",
+      "Can't breath and impossible of keeping conversation",
   StringRes.description: "Description",
   StringRes.intensity: "Intensity",
   StringRes.add: "추가",
@@ -182,7 +182,8 @@ final enUs = {
   StringRes.injuryTypeNonContact: "Non-contact injury",
   StringRes.injuryTypeDisease: "Illness",
   StringRes.injuryLocationSelection: "Please select the injured area.",
-  StringRes.injuryCheckDiseaseHint: "Please fill out the details of the injury and the disease.\n(Limited 40 characters)",
+  StringRes.injuryCheckDiseaseHint:
+      "Please fill out the details of the injury and the disease.\n(Limited 40 characters)",
   StringRes.front: "Front",
   StringRes.back: "Back",
   StringRes.upperBody: "Upper body",
@@ -223,9 +224,9 @@ final enUs = {
   StringRes.duringWorkout: "During exercise",
   StringRes.injuryCause: "Injury details",
   StringRes.injuryCauseHint:
-  "Please write a more detailed record of the injury.",
+      "Please write a more detailed record of the injury.",
   StringRes.noRegisteredTeam:
-  "No teams are registered.\nPlease re-register the team.",
+      "No teams are registered.\nPlease re-register the team.",
   StringRes.teamSelect: "Select Team",
   StringRes.complete: "Complete",
   StringRes.pushSelect: "Tap to select",
@@ -247,13 +248,13 @@ final enUs = {
   StringRes.injuryLevelNoPain: "No pain",
   StringRes.injuryLevelVeryHighPainDescription: "Need a doctor",
   StringRes.injuryLevelHighPainDescription:
-  "Difficult to keep exercise and ordinary movement.",
+      "Difficult to keep exercise and ordinary movement.",
   StringRes.injuryLevelInjuredDescription:
-  "Still feel pain after warming-up, and occurred restriction of performance in specific posture.",
+      "Still feel pain after warming-up, and occurred restriction of performance in specific posture.",
   StringRes.injuryLevelMildDiscomfortDescription:
-  "Capable of exericse, but the pain gets better after warming-up.",
+      "Capable of exericse, but the pain gets better after warming-up.",
   StringRes.injuryLevelModeratePainDescription:
-  "Mainly tightness and stiffness",
+      "Mainly tightness and stiffness",
   StringRes.injuryLevelNoPainDescription: "No restriction of activity",
   StringRes.tingling: "찌릿함",
   StringRes.pressure: "압박감",
@@ -276,24 +277,28 @@ final enUs = {
   StringRes.authCodeHint: "Enter the 6-digit verification code",
   StringRes.signUpComplete: "Complete Sign up",
   StringRes.registrationCompletedAfterAdminApproval:
-  'Registration will be completed after administrator approval',
+      'Registration will be completed after administrator approval',
   StringRes.writeInBodyRecord: 'Please fill it out roughly.',
   StringRes.injuryRiskVeryGood: '매우좋음',
   StringRes.injuryRiskGood: '좋음',
   StringRes.injuryRiskDangerous: '관리요망',
   StringRes.injuryRiskVeryDangerous: '매우위험',
-  StringRes.moistureGood: '수분 양호',
-  StringRes.moistureLack: '수분 부족',
+  StringRes.moistureGood: 'good',
+  StringRes.moistureLack: 'shortage',
   StringRes.trainingBalanceNone: '-',
   StringRes.trainingBalanceLess: '부족',
   StringRes.trainingBalanceNormal: '적절',
   StringRes.trainingBalanceOver: '과훈련',
-  StringRes.urineWeightLessMoistureGood: 'You need to get enough nutrition after exercising',
-  StringRes.urineWeightLessMoistureBad: 'Please pay attention to water intake management on a daily basis',
+  StringRes.urineWeightLessMoistureGood:
+      'You need to get enough nutrition after exercising',
+  StringRes.urineWeightLessMoistureBad:
+      'Please pay attention to water intake management on a daily basis',
   StringRes.urineWeightGoodMoistureGood: '식단, 수분 섭취 모두 양호합니다.',
-  StringRes.urineWeightGoodMoistureBad: 'You need to get enough water after exercising',
+  StringRes.urineWeightGoodMoistureBad:
+      'You need to get enough water after exercising',
   StringRes.urineWeightOverMoistureGood: 'Pay attention no your diet',
-  StringRes.urineWeightOverMoistureBad: 'Please pay attention to water intake management on a daily basis',
+  StringRes.urineWeightOverMoistureBad:
+      'Please pay attention to water intake management on a daily basis',
   StringRes.progress: "진행",
   StringRes.proceeding: "진행중",
   StringRes.recovery: "완치",
@@ -310,7 +315,7 @@ final enUs = {
   StringRes.historyFilterHealedInjury: 'complete injury',
   StringRes.whatWellness: 'Wellness?',
   StringRes.wellnessGuide:
-  'Physical and athletic coaches or individual athletes within the team are wellness-related Manage your exercise condition and quality of life by collecting and analyzing data, It helps prevent injuries more effectively. Not only that, It also helps improve and maintain performance.',
+      'Physical and athletic coaches or individual athletes within the team are wellness-related Manage your exercise condition and quality of life by collecting and analyzing data, It helps prevent injuries more effectively. Not only that, It also helps improve and maintain performance.',
   StringRes.workoutTimeAverage: 'Training duration',
   StringRes.workoutIntensityAverage: 'Training Intensity',
   StringRes.step: 'Stage',
@@ -334,7 +339,7 @@ final enUs = {
   StringRes.eatingNeed: '영양 섭취가 필요합니다.',
   StringRes.eatingOver: '음식양 조절이 필요합니다.',
   StringRes.enterIntensityBeforeForget: "잊기 전 운동강도를 등록해주세요.",
-  StringRes.cancel: '취소',
+  StringRes.cancel: 'Cancel',
   StringRes.waterIntakeStatus: '수분 섭취 상태',
   StringRes.verify: 'Verify',
   StringRes.reVerify: 'Re-verify',
@@ -342,4 +347,6 @@ final enUs = {
   StringRes.duration: 'Duration',
   StringRes.urineColor: 'Urine Color',
   StringRes.bodyFat: 'Body Fat',
+  StringRes.drinkGood: 'good',
+  StringRes.drinkShortage: 'shortage',
 };

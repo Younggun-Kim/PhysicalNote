@@ -10,6 +10,7 @@ import 'package:physical_note/app/ui/widgets/text_field/bottom_border_text_field
 import 'package:physical_note/app/ui/widgets/widgets.dart';
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/input_formatter_utils.dart';
+import 'package:physical_note/app/utils/localization/localization_utils.dart';
 
 /// 웰리니스 상세
 class WellnessDetailPage extends GetView<WellnessDetailController> {
@@ -77,13 +78,34 @@ class _WellnessDetailPage extends GetView<WellnessDetailController> {
                 bmiController: controller.urineBmi.controller,
               ),
             ),
-            const SizedBox(height: 24),
-            Obx(() => RoundButton(
-                  width: double.infinity,
-                  text: controller.wellnessId.value != null
-                      ? StringRes.doUpdate.tr
-                      : StringRes.doSave.tr,
-                  onPressed: controller.onPressedSave,
+            const SizedBox(height: 42),
+            Obx(() => Row(
+                  children: [
+                    if (controller.wellnessId.value != null)
+                      Expanded(
+                        child: RoundButton.gray(
+                          height: 44,
+                          text: StringRes.cancel.tr,
+                          textStyle: const TextStyle(
+                            color: ColorRes.gray9f9f9f,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                      ),
+                    if (controller.wellnessId.value != null)
+                      const SizedBox(width: 30),
+                    Expanded(
+                      child: RoundButton(
+                        width: double.infinity,
+                        text: StringRes.doSave.tr,
+                        onPressed: controller.onPressedSave,
+                      ),
+                    ),
+                  ],
                 )),
           ],
         ),
@@ -94,21 +116,19 @@ class _WellnessDetailPage extends GetView<WellnessDetailController> {
 class _FieldName extends StatelessWidget {
   final String text;
   final bool isSubTitle;
-  final bool isSmall;
 
   const _FieldName({
     required this.text,
     required this.isSubTitle,
-    this.isSmall = false,
   });
 
   @override
   Widget build(BuildContext context) => Text(
         text,
         style: TextStyle(
-          fontSize: isSmall ? 12 : 16,
+          fontSize: isSubTitle ? 12 : 16,
           fontWeight: isSubTitle ? FontWeight.w400 : FontWeight.w500,
-          color: ColorRes.fontBlack,
+          color: isSubTitle ? ColorRes.gray747474 : ColorRes.fontBlack,
         ),
       );
 }
@@ -150,8 +170,11 @@ class _Title extends StatelessWidget {
 
 /// 날짜
 class _Date extends GetView<WellnessDetailController> {
-  String get formattedDate =>
-      controller.recordDate.value.toFormattedString('yy년 M월 d일 (E)');
+  String get formattedDate => LocalizationUtil.getDateStr(
+        date: controller.formattedRecordDate,
+        koFormat: "yy년 M월 d일 (E)",
+        enFormat: 'MMMM d, yy (E)',
+      );
 
   @override
   Widget build(BuildContext context) => Obx(() => InkWellOver(
@@ -371,7 +394,6 @@ class _SliderItem extends StatelessWidget {
               _FieldName(
                 text: engTitle == null ? "" : "($engTitle)",
                 isSubTitle: true,
-                isSmall: true,
               ),
             ],
           ),

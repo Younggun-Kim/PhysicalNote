@@ -347,4 +347,6 @@ class StringRes {
   static final duration = _generateId();
   static final urineColor = _generateId();
   static final bodyFat = _generateId();
+  static final drinkGood = _generateId();
+  static final drinkShortage = _generateId();
 }

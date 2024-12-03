@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -17,23 +15,6 @@ class HistoryWellnessItem extends StatelessWidget {
 
   const HistoryWellnessItem({
     super.key,
-    required this.uiState,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) => _Content(
-        uiState: uiState,
-        onPressed: onPressed,
-      );
-}
-
-class _Content extends StatelessWidget {
-  final HistoryWellnessItemUiState uiState;
-
-  final VoidCallback onPressed;
-
-  const _Content({
     required this.uiState,
     required this.onPressed,
   });
@@ -61,7 +42,11 @@ class _Content extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    uiState.recordDate,
+                    LocalizationUtil.getDateStr(
+                      date: uiState.recordDate,
+                      koFormat: 'yy.MM.dd(E)',
+                      enFormat: "MMMM dd, yy (E)",
+                    ),
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -76,7 +61,7 @@ class _Content extends StatelessWidget {
                         label: StringRes.sleep.tr,
                         value: uiState.sleep ?? 0,
                       ),
-                      const SizedBox(width: 7),
+                      const SizedBox(width: 5),
                       _HooperIndexItem(
                         label: StringRes.fatigue.tr,
                         value: uiState.fatigue ?? 0,
@@ -90,7 +75,7 @@ class _Content extends StatelessWidget {
                         label: StringRes.stress.tr,
                         value: uiState.stress ?? 0,
                       ),
-                      const SizedBox(width: 7),
+                      const SizedBox(width: 5),
                       _HooperIndexItem(
                         label: StringRes.musclePain.tr,
                         value: uiState.muscleSoreness ?? 0,
@@ -142,15 +127,17 @@ class _HooperIndexItem extends StatelessWidget {
     fontSize: 10,
     fontWeight: FontWeight.w400,
     color: ColorRes.fontBlack,
+    letterSpacing: -0.5,
+    height: 20 / 10,
   );
 
   @override
   Widget build(BuildContext context) => Row(
         children: [
           _Circle(color: circleColor),
-          const SizedBox(width: 6),
+          const SizedBox(width: 4),
           Text('$label($value)', style: _textStyle),
-          const SizedBox(width: 7),
+          const SizedBox(width: 4),
         ],
       );
 }
@@ -163,8 +150,8 @@ class _Urine extends StatelessWidget {
   String get text => urine == null
       ? '-'
       : urine! > 3
-          ? '부족'
-          : '양호';
+          ? StringRes.drinkShortage.tr
+          : StringRes.drinkGood.tr;
 
   @override
   Widget build(BuildContext context) => SizedBox(
