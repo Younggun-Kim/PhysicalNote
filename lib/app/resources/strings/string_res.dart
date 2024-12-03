@@ -345,4 +345,6 @@ class StringRes {
   static final reVerify = _generateId();
   static final selectPosition = _generateId();
   static final duration = _generateId();
+  static final urineColor = _generateId();
+  static final bodyFat = _generateId();
 }

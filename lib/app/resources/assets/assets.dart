@@ -56,6 +56,7 @@ class Assets {
   static const String disease = 'assets/images/disease.svg';
   static const String edit03 = 'assets/images/edit03.svg';
   static const String editGreen = 'assets/images/edit_green.svg';
+  static const String exclamationMark = 'assets/images/exclamation_mark.svg';
   static const String foot = 'assets/images/foot.svg';
   static const String frontBodyEXTERNALOBLIQUE = 'assets/images/muscles/front/body/front_body_EXTERNAL_OBLIQUE.svg';
   static const String frontBodyPECTORALISMAJOR = 'assets/images/muscles/front/body/front_body_PECTORALIS_MAJOR.svg';
