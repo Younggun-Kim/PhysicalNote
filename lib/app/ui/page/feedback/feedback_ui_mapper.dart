@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/data/feedback/model/feedback_important_info_item_model.dart';
 import 'package:physical_note/app/data/feedback/model/get_feedback_response_model.dart';

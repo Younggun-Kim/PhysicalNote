@@ -7,6 +7,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:physical_note/app/config/env/environment.dart';
 import 'package:physical_note/app/config/initializer/app_initializer.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
+import 'package:physical_note/app/utils/theme/theme.dart';
 
 import 'app/config/env/config.dart';
 import 'app/resources/resources.dart';
@@ -41,9 +42,7 @@ void run({required Environment environment}) async {
         Locale('en', 'US'),
       ],
       locale: Get.deviceLocale,
-      theme: ThemeData(
-        fontFamily: "NotoSans",
-      ),
+      theme: CustomTheme.theme,
     ),
   );
 }

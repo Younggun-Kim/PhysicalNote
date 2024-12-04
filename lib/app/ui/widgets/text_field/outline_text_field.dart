@@ -57,7 +57,7 @@ class OutlineTextField extends StatelessWidget {
 
   final bool readOnly;
 
-  final bool showBoxShadow;
+  final List<BoxShadow>? boxShadow;
 
   /// 텍스트 변경 이벤트
   final ValueChanged<String>? onChanged;
@@ -91,7 +91,15 @@ class OutlineTextField extends StatelessWidget {
     this.onPressedSearch,
     this.rightWidget,
     this.readOnly = false,
-    this.showBoxShadow = true,
+    this.boxShadow = const [
+      BoxShadow(
+        color: Colors.black12,
+        spreadRadius: 0,
+        blurRadius: 10,
+        offset: Offset(0, 2),
+        blurStyle: BlurStyle.normal,
+      ),
+    ],
     this.onChanged,
     this.onSubmitted,
   });
@@ -99,10 +107,7 @@ class OutlineTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BorderRadius defaultBorderRadius =
-    BorderRadius.circular(MediaQuery
-        .of(context)
-        .size
-        .height * 0.5);
+        BorderRadius.circular(MediaQuery.of(context).size.height * 0.5);
 
     return Container(
       width: double.infinity,
@@ -114,14 +119,7 @@ class OutlineTextField extends StatelessWidget {
         color: readOnly ? ColorRes.disable : color,
         border: border ?? Border.all(color: ColorRes.borderWhite),
         borderRadius: borderRadius ?? defaultBorderRadius,
-        boxShadow: showBoxShadow ? [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.25),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, 2), // changes position of shadow
-          ),
-        ] : null,
+        boxShadow: boxShadow,
       ),
       child: Row(
         children: [
@@ -166,7 +164,7 @@ class OutlineTextField extends StatelessWidget {
               splashColor: null,
               child: Padding(
                 padding:
-                EdgeInsets.fromLTRB(0, 0, rightWidget == null ? 0 : 16, 0),
+                    EdgeInsets.fromLTRB(0, 0, rightWidget == null ? 0 : 16, 0),
                 child: SvgPicture.asset(Assets.searchRefraction),
               ),
             ),

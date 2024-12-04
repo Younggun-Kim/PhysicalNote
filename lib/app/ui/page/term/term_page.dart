@@ -66,27 +66,33 @@ class TermPage extends GetView<TermController> {
           ).paddingSymmetric(horizontal: 20),
           const SizedBox(height: 20),
           Obx(
-            () => AppCheckbox(
+            () => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: AppCheckbox(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 text: StringRes.requiredTermPrivacy.tr,
                 textStyle: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: ColorRes.fontBlack,
-                ),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: ColorRes.fontBlack,
+                    height: 20 / 14,
+                    letterSpacing: -0.7),
                 isChecked: controller.checkPrivacy.value,
                 menu: InkWellOver(
                   onTap: controller.onPressedPrivacy,
                   child: SvgPicture.asset(Assets.icChevronright),
                 ),
-                onToggle: controller.onTogglePrivacy),
-          ).paddingSymmetric(horizontal: 20),
+                onToggle: controller.onTogglePrivacy,
+              ),
+            ),
+          ),
           const Spacer(),
           SizedBox(
             width: double.infinity,
             child: Obx(
               () => RoundButton(
                 isEnabled: controller.checkAll.value,
-                text: StringRes.next.tr,
+                text: StringRes.agree.tr,
                 onPressed: controller.onPressedNextButton,
               ),
             ),

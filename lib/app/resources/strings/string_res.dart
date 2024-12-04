@@ -352,4 +352,5 @@ class StringRes {
   static final bodyFat = _generateId();
   static final drinkGood = _generateId();
   static final drinkShortage = _generateId();
+  static final agree = _generateId();
 }

@@ -334,4 +334,5 @@ final koKr = {
   StringRes.bodyFat: 'Body Fat',
   StringRes.drinkGood: '양호',
   StringRes.drinkShortage: '부족',
+  StringRes.agree: '다음',
 };

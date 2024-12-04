@@ -750,7 +750,6 @@ class _PainTimingDescription extends StatelessWidget {
         fontSize: 12,
         hint: StringRes.injuryCauseHint.tr,
         keyboardType: TextInputType.multiline,
-        showBoxShadow: false,
       );
 }
 

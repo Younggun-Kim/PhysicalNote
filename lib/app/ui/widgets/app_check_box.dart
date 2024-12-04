@@ -52,6 +52,7 @@ class AppCheckbox extends StatelessWidget {
                     : CrossFadeState.showSecond,
                 duration: const Duration(milliseconds: 100),
               ),
+              const SizedBox(width: 6),
               Visibility(
                 visible: text.isNotEmpty,
                 child: Expanded(
@@ -68,6 +69,7 @@ class AppCheckbox extends StatelessWidget {
                   ),
                 ),
               ),
+              if (hasMenu) const SizedBox(width: 40),
               hasMenu
                   ? Align(
                       alignment: Alignment.centerRight,
