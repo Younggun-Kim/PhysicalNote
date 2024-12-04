@@ -346,7 +346,6 @@ final _koMuscleName = {
   StringRes.DELTOID: "삼각근",
   StringRes.BICEPS: "이두근",
   StringRes.BRACHIORADIALIS: "완요골근",
-  StringRes.ROTATORCUFF: "회전근개",
   StringRes.BRACHIALIS: "상완근",
   StringRes.PRONATOR_TERES: "원회내근",
   StringRes.PALMARIS_LONGUS: "장장근",
@@ -370,4 +369,6 @@ final _koMuscleName = {
   StringRes.VASTUS_INTERMEDIUS: "중간광근",
   StringRes.GASTROCNEMIUS: "비복근",
   StringRes.SOLEUS: "가자미근",
+  StringRes.GLUTE: "둔근",
+  StringRes.CORACOBRACHIALIS: "오훼완근",
 };

@@ -90,7 +90,6 @@ class StringRes {
   static final DELTOID = _generateId(); // 삼각근
   static final BICEPS = _generateId(); // 이두근
   static final BRACHIORADIALIS = _generateId(); // 완요골근
-  static final ROTATORCUFF = _generateId(); // 회전근개
   static final BRACHIALIS = _generateId(); // 상완근
   static final PRONATOR_TERES = _generateId(); // 원회내근
   static final PALMARIS_LONGUS = _generateId(); // 장장근
@@ -114,6 +113,8 @@ class StringRes {
   static final VASTUS_INTERMEDIUS = _generateId(); // 중간광근
   static final GASTROCNEMIUS = _generateId(); // 비복근
   static final SOLEUS = _generateId(); // 가자미근
+  static final GLUTE = _generateId(); // 둔근
+  static final CORACOBRACHIALIS = _generateId(); // 오훼완근
 
   /// 생성자.
   const StringRes._();

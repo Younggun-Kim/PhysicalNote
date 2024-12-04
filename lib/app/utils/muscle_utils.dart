@@ -131,8 +131,6 @@ class MuscleUtils {
               return Assets.frontLeftArmDELTOID;
             case MuscleType.pronatorTeres:
               return Assets.frontLeftArmPRONATORTERES;
-            case MuscleType.rotatorcuff:
-              return Assets.frontLeftArmROTATORCUFF;
             case MuscleType.palmarisLongus: // 장장근
               return Assets.frontLeftArmSERRATUSANTERIOR;
             case MuscleType.triceps:
@@ -152,8 +150,6 @@ class MuscleUtils {
               return Assets.frontRightArmDELTOID;
             case MuscleType.pronatorTeres:
               return Assets.frontRightArmPRONATORTERES;
-            case MuscleType.rotatorcuff:
-              return Assets.frontRightArmROTATORCUFF;
             case MuscleType.palmarisLongus: // 장장근
               return Assets.frontRightArmSERRATUSANTERIOR;
             case MuscleType.triceps:
@@ -305,7 +301,7 @@ class MuscleUtils {
           }
         case BodyPartsType.leftLeg:
           switch (muscle) {
-            case MuscleType.gluteus:
+            case MuscleType.glute:
               return Assets.backLeftLegGLUTEUS;
             case MuscleType.itBand:
               return Assets.backLeftLegILIOTIBIALBAND;
@@ -326,7 +322,7 @@ class MuscleUtils {
           }
         case BodyPartsType.rightLeg:
           switch (muscle) {
-            case MuscleType.gluteus:
+            case MuscleType.glute:
               return Assets.backRightLegGLUTEUS;
             case MuscleType.itBand:
               return Assets.backRightLegILIOTIBIALBAND;

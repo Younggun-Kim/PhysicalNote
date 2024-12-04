@@ -41,7 +41,8 @@ enum MuscleType {
   flexorCarpiRadialis("FLEXOR_CARPI_RADIALIS"),
 
   /// 둔근
-  gluteus("GLUTEUS"),
+  // gluteus("GLUTEUS"),
+  glute("GLUTE"),
 
   /// 비복근
   // gracilis("GRACILIS"),
@@ -51,11 +52,8 @@ enum MuscleType {
   iliacus("ILIACUS"),
 
   /// 오훼완근
-  // TODO: 삭제 예정
-  infraspinatus("INFRASPINATUS"),
-
-  /// 회전근개
-  rotatorcuff("ROTATORCUFF"),
+  // infraspinatus("INFRASPINATUS"),
+  coracobrachialis("CORACOBRACHIALIS"),
 
   /// 대퇴직근
   // largeRetirement("LARGE_RETIREMENT"),
@@ -170,8 +168,6 @@ enum MuscleType {
         return StringRes.BICEPS.tr;
       case brachioradialis:
         return StringRes.BRACHIORADIALIS.tr;
-      case rotatorcuff:
-        return StringRes.ROTATORCUFF.tr;
       case brachialis:
         return StringRes.BRACHIALIS.tr;
       case pronatorTeres:
@@ -218,16 +214,16 @@ enum MuscleType {
         return StringRes.GASTROCNEMIUS.tr;
       case soleus:
         return StringRes.SOLEUS.tr;
+      case glute:
+        return StringRes.GLUTE.tr;
+      case coracobrachialis:
+        return StringRes.CORACOBRACHIALIS.tr;
       case bicepsFemoris:
         return "반건,반막양근";
       case extensorCarpiUlnaris2:
         return "충지신근";
       case flexorCarpiRadialis:
         return "주근";
-      case gluteus:
-        return "둔근";
-      case infraspinatus:
-        return "오훼완근";
       case latissimusDorsi:
         return "광배근";
       case oblique:
@@ -245,9 +241,34 @@ enum MuscleType {
     }
   }
 
+  /// 앞 - 몸통 근육.
+  static List<MuscleType> getFrontBodyMuscles() {
+    return [
+      trapezius,
+      pectoralisMajor,
+      externalOblique,
+      rectusAbdominis,
+    ];
+  }
+
+  /// 앞 - 팔 근육.
+  static List<MuscleType> getFrontArmMuscles() {
+    return [
+      coracobrachialis,
+      triceps,
+      brachialis,
+      pronatorTeres,
+      deltoid,
+      biceps,
+      brachioradialis,
+      palmarisLongus,
+    ];
+  }
+
   /// 앞 - 하체 - 다리 목록.
   static List<MuscleType> getFrontLegMuscles() {
     return [
+      glute,
       tensorFasciaeLatae,
       sartorius,
       vastusLateralis,
@@ -273,7 +294,7 @@ enum MuscleType {
   /// 뒤 - 다리 목록.
   static List<MuscleType> getBackLegMuscles() {
     return [
-      gluteus,
+      glute,
       itBand,
       rectusFemoris2,
       gastrocnemius,
@@ -281,20 +302,6 @@ enum MuscleType {
       adductorMagnus,
       gracilis,
       bicepsFemoris,
-    ];
-  }
-
-  /// 앞 - 팔 근육.
-  static List<MuscleType> getFrontArmMuscles() {
-    return [
-      biceps,
-      brachialis,
-      brachioradialis,
-      deltoid,
-      pronatorTeres,
-      rotatorcuff,
-      palmarisLongus,
-      triceps,
     ];
   }
 
@@ -311,16 +318,6 @@ enum MuscleType {
     ];
   }
 
-  /// 앞 - 몸통 근육.
-  static List<MuscleType> getFrontBodyMuscles() {
-    return [
-      trapezius,
-      pectoralisMajor,
-      externalOblique,
-      rectusAbdominis,
-    ];
-  }
-
   /// 뒤 - 몸통 근육.
   static List<MuscleType> getBackBodyMuscles() {
     return [
@@ -328,31 +325,6 @@ enum MuscleType {
       quadratusLumborum,
       latissimusDorsi,
       semitendinosus,
-    ];
-  }
-
-  /// 앞 - 하체 - 왼쪽 - 다리 목록
-  static List<MuscleType> getFrontLeftLegMuscles() {
-    return [
-      adductorLongus,
-      adductorMagnus,
-      extensorHallucisLongus,
-      extensorDigitorumLongus,
-      gastrocnemius,
-      iliacus,
-      rectusFemoris,
-      vastusLateralis,
-      vastusMedialis,
-      fibularisLongus,
-      vastusIntermedius,
-      psoasMajor,
-      pectineus,
-      soleus,
-      itBand,
-      gracilis,
-      tensorFasciaeLatae,
-      sartorius,
-      tibialisAnterior,
     ];
   }
 }
