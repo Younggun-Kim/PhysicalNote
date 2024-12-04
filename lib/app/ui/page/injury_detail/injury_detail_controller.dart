@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:physical_note/app/config/constant/index.dart';
 import 'package:physical_note/app/data/injury/injury_api.dart';
 import 'package:physical_note/app/data/injury/model/delete_injury_response_model.dart';
@@ -233,7 +234,8 @@ class InjuryDetailController extends BaseController {
 
     if (direction == DistinctionType.front) {
       if (partsType == BodyPartsType.body) {
-        asset = Assets.muscleFrontBody;
+        asset =
+            IntlEx.isKor ? Assets.muscleFrontBody : Assets.muscleFrontBodyEn;
       } else if (partsType == BodyPartsType.leftArm) {
         asset = Assets.muscleFrontLeftArm;
       } else if (partsType == BodyPartsType.rightArm) {

@@ -80,6 +80,12 @@ class StringRes {
   static final historyFilterProgressInjury = _generateId();
   static final historyFilterHealedInjury = _generateId();
 
+  /// 근육명 - 앞 - 몸
+  static final TRAPEZIUS = _generateId(); // 승모근
+  static final PECTORALIS_MAJOR = _generateId(); // 대흉근
+  static final EXTERNAL_OBLIQUE = _generateId(); // 외복사근
+  static final RECTUS_ABDOMINIS = _generateId(); // 복직근
+
   /// 생성자.
   const StringRes._();
 

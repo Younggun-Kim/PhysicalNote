@@ -143,6 +143,7 @@ class Assets {
   static const String muscleBackRightLeg = 'assets/images/muscle_back_right_leg.svg';
   static const String muscleFrontArmRight = 'assets/images/muscle_front_arm_right.svg';
   static const String muscleFrontBody = 'assets/images/muscle_front_body.svg';
+  static const String muscleFrontBodyEn = 'assets/images/muscle_front_body_en.svg';
   static const String muscleFrontLeftArm = 'assets/images/muscle_front_left_arm.svg';
   static const String muscleFrontLeftLeg = 'assets/images/muscle_front_left_leg.svg';
   static const String muscleFrontRightArm = 'assets/images/muscle_front_right_arm.svg';

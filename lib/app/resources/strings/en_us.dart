@@ -1,6 +1,7 @@
 part of 'translations.dart';
 
 final enUs = {
+  ..._enMuscleName,
   StringRes.appName: "Physical Note",
   StringRes.serverError: 'Server Error',
   StringRes.notification: "알림",
@@ -354,4 +355,15 @@ final enUs = {
   StringRes.drinkGood: 'good',
   StringRes.drinkShortage: 'shortage',
   StringRes.agree: 'Agree',
+};
+
+final _enMuscleName =  {
+  ..._enMuscleFrontBody,
+};
+
+final _enMuscleFrontBody = {
+  StringRes.TRAPEZIUS: "TRAPEZIUS",
+  StringRes.PECTORALIS_MAJOR: "PECTORALIS_MAJOR",
+  StringRes.EXTERNAL_OBLIQUE: "EXTERNAL_OBLIQUE",
+  StringRes.RECTUS_ABDOMINIS: "RECTUS_ABDOMINIS"
 };

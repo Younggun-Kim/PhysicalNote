@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/resources/resources.dart';
 
 /// 근육 타입.
 enum MuscleType {
@@ -141,6 +142,14 @@ enum MuscleType {
 
   String toKor() {
     switch (this) {
+      case trapezius:
+        return StringRes.TRAPEZIUS.tr;
+      case pectoralisMajor:
+        return StringRes.PECTORALIS_MAJOR.tr;
+      case externalOblique:
+        return StringRes.EXTERNAL_OBLIQUE.tr;
+      case rectusAbdominis:
+        return StringRes.RECTUS_ABDOMINIS.tr;
       case adductorLongus:
         return "장내전근";
       case adductorMagnus:
@@ -161,8 +170,6 @@ enum MuscleType {
         return "장모지신근";
       case extensorDigitorumLongus:
         return "장지신근";
-      case externalOblique:
-        return "외복사근";
       case flexorCarpiRadialis:
         return "주근";
       case gluteus:
@@ -187,8 +194,6 @@ enum MuscleType {
         return "소원근";
       case palmarisLongus:
         return "척측수근신근";
-      case pectoralisMajor:
-        return "대흉근";
       case peroneusBrevis:
         return "장비골근";
       case peroneusLongus:
@@ -201,8 +206,6 @@ enum MuscleType {
         return "치골근";
       case quadratusLumborum:
         return "대원근";
-      case rectusAbdominis:
-        return "복직근";
       case rectusFemoris:
         return "대퇴이두근";
       case sartorius:
@@ -223,8 +226,6 @@ enum MuscleType {
         return "봉공근";
       case tibialisAnterior:
         return "전경골근";
-      case trapezius:
-        return "승모근";
       case triceps:
         return "삼두근";
     }

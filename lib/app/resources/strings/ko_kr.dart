@@ -2,6 +2,7 @@ part of 'translations.dart';
 
 /// 한국어.
 final koKr = {
+  ..._koMuscleName,
   StringRes.appName: "Physical Note",
   StringRes.serverError: '서버 에러',
   StringRes.notification: "알림",
@@ -335,4 +336,15 @@ final koKr = {
   StringRes.drinkGood: '양호',
   StringRes.drinkShortage: '부족',
   StringRes.agree: '다음',
+};
+
+final _koMuscleName = {
+  ..._koMuscleFrontBody,
+};
+
+final _koMuscleFrontBody = {
+  StringRes.TRAPEZIUS: "승모근",
+  StringRes.PECTORALIS_MAJOR: "대흉근",
+  StringRes.EXTERNAL_OBLIQUE: "외복사근",
+  StringRes.RECTUS_ABDOMINIS: "복직근"
 };
