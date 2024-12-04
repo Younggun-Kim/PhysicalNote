@@ -152,6 +152,7 @@ class Assets {
   static const String muscleFrontRightArmEn = 'assets/images/muscle_front_right_arm_en.svg';
   static const String muscleFrontRightLeg = 'assets/images/muscle_front_right_leg.svg';
   static const String muscleFrontRightLegEn = 'assets/images/muscle_front_right_leg_en.svg';
+  static const String muscleFrontRightLegEn2 = 'assets/images/muscle_front_right_leg_en2.svg';
   static const String naver = 'assets/images/naver.svg';
   static const String navigationData = 'assets/images/navigation_data.svg';
   static const String navigationDataSelect = 'assets/images/navigation_data_select.svg';
