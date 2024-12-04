@@ -137,10 +137,15 @@ class Assets {
   static const String kakaotalk = 'assets/images/kakaotalk.svg';
   static const String logo = 'assets/images/logo.svg';
   static const String muscleBackBody = 'assets/images/muscle_back_body.svg';
+  static const String muscleBackBodyEn = 'assets/images/muscle_back_body_en.svg';
   static const String muscleBackLeftArm = 'assets/images/muscle_back_left_arm.svg';
+  static const String muscleBackLeftArmEn = 'assets/images/muscle_back_left_arm_en.svg';
   static const String muscleBackLeftLeg = 'assets/images/muscle_back_left_leg.svg';
+  static const String muscleBackLeftLegEn = 'assets/images/muscle_back_left_leg_en.svg';
   static const String muscleBackRightArm = 'assets/images/muscle_back_right_arm.svg';
+  static const String muscleBackRightArmEn = 'assets/images/muscle_back_right_arm_en.svg';
   static const String muscleBackRightLeg = 'assets/images/muscle_back_right_leg.svg';
+  static const String muscleBackRightLegEn = 'assets/images/muscle_back_right_leg_en.svg';
   static const String muscleFrontArmRight = 'assets/images/muscle_front_arm_right.svg';
   static const String muscleFrontBody = 'assets/images/muscle_front_body.svg';
   static const String muscleFrontBodyEn = 'assets/images/muscle_front_body_en.svg';

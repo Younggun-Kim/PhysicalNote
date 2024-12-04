@@ -7,7 +7,6 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail_controller.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail_pain_symptom_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 /// 부상체크 상세 UI

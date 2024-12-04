@@ -1,8 +1,6 @@
 import 'package:physical_note/app/data/intensity/model/get_intensity_list_item_response_model.dart';
 import 'package:physical_note/app/ui/page/history/intensity/history_intensity_controller.dart';
 import 'package:physical_note/app/ui/page/history/intensity/item/history_intensity_item_ui_state.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
-import 'package:physical_note/app/utils/logger/logger.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:uuid/uuid.dart';
 

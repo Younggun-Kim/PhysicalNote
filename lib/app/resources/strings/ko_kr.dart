@@ -331,8 +331,8 @@ final koKr = {
   StringRes.reVerify: '재인증',
   StringRes.selectPosition: '포지션 선택',
   StringRes.duration: '시간',
-  StringRes.urineColor: 'Urine Color',
-  StringRes.bodyFat: 'Body Fat',
+  StringRes.urineColor: '수분평균',
+  StringRes.bodyFat: '체지방률',
   StringRes.drinkGood: '양호',
   StringRes.drinkShortage: '부족',
   StringRes.agree: '다음',
@@ -379,4 +379,6 @@ final _koMuscleName = {
   StringRes.EXTENSOR_DIGITORUM: "총지신근",
   StringRes.ANCONEUS: "주근",
   StringRes.EXTENSOR_CARPI_ULNARIS: "척측수근신근",
+  StringRes.BICEPS_FEMORIS: "대퇴이두근",
+  StringRes.SEMIMEMBRANOSUS: "반건반막양근",
 };

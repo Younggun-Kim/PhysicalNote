@@ -254,15 +254,25 @@ class InjuryDetailController extends BaseController {
       }
     } else if (direction == DistinctionType.back) {
       if (partsType == BodyPartsType.body) {
-        asset = Assets.muscleBackBody;
+        asset = IntlEx.isKor
+            ? Assets.muscleBackBody
+            : Assets.muscleBackBodyEn;
       } else if (partsType == BodyPartsType.leftArm) {
-        asset = Assets.muscleBackLeftArm;
+        asset = IntlEx.isKor
+            ? Assets.muscleBackLeftArm
+            : Assets.muscleBackLeftArmEn;
       } else if (partsType == BodyPartsType.rightArm) {
-        asset = Assets.muscleBackRightArm;
+        asset = IntlEx.isKor
+            ? Assets.muscleBackRightArm
+            : Assets.muscleBackRightArmEn;
       } else if (partsType == BodyPartsType.leftLeg) {
-        asset = Assets.muscleBackLeftLeg;
+        asset = IntlEx.isKor
+            ? Assets.muscleBackLeftLeg
+            : Assets.muscleBackLeftLegEn;
       } else if (partsType == BodyPartsType.rightLeg) {
-        asset = Assets.muscleBackRightLeg;
+        asset = IntlEx.isKor
+            ? Assets.muscleBackRightLeg
+            : Assets.muscleBackRightLegEn;
       }
     }
 
@@ -272,7 +282,6 @@ class InjuryDetailController extends BaseController {
       const selectedMuscleColor = "E4FAC1";
       final muscleId = selectedMuscleType.value?.name;
 
-      logger.i(muscleId);
       var svgString = await MuscleUtils.loadSvgFile(asset);
 
       if (muscleId != null) {

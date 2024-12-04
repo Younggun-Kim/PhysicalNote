@@ -314,6 +314,7 @@ class _UrineAvgDescription extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(width: 4),
         SvgPicture.asset(Assets.exclamationMark),
         const SizedBox(width: 16),
         Expanded(

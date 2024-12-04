@@ -9,7 +9,7 @@ class API extends GetConnect {
 
   final prodServer = 'https://dev.physicalnote.com';
 
-  final devServer = 'https://dev.hajinj.com';
+  final devServer = 'https://dev.physicalnote.com';
 
   /// 기본 Path.
   final String basePath;

@@ -123,6 +123,8 @@ class StringRes {
   static final EXTENSOR_DIGITORUM = _generateId(); // 총지신근
   static final ANCONEUS = _generateId(); // 주근
   static final EXTENSOR_CARPI_ULNARIS = _generateId(); // 척측수근신근
+  static final BICEPS_FEMORIS = _generateId(); // 대퇴이두근
+  static final SEMIMEMBRANOSUS = _generateId(); // 반건반막양근
 
   /// 생성자.
   const StringRes._();

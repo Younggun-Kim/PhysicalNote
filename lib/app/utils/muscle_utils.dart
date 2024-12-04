@@ -315,7 +315,7 @@ class MuscleUtils {
               return Assets.backLeftLegADDUCTORMAGNUS;
             case MuscleType.gracilis:
               return Assets.backLeftLegSOLEUS;
-            case MuscleType.bicepsFemoris:
+            case MuscleType.semimembranosus:
               return Assets.backLeftLegBICEPSFEMORIS;
             default:
               return null;
@@ -336,7 +336,7 @@ class MuscleUtils {
               return Assets.backRightLegADDUCTORMAGNUS;
             case MuscleType.gracilis:
               return Assets.backRightLegSOLEUS;
-            case MuscleType.bicepsFemoris:
+            case MuscleType.semimembranosus:
               return Assets.backRightLegBICEPSFEMORIS;
             default:
               return null;

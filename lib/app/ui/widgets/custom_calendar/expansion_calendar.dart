@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'package:table_calendar/table_calendar.dart';
 

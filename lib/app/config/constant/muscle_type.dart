@@ -13,7 +13,8 @@ enum MuscleType {
   biceps("BICEPS"),
 
   /// 반건반막양근
-  bicepsFemoris("BICEPS_FEMORIS"),
+  // bicepsFemoris2("BICEPS_FEMORIS"),
+  semimembranosus("SEMIMEMBRANOSUS"),
 
   /// 상완근
   brachialis("BRACHIALIS"),
@@ -46,7 +47,7 @@ enum MuscleType {
   // gluteus("GLUTEUS"),
   glute("GLUTE"),
 
-  /// 비복근
+  /// 배복근
   // gracilis("GRACILIS"),
   gastrocnemius("GASTROCNEMIUS"),
 
@@ -109,7 +110,8 @@ enum MuscleType {
   rectusAbdominis("RECTUS_ABDOMINIS"),
 
   /// 대퇴이두근
-  rectusFemoris2("RECTUS_FEMORIS"),
+  // rectusFemoris2("RECTUS_FEMORIS"),
+  bicepsFemoris("BICEPS_FEMORIS"),
 
   /// 가자미근
   // sartorius("SARTORIUS"),
@@ -241,9 +243,9 @@ enum MuscleType {
       case extensorCarpiUlnaris:
         return StringRes.EXTENSOR_CARPI_ULNARIS.tr;
       case bicepsFemoris:
-        return "반건,반막양근";
-      case rectusFemoris2:
-        return "대퇴이두근";
+        return StringRes.BICEPS_FEMORIS.tr;
+      case semimembranosus:
+        return StringRes.SEMIMEMBRANOSUS.tr;
     }
   }
 
@@ -325,12 +327,12 @@ enum MuscleType {
     return [
       glute,
       itBand,
-      rectusFemoris2,
+      bicepsFemoris,
       gastrocnemius,
       soleus,
       adductorMagnus,
       gracilis,
-      bicepsFemoris,
+      semimembranosus,
     ];
   }
 }
