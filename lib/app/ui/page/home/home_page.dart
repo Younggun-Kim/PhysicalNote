@@ -911,7 +911,7 @@ class _Intensity extends GetView<HomeController> {
             const SizedBox(height: 2),
             Obx(
               () => Text(
-                '${StringRes.duration.tr} : ${controller.intensityTime.value}',
+                '${StringRes.duration.tr} ${controller.intensityTime.value}',
                 style: const TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
