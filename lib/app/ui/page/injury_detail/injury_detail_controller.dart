@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:physical_note/app/config/constant/index.dart';
 import 'package:physical_note/app/data/injury/injury_api.dart';
 import 'package:physical_note/app/data/injury/model/delete_injury_response_model.dart';
@@ -237,13 +236,21 @@ class InjuryDetailController extends BaseController {
         asset =
             IntlEx.isKor ? Assets.muscleFrontBody : Assets.muscleFrontBodyEn;
       } else if (partsType == BodyPartsType.leftArm) {
-        asset = Assets.muscleFrontLeftArm;
+        asset = IntlEx.isKor
+            ? Assets.muscleFrontLeftArm
+            : Assets.muscleFrontLeftArmEn;
       } else if (partsType == BodyPartsType.rightArm) {
-        asset = Assets.muscleFrontRightArm;
+        asset = IntlEx.isKor
+            ? Assets.muscleFrontRightArm
+            : Assets.muscleFrontRightArmEn;
       } else if (partsType == BodyPartsType.leftLeg) {
-        asset = Assets.muscleFrontLeftLeg;
+        asset = IntlEx.isKor
+            ? Assets.muscleFrontLeftLeg
+            : Assets.muscleFrontLeftLegEn;
       } else if (partsType == BodyPartsType.rightLeg) {
-        asset = Assets.muscleFrontRightLeg;
+        asset = IntlEx.isKor
+            ? Assets.muscleFrontRightLeg
+            : Assets.muscleFrontRightLegEn;
       }
     } else if (direction == DistinctionType.back) {
       if (partsType == BodyPartsType.body) {

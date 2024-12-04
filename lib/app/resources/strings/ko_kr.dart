@@ -339,12 +339,35 @@ final koKr = {
 };
 
 final _koMuscleName = {
-  ..._koMuscleFrontBody,
-};
-
-final _koMuscleFrontBody = {
   StringRes.TRAPEZIUS: "승모근",
   StringRes.PECTORALIS_MAJOR: "대흉근",
   StringRes.EXTERNAL_OBLIQUE: "외복사근",
-  StringRes.RECTUS_ABDOMINIS: "복직근"
+  StringRes.RECTUS_ABDOMINIS: "복직근",
+  StringRes.DELTOID: "삼각근",
+  StringRes.BICEPS: "이두근",
+  StringRes.BRACHIORADIALIS: "완요골근",
+  StringRes.ROTATORCUFF: "회전근개",
+  StringRes.BRACHIALIS: "상완근",
+  StringRes.PRONATOR_TERES: "원회내근",
+  StringRes.PALMARIS_LONGUS: "장장근",
+  StringRes.TRICEPS: "삼두근",
+  StringRes.TENSOR_FASCIAE_LATAE: "대퇴근막장근",
+  StringRes.SARTORIUS: "봉공근",
+  StringRes.VASTUS_LATERALIS: "외측광근",
+  StringRes.RECTUS_FEMORIS: "대퇴직근",
+  StringRes.IT_BAND: "장경인대",
+  StringRes.EXTENSOR_DIGITORUM_LONGUS: "장지신근",
+  StringRes.TIBIALIS_ANTERIOR: "전경골근",
+  StringRes.FIBULARIS_LONGUS: "장비골근",
+  StringRes.EXTENSOR_HALLUCIS_LONGUS: "장모지신근",
+  StringRes.ILIACUS: "장골근",
+  StringRes.PSOAS_MAJOR: "대요근",
+  StringRes.PECTINEUS: "치골근",
+  StringRes.ADDUCTOR_LONGUS: "장내전근",
+  StringRes.ADDUCTOR_MAGNUS: "대내전근",
+  StringRes.GRACILIS: "박근",
+  StringRes.VASTUS_MEDIALIS: "내측광근",
+  StringRes.VASTUS_INTERMEDIUS: "중간광근",
+  StringRes.GASTROCNEMIUS: "비복근",
+  StringRes.SOLEUS: "가자미근",
 };

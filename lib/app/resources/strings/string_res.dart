@@ -86,6 +86,35 @@ class StringRes {
   static final EXTERNAL_OBLIQUE = _generateId(); // 외복사근
   static final RECTUS_ABDOMINIS = _generateId(); // 복직근
 
+  /// 근육명 - 팔
+  static final DELTOID = _generateId(); // 삼각근
+  static final BICEPS = _generateId(); // 이두근
+  static final BRACHIORADIALIS = _generateId(); // 완요골근
+  static final ROTATORCUFF = _generateId(); // 회전근개
+  static final BRACHIALIS = _generateId(); // 상완근
+  static final PRONATOR_TERES = _generateId(); // 원회내근
+  static final PALMARIS_LONGUS = _generateId(); // 장장근
+  static final TRICEPS = _generateId(); // 삼두근
+  static final TENSOR_FASCIAE_LATAE = _generateId(); // 대퇴근막장근
+  static final SARTORIUS = _generateId(); // 봉공근
+  static final VASTUS_LATERALIS = _generateId(); // 외측광근
+  static final RECTUS_FEMORIS = _generateId(); // 대퇴직근
+  static final IT_BAND = _generateId(); // 장경인대
+  static final EXTENSOR_DIGITORUM_LONGUS = _generateId(); // 장지신근
+  static final TIBIALIS_ANTERIOR = _generateId(); // 전경골근
+  static final FIBULARIS_LONGUS = _generateId(); // 장비골근
+  static final EXTENSOR_HALLUCIS_LONGUS = _generateId(); // 장모지신근
+  static final ILIACUS = _generateId(); // 장골근
+  static final PSOAS_MAJOR = _generateId(); // 대요근
+  static final PECTINEUS = _generateId(); // 치골근
+  static final ADDUCTOR_LONGUS = _generateId(); // 장내전근
+  static final ADDUCTOR_MAGNUS = _generateId(); // 대내전근
+  static final GRACILIS = _generateId(); // 박근
+  static final VASTUS_MEDIALIS = _generateId(); // 내측광근
+  static final VASTUS_INTERMEDIUS = _generateId(); // 중간광근
+  static final GASTROCNEMIUS = _generateId(); // 비복근
+  static final SOLEUS = _generateId(); // 가자미근
+
   /// 생성자.
   const StringRes._();
 
