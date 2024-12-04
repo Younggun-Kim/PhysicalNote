@@ -39,44 +39,41 @@ class FeedbackPage extends GetView<FeedbackController> {
               ),
             ];
           },
-          body: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _FieldName(
-                    text: StringRes.todayFeedback.tr,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _FieldName(
+                  text: StringRes.todayFeedback.tr,
+                ),
+                const SizedBox(height: 20),
+                _TodayFeedback(),
+                const SizedBox(height: 20),
+                _FieldName(
+                  text: StringRes.monthlySchedule.tr,
+                ),
+                const SizedBox(height: 20),
+                _MonthlySchedule(),
+                Obx(
+                  () => _EmptyText(
+                    visible: controller.monthlySchedule.toList().isEmpty,
                   ),
-                  const SizedBox(height: 20),
-                  _TodayFeedback(),
-                  const SizedBox(height: 20),
-                  _FieldName(
-                    text: StringRes.monthlySchedule.tr,
+                ),
+                const SizedBox(height: 20),
+                _FieldName(
+                  text: StringRes.todaySchedule.tr,
+                ),
+                const SizedBox(height: 20),
+                _TodaySchedule(),
+                Obx(
+                  () => _EmptyText(
+                    visible: controller.todaySchedule.toList().isEmpty,
                   ),
-                  const SizedBox(height: 20),
-                  _MonthlySchedule(),
-                  Obx(
-                    () => _EmptyText(
-                      visible: controller.monthlySchedule.toList().isEmpty,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  _FieldName(
-                    text: StringRes.todaySchedule.tr,
-                  ),
-                  const SizedBox(height: 20),
-                  _TodaySchedule(),
-                  Obx(
-                    () => _EmptyText(
-                      visible: controller.todaySchedule.toList().isEmpty,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  _ContactDedicatedCoach(),
-                  const SizedBox(height: 20),
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                _ContactDedicatedCoach(),
+                const SizedBox(height: 20),
+              ],
             ),
           ),
         ),
@@ -90,11 +87,14 @@ class _FieldName extends StatelessWidget {
   const _FieldName({required this.text});
 
   @override
-  Widget build(BuildContext context) => Text(
-        text,
-        style: const TextStyle(
-          fontSize: 20,
-          color: ColorRes.fontBlack,
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 20,
+            color: ColorRes.fontBlack,
+          ),
         ),
       );
 }
@@ -105,34 +105,37 @@ class _TodayFeedback extends GetView<FeedbackController> {
   Widget build(BuildContext context) => Container(
         height: 220,
         alignment: Alignment.topLeft,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.symmetric(horizontal: 30),
         decoration: BoxDecoration(
           color: ColorRes.white,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: ColorRes.borderWhite),
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(color: ColorRes.gray3),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.25),
-              spreadRadius: 1,
-              blurRadius: 4,
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 0,
+              blurRadius: 10,
               offset: const Offset(0, 2),
               blurStyle: BlurStyle.normal,
             ),
           ],
         ),
         child: Obx(
-          () => SingleChildScrollView(child: Text(
-            controller.todayFeedback.value.isEmpty
-                ? StringRes.emptyFeedback.tr
-                : controller.todayFeedback.value,
-            style: TextStyle(
-              fontSize: 16,
-              color: controller.todayFeedback.value.isEmpty
-                  ? ColorRes.fontDisable
-                  : ColorRes.fontBlack,
-              fontWeight: FontWeight.w400,
+          () => SingleChildScrollView(
+            child: Text(
+              controller.todayFeedback.value.isEmpty
+                  ? StringRes.emptyFeedback.tr
+                  : controller.todayFeedback.value,
+              style: TextStyle(
+                fontSize: 16,
+                color: controller.todayFeedback.value.isEmpty
+                    ? ColorRes.fontDisable
+                    : ColorRes.fontBlack,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          ),),
+          ),
         ),
       );
 }

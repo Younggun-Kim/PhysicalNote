@@ -201,7 +201,9 @@ class _Weight extends StatelessWidget {
 
   const _Weight({required this.weight});
 
-  String get text => weight == null ? '-kg' : '$weight';
+  int? get weightInt => weight?.toInt();
+
+  String get text => weight == null ? '-kg' : '$weightInt';
 
   @override
   Widget build(BuildContext context) => SizedBox(

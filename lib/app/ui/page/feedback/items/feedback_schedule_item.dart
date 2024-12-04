@@ -12,16 +12,16 @@ class FeedbackScheduleItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         alignment: Alignment.topLeft,
+        margin: const EdgeInsets.symmetric(horizontal: 30),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           color: ColorRes.white,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: ColorRes.borderWhite),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.25),
-              spreadRadius: 1,
-              blurRadius: 4,
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 0,
+              blurRadius: 8,
               offset: const Offset(0, 2),
               blurStyle: BlurStyle.normal,
             ),
@@ -145,11 +145,13 @@ class _Content extends StatelessWidget {
                 "$fieldName - ",
                 style: textStyle,
               ),
-              Expanded(child: Text(
-                content ?? "",
-                style: textStyle,
-                softWrap: true,
-              ),),
+              Expanded(
+                child: Text(
+                  content ?? "",
+                  style: textStyle,
+                  softWrap: true,
+                ),
+              ),
             ],
           ),
         ),

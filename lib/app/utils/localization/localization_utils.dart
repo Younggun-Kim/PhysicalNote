@@ -18,4 +18,21 @@ class LocalizationUtil {
       return date;
     }
   }
+  
+  static String getDateStrFromDate({
+    required DateTime date,
+    required String koFormat,
+    required String enFormat,
+    String originFormat = 'yyyy-MM-dd',
+  }) {
+    try {
+      if (Intl.getCurrentLocale() == 'ko_KR') {
+        return date.toFormattedString(koFormat);
+      } else {
+        return date.toFormattedString(enFormat);
+      }
+    } catch (e) {
+      return date.toFormattedString(originFormat);
+    }
+  }
 }
