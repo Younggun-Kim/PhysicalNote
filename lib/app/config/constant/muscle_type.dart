@@ -24,8 +24,9 @@ enum MuscleType {
   /// 삼각근
   deltoid("DELTOID"),
 
-  /// 충지신근
-  extensorCarpiUlnaris2("EXTENSOR_CARPI_ULNARIS"),
+  /// 총지신근
+  // extensorCarpiUlnaris2("EXTENSOR_CARPI_ULNARIS"),
+  extensorDigitorum("EXTENSOR_DIGITORUM"),
 
   /// 장모지신근
   // extensorDigitorumBrevis("EXTENSOR_DIGITORUM_BREVIS"),
@@ -38,7 +39,8 @@ enum MuscleType {
   externalOblique("EXTERNAL_OBLIQUE"),
 
   /// 주근
-  flexorCarpiRadialis("FLEXOR_CARPI_RADIALIS"),
+  // flexorCarpiRadialis("FLEXOR_CARPI_RADIALIS"),
+  anconeus("ANCONEUS"),
 
   /// 둔근
   // gluteus("GLUTEUS"),
@@ -71,7 +73,8 @@ enum MuscleType {
   vastusMedialis("VASTUS_MEDIALIS"),
 
   /// 소원근
-  oblique("OBLIQUE"),
+  // oblique("OBLIQUE"),
+  teresMinor("TERES_MINOR"),
 
   /// 척측수근신근
   // palmarisLongus("PALMARIS_LONGUS"),
@@ -99,7 +102,8 @@ enum MuscleType {
   pectineus("PECTINEUS"),
 
   /// 대원근
-  quadratusLumborum("QUADRATUS_LUMBORUM"),
+  // quadratusLumborum("QUADRATUS_LUMBORUM"),
+  teresMajor("TERES_MAJOR"),
 
   /// 복직근
   rectusAbdominis("RECTUS_ABDOMINIS"),
@@ -116,7 +120,8 @@ enum MuscleType {
   itBand("IT_BAND"),
 
   /// 척추기립근
-  semitendinosus("SEMITENDINOSUS"),
+  // semitendinosus("SEMITENDINOSUS"),
+  erectorSprinae("ERECTOR_SPRINAE"),
 
   /// 장장근
   // serratusAnterior("SERRATUS_ANTERIOR"),
@@ -127,7 +132,8 @@ enum MuscleType {
   gracilis("GRACILIS"),
 
   /// 요측수근신근
-  supinator("SUPINATOR"),
+  // supinator("SUPINATOR"),
+  extensorCarpiRadialisLongus("EXTENSOR_CARPI_RADIALIS_LONGUS"),
 
   /// 대퇴근막장근
   tensorFasciaeLatae("TENSOR_FASCIAE_LATAE"),
@@ -218,26 +224,26 @@ enum MuscleType {
         return StringRes.GLUTE.tr;
       case coracobrachialis:
         return StringRes.CORACOBRACHIALIS.tr;
+      case teresMinor:
+        return StringRes.TERES_MINOR.tr;
+      case teresMajor:
+        return StringRes.TERES_MAJOR.tr;
+      case latissimusDorsi:
+        return StringRes.LATISSIMUS_DORSI.tr;
+      case erectorSprinae:
+        return StringRes.ERECTOR_SPRINAE.tr;
+      case extensorCarpiRadialisLongus:
+        return StringRes.EXTENSOR_CARPI_RADIALIS_LONGUS.tr;
+      case extensorDigitorum:
+        return StringRes.EXTENSOR_DIGITORUM.tr;
+      case anconeus:
+        return StringRes.ANCONEUS.tr;
+      case extensorCarpiUlnaris:
+        return StringRes.EXTENSOR_CARPI_ULNARIS.tr;
       case bicepsFemoris:
         return "반건,반막양근";
-      case extensorCarpiUlnaris2:
-        return "충지신근";
-      case flexorCarpiRadialis:
-        return "주근";
-      case latissimusDorsi:
-        return "광배근";
-      case oblique:
-        return "소원근";
-      case extensorCarpiUlnaris:
-        return "척측수근신근";
-      case quadratusLumborum:
-        return "대원근";
       case rectusFemoris2:
         return "대퇴이두근";
-      case semitendinosus:
-        return "척추기립근";
-      case supinator:
-        return "요측수근신근";
     }
   }
 
@@ -291,6 +297,29 @@ enum MuscleType {
     ];
   }
 
+  /// 뒤 - 몸통 근육.
+  static List<MuscleType> getBackBodyMuscles() {
+    return [
+      teresMinor,
+      teresMajor,
+      latissimusDorsi,
+      erectorSprinae,
+    ];
+  }
+
+  /// 뒤 - 팔 근육.
+  static List<MuscleType> getBackArmMuscles() {
+    return [
+      deltoid,
+      brachioradialis,
+      extensorCarpiRadialisLongus,
+      extensorDigitorum,
+      triceps,
+      anconeus,
+      extensorCarpiUlnaris,
+    ];
+  }
+
   /// 뒤 - 다리 목록.
   static List<MuscleType> getBackLegMuscles() {
     return [
@@ -302,29 +331,6 @@ enum MuscleType {
       adductorMagnus,
       gracilis,
       bicepsFemoris,
-    ];
-  }
-
-  /// 뒤 - 팔 근육.
-  static List<MuscleType> getBackArmMuscles() {
-    return [
-      deltoid,
-      brachioradialis,
-      supinator,
-      extensorCarpiUlnaris,
-      triceps,
-      flexorCarpiRadialis,
-      palmarisLongus,
-    ];
-  }
-
-  /// 뒤 - 몸통 근육.
-  static List<MuscleType> getBackBodyMuscles() {
-    return [
-      oblique,
-      quadratusLumborum,
-      latissimusDorsi,
-      semitendinosus,
     ];
   }
 }

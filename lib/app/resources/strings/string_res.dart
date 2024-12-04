@@ -115,6 +115,14 @@ class StringRes {
   static final SOLEUS = _generateId(); // 가자미근
   static final GLUTE = _generateId(); // 둔근
   static final CORACOBRACHIALIS = _generateId(); // 오훼완근
+  static final TERES_MINOR = _generateId(); // 소원근
+  static final TERES_MAJOR = _generateId(); // 대원근
+  static final LATISSIMUS_DORSI = _generateId(); // 광배근
+  static final ERECTOR_SPRINAE = _generateId(); // 척추기립근
+  static final EXTENSOR_CARPI_RADIALIS_LONGUS = _generateId(); // 요측수근신근
+  static final EXTENSOR_DIGITORUM = _generateId(); // 총지신근
+  static final ANCONEUS = _generateId(); // 주근
+  static final EXTENSOR_CARPI_ULNARIS = _generateId(); // 척측수근신근
 
   /// 생성자.
   const StringRes._();

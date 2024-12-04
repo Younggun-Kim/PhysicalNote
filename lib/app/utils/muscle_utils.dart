@@ -250,13 +250,13 @@ class MuscleUtils {
       switch (bodyPart) {
         case BodyPartsType.body:
           switch (muscle) {
-            case MuscleType.oblique:
+            case MuscleType.teresMinor:
               return Assets.backBodyOBLIQUE;
-            case MuscleType.quadratusLumborum:
+            case MuscleType.teresMajor:
               return Assets.backBodyQUADRATUSLUMBORUM;
             case MuscleType.latissimusDorsi:
               return Assets.backBodyLATISSIMUSDORSI;
-            case MuscleType.semitendinosus:
+            case MuscleType.erectorSprinae:
               return Assets.backBodySEMITENDINOSUS;
             default:
               return null;
@@ -267,13 +267,13 @@ class MuscleUtils {
               return Assets.backLeftArmDELTOID;
             case MuscleType.brachioradialis:
               return Assets.backLeftArmBRACHIORADIALIS;
-            case MuscleType.supinator:
+            case MuscleType.extensorCarpiRadialisLongus:
               return Assets.backLeftArmSUPINATOR;
             case MuscleType.extensorCarpiUlnaris:
               return Assets.backLeftArmEXTENSORCARPIULNARIS;
             case MuscleType.triceps:
               return Assets.backLeftArmTRICEPS;
-            case MuscleType.flexorCarpiRadialis:
+            case MuscleType.anconeus:
               return Assets.backLeftArmFLEXORCARPIRADIALIS;
             case MuscleType.palmarisLongus:
               return Assets.backLeftArmPALMARISLONGUS;
@@ -286,13 +286,13 @@ class MuscleUtils {
               return Assets.backRightArmDELTOID;
             case MuscleType.brachioradialis:
               return Assets.backRightArmBRACHIORADIALIS;
-            case MuscleType.supinator:
+            case MuscleType.extensorCarpiRadialisLongus:
               return Assets.backRightArmSUPINATOR;
             case MuscleType.extensorCarpiUlnaris:
               return Assets.backRightArmEXTENSORCARPIULNARIS;
             case MuscleType.triceps:
               return Assets.backRightArmTRICEPS;
-            case MuscleType.flexorCarpiRadialis:
+            case MuscleType.anconeus:
               return Assets.backRightArmFLEXORCARPIRADIALIS;
             case MuscleType.palmarisLongus:
               return Assets.backRightArmPALMARISLONGUS;

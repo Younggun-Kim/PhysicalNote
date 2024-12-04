@@ -371,4 +371,12 @@ final _koMuscleName = {
   StringRes.SOLEUS: "가자미근",
   StringRes.GLUTE: "둔근",
   StringRes.CORACOBRACHIALIS: "오훼완근",
+  StringRes.TERES_MINOR: "소원근",
+  StringRes.TERES_MAJOR: "대원근",
+  StringRes.LATISSIMUS_DORSI: "광배근",
+  StringRes.ERECTOR_SPRINAE: "척추기립근",
+  StringRes.EXTENSOR_CARPI_RADIALIS_LONGUS: "요측수근신근",
+  StringRes.EXTENSOR_DIGITORUM: "총지신근",
+  StringRes.ANCONEUS: "주근",
+  StringRes.EXTENSOR_CARPI_ULNARIS: "척측수근신근",
 };
