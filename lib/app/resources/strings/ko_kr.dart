@@ -171,7 +171,6 @@ final koKr = {
   StringRes.description: "설명",
   StringRes.intensity: "강도",
   StringRes.add: "추가",
-  StringRes.painCheckLocation: "통증이 있는 곳을 체크해주세요.",
   StringRes.injuryTypeContact: "접촉(타박상)",
   StringRes.injuryTypeNonContact: "비접촉(오버트레이닝)",
   StringRes.injuryTypeDisease: "질병",

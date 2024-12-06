@@ -179,7 +179,6 @@ final enUs = {
   StringRes.description: "Description",
   StringRes.intensity: "Intensity",
   StringRes.add: "추가",
-  StringRes.painCheckLocation: "통증이 있는 곳을 체크해주세요.",
   StringRes.injuryTypeContact: "Contact injury",
   StringRes.injuryTypeNonContact: "Non-contact injury",
   StringRes.injuryTypeDisease: "Illness",

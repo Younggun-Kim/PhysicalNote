@@ -283,7 +283,6 @@ class StringRes {
   static final description = _generateId();
   static final intensity = _generateId();
   static final add = _generateId();
-  static final painCheckLocation = _generateId();
   static final injuryLocationSelection = _generateId();
   static final injuryCheckDiseaseHint = _generateId();
   static final front = _generateId();
