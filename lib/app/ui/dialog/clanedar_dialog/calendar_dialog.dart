@@ -184,7 +184,7 @@ class _CalendarHeader extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    focusedDate.toFormattedString("yy년 M월"),
+                    focusedDate.toFormattedString("yy.MM"),
                     textAlign: TextAlign.start,
                     style: const TextStyle(
                       fontSize: 16,

@@ -1,4 +1,5 @@
 import 'package:physical_note/app/utils/extensions/date_extensions.dart';
+import 'package:physical_note/app/utils/localization/localization_utils.dart';
 
 /// 운동강도 목록 Item UiState
 class HistoryIntensityItemUiState {
@@ -16,6 +17,26 @@ class HistoryIntensityItemUiState {
 
   /// 포맷 날짜
   String get formattedRecordDate => recordDate.toFormattedString('yyyy-MM-dd');
+
+  String get displayRecordDate => LocalizationUtil.getDateStr(
+        date: formattedRecordDate,
+        koFormat: "yy.mm.dd(EEE)",
+        enFormat: "MMMM dd, yy (E)",
+      );
+
+  String get displaySportTime => LocalizationUtil.getDateStr(
+    date: sportTime ?? '',
+    koFormat: "HH:mm",
+    enFormat: "HH:mm",
+    originFormat: "HH:mm:ss",
+  );
+
+  String get displayPhysicalTime => LocalizationUtil.getDateStr(
+    date: physicalTime ?? '',
+    koFormat: "HH:mm",
+    enFormat: "HH:mm",
+    originFormat: "HH:mm:ss",
+  );
 
   HistoryIntensityItemUiState({
     required this.id,

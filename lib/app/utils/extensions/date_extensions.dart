@@ -1,17 +1,19 @@
+import 'dart:io';
+
 import 'package:intl/intl.dart';
 import 'package:physical_note/app/utils/utils.dart';
 
 extension DateEx on DateTime {
   /// 날짜 포맷 변경
   String toFormattedString(String format) {
-    return DateFormat(format, 'ko_KR').format(this);
+    return DateFormat(format, Platform.localeName).format(this);
   }
 }
 
 extension StringToDateEx on String {
   /// String To Date
   DateTime toDate(String format) {
-    return DateFormat(format, 'ko_KR').parse(this);
+    return DateFormat(format, Platform.localeName).parse(this);
   }
 }
 

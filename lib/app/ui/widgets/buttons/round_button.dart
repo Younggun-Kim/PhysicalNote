@@ -60,7 +60,7 @@ class RoundButton extends StatelessWidget {
         width: width,
         height: height,
         margin: margin,
-        padding: padding,
+        padding: EdgeInsets.zero,
         decoration: BoxDecoration(
           color: buttonBackgroundColor,
           border: border,
@@ -89,6 +89,8 @@ class RoundButton extends StatelessWidget {
           child: Text(
             text,
             style: buttonTextStyle,
+            maxLines: 2,
+            softWrap: true,
           ),
         ),
       );

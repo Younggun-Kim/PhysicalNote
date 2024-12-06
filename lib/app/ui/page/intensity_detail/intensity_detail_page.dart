@@ -6,7 +6,7 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_table.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_controller.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
+import 'package:physical_note/app/utils/utils.dart';
 
 class IntensityDetailPage extends GetView<IntensityDetailController> {
   const IntensityDetailPage({super.key});
@@ -50,18 +50,20 @@ class _IntensityDetailPage extends GetView<IntensityDetailController> {
               () => Row(
                 children: [
                   _WorkoutButton(
-                      text: StringRes.sportsTraining.tr,
-                      isSelected: controller.isSport.value,
-                      onPressed: () {
-                        controller.onPressedType(WorkoutType.sports);
-                      }),
-                  const SizedBox(width: 30),
+                    text: StringRes.sportsTraining.tr,
+                    isSelected: controller.isSport.value,
+                    onPressed: () {
+                      controller.onPressedType(WorkoutType.sports);
+                    },
+                  ),
+                  const SizedBox(width: 20),
                   _WorkoutButton(
-                      text: StringRes.physicalTraining.tr,
-                      isSelected: controller.isPhysical.value,
-                      onPressed: () {
-                        controller.onPressedType(WorkoutType.physical);
-                      }),
+                    text: StringRes.physicalTraining.tr,
+                    isSelected: controller.isPhysical.value,
+                    onPressed: () {
+                      controller.onPressedType(WorkoutType.physical);
+                    },
+                  ),
                 ],
               ),
             ),
@@ -74,27 +76,49 @@ class _IntensityDetailPage extends GetView<IntensityDetailController> {
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: ColorRes.fontBlack,
+                letterSpacing: -0.5,
               ),
             ),
             const SizedBox(height: 12),
             Obx(() {
-              final uiState = controller.currentUiState.value;
-              return Column(
-                children: [
-                  IntensityTable(
-                    level: uiState?.level ?? 0,
-                    onPressed: controller.onPressedLevel,
-                  ),
-                  const SizedBox(height: 30),
-                  RoundButton(
-                    width: double.infinity,
-                    isEnabled: uiState?.isEnabled ?? false,
-                    text: StringRes.save.tr,
-                    onPressed: controller.onPressedSaveButton,
-                  ),
-                ],
+              final level = controller.currentUiState.value?.level ?? 0;
+              return IntensityTable(
+                level: level,
+                onPressed: controller.onPressedLevel,
               );
             }),
+            const SizedBox(height: 50),
+            Obx(
+              () => Row(
+                children: [
+                  Expanded(
+                    child: RoundButton.gray(
+                      height: 56,
+                      text: StringRes.cancel.tr,
+                      textStyle: const TextStyle(
+                        color: ColorRes.gray9f9f9f,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 30),
+                  Expanded(
+                    child: RoundButton(
+                      width: double.infinity,
+                      isEnabled:
+                          controller.currentUiState.value?.isEnabled ?? false,
+                      text: StringRes.doSave.tr,
+                      onPressed: controller.onPressedSaveButton,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
           ],
         ),
       );
@@ -136,8 +160,11 @@ class _Title extends StatelessWidget {
 
 /// 날짜
 class _Date extends GetView<IntensityDetailController> {
-  String get formattedDate =>
-      controller.recordDate.value.toFormattedString('yy년 M월 d일 (E)');
+  String get formattedDate => LocalizationUtil.getDateStr(
+        date: controller.recordDate.value.toFormattedString('yyyy-MM-dd'),
+        koFormat: "yy년 M월 d일 (EEE)",
+        enFormat: 'MMMM d, yy (E)',
+      );
 
   @override
   Widget build(BuildContext context) => Obx(() => InkWellOver(
@@ -149,6 +176,8 @@ class _Date extends GetView<IntensityDetailController> {
               style: const TextStyle(
                 fontSize: 16,
                 color: ColorRes.gray9f9f9f,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 0.25,
               ),
             ),
             const SizedBox(width: 5),
@@ -201,6 +230,7 @@ class _WorkoutButton extends StatelessWidget {
             fontWeight: FontWeight.w500,
             color: ColorRes.gray9f9f9f,
           ),
+          border: isSelected ? null : Border.all(color: ColorRes.disable),
           onPressed: onPressed,
         ),
       );

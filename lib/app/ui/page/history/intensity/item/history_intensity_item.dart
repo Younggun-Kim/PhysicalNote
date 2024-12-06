@@ -27,7 +27,7 @@ class HistoryIntensityItem extends StatelessWidget {
               sports: uiState.sportLevelAverage,
               physical: uiState.physicalLevelAverage,
             ),
-            if(!uiState.onlyAverage)
+            if (!uiState.onlyAverage)
               _Content(uiState: uiState, onPressed: onPressed),
           ],
         )
@@ -66,6 +66,7 @@ class _Average extends StatelessWidget {
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: ColorRes.fontBlack,
+                      letterSpacing: -0.5,
                     ),
                   ),
                   const SizedBox(height: 18),
@@ -155,10 +156,12 @@ class _WorkoutTimeAverageItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w500,
-              color: ColorRes.fontBlack,
+              color: fontColor,
+              letterSpacing: -0.5,
+              height: 14 / 10,
             ),
           ),
           const SizedBox(width: 10),
@@ -168,6 +171,8 @@ class _WorkoutTimeAverageItem extends StatelessWidget {
               fontSize: 22,
               fontWeight: FontWeight.w700,
               color: fontColor,
+              height: 32 / 22,
+              letterSpacing: -0.5,
             ),
           ),
         ],
@@ -205,7 +210,7 @@ class _Content extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                uiState.formattedRecordDate,
+                uiState.displayRecordDate,
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -226,7 +231,7 @@ class _Content extends StatelessWidget {
                           SizedBox(width: uiState.sportLevel == 10 ? 12 : 24),
                           _IntensityTime(
                             title: StringRes.sports.tr,
-                            time: uiState.sportTime,
+                            time: uiState.displaySportTime,
                           ),
                         ],
                       ),
@@ -246,7 +251,7 @@ class _Content extends StatelessWidget {
                           Expanded(
                             child: _IntensityTime(
                               title: StringRes.physical.tr,
-                              time: uiState.physicalTime,
+                              time: uiState.displayPhysicalTime,
                             ),
                           )
                         ],

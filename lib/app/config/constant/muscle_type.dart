@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:physical_note/app/resources/resources.dart';
 
 /// 근육 타입.
 enum MuscleType {
@@ -12,7 +13,8 @@ enum MuscleType {
   biceps("BICEPS"),
 
   /// 반건반막양근
-  bicepsFemoris("BICEPS_FEMORIS"),
+  // bicepsFemoris2("BICEPS_FEMORIS"),
+  semimembranosus("SEMIMEMBRANOSUS"),
 
   /// 상완근
   brachialis("BRACHIALIS"),
@@ -23,11 +25,13 @@ enum MuscleType {
   /// 삼각근
   deltoid("DELTOID"),
 
-  /// 충지신근
-  extensorCarpiUlnaris("EXTENSOR_CARPI_ULNARIS"),
+  /// 총지신근
+  // extensorCarpiUlnaris2("EXTENSOR_CARPI_ULNARIS"),
+  extensorDigitorum("EXTENSOR_DIGITORUM"),
 
   /// 장모지신근
-  extensorDigitorumBrevis("EXTENSOR_DIGITORUM_BREVIS"),
+  // extensorDigitorumBrevis("EXTENSOR_DIGITORUM_BREVIS"),
+  extensorHallucisLongus("EXTENSOR_HALLUCIS_LONGUS"),
 
   /// 장지신근
   extensorDigitorumLongus("EXTENSOR_DIGITORUM_LONGUS"),
@@ -36,50 +40,57 @@ enum MuscleType {
   externalOblique("EXTERNAL_OBLIQUE"),
 
   /// 주근
-  flexorCarpiRadialis("FLEXOR_CARPI_RADIALIS"),
+  // flexorCarpiRadialis("FLEXOR_CARPI_RADIALIS"),
+  anconeus("ANCONEUS"),
 
   /// 둔근
-  gluteus("GLUTEUS"),
+  // gluteus("GLUTEUS"),
+  glute("GLUTE"),
 
-  /// 비복근
-  gracilis("GRACILIS"),
+  /// 배복근
+  // gracilis("GRACILIS"),
+  gastrocnemius("GASTROCNEMIUS"),
 
   /// 장골근
   iliacus("ILIACUS"),
 
   /// 오훼완근
-  // TODO: 삭제 예정
-  infraspinatus("INFRASPINATUS"),
-
-  /// 회전근개
-  rotatorcuff("ROTATORCUFF"),
+  // infraspinatus("INFRASPINATUS"),
+  coracobrachialis("CORACOBRACHIALIS"),
 
   /// 대퇴직근
-  largeRetirement("LARGE_RETIREMENT"),
+  // largeRetirement("LARGE_RETIREMENT"),
+  rectusFemoris("RECTUS_FEMORIS"),
 
   /// 외측광근
-  lateralGastrocnemius("LATERAL_GASTROCNEMIUS"),
+  // lateralGastrocnemius("LATERAL_GASTROCNEMIUS"),
+  vastusLateralis("VASTUS_LATERALIS"),
 
   /// 광배근
   latissimusDorsi("LATISSIMUS_DORSI"),
 
   /// 내측광근
-  medialGastrocnemius("MEDIAL_GASTROCNEMIUS"),
+  // medialGastrocnemius("MEDIAL_GASTROCNEMIUS"),
+  vastusMedialis("VASTUS_MEDIALIS"),
 
   /// 소원근
-  oblique("OBLIQUE"),
+  // oblique("OBLIQUE"),
+  teresMinor("TERES_MINOR"),
 
   /// 척측수근신근
-  palmarisLongus("PALMARIS_LONGUS"),
+  // palmarisLongus("PALMARIS_LONGUS"),
+  extensorCarpiUlnaris("EXTENSOR_CARPI_ULNARIS"),
 
   /// 대흉근
   pectoralisMajor("PECTORALIS_MAJOR"),
 
   /// 장비골근
-  peroneusBrevis("PERONEUS_BREVIS"),
+  // peroneusBrevis("PERONEUS_BREVIS"),
+  fibularisLongus("FIBULARIS_LONGUS"),
 
   /// 중간광근
-  peroneusLongus("PERONEUS_LONGUS"),
+  // peroneusLongus("PERONEUS_LONGUS"),
+  vastusIntermedius("VASTUS_INTERMEDIUS"),
 
   /// 원회내근
   pronatorTeres("PRONATOR_TERES"),
@@ -88,40 +99,50 @@ enum MuscleType {
   psoasMajor("PSOAS_MAJOR"),
 
   /// 치골근
-  pubicus("PUBICUS"),
+  // pubicus("PUBICUS"),
+  pectineus("PECTINEUS"),
 
   /// 대원근
-  quadratusLumborum("QUADRATUS_LUMBORUM"),
+  // quadratusLumborum("QUADRATUS_LUMBORUM"),
+  teresMajor("TERES_MAJOR"),
 
   /// 복직근
   rectusAbdominis("RECTUS_ABDOMINIS"),
 
   /// 대퇴이두근
-  rectusFemoris("RECTUS_FEMORIS"),
+  // rectusFemoris2("RECTUS_FEMORIS"),
+  bicepsFemoris("BICEPS_FEMORIS"),
 
   /// 가자미근
-  sartorius("SARTORIUS"),
-
-  /// 장경인대
-  iliotibialBand("ILIOTIBIAL_BAND"),
-
-  /// 척추기립근
-  semitendinosus("SEMITENDINOSUS"),
-
-  /// 장장근
-  serratusAnterior("SERRATUS_ANTERIOR"),
-
-  /// 박근
+  // sartorius("SARTORIUS"),
   soleus("SOLEUS"),
 
+  /// 장경인대
+  // iliotibialBand("ILIOTIBIAL_BAND"),
+  itBand("IT_BAND"),
+
+  /// 척추기립근
+  // semitendinosus("SEMITENDINOSUS"),
+  erectorSprinae("ERECTOR_SPRINAE"),
+
+  /// 장장근
+  // serratusAnterior("SERRATUS_ANTERIOR"),
+  palmarisLongus("PALMARIS_LONGUS"),
+
+  /// 박근
+  // soleus("SOLEUS"),
+  gracilis("GRACILIS"),
+
   /// 요측수근신근
-  supinator("SUPINATOR"),
+  // supinator("SUPINATOR"),
+  extensorCarpiRadialisLongus("EXTENSOR_CARPI_RADIALIS_LONGUS"),
 
   /// 대퇴근막장근
   tensorFasciaeLatae("TENSOR_FASCIAE_LATAE"),
 
   /// 봉공근
-  teresMajor("TERES_MAJOR"),
+  // teresMajor("TERES_MAJOR"),
+  sartorius("SARTORIUS"),
 
   /// 전경골근
   tibialisAnterior("TIBIALIS_ANTERIOR"),
@@ -141,159 +162,91 @@ enum MuscleType {
 
   String toKor() {
     switch (this) {
-      case adductorLongus:
-        return "장내전근";
-      case adductorMagnus:
-        return "대내전근";
-      case biceps:
-        return "이두근";
-      case bicepsFemoris:
-        return "반건,반막양근";
-      case brachialis:
-        return "상완근";
-      case brachioradialis:
-        return "완요골근";
-      case deltoid:
-        return "삼각근";
-      case extensorCarpiUlnaris:
-        return "충지신근";
-      case extensorDigitorumBrevis:
-        return "장모지신근";
-      case extensorDigitorumLongus:
-        return "장지신근";
-      case externalOblique:
-        return "외복사근";
-      case flexorCarpiRadialis:
-        return "주근";
-      case gluteus:
-        return "둔근";
-      case gracilis:
-        return "비복근";
-      case iliacus:
-        return "장골근";
-      case infraspinatus:
-        return "오훼완근";
-      case rotatorcuff:
-        return "회전근개";
-      case largeRetirement:
-        return "대퇴직근";
-      case lateralGastrocnemius:
-        return "외측광근";
-      case latissimusDorsi:
-        return "광배근";
-      case medialGastrocnemius:
-        return "내측광근";
-      case oblique:
-        return "소원근";
-      case palmarisLongus:
-        return "척측수근신근";
-      case pectoralisMajor:
-        return "대흉근";
-      case peroneusBrevis:
-        return "장비골근";
-      case peroneusLongus:
-        return "중간광근";
-      case pronatorTeres:
-        return "원회내근";
-      case psoasMajor:
-        return "대요근";
-      case pubicus:
-        return "치골근";
-      case quadratusLumborum:
-        return "대원근";
-      case rectusAbdominis:
-        return "복직근";
-      case rectusFemoris:
-        return "대퇴이두근";
-      case sartorius:
-        return "가자미근";
-      case iliotibialBand:
-        return "장경인대";
-      case semitendinosus:
-        return "척추기립근";
-      case serratusAnterior:
-        return "장장근";
-      case soleus:
-        return "박근";
-      case supinator:
-        return "요측수근신근";
-      case tensorFasciaeLatae:
-        return "대퇴근막장근";
-      case teresMajor:
-        return "봉공근";
-      case tibialisAnterior:
-        return "전경골근";
       case trapezius:
-        return "승모근";
+        return StringRes.TRAPEZIUS.tr;
+      case pectoralisMajor:
+        return StringRes.PECTORALIS_MAJOR.tr;
+      case externalOblique:
+        return StringRes.EXTERNAL_OBLIQUE.tr;
+      case rectusAbdominis:
+        return StringRes.RECTUS_ABDOMINIS.tr;
+      case deltoid:
+        return StringRes.DELTOID.tr;
+      case biceps:
+        return StringRes.BICEPS.tr;
+      case brachioradialis:
+        return StringRes.BRACHIORADIALIS.tr;
+      case brachialis:
+        return StringRes.BRACHIALIS.tr;
+      case pronatorTeres:
+        return StringRes.PRONATOR_TERES.tr;
+      case palmarisLongus:
+        return StringRes.PALMARIS_LONGUS.tr;
       case triceps:
-        return "삼두근";
+        return StringRes.TRICEPS.tr;
+      case tensorFasciaeLatae:
+        return StringRes.TENSOR_FASCIAE_LATAE.tr;
+      case sartorius:
+        return StringRes.SARTORIUS.tr;
+      case vastusLateralis:
+        return StringRes.VASTUS_LATERALIS.tr;
+      case rectusFemoris:
+        return StringRes.RECTUS_FEMORIS.tr;
+      case itBand:
+        return StringRes.IT_BAND.tr;
+      case extensorDigitorumLongus:
+        return StringRes.EXTENSOR_DIGITORUM_LONGUS.tr;
+      case tibialisAnterior:
+        return StringRes.TIBIALIS_ANTERIOR.tr;
+      case fibularisLongus:
+        return StringRes.FIBULARIS_LONGUS.tr;
+      case extensorHallucisLongus:
+        return StringRes.EXTENSOR_HALLUCIS_LONGUS.tr;
+      case iliacus:
+        return StringRes.ILIACUS.tr;
+      case psoasMajor:
+        return StringRes.PSOAS_MAJOR.tr;
+      case pectineus:
+        return StringRes.PECTINEUS.tr;
+      case adductorLongus:
+        return StringRes.ADDUCTOR_LONGUS.tr;
+      case adductorMagnus:
+        return StringRes.ADDUCTOR_MAGNUS.tr;
+      case gracilis:
+        return StringRes.GRACILIS.tr;
+      case vastusMedialis:
+        return StringRes.VASTUS_MEDIALIS.tr;
+      case vastusIntermedius:
+        return StringRes.VASTUS_INTERMEDIUS.tr;
+      case gastrocnemius:
+        return StringRes.GASTROCNEMIUS.tr;
+      case soleus:
+        return StringRes.SOLEUS.tr;
+      case glute:
+        return StringRes.GLUTE.tr;
+      case coracobrachialis:
+        return StringRes.CORACOBRACHIALIS.tr;
+      case teresMinor:
+        return StringRes.TERES_MINOR.tr;
+      case teresMajor:
+        return StringRes.TERES_MAJOR.tr;
+      case latissimusDorsi:
+        return StringRes.LATISSIMUS_DORSI.tr;
+      case erectorSprinae:
+        return StringRes.ERECTOR_SPRINAE.tr;
+      case extensorCarpiRadialisLongus:
+        return StringRes.EXTENSOR_CARPI_RADIALIS_LONGUS.tr;
+      case extensorDigitorum:
+        return StringRes.EXTENSOR_DIGITORUM.tr;
+      case anconeus:
+        return StringRes.ANCONEUS.tr;
+      case extensorCarpiUlnaris:
+        return StringRes.EXTENSOR_CARPI_ULNARIS.tr;
+      case bicepsFemoris:
+        return StringRes.BICEPS_FEMORIS.tr;
+      case semimembranosus:
+        return StringRes.SEMIMEMBRANOSUS.tr;
     }
-  }
-
-  /// 앞 - 하체 - 다리 목록.
-  static List<MuscleType> getFrontLegMuscles() {
-    return [
-      tensorFasciaeLatae,
-      teresMajor,
-      lateralGastrocnemius,
-      largeRetirement,
-      iliotibialBand,
-      extensorDigitorumLongus,
-      tibialisAnterior,
-      peroneusBrevis,
-      extensorDigitorumBrevis,
-      iliacus,
-      psoasMajor,
-      pubicus,
-      adductorLongus,
-      adductorMagnus,
-      soleus,
-      medialGastrocnemius,
-      peroneusLongus,
-      gracilis,
-      sartorius,
-    ];
-  }
-
-  /// 뒤 - 다리 목록.
-  static List<MuscleType> getBackLegMuscles() {
-    return [
-      gluteus,
-      iliotibialBand,
-      rectusFemoris,
-      gracilis,
-      sartorius,
-      adductorMagnus,
-      soleus,
-      bicepsFemoris,
-    ];
-  }
-
-  /// 앞 - 팔 근육.
-  static List<MuscleType> getFrontArmMuscles() {
-    return [
-      biceps,
-      brachialis,
-      brachioradialis,
-      deltoid,
-      pronatorTeres,
-      rotatorcuff,
-      serratusAnterior,
-      triceps,
-    ];
-  }
-
-  /// 뒤 - 팔 근육.
-  static List<MuscleType> getBackArmMuscles() {
-    return [
-      deltoid,
-      brachioradialis,
-      supinator,
-      extensorCarpiUlnaris,
-      triceps,
-      flexorCarpiRadialis,
-      palmarisLongus,
-    ];
   }
 
   /// 앞 - 몸통 근육.
@@ -306,38 +259,80 @@ enum MuscleType {
     ];
   }
 
-  /// 뒤 - 몸통 근육.
-  static List<MuscleType> getBackBodyMuscles() {
+  /// 앞 - 팔 근육.
+  static List<MuscleType> getFrontArmMuscles() {
     return [
-      oblique,
-      quadratusLumborum,
-      latissimusDorsi,
-      semitendinosus,
+      coracobrachialis,
+      triceps,
+      brachialis,
+      pronatorTeres,
+      deltoid,
+      biceps,
+      brachioradialis,
+      palmarisLongus,
     ];
   }
 
-  /// 앞 - 하체 - 왼쪽 - 다리 목록
-  static List<MuscleType> getFrontLeftLegMuscles() {
+  /// 앞 - 하체 - 다리 목록.
+  static List<MuscleType> getFrontLegMuscles() {
     return [
+      glute,
+      tensorFasciaeLatae,
+      sartorius,
+      vastusLateralis,
+      rectusFemoris,
+      itBand,
+      extensorDigitorumLongus,
+      tibialisAnterior,
+      fibularisLongus,
+      extensorHallucisLongus,
+      iliacus,
+      psoasMajor,
+      pectineus,
       adductorLongus,
       adductorMagnus,
-      extensorDigitorumBrevis,
-      extensorDigitorumLongus,
       gracilis,
-      iliacus,
-      largeRetirement,
-      lateralGastrocnemius,
-      medialGastrocnemius,
-      peroneusBrevis,
-      peroneusLongus,
-      psoasMajor,
-      pubicus,
-      sartorius,
-      iliotibialBand,
+      vastusMedialis,
+      vastusIntermedius,
+      gastrocnemius,
       soleus,
-      tensorFasciaeLatae,
+    ];
+  }
+
+  /// 뒤 - 몸통 근육.
+  static List<MuscleType> getBackBodyMuscles() {
+    return [
+      teresMinor,
       teresMajor,
-      tibialisAnterior,
+      latissimusDorsi,
+      erectorSprinae,
+    ];
+  }
+
+  /// 뒤 - 팔 근육.
+  static List<MuscleType> getBackArmMuscles() {
+    return [
+      deltoid,
+      brachioradialis,
+      extensorCarpiRadialisLongus,
+      extensorDigitorum,
+      triceps,
+      anconeus,
+      extensorCarpiUlnaris,
+    ];
+  }
+
+  /// 뒤 - 다리 목록.
+  static List<MuscleType> getBackLegMuscles() {
+    return [
+      glute,
+      itBand,
+      bicepsFemoris,
+      gastrocnemius,
+      soleus,
+      adductorMagnus,
+      gracilis,
+      semimembranosus,
     ];
   }
 }

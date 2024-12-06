@@ -14,7 +14,7 @@ class HistoryWellnessItemUiState {
   double? muscleSorenessAvg;
   double? urineAvg;
   double? weightAvg;
-  int? differenceFat;
+  String? differenceFat;
 
   HistoryWellnessItemUiState({
     required this.id,

@@ -25,6 +25,9 @@ class StringRes {
   static final injuryTypeContact = _generateId();
   static final injuryTypeNonContact = _generateId();
   static final injuryTypeDisease = _generateId();
+  static final injuryTypeContactSimple = _generateId();
+  static final injuryTypeNonContactSimple = _generateId();
+  static final injuryTypeDiseaseSimple = _generateId();
 
   /// 요일.
   static final weekDaySun = _generateId();
@@ -76,6 +79,52 @@ class StringRes {
   static final historyFilterAsc = _generateId();
   static final historyFilterProgressInjury = _generateId();
   static final historyFilterHealedInjury = _generateId();
+
+  /// 근육명 - 앞 - 몸
+  static final TRAPEZIUS = _generateId(); // 승모근
+  static final PECTORALIS_MAJOR = _generateId(); // 대흉근
+  static final EXTERNAL_OBLIQUE = _generateId(); // 외복사근
+  static final RECTUS_ABDOMINIS = _generateId(); // 복직근
+
+  /// 근육명 - 팔
+  static final DELTOID = _generateId(); // 삼각근
+  static final BICEPS = _generateId(); // 이두근
+  static final BRACHIORADIALIS = _generateId(); // 완요골근
+  static final BRACHIALIS = _generateId(); // 상완근
+  static final PRONATOR_TERES = _generateId(); // 원회내근
+  static final PALMARIS_LONGUS = _generateId(); // 장장근
+  static final TRICEPS = _generateId(); // 삼두근
+  static final TENSOR_FASCIAE_LATAE = _generateId(); // 대퇴근막장근
+  static final SARTORIUS = _generateId(); // 봉공근
+  static final VASTUS_LATERALIS = _generateId(); // 외측광근
+  static final RECTUS_FEMORIS = _generateId(); // 대퇴직근
+  static final IT_BAND = _generateId(); // 장경인대
+  static final EXTENSOR_DIGITORUM_LONGUS = _generateId(); // 장지신근
+  static final TIBIALIS_ANTERIOR = _generateId(); // 전경골근
+  static final FIBULARIS_LONGUS = _generateId(); // 장비골근
+  static final EXTENSOR_HALLUCIS_LONGUS = _generateId(); // 장모지신근
+  static final ILIACUS = _generateId(); // 장골근
+  static final PSOAS_MAJOR = _generateId(); // 대요근
+  static final PECTINEUS = _generateId(); // 치골근
+  static final ADDUCTOR_LONGUS = _generateId(); // 장내전근
+  static final ADDUCTOR_MAGNUS = _generateId(); // 대내전근
+  static final GRACILIS = _generateId(); // 박근
+  static final VASTUS_MEDIALIS = _generateId(); // 내측광근
+  static final VASTUS_INTERMEDIUS = _generateId(); // 중간광근
+  static final GASTROCNEMIUS = _generateId(); // 비복근
+  static final SOLEUS = _generateId(); // 가자미근
+  static final GLUTE = _generateId(); // 둔근
+  static final CORACOBRACHIALIS = _generateId(); // 오훼완근
+  static final TERES_MINOR = _generateId(); // 소원근
+  static final TERES_MAJOR = _generateId(); // 대원근
+  static final LATISSIMUS_DORSI = _generateId(); // 광배근
+  static final ERECTOR_SPRINAE = _generateId(); // 척추기립근
+  static final EXTENSOR_CARPI_RADIALIS_LONGUS = _generateId(); // 요측수근신근
+  static final EXTENSOR_DIGITORUM = _generateId(); // 총지신근
+  static final ANCONEUS = _generateId(); // 주근
+  static final EXTENSOR_CARPI_ULNARIS = _generateId(); // 척측수근신근
+  static final BICEPS_FEMORIS = _generateId(); // 대퇴이두근
+  static final SEMIMEMBRANOSUS = _generateId(); // 반건반막양근
 
   /// 생성자.
   const StringRes._();
@@ -345,4 +394,12 @@ class StringRes {
   static final reVerify = _generateId();
   static final selectPosition = _generateId();
   static final duration = _generateId();
+  static final urineColor = _generateId();
+  static final bodyFat = _generateId();
+  static final drinkGood = _generateId();
+  static final drinkShortage = _generateId();
+  static final agree = _generateId();
+  static final pleaseChooseWorkout = _generateId();
+  static final injuryCheckSaveSuccessful  = _generateId();
+  static final intensitySaveSuccessful  = _generateId();
 }

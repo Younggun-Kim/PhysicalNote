@@ -580,24 +580,19 @@ class _HooperIndexAverage extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           children: [
             Positioned(
-              bottom: 0,
-              right: -8,
-              child: Image.asset(
-                Assets.homeWellnessHuman,
-                width: 84,
-                height: 84,
-              ),
-            ),
-            Positioned(
               top: 8,
               left: 8,
-              child: Text(
-                StringRes.hooperIndexAverage.tr,
-                style: const TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                  color: ColorRes.grayBababa,
-                  letterSpacing: -0.5,
+              child: SizedBox(
+                width: 79,
+                child: Text(
+                  StringRes.hooperIndexAverage.tr,
+                  softWrap: true,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    color: ColorRes.grayBababa,
+                    letterSpacing: -0.5,
+                  ),
                 ),
               ),
             ),
@@ -742,7 +737,7 @@ class _WellnessUrine extends StatelessWidget {
               height: 14 / 10,
             ),
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 10),
           if (urine == UrineStatusType.none)
             SvgPicture.asset(
               Assets.urineEmptyBox,
@@ -916,7 +911,7 @@ class _Intensity extends GetView<HomeController> {
             const SizedBox(height: 2),
             Obx(
               () => Text(
-                '시간 : ${controller.intensityTime.value}',
+                '${StringRes.duration.tr} ${controller.intensityTime.value}',
                 style: const TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w500,

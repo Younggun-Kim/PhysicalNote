@@ -7,7 +7,7 @@ import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail_controller.dart';
 import 'package:physical_note/app/ui/page/injury_detail/injury_detail_pain_symptom_ui_state.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
+import 'package:physical_note/app/utils/utils.dart';
 
 /// 부상체크 상세 UI
 class InjuryDetailPage extends GetView<InjuryDetailController> {
@@ -58,8 +58,8 @@ class _InjuryDetailPage extends GetView<InjuryDetailController> {
                 const SizedBox(height: 50),
                 const Spacer(),
                 Visibility(
-                  
-                  visible: controller.isShowDetailUi && !controller.isRecovered.value,
+                  visible: controller.isShowDetailUi &&
+                      !controller.isRecovered.value,
                   child: BaseButton(
                     width: double.infinity,
                     height: 56,
@@ -167,8 +167,11 @@ class _Title extends StatelessWidget {
 
 /// 날짜
 class _Date extends GetView<InjuryDetailController> {
-  String get formattedDate =>
-      controller.recordDate.value.toFormattedString('yy년 M월 d일 (E)');
+  String get formattedDate => LocalizationUtil.getDateStr(
+        date: controller.recordDate.value.toFormattedString('yyyy-MM-dd'),
+        koFormat: "yy년 M월 d일 (EEE)",
+        enFormat: 'MMMM d, yy (E)',
+      );
 
   @override
   Widget build(BuildContext context) => Obx(() => InkWellOver(
@@ -677,7 +680,7 @@ class _PainTimingIntermittentOrRegular extends StatelessWidget {
             ),
           ),
         ],
-      ).marginSymmetric(horizontal: 16);
+      );
 }
 
 /// 통증 시기 - 휴식기, 운동중
@@ -725,7 +728,7 @@ class _PainTimingRestAndWorkout extends StatelessWidget {
             ),
           ),
         ],
-      ).marginSymmetric(horizontal: 16);
+      );
 }
 
 /// 통증 시 - 부상 경위
@@ -745,8 +748,8 @@ class _PainTimingDescription extends StatelessWidget {
         maxLines: 10,
         fontSize: 12,
         hint: StringRes.injuryCauseHint.tr,
+        boxShadow: [],
         keyboardType: TextInputType.multiline,
-        showBoxShadow: false,
       );
 }
 

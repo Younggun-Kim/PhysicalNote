@@ -233,27 +233,47 @@ class InjuryDetailController extends BaseController {
 
     if (direction == DistinctionType.front) {
       if (partsType == BodyPartsType.body) {
-        asset = Assets.muscleFrontBody;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleFrontBody
+            : Assets.muscleFrontBodyEn;
       } else if (partsType == BodyPartsType.leftArm) {
-        asset = Assets.muscleFrontLeftArm;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleFrontLeftArm
+            : Assets.muscleFrontLeftArmEn;
       } else if (partsType == BodyPartsType.rightArm) {
-        asset = Assets.muscleFrontRightArm;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleFrontRightArm
+            : Assets.muscleFrontRightArmEn;
       } else if (partsType == BodyPartsType.leftLeg) {
-        asset = Assets.muscleFrontLeftLeg;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleFrontLeftLeg
+            : Assets.muscleFrontLeftLegEn;
       } else if (partsType == BodyPartsType.rightLeg) {
-        asset = Assets.muscleFrontRightLeg;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleFrontRightLeg
+            : Assets.muscleFrontRightLegEn;
       }
     } else if (direction == DistinctionType.back) {
       if (partsType == BodyPartsType.body) {
-        asset = Assets.muscleBackBody;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleBackBody
+            : Assets.muscleBackBodyEn;
       } else if (partsType == BodyPartsType.leftArm) {
-        asset = Assets.muscleBackLeftArm;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleBackLeftArm
+            : Assets.muscleBackLeftArmEn;
       } else if (partsType == BodyPartsType.rightArm) {
-        asset = Assets.muscleBackRightArm;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleBackRightArm
+            : Assets.muscleBackRightArmEn;
       } else if (partsType == BodyPartsType.leftLeg) {
-        asset = Assets.muscleBackLeftLeg;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleBackLeftLeg
+            : Assets.muscleBackLeftLegEn;
       } else if (partsType == BodyPartsType.rightLeg) {
-        asset = Assets.muscleBackRightLeg;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleBackRightLeg
+            : Assets.muscleBackRightLegEn;
       }
     }
 
@@ -263,7 +283,6 @@ class InjuryDetailController extends BaseController {
       const selectedMuscleColor = "E4FAC1";
       final muscleId = selectedMuscleType.value?.name;
 
-      logger.i(muscleId);
       var svgString = await MuscleUtils.loadSvgFile(asset);
 
       if (muscleId != null) {
@@ -342,7 +361,7 @@ class InjuryDetailController extends BaseController {
 
     if (response is PostInjuryResponseModel) {
       if (response.id != null) {
-        showToast("부상 체크 저장 성공.");
+        showToast(StringRes.injuryCheckSaveSuccessful);
         await Future.delayed(const Duration(seconds: 1));
         close(result: true);
       }

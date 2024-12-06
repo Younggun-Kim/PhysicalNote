@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/intensity_detail/intensity_detail_ui_state.dart';
 import 'package:physical_note/app/utils/getx/toast_message.dart';
@@ -41,6 +42,7 @@ class TimePicker extends StatelessWidget {
           SizedBox(
             height: height,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(width: 40),
                 Expanded(
@@ -49,11 +51,20 @@ class TimePicker extends StatelessWidget {
                     text: (int index) {
                       return index.toString();
                     },
-                    subFixText: '시간',
+                    subFixText: '',
                     length: 24,
                     isEnabled: isEnabled,
                     selectedIndex: uiState?.hour,
                     onSelectedItemChanged: onSelectedHourChanged,
+                  ),
+                ),
+                const Text(
+                  ':',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    color: ColorRes.fontBlack,
+                    fontWeight: FontWeight.w500,
+                    height: -0.3,
                   ),
                 ),
                 Expanded(
@@ -62,7 +73,7 @@ class TimePicker extends StatelessWidget {
                     text: (int index) {
                       return index.toString().padLeft(2, '0');
                     },
-                    subFixText: '분',
+                    subFixText: '',
                     length: 60,
                     isEnabled: isEnabled,
                     selectedIndex: uiState?.minute,
@@ -81,10 +92,10 @@ class TimePicker extends StatelessWidget {
               color: Colors.transparent,
               child: GestureDetector(
                 onTap: () {
-                  showToast('운동을 선택해주세요.');
+                  showToast(StringRes.pleaseChooseWorkout.tr);
                 },
                 onPanUpdate: (_) {
-                  showToast('운동을 선택해주세요.');
+                  showToast(StringRes.pleaseChooseWorkout.tr);
                 },
               ),
             ),
@@ -135,8 +146,6 @@ class _TimePickerItem extends StatelessWidget {
           final isSelected = index == selectedIndex;
           final mainFontColor =
               isSelected ? ColorRes.fontBlack : ColorRes.disable;
-          final subFixFontColor =
-              isSelected ? ColorRes.fontBlack : Colors.transparent;
           return RichText(
             text: TextSpan(children: [
               TextSpan(
@@ -145,14 +154,7 @@ class _TimePickerItem extends StatelessWidget {
                   fontSize: 24.0,
                   color: mainFontColor,
                   fontWeight: FontWeight.w500,
-                ),
-              ),
-              TextSpan(
-                text: '  $subFixText',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  color: subFixFontColor,
-                  fontWeight: FontWeight.w500,
+                  height: 36 / 26,
                 ),
               ),
             ]),

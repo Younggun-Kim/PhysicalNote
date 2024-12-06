@@ -29,8 +29,12 @@ mixin HistoryWellnessController on BaseController implements HistoryFilterBase {
   final wellnessPagingController =
       PagingController<int, HistoryWellnessItemUiState>(firstPageKey: 0);
 
+  /// 평균 데이터
+  final avgData = (null as HistoryWellnessItemUiState?).obs;
+
   /// 페이지 리프레시.
   Future<void> onRefreshWellness() async {
+    avgData.value = null;
     wellnessPagingController.refresh();
   }
 
@@ -59,7 +63,10 @@ mixin HistoryWellnessController on BaseController implements HistoryFilterBase {
           ..muscleSorenessAvg = response.muscleSorenessAvg
           ..urineAvg = response.urineAvg
           ..weightAvg = response.weightAvg
-          ..differenceFat = response.differenceFat?.extractParseInt();
+          ..differenceFat = response.differenceFat;
+
+        /// 평균 데이터 저장
+        avgData.value = toUiState[0];
       }
 
       return LoadPage(
@@ -90,7 +97,7 @@ mixin HistoryWellnessController on BaseController implements HistoryFilterBase {
     if (response is bool && response) {
       onRefreshWellness();
 
-      if(Get.isRegistered<MainScreenController>()) {
+      if (Get.isRegistered<MainScreenController>()) {
         final mainController = Get.find<MainScreenController>();
         mainController.onRefresh(MainTabIndex.home);
       }

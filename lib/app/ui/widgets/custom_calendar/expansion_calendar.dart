@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/constants.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/widgets/widgets.dart';
-import 'package:physical_note/app/utils/extensions/date_extensions.dart';
+import 'package:physical_note/app/utils/utils.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'expansion_calendar_ui_state.dart';
@@ -156,13 +156,20 @@ class _CalendarHeader extends StatelessWidget {
         ],
       );
 
+
+  String get displayDate => LocalizationUtil.getDateStrFromDate(
+        date: uiState.focusedDate,
+        koFormat: 'yy년 M월 d일',
+        enFormat: 'MMMM d, yy',
+      );
+
   Widget openWidget() => Stack(
         children: [
           Container(
             width: double.infinity,
             alignment: Alignment.center,
             child: Text(
-              uiState.focusedDate.toFormattedString("yy년 M월 d일"),
+              displayDate,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 24,

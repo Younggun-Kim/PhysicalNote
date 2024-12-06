@@ -29,4 +29,15 @@ enum InjuryType {
         return StringRes.injuryTypeDisease.tr;
     }
   }
+
+  String toSimpleString() {
+    switch (this) {
+      case InjuryType.contact:
+        return StringRes.injuryTypeContactSimple.tr;
+      case InjuryType.nonContact:
+        return StringRes.injuryTypeNonContactSimple.tr;
+      case InjuryType.disease:
+        return StringRes.injuryTypeDiseaseSimple.tr;
+    }
+  }
 }

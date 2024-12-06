@@ -46,11 +46,14 @@ class _EmailField extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        OutlineTextField(
-          controller: controller.email.controller,
-          hint: StringRes.emailHint.tr,
-          keyboardType: TextInputType.emailAddress,
-        ).paddingSymmetric(horizontal: 30),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: OutlineTextField(
+            controller: controller.email.controller,
+            hint: StringRes.emailHint.tr,
+            keyboardType: TextInputType.emailAddress,
+          ),
+        ),
         const SizedBox(height: 10),
         Obx(
           () => _ErrorText(
