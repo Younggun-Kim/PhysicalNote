@@ -5,4 +5,5 @@ FLUTTER_TARGET = lib/app/config/env/dev.dart
 APP_NAME = 피지컬노트개발
 APP_BUNDLE_IDENTIFIER = com.conner.physicalNote.dev
 KAKAO_URL_SCHEME = kakaod41654df0b89d74f77469d7b21eaf295
-
+PRIVACY_CAMERA = 프로필 설정 및 기록을 위해 권한을 허락해 주세요.
+PRIVACY_CAMERA_ENG = Please allow privileges for profile settings and records.

@@ -2,3 +2,4 @@
 #include "Pods/Target Support Files/Pods-Runner/Pods-Runner.profiledev.xcconfig"
 #include "Dev.xcconfig"
 APP_NAME = 피지컬노트-ProfileDev
+APP_NAME_ENG = PhysicalNote-ProfileDev

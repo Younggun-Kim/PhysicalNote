@@ -2,3 +2,4 @@
 #include "Pods/Target Support Files/Pods-Runner/Pods-Runner.debugdev.xcconfig"
 #include "Dev.xcconfig"
 APP_NAME = 피지컬노트-DebugDev
+APP_NAME_ENG = PhysicalNote-DebugDev
