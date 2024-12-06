@@ -3,6 +3,8 @@ import 'package:physical_note/app/utils/utils.dart';
 import 'dart:io' show Platform;
 
 class LocalizationUtil {
+  static bool get isKor => Platform.localeName.contains('ko');
+
   static String getDateStr({
     required String date,
     required String koFormat,
@@ -11,7 +13,7 @@ class LocalizationUtil {
   }) {
     try {
       /// 휴대폰의 언어가 ko(한글)일 때, region(or country)는 판단 안 함
-      if (Platform.localeName.contains('ko')) {
+      if (LocalizationUtil.isKor) {
         return date.toDate(originFormat).toFormattedString(koFormat);
       } else {
         return date.toDate(originFormat).toFormattedString(enFormat);
@@ -20,7 +22,7 @@ class LocalizationUtil {
       return date;
     }
   }
-  
+
   static String getDateStrFromDate({
     required DateTime date,
     required String koFormat,

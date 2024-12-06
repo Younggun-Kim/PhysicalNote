@@ -233,44 +233,45 @@ class InjuryDetailController extends BaseController {
 
     if (direction == DistinctionType.front) {
       if (partsType == BodyPartsType.body) {
-        asset =
-            IntlEx.isKor ? Assets.muscleFrontBody : Assets.muscleFrontBodyEn;
+        asset = LocalizationUtil.isKor
+            ? Assets.muscleFrontBody
+            : Assets.muscleFrontBodyEn;
       } else if (partsType == BodyPartsType.leftArm) {
-        asset = IntlEx.isKor
+        asset = LocalizationUtil.isKor
             ? Assets.muscleFrontLeftArm
             : Assets.muscleFrontLeftArmEn;
       } else if (partsType == BodyPartsType.rightArm) {
-        asset = IntlEx.isKor
+        asset = LocalizationUtil.isKor
             ? Assets.muscleFrontRightArm
             : Assets.muscleFrontRightArmEn;
       } else if (partsType == BodyPartsType.leftLeg) {
-        asset = IntlEx.isKor
+        asset = LocalizationUtil.isKor
             ? Assets.muscleFrontLeftLeg
             : Assets.muscleFrontLeftLegEn;
       } else if (partsType == BodyPartsType.rightLeg) {
-        asset = IntlEx.isKor
+        asset = LocalizationUtil.isKor
             ? Assets.muscleFrontRightLeg
             : Assets.muscleFrontRightLegEn;
       }
     } else if (direction == DistinctionType.back) {
       if (partsType == BodyPartsType.body) {
-        asset = IntlEx.isKor
+        asset = LocalizationUtil.isKor
             ? Assets.muscleBackBody
             : Assets.muscleBackBodyEn;
       } else if (partsType == BodyPartsType.leftArm) {
-        asset = IntlEx.isKor
+        asset = LocalizationUtil.isKor
             ? Assets.muscleBackLeftArm
             : Assets.muscleBackLeftArmEn;
       } else if (partsType == BodyPartsType.rightArm) {
-        asset = IntlEx.isKor
+        asset = LocalizationUtil.isKor
             ? Assets.muscleBackRightArm
             : Assets.muscleBackRightArmEn;
       } else if (partsType == BodyPartsType.leftLeg) {
-        asset = IntlEx.isKor
+        asset = LocalizationUtil.isKor
             ? Assets.muscleBackLeftLeg
             : Assets.muscleBackLeftLegEn;
       } else if (partsType == BodyPartsType.rightLeg) {
-        asset = IntlEx.isKor
+        asset = LocalizationUtil.isKor
             ? Assets.muscleBackRightLeg
             : Assets.muscleBackRightLegEn;
       }
@@ -360,7 +361,7 @@ class InjuryDetailController extends BaseController {
 
     if (response is PostInjuryResponseModel) {
       if (response.id != null) {
-        showToast("부상 체크 저장 성공.");
+        showToast(StringRes.injuryCheckSaveSuccessful);
         await Future.delayed(const Duration(seconds: 1));
         close(result: true);
       }

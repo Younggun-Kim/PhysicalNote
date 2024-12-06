@@ -20,7 +20,7 @@ class HistoryIntensityItemUiState {
 
   String get displayRecordDate => LocalizationUtil.getDateStr(
         date: formattedRecordDate,
-        koFormat: "yy.mm.dd(E)",
+        koFormat: "yy.mm.dd(EEE)",
         enFormat: "MMMM dd, yy (E)",
       );
 

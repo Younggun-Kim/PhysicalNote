@@ -78,32 +78,33 @@ class _WellnessDetailPage extends GetView<WellnessDetailController> {
               ),
             ),
             const SizedBox(height: 42),
-            Obx(() => Row(
-                  children: [
-                    Expanded(
-                      child: RoundButton.gray(
-                        height: 44,
-                        text: StringRes.cancel.tr,
-                        textStyle: const TextStyle(
-                          color: ColorRes.gray9f9f9f,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                        onPressed: () {
-                          Get.back();
-                        },
-                      ),
+            Row(
+              children: [
+                Expanded(
+                  child: RoundButton.gray(
+                    height: 56,
+                    text: StringRes.cancel.tr,
+                    textStyle: const TextStyle(
+                      color: ColorRes.gray9f9f9f,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
                     ),
-                    const SizedBox(width: 30),
-                    Expanded(
-                      child: RoundButton(
-                        width: double.infinity,
-                        text: StringRes.doSave.tr,
-                        onPressed: controller.onPressedSave,
-                      ),
-                    ),
-                  ],
-                )),
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
+                ),
+                const SizedBox(width: 30),
+                Expanded(
+                  child: RoundButton(
+                    width: double.infinity,
+                    text: StringRes.doSave.tr,
+                    onPressed: controller.onPressedSave,
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
           ],
         ),
       );
@@ -169,7 +170,7 @@ class _Title extends StatelessWidget {
 class _Date extends GetView<WellnessDetailController> {
   String get formattedDate => LocalizationUtil.getDateStr(
         date: controller.formattedRecordDate,
-        koFormat: "yy년 M월 d일 (E)",
+        koFormat: "yy년 M월 d일 (EEE)",
         enFormat: 'MMMM d, yy (E)',
       );
 

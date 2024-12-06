@@ -44,7 +44,7 @@ class HistoryWellnessItem extends StatelessWidget {
                   Text(
                     LocalizationUtil.getDateStr(
                       date: uiState.recordDate,
-                      koFormat: 'yy.MM.dd(E)',
+                      koFormat: 'yy.MM.dd(EEE)',
                       enFormat: "MMMM dd, yy (E)",
                     ),
                     style: const TextStyle(

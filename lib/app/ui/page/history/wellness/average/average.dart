@@ -173,6 +173,9 @@ class _HooperIndexValue extends StatelessWidget {
 class UrineAndBodyFat extends GetView<HistoryController> {
   const UrineAndBodyFat({super.key});
 
+  String get percent =>
+      controller.avgData.value?.differenceFat?.substring(0, 2) ?? '-';
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -183,6 +186,19 @@ class UrineAndBodyFat extends GetView<HistoryController> {
             value: controller.avgData.value?.urineAvg ?? 0,
           ),
           _BodyFat(),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "($percent%)",
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: ColorRes.fontBlack,
+                height: 35 / 24,
+                letterSpacing: -0.5,
+              ),
+            ),
+          ),
           const SizedBox(height: 10),
           _UrineAvgDescription(
             urine: controller.avgData.value?.urineAvg ?? 0,
@@ -207,6 +223,7 @@ class _UrineAvgItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           text,
@@ -219,16 +236,14 @@ class _UrineAvgItem extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 7),
-        Expanded(
-          child: Text(
-            value.toStringAsFixed(2),
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w500,
-              color: ColorRes.fontBlack,
-              height: 35 / 24,
-              letterSpacing: -0.5,
-            ),
+        Text(
+          value.toStringAsFixed(2),
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+            color: ColorRes.fontBlack,
+            height: 35 / 24,
+            letterSpacing: -0.5,
           ),
         ),
       ],
@@ -239,12 +254,12 @@ class _UrineAvgItem extends StatelessWidget {
 class _BodyFat extends GetView<HistoryController> {
   double get value => controller.avgData.value?.weightAvg ?? 0;
 
-  String get percent => controller.avgData.value?.differenceFat ?? '-';
-
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             StringRes.bodyFat.tr,
@@ -276,22 +291,11 @@ class _BodyFat extends GetView<HistoryController> {
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: ColorRes.fontBlack,
-                    height: 35 / 24,
+                    height: 34 / 24,
                     letterSpacing: -0.5,
                   ),
                 ),
               ],
-            ),
-          ),
-          const SizedBox(width: 4),
-          Text(
-            "($percent%)",
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: ColorRes.fontBlack,
-              height: 35 / 24,
-              letterSpacing: -0.5,
             ),
           ),
         ],
@@ -344,7 +348,7 @@ class _UrineAvgDescription extends StatelessWidget {
       } else {
         return StringRes.urineWeightGoodMoistureGood.tr;
       }
-    } else if(urine > 3 && urine <= 7) {
+    } else if (urine > 3 && urine <= 7) {
       if (weight < -2) {
         return StringRes.urineWeightLessMoistureBad.tr;
       } else if (weight > 2) {

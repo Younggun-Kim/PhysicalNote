@@ -93,7 +93,7 @@ class _IntensityDetailPage extends GetView<IntensityDetailController> {
                 children: [
                   Expanded(
                     child: RoundButton.gray(
-                      height: 44,
+                      height: 56,
                       text: StringRes.cancel.tr,
                       textStyle: const TextStyle(
                         color: ColorRes.gray9f9f9f,
@@ -162,7 +162,7 @@ class _Title extends StatelessWidget {
 class _Date extends GetView<IntensityDetailController> {
   String get formattedDate => LocalizationUtil.getDateStr(
         date: controller.recordDate.value.toFormattedString('yyyy-MM-dd'),
-        koFormat: "yy년 M월 d일 (E)",
+        koFormat: "yy년 M월 d일 (EEE)",
         enFormat: 'MMMM d, yy (E)',
       );
 

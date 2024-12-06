@@ -355,6 +355,9 @@ final enUs = {
   StringRes.drinkGood: 'good',
   StringRes.drinkShortage: 'shortage',
   StringRes.agree: 'Agree',
+  StringRes.pleaseChooseWorkout: 'Please choose your workout.',
+  StringRes.injuryCheckSaveSuccessful: 'Injury check save successful',
+  StringRes.intensitySaveSuccessful: 'Workout intensity save successful',
 };
 
 final _enMuscleName =  {

@@ -336,6 +336,9 @@ final koKr = {
   StringRes.drinkGood: '양호',
   StringRes.drinkShortage: '부족',
   StringRes.agree: '다음',
+  StringRes.pleaseChooseWorkout: '운동을 선택해주세요.',
+  StringRes.injuryCheckSaveSuccessful: '부상 체크 저장 성공',
+  StringRes.intensitySaveSuccessful: '운동 강도 저장 성공',
 };
 
 final _koMuscleName = {

@@ -171,7 +171,7 @@ class IntensityDetailController extends BaseController {
     } else if (isPhysical.value) {
       _physicalUiState.value.level = level;
     } else {
-      showToast("운동 종류를 선택해주세요.");
+      showToast(StringRes.pleaseChooseWorkout.tr);
     }
     _updateUiState();
   }
@@ -180,7 +180,7 @@ class IntensityDetailController extends BaseController {
   Future<void> onPressedSaveButton() async {
     final uiState = currentUiState.value;
     if (uiState == null) {
-      showToast("운동을 선택해주세요.");
+      showToast(StringRes.pleaseChooseWorkout.tr);
       return;
     }
 
@@ -226,7 +226,7 @@ class IntensityDetailController extends BaseController {
     final response = await intensityApi.postIntensity(requestData);
 
     if (response is PostIntensityResponseModel) {
-      showToast("운동 강도 저장 성공.");
+      showToast(StringRes.intensitySaveSuccessful.tr);
       await Future.delayed(const Duration(seconds: 1));
       close(result: true);
     } else {
@@ -246,7 +246,7 @@ class IntensityDetailController extends BaseController {
     final response = await intensityApi.putIntensity(requestData, intensityId);
 
     if (response is PostIntensityResponseModel) {
-      showToast("운동 강도 저장 성공.");
+      showToast(StringRes.intensitySaveSuccessful.tr);
       await Future.delayed(const Duration(seconds: 1));
       close(result: true);
     } else {

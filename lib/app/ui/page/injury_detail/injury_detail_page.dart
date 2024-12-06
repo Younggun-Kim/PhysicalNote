@@ -169,7 +169,7 @@ class _Title extends StatelessWidget {
 class _Date extends GetView<InjuryDetailController> {
   String get formattedDate => LocalizationUtil.getDateStr(
         date: controller.recordDate.value.toFormattedString('yyyy-MM-dd'),
-        koFormat: "yy년 M월 d일 (E)",
+        koFormat: "yy년 M월 d일 (EEE)",
         enFormat: 'MMMM d, yy (E)',
       );
 
@@ -748,6 +748,7 @@ class _PainTimingDescription extends StatelessWidget {
         maxLines: 10,
         fontSize: 12,
         hint: StringRes.injuryCauseHint.tr,
+        boxShadow: [],
         keyboardType: TextInputType.multiline,
       );
 }
