@@ -67,15 +67,18 @@ class _HooperIndexAvg extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _HooperIndexNames(),
             const SizedBox(width: 8),
-            _HooperIndexValues(
-              sleep: sleep,
-              stress: stress,
-              fatigue: fatigue,
-              muscle: muscle,
-            )
+            Expanded(
+              child: _HooperIndexValues(
+                sleep: sleep,
+                stress: stress,
+                fatigue: fatigue,
+                muscle: muscle,
+              ),
+            ),
           ],
         )
       ],
@@ -145,7 +148,7 @@ class _HooperIndexValue extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: min(77, 11 * value),
+          width: min(70, 10 * value),
           height: 8,
           margin: const EdgeInsets.symmetric(vertical: 6),
           decoration: BoxDecoration(
@@ -176,128 +179,106 @@ class UrineAndBodyFat extends GetView<HistoryController> {
   String get percent =>
       controller.avgData.value?.differenceFat?.substring(0, 2) ?? '-';
 
+  String get urine =>
+      (controller.avgData.value?.urineAvg ?? 0).toStringAsFixed(2);
+
+  String get bodyFat =>
+      (controller.avgData.value?.weightAvg ?? 0).toStringAsFixed(2);
+
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => Column(
         children: [
-          _UrineAvgItem(
-            text: StringRes.urineColor.tr,
-            value: controller.avgData.value?.urineAvg ?? 0,
-          ),
-          _BodyFat(),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              "($percent%)",
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: ColorRes.fontBlack,
-                height: 35 / 24,
-                letterSpacing: -0.5,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    StringRes.urineColor.tr,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.gray747474,
+                      height: 2.4,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  Text(
+                    StringRes.bodyFat.tr,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: ColorRes.gray747474,
+                      height: 2.4,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                ],
               ),
-            ),
+              const SizedBox(width: 7),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    urine,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: ColorRes.fontBlack,
+                      height: 1.5,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: bodyFat,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: ColorRes.fontBlack,
+                            height: 1.5,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                        TextSpan(
+                          text: StringRes.kg.tr,
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                            color: ColorRes.fontBlack,
+                            height: 34 / 24,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                        TextSpan(
+                          text: " ($percent%)",
+                          style: const TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                            color: ColorRes.fontBlack,
+                            height: 35 / 24,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ],
           ),
           const SizedBox(height: 10),
           _UrineAvgDescription(
             urine: controller.avgData.value?.urineAvg ?? 0,
             weight: controller.avgData.value?.weightAvg ?? 0,
           )
-        ],
-      ),
-    );
-  }
-}
-
-class _UrineAvgItem extends StatelessWidget {
-  final String text;
-
-  final double value;
-
-  const _UrineAvgItem({
-    required this.text,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: ColorRes.gray747474,
-            height: 20 / 12,
-            letterSpacing: -0.5,
-          ),
-        ),
-        const SizedBox(width: 7),
-        Text(
-          value.toStringAsFixed(2),
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-            color: ColorRes.fontBlack,
-            height: 35 / 24,
-            letterSpacing: -0.5,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _BodyFat extends GetView<HistoryController> {
-  double get value => controller.avgData.value?.weightAvg ?? 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(
-      () => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            StringRes.bodyFat.tr,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: ColorRes.gray747474,
-              height: 20 / 12,
-              letterSpacing: -0.5,
-            ),
-          ),
-          const SizedBox(width: 7),
-          Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: value.toStringAsFixed(2),
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                    color: ColorRes.fontBlack,
-                    height: 35 / 24,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-                TextSpan(
-                  text: StringRes.kg.tr,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: ColorRes.fontBlack,
-                    height: 34 / 24,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );

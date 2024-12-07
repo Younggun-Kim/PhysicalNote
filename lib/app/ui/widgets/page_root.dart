@@ -66,29 +66,34 @@ class PageRoot extends StatelessWidget {
   Widget _createPage(BuildContext context) => Stack(
         children: [
           KeyboardDismissOnTap(
-            child: Scaffold(
-              backgroundColor: backgroundColor,
-              resizeToAvoidBottomInset: resize,
-              floatingActionButton: floatingActionButton,
-              body: isFullPage
-                  ? SizedBox(
-                      width: double.infinity,
-                      child: child,
-                    )
-                  : SafeArea(
-                      top: safeStatusBar,
-                      bottom: safeNavigationBar,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              width: double.infinity,
-                              child: child,
+            child: MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                textScaler: TextScaler.noScaling,
+              ),
+              child: Scaffold(
+                backgroundColor: backgroundColor,
+                resizeToAvoidBottomInset: resize,
+                floatingActionButton: floatingActionButton,
+                body: isFullPage
+                    ? SizedBox(
+                        width: double.infinity,
+                        child: child,
+                      )
+                    : SafeArea(
+                        top: safeStatusBar,
+                        bottom: safeNavigationBar,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: child,
+                              ),
                             ),
-                          ),
-                          _KeyboardCloseButton(),
-                        ],
-                      )),
+                            _KeyboardCloseButton(),
+                          ],
+                        )),
+              ),
             ),
           ),
           _createLoading(),

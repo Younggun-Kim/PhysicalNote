@@ -30,7 +30,7 @@ class LocalizationUtil {
     String originFormat = 'yyyy-MM-dd',
   }) {
     try {
-      if (Intl.getCurrentLocale() == 'ko_KR') {
+      if (LocalizationUtil.isKor) {
         return date.toFormattedString(koFormat);
       } else {
         return date.toFormattedString(enFormat);

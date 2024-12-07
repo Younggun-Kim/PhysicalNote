@@ -2,18 +2,19 @@
   "sourceLanguage" : "ko",
   "strings" : {
     "CFBundleDisplayName" : {
+      "comment" : "CFBundleDisplayName",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Physical Note"
+            "state" : "translated",
+            "value" : "PhysicalNote"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "피지컬 노트"
+            "value" : "피지컬노트"
           }
         }
       }

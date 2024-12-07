@@ -37,7 +37,7 @@ extension StringToStringFormatEx on String {
     // 시간, 분, 초 분리
     List<String> parts = timeString.split(':');
     int hours = int.parse(parts[0]);
-    int minutes = int.parse(parts[1]);
+    String minutes = parts[1];
 
     return '$hours:$minutes';
   }

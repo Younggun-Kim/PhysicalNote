@@ -361,7 +361,7 @@ class InjuryDetailController extends BaseController {
 
     if (response is PostInjuryResponseModel) {
       if (response.id != null) {
-        showToast(StringRes.injuryCheckSaveSuccessful);
+        showToast(StringRes.injuryCheckSaveSuccessful.tr);
         await Future.delayed(const Duration(seconds: 1));
         close(result: true);
       }

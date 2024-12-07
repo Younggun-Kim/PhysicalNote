@@ -399,6 +399,7 @@ class StringRes {
   static final drinkShortage = _generateId();
   static final agree = _generateId();
   static final pleaseChooseWorkout = _generateId();
-  static final injuryCheckSaveSuccessful  = _generateId();
-  static final intensitySaveSuccessful  = _generateId();
+  static final injuryCheckSaveSuccessful = _generateId();
+  static final intensitySaveSuccessful = _generateId();
+  static final wellnessSaveSuccessful = _generateId();
 }

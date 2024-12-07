@@ -12,7 +12,6 @@ import 'package:physical_note/app/utils/utils.dart';
 import 'main_tab_index.dart';
 
 class MainScreenController extends BaseMainController<MainUiState> {
-
   @override
   void onReady() async {
     route();
@@ -49,9 +48,20 @@ class MainScreenController extends BaseMainController<MainUiState> {
     afterTabChange(tabIndex: tabIndex);
   }
 
+  void checkBindings() {
+    if (!Get.isRegistered<HistoryController>()) {
+      Get.lazyPut(() => HistoryController());
+    }
+    if (!Get.isRegistered<FeedbackController>()) {
+      Get.lazyPut(() => FeedbackController());
+    }
+  }
+
   void changeTab({
     required MainTabIndex tabIndex,
   }) {
+    checkBindings();
+
     if (uiState.value.tabIndex == tabIndex) {
       scrollToTop(tabIndex);
     } else {
@@ -64,7 +74,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
     required MainTabIndex tabIndex,
   }) {
     /// OCP 위배 변경 필요
-    switch(tabIndex) {
+    switch (tabIndex) {
       case MainTabIndex.home:
         final isRegistered = Get.isRegistered<HomeController>();
         if (isRegistered) {

@@ -32,7 +32,7 @@ class _List extends GetView<HistoryController> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     clipBehavior: Clip.none,
-                    padding: const EdgeInsets.fromLTRB(30, 24, 30, 48),
+                    padding: const EdgeInsets.fromLTRB(24, 24, 24, 48),
                     pagingController: controller.wellnessPagingController,
                     builderDelegate:
                         PagedChildBuilderDelegate<HistoryWellnessItemUiState>(

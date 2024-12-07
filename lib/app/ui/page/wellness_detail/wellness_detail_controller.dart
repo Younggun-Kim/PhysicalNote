@@ -127,6 +127,7 @@ class WellnessDetailController extends BaseController {
     final response = await wellnessApi.postWellness(requestData: requestData);
 
     if (response is GetWellnessResponseModel) {
+      showToast(StringRes.intensitySaveSuccessful.tr);
       wellnessId.value = response.id;
       close(result: true);
     } else {
@@ -152,6 +153,7 @@ class WellnessDetailController extends BaseController {
     );
 
     if (response is GetWellnessResponseModel) {
+      showToast(StringRes.intensitySaveSuccessful.tr);
       wellnessId.value = response.id;
       close(result: true);
     } else {
