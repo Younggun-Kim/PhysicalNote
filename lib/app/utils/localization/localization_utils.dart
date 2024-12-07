@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:physical_note/app/utils/utils.dart';
 import 'dart:io' show Platform;
 
