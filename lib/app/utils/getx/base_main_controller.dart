@@ -23,6 +23,7 @@ abstract class BaseMainController<T extends UiState> extends GetxController {
   }
 
   /// 종료.
+  // ignore: avoid_shadowing_type_parameters
   void close<T>({T? result}) {
     Get.back<T>(result: result);
   }

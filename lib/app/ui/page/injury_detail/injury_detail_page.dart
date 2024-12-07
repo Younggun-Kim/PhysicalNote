@@ -748,7 +748,7 @@ class _PainTimingDescription extends StatelessWidget {
         maxLines: 10,
         fontSize: 12,
         hint: StringRes.injuryCauseHint.tr,
-        boxShadow: [],
+        boxShadow: const [],
         keyboardType: TextInputType.multiline,
       );
 }
