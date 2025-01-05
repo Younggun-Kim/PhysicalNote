@@ -243,8 +243,6 @@ class MuscleUtils {
             default:
               return null;
           }
-        default:
-          return null;
       }
     } else {
       switch (bodyPart) {
@@ -341,8 +339,6 @@ class MuscleUtils {
             default:
               return null;
           }
-        default:
-          return null;
       }
     }
   }

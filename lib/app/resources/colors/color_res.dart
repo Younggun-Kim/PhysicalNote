@@ -6,10 +6,10 @@ class ColorRes {
   static final primarySwatch = _createMaterialColor(primary);
 
   /// 클릭 오버레이 컬러.
-  static final clickOverlayColor = Colors.black.withOpacity(0.1);
+  static final clickOverlayColor = Colors.black.withValues(alpha: 0.1);
 
   /// 딤 컬러.
-  static final dimmed = Colors.black.withOpacity(0.7);
+  static final dimmed = Colors.black.withValues(alpha: 0.7);
 
   /// 0xffffffff
   static const white = Color(0xffffffff);
@@ -233,7 +233,7 @@ class ColorRes {
   static MaterialColor _createMaterialColor(Color color) {
     List strengths = <double>[.05];
     Map<int, Color> swatch = {};
-    final int r = color.red, g = color.green, b = color.blue;
+    final int r = color.r.toInt(), g = color.g.toInt(), b = color.b.toInt();
 
     for (int i = 1; i < 10; i++) {
       strengths.add(0.1 * i);
@@ -247,6 +247,6 @@ class ColorRes {
         1,
       );
     }
-    return MaterialColor(color.value, swatch);
+    return MaterialColor(color.g.toInt(), swatch);
   }
 }

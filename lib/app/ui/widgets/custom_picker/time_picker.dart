@@ -33,8 +33,8 @@ class TimePicker extends StatelessWidget {
 
   /// 오버레이 백그라운드 색상
   Color get _overlayColor => isEnabled
-      ? ColorRes.primary.withOpacity(0.3)
-      : ColorRes.disable.withOpacity(0.2);
+      ? ColorRes.primary.withValues(alpha:0.3)
+      : ColorRes.disable.withValues(alpha:0.2);
 
   @override
   Widget build(BuildContext context) => Stack(

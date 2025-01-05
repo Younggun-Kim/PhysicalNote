@@ -7,9 +7,9 @@ class API extends GetConnect {
   /// 서버 주소.
   String get server => Config.isProd ? prodServer : devServer;
 
-  final prodServer = 'https://dev.physicalnote.com';
+  final prodServer = 'https://dev.hajin.com';
 
-  final devServer = 'https://dev.physicalnote.com';
+  final devServer = 'https://dev.hajin.com';
 
   /// 기본 Path.
   final String basePath;

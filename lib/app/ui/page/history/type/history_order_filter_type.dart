@@ -18,8 +18,6 @@ enum HistoryOrderFilterType {
         return StringRes.historyFilterAsc.tr;
       case HistoryOrderFilterType.desc:
         return StringRes.historyFilterDesc.tr;
-      default:
-        throw Exception('unexpected HistoryOrderFilterType: $this');
     }
   }
 }

@@ -4,8 +4,7 @@ import 'package:physical_note/app/resources/colors/color_res.dart';
 class HexColor extends Color {
   static int _getColorFromHex(String? hexColor, Color defaultColor) {
     if (hexColor == null) {
-      return Colors.transparent
-          .value; // You can change this to another default color if needed
+      return Colors.transparent.g.toInt();
     }
     hexColor = hexColor.toUpperCase().replaceAll("#", "");
     if (hexColor.length == 6) {

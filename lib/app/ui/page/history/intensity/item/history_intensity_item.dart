@@ -200,7 +200,7 @@ class _Content extends StatelessWidget {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.25),
+                  color: Colors.grey.withValues(alpha:0.25),
                   spreadRadius: 0,
                   blurRadius: 8,
                   offset: const Offset(0, 4), // changes position of shadow

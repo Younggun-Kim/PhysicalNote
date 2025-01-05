@@ -85,7 +85,7 @@ class _DropdownDialog extends State<DropdownDialog> {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.25),
+                    color: Colors.grey.withValues(alpha: 0.25),
                     spreadRadius: 1,
                     blurRadius: 4,
                     offset: const Offset(0, 2),

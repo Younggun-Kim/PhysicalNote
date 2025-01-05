@@ -159,8 +159,6 @@ class HistoryController extends BaseController
         onRefreshIntensity();
       case HistoryTabType.injury:
         onRefreshInjury();
-      default:
-        break;
     }
   }
 
@@ -231,8 +229,6 @@ class HistoryController extends BaseController
         recordIntensity(recordDate: recordDate);
       case HistoryTabType.injury:
         recordInjury(recordDate: recordDate);
-      default:
-        break;
     }
   }
 }

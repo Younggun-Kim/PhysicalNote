@@ -102,11 +102,11 @@ class RPSCustomPainter extends CustomPainter {
     Paint centerLinePaintStroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = width * 0.01034783;
-    centerLinePaintStroke.color = Colors.white.withOpacity(1.0);
+    centerLinePaintStroke.color = Colors.white.withValues(alpha:1.0);
     canvas.drawPath(centerLinePath, centerLinePaintStroke);
 
     Paint centerLinePaintFill = Paint()..style = PaintingStyle.fill;
-    centerLinePaintFill.color = const Color(0xff000000).withOpacity(1.0);
+    centerLinePaintFill.color = const Color(0xff000000).withValues(alpha:1.0);
     canvas.drawPath(centerLinePath, centerLinePaintFill);
 
     /// 왼쪽 선.
@@ -117,11 +117,11 @@ class RPSCustomPainter extends CustomPainter {
     Paint leftLinePaintStroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = width * 0.01034783;
-    leftLinePaintStroke.color = Colors.white.withOpacity(1.0);
+    leftLinePaintStroke.color = Colors.white.withValues(alpha:1.0);
     canvas.drawPath(leftLinePath, leftLinePaintStroke);
 
     Paint leftLinePaintFill = Paint()..style = PaintingStyle.fill;
-    leftLinePaintFill.color = const Color(0xff000000).withOpacity(1.0);
+    leftLinePaintFill.color = const Color(0xff000000).withValues(alpha:1.0);
     canvas.drawPath(leftLinePath, leftLinePaintFill);
 
     /// 오른쪽 선.
@@ -132,11 +132,11 @@ class RPSCustomPainter extends CustomPainter {
     Paint rightLinePaintStroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = width * 0.01034783;
-    rightLinePaintStroke.color = Colors.white.withOpacity(1.0);
+    rightLinePaintStroke.color = Colors.white.withValues(alpha:1.0);
     canvas.drawPath(rightLinePath, rightLinePaintStroke);
 
     Paint rightLinePaintFill = Paint()..style = PaintingStyle.fill;
-    rightLinePaintFill.color = const Color(0xff000000).withOpacity(1.0);
+    rightLinePaintFill.color = const Color(0xff000000).withValues(alpha:1.0);
     canvas.drawPath(rightLinePath, rightLinePaintFill);
 
     // 삼각형 그리기.

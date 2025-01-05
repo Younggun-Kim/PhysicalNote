@@ -66,7 +66,6 @@ dependencies:
   webview_flutter_wkwebview: ^3.10.0
   webview_flutter_android: ^3.13.1
   json_annotation: ^4.8.1
-  flutter_naver_login: ^1.8.0
   kakao_flutter_sdk_user: ^1.8.0
   sign_in_with_apple: ^6.1.1
   dotted_border: ^2.1.0

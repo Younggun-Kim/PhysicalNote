@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/sns_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
@@ -19,7 +18,7 @@ class Logout {
 
     /// 네이버 로그아웃.
     if (userStorage.snsType.val == UserSnsType.naver.toString()) {
-      FlutterNaverLogin.logOutAndDeleteToken();
+      // FlutterNaverLogin.logOutAndDeleteToken();
     }
 
     /// 카카오 로그아웃.

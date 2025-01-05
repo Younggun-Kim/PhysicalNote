@@ -512,7 +512,7 @@ class _Pain extends GetView<InjuryDetailController> {
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.25),
+                  color: Colors.grey.withValues(alpha:0.25),
                   spreadRadius: 3,
                   blurRadius: 5,
                   offset: const Offset(0, 2), // changes position of shadow

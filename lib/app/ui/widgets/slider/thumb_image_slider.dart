@@ -50,7 +50,7 @@ class ThumbImageSlider extends StatelessWidget {
                       color: ColorRes.white,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.25),
+                          color: Colors.grey.withValues(alpha:0.25),
                           spreadRadius: 3,
                           blurRadius: 5,
                           offset:
