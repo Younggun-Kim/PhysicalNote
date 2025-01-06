@@ -121,7 +121,6 @@ class Assets {
   static const String frontRightLegTERESMAJOR = 'assets/images/muscles/front/right_leg/front_right_leg_TERES_MAJOR.svg';
   static const String frontRightLegTIBIALISANTERIOR = 'assets/images/muscles/front/right_leg/front_right_leg_TIBIALIS_ANTERIOR.svg';
   static const String hand = 'assets/images/hand.svg';
-  static const String hand2 = 'assets/images/hand2.png';
   static const String homeWellnessHuman = 'assets/images/home_wellness_human.png';
   static const String humanBack = 'assets/images/human_back.svg';
   static const String humanFront = 'assets/images/human_front.svg';

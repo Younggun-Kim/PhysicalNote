@@ -70,6 +70,9 @@ class MyInformationController extends BaseController {
   /// 왼쪽 발.
   var rightFoot = 0.obs;
 
+  /// 손/발 여부
+  late var isFoot = args.isFoot.obs;
+
   /// 등록 버튼 enabled 여부;
   late var isEnabledRegistrationButton = CombineLatestStream(
     [

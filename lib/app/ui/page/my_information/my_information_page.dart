@@ -102,7 +102,7 @@ class _Profile extends GetView<MyInformationController> {
                 borderRadius: BorderRadius.circular(46),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withValues(alpha:0.25),
+                    color: Colors.grey.withValues(alpha: 0.25),
                     spreadRadius: 3,
                     blurRadius: 5,
                     offset: const Offset(0, 2), // changes position of shadow
@@ -128,7 +128,7 @@ class _Profile extends GetView<MyInformationController> {
                     color: ColorRes.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withValues(alpha:0.25),
+                        color: Colors.grey.withValues(alpha: 0.25),
                         spreadRadius: 3,
                         blurRadius: 5,
                         offset:
@@ -495,7 +495,10 @@ class _MainFooted extends GetView<MyInformationController> {
                   () => ThumbImageSlider(
                     totalStep: 10,
                     currentStep: controller.leftFoot.value,
-                    thumbAsset: Assets.foot,
+                    thumbAsset: controller.isFoot.value ? Assets.foot : Assets.hand,
+                    textPosition: controller.isFoot.value
+                        ? null
+                        : const EdgeInsets.fromLTRB(4, 8, 0, 0),
                     onChanged: controller.onChangeLeftFoot,
                   ),
                 ),
@@ -520,7 +523,10 @@ class _MainFooted extends GetView<MyInformationController> {
                   () => ThumbImageSlider(
                     totalStep: 10,
                     currentStep: controller.rightFoot.value,
-                    thumbAsset: Assets.foot,
+                    thumbAsset: controller.isFoot.value ? Assets.foot : Assets.hand,
+                    textPosition: controller.isFoot.value
+                        ? null
+                        : const EdgeInsets.fromLTRB(4, 8, 0, 0),
                     onChanged: controller.onChangeRightFoot,
                   ),
                 ),

@@ -5,11 +5,14 @@ import 'package:physical_note/app/resources/resources.dart';
 /// ThumbImageSlider
 
 class ThumbImageSlider extends StatelessWidget {
+
   final int totalStep;
 
   final int currentStep;
 
   final String thumbAsset;
+
+  final EdgeInsets? textPosition;
 
   /// 슬라이드 드래그 이벤트.
   final Function(int) onChanged;
@@ -20,6 +23,7 @@ class ThumbImageSlider extends StatelessWidget {
     required this.currentStep,
     required this.thumbAsset,
     required this.onChanged,
+     this.textPosition,
   });
 
   final _imageWidth = 28;
@@ -83,11 +87,12 @@ class ThumbImageSlider extends StatelessWidget {
                       width: 28,
                       height: 43,
                       alignment: Alignment.center,
+                      padding: textPosition,
                       child: Text(
                         "$currentStep",
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: ColorRes.white,
                           fontWeight: FontWeight.w400,
                         ),

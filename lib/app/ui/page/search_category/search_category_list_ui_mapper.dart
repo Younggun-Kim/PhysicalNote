@@ -22,6 +22,7 @@ extension SearchCategoryListUiMapper on SearchCategoryController {
       id: model.id,
       name: model.name,
       isSelected: isSelected,
+      isFoot: ["발", "FO"].contains(model.useMain),
     );
   }
 }

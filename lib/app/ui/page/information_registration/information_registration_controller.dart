@@ -116,6 +116,7 @@ class InformationRegistrationController extends BaseController {
   void moveMyInformation(int workoutId, bool isElite, String? passCode) {
     final args = MyInformationArgs(
       workoutId: workoutId,
+      isFoot: sports.value?.isFoot ?? true,
       isElite: isElite,
       isEnteredFromHome: false,
       passCode: passCode,

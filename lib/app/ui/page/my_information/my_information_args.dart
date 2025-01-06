@@ -2,6 +2,9 @@ class MyInformationArgs {
   /// 운동 Id.
   final int? workoutId;
 
+  /// 손발여부
+  final bool isFoot;
+
   /// 엘리트 여부.
   final bool? isElite;
 
@@ -13,6 +16,7 @@ class MyInformationArgs {
 
   MyInformationArgs({
     this.workoutId,
+    this.isFoot = true,
     this.isElite,
     required this.isEnteredFromHome,
     this.passCode,
