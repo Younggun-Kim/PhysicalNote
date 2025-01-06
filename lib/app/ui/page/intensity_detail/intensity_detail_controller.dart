@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/workout_type.dart';
@@ -38,6 +40,7 @@ class IntensityDetailController extends BaseController {
   /// 운동 강도 - 시간 컨트롤러.
   var hourController = FixedExtentScrollController(
     initialItem: 0,
+
   );
 
   /// 운동 강도 - 분 컨트롤러.
@@ -248,7 +251,7 @@ class IntensityDetailController extends BaseController {
     if (response is PostIntensityResponseModel) {
       showToast(StringRes.intensitySaveSuccessful.tr);
       await Future.delayed(const Duration(seconds: 1));
-      close(result: true);
+      Get.back(result: true);
     } else {
       final message = (response as ServerResponseFailModel?)?.toastMessage ??
           StringRes.serverError.tr;
@@ -306,7 +309,8 @@ class IntensityDetailController extends BaseController {
   int _convertTimeToHour(String? time) {
     final splitTime = time?.split(":");
     if (splitTime != null && splitTime.isNotEmpty && splitTime.length == 3) {
-      return int.tryParse(splitTime.first.toString()) ?? 0;
+      final hour = int.tryParse(splitTime.first.toString()) ?? 0;
+      return min(hour, 5);
     } else {
       return 0;
     }
@@ -314,11 +318,16 @@ class IntensityDetailController extends BaseController {
 
   /// HH:mm:ss의 분 가져오기
   int _convertTimeToMinute(String? time) {
-    final splitTime = time?.split(":");
-    if (splitTime != null && splitTime.isNotEmpty && splitTime.length == 3) {
-      return int.tryParse(splitTime[1].toString()) ?? 0;
-    } else {
+    final workoutTime = time?.toDate('HH:mm:ss');
+
+    if(workoutTime == null) {
       return 0;
     }
+
+    if(workoutTime.hour >= 6) {
+      return 59;
+    }
+
+    return workoutTime.minute;
   }
 }

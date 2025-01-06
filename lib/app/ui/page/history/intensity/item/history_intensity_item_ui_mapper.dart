@@ -11,6 +11,7 @@ extension HistoryIntensityItemUiMapper on HistoryIntensityController {
     const uuid = Uuid();
     final id = uuid.v4();
     final recordDate = model.date?.toDate('yyyy-MM-dd');
+    limitTimeToFiveAM(recordDate);
 
     if (recordDate == null) {
       return null;
@@ -25,13 +26,38 @@ extension HistoryIntensityItemUiMapper on HistoryIntensityController {
       ));
     }
 
+    final workoutTime = model.sports?.workoutTime?.toDate('HH:mm:ss');
+
     return HistoryIntensityItemUiState(
       id: id,
       sportLevel: model.sports?.intensityLevel,
-      sportTime: model.sports?.workoutTime,
+      sportTime: limitTimeToFiveAM(workoutTime)?.toFormattedString('HH:mm:ss'),
       physicalLevel: model.physical?.intensityLevel,
       physicalTime: model.physical?.workoutTime,
       recordDate: recordDate,
     );
   }
+}
+
+/// 현재 시간이 5시보다 크면 5시 59분으로 설정
+DateTime? limitTimeToFiveAM(DateTime? date) {
+
+  if(date == null) {
+    return date;
+  }
+
+  if (date.hour > 5) {
+    return DateTime(
+      date.year,
+      date.month,
+      date.day,
+      5, // 시간을 5시로 고정
+      59,
+      date.second,
+      date.millisecond,
+      date.microsecond,
+    );
+  }
+
+  return date;
 }
