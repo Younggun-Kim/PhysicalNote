@@ -4,6 +4,7 @@ import 'package:physical_note/app/utils/sns/sns_login.dart';
 class NaverLogin extends SnsLogin {
   @override
   Future<String?> login() async {
+    return Future.error('');
     // try {
     //   await FlutterNaverLogin.logIn();
     //   final accessToken = await FlutterNaverLogin.currentAccessToken;

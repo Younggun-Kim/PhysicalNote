@@ -10,6 +10,7 @@ class PostLoginResponseModel {
   final String? loginId;
   final String? role;
   final String? name;
+  final String? birthDate;
 
   PostLoginResponseModel({
     this.token,
@@ -17,6 +18,7 @@ class PostLoginResponseModel {
     this.loginId,
     this.role,
     this.name,
+    this.birthDate,
   });
 
 

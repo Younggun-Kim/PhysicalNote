@@ -67,18 +67,24 @@ class LoginController extends BaseController {
 
   /// 로그인 버튼 클릭.
   Future<void> onPressedLogin() async {
-    final loginProcess = Get.find<LoginProcess>();
-    setLoading(true);
-    final requestData = PostLoginRequestModel(
-      loginId: email.value,
-      password: password.value,
-      type: UserSnsType.idPw.toString(),
-    );
+    try {
+      final loginProcess = Get.find<LoginProcess>();
+      setLoading(true);
+      final requestData = PostLoginRequestModel(
+        loginId: email.value,
+        password: password.value,
+        type: UserSnsType.idPw.toString(),
+      );
 
-    final moveType = await loginProcess.loginAndMove(requestData: requestData);
+      final moveType = await loginProcess.loginAndMove(requestData: requestData);
 
-    setLoading(false);
-    loginProcess.movePage(moveType);
+      loginProcess.movePage(moveType);
+    } catch(e) {
+      logger.e(e);
+    } finally {
+
+      setLoading(false);
+    }
   }
 
   /// 네이버 클릭.

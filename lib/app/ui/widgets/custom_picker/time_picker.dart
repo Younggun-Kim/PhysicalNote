@@ -52,7 +52,7 @@ class TimePicker extends StatelessWidget {
                       return index.toString();
                     },
                     subFixText: '',
-                    length: 24,
+                    length: 6,
                     isEnabled: isEnabled,
                     selectedIndex: uiState?.hour,
                     onSelectedItemChanged: onSelectedHourChanged,

@@ -94,6 +94,7 @@ class LoginProcess {
   }) async {
     final response = await loginApi.postLogin(requestData);
 
+    logger.i(response);
     if (response is PostLoginResponseModel) {
       final apiToken = response.token;
       final snsType = requestData.type;

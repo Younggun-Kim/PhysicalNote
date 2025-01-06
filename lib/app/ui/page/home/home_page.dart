@@ -164,7 +164,9 @@ class _UserInfo extends GetView<HomeController> {
                         const WidgetSpan(child: SizedBox(width: 8)),
                         WidgetSpan(
                           child: InkWellOver(
-                            onTap: controller.onPressedUserEditButton,
+                            onTap: () {
+                              controller.onPressedUserEditButton();
+                            },
                             child: SvgPicture.asset(
                               Assets.editGreen,
                               width: 19,
@@ -243,7 +245,9 @@ class _RecordButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWellOver(
-        onTap: onPressed,
+        onTap: () {
+          onPressed();
+        },
         borderRadius: BorderRadius.circular(24),
         child: AspectRatio(
           aspectRatio: 100 / 82,

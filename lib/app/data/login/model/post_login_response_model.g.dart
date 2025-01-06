@@ -14,6 +14,7 @@ PostLoginResponseModel _$PostLoginResponseModelFromJson(
       loginId: json['loginId'] as String?,
       role: json['role'] as String?,
       name: json['name'] as String?,
+      birthDate: json['birthDate'] as String?,
     );
 
 Map<String, dynamic> _$PostLoginResponseModelToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$PostLoginResponseModelToJson(
       'loginId': instance.loginId,
       'role': instance.role,
       'name': instance.name,
+      'birthDate': instance.birthDate,
     };

@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
+import 'package:physical_note/app/data/wellness/wellness_api.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/history/history.dart';
 import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
@@ -49,6 +50,9 @@ class MainScreenController extends BaseMainController<MainUiState> {
   }
 
   void checkBindings() {
+    if (!Get.isRegistered<WellnessAPI>()) {
+      Get.lazyPut(() => WellnessAPI());
+    }
     if (!Get.isRegistered<HistoryController>()) {
       Get.lazyPut(() => HistoryController());
     }
