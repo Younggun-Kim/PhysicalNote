@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 2.0.1+108
+version: 2.1.0+110
 
 environment:
   sdk: '>=3.5.0 <4.0.0'
@@ -135,3 +135,5 @@ flutter_assets_generator:
 
 scripts:
   build: dart run build_runner build --delete-conflicting-outputs
+
+  build-ios: flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart
