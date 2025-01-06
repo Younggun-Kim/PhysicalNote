@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:physical_note/app/config/constant/gender_type.dart';
 import 'package:physical_note/app/config/constant/photo_model.dart';
 import 'package:physical_note/app/config/constant/sns_type.dart';
+import 'package:physical_note/app/config/constant/use_main_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/common/common_api.dart';
 import 'package:physical_note/app/data/common/model/post_upload_response_model.dart';
@@ -71,7 +72,9 @@ class MyInformationController extends BaseController {
   var rightFoot = 0.obs;
 
   /// 손/발 여부
-  late var isFoot = args.isFoot.obs;
+  late var useMain = args.useMain.obs;
+
+  late var isHand = useMain.behaviorStream.map((e) => e.isHand).toObs(true);
 
   /// 등록 버튼 enabled 여부;
   late var isEnabledRegistrationButton = CombineLatestStream(

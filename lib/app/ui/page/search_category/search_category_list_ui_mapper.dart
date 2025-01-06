@@ -1,3 +1,4 @@
+import 'package:physical_note/app/config/constant/use_main_type.dart';
 import 'package:physical_note/app/data/workout/model/get_workout_category_response_list_item_model.dart';
 import 'package:physical_note/app/data/workout/model/get_workout_detail_response_list_item_model.dart';
 import 'package:physical_note/app/ui/page/search_category/item/search_category_list_item_ui_state.dart';
@@ -18,11 +19,12 @@ extension SearchCategoryListUiMapper on SearchCategoryController {
   /// 스포츠 아이템 매핑
   SearchCategoryListItemUiState searchCategoryListItemUiStateFromSports(
       GetWorkoutDetailResponseItemModel model, bool isSelected) {
+    final useMain = UseMain.from(model.useMain);
     return SearchCategoryListItemUiState(
       id: model.id,
       name: model.name,
       isSelected: isSelected,
-      isFoot: ["발", "FO"].contains(model.useMain),
+      useMain: useMain.isNone ? UseMain.hand : useMain,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:physical_note/app/config/constant/photo_model.dart';
+import 'package:physical_note/app/config/constant/use_main_type.dart';
 import 'package:physical_note/app/config/constant/user_type.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
 import 'package:physical_note/app/data/user/model/post_user_request_model.dart';
@@ -59,6 +60,11 @@ extension MyInformationUiMapper on MyInformationController {
 
     /// 오른쪽 발.
     rightFoot.value = (response?.rightValue ?? 0).toInt();
+
+
+    if(args.isEnteredFromHome) {
+      useMain.value = UseMain.from(response?.useMain);
+    }
   }
 
   /// 포지션 UiState Mapper.

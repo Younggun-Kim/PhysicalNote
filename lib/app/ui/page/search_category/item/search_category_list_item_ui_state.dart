@@ -1,16 +1,18 @@
+import 'package:physical_note/app/config/constant/use_main_type.dart';
+
 class SearchCategoryListItemUiState {
   int id;
 
   String name;
 
-  bool isSelected;
+  UseMain useMain;
 
-  bool isFoot;
+  bool isSelected;
 
   SearchCategoryListItemUiState({
     required this.id,
     required this.name,
+    this.useMain = UseMain.none,
     this.isSelected = false,
-    this.isFoot = true,
   });
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_cast
 import 'package:get/get.dart';
 import 'package:physical_note/app/config/constant/sns_type.dart';
+import 'package:physical_note/app/config/constant/use_main_type.dart';
 import 'package:physical_note/app/config/routes/routes.dart';
 import 'package:physical_note/app/data/network/model/server_response_fail/server_response_fail_model.dart';
 import 'package:physical_note/app/data/user/model/get_user_response_model.dart';
@@ -114,9 +115,10 @@ class InformationRegistrationController extends BaseController {
 
   /// 내 정보 화면으로 이동.
   void moveMyInformation(int workoutId, bool isElite, String? passCode) {
+    logger.i(sports.value?.useMain);
     final args = MyInformationArgs(
       workoutId: workoutId,
-      isFoot: sports.value?.isFoot ?? true,
+      useMain: sports.value?.useMain ?? UseMain.hand,
       isElite: isElite,
       isEnteredFromHome: false,
       passCode: passCode,

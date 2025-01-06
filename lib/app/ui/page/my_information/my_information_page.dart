@@ -495,10 +495,11 @@ class _MainFooted extends GetView<MyInformationController> {
                   () => ThumbImageSlider(
                     totalStep: 10,
                     currentStep: controller.leftFoot.value,
-                    thumbAsset: controller.isFoot.value ? Assets.foot : Assets.hand,
-                    textPosition: controller.isFoot.value
-                        ? null
-                        : const EdgeInsets.fromLTRB(4, 8, 0, 0),
+                    thumbAsset:
+                        controller.isHand.value ? Assets.hand : Assets.foot,
+                    textPosition: controller.isHand.value
+                        ? const EdgeInsets.fromLTRB(4, 8, 0, 0)
+                        : null,
                     onChanged: controller.onChangeLeftFoot,
                   ),
                 ),
@@ -523,10 +524,11 @@ class _MainFooted extends GetView<MyInformationController> {
                   () => ThumbImageSlider(
                     totalStep: 10,
                     currentStep: controller.rightFoot.value,
-                    thumbAsset: controller.isFoot.value ? Assets.foot : Assets.hand,
-                    textPosition: controller.isFoot.value
-                        ? null
-                        : const EdgeInsets.fromLTRB(4, 8, 0, 0),
+                    thumbAsset:
+                        controller.isHand.value ? Assets.hand : Assets.foot,
+                    textPosition: controller.isHand.value
+                        ? const EdgeInsets.fromLTRB(4, 8, 0, 0)
+                        : null,
                     onChanged: controller.onChangeRightFoot,
                   ),
                 ),

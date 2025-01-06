@@ -36,6 +36,7 @@ GetUserResponseModel _$GetUserResponseModelFromJson(
       userType: json['userType'] as String?,
       weight: (json['weight'] as num?)?.toDouble(),
       workoutId: (json['workoutId'] as num?)?.toInt(),
+      useMain: json['useMain'] as String?,
     );
 
 Map<String, dynamic> _$GetUserResponseModelToJson(
@@ -63,4 +64,5 @@ Map<String, dynamic> _$GetUserResponseModelToJson(
       'userType': instance.userType,
       'weight': instance.weight,
       'workoutId': instance.workoutId,
+      'useMain': instance.useMain,
     };

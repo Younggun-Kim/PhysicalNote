@@ -1,9 +1,11 @@
+import 'package:physical_note/app/config/constant/use_main_type.dart';
+
 class MyInformationArgs {
   /// 운동 Id.
   final int? workoutId;
 
   /// 손발여부
-  final bool isFoot;
+  final UseMain useMain;
 
   /// 엘리트 여부.
   final bool? isElite;
@@ -16,7 +18,7 @@ class MyInformationArgs {
 
   MyInformationArgs({
     this.workoutId,
-    this.isFoot = true,
+    this.useMain = UseMain.none,
     this.isElite,
     required this.isEnteredFromHome,
     this.passCode,

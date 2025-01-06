@@ -30,6 +30,7 @@ class GetUserResponseModel {
   final String? userType;
   final double? weight;
   final int? workoutId;
+  final String? useMain;
 
   GetUserResponseModel({
     required this.birthDate,
@@ -54,6 +55,7 @@ class GetUserResponseModel {
     required this.userType,
     required this.weight,
     required this.workoutId,
+    required this.useMain,
   });
 
   String? teamAndCoach() {
