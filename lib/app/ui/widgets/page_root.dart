@@ -57,10 +57,11 @@ class PageRoot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => PopScope(
-        onPopInvokedWithResult: onWillPop,
-        canPop: canPop,
-        child: _createPage(context),
-      );
+      canPop: canPop,
+      child: _createPage(context),
+      onPopInvokedWithResult: (didPop, result) {
+        logger.i(result);
+      });
 
   /// 페이지의 기본적인 구조를 생성.
   Widget _createPage(BuildContext context) => Stack(
