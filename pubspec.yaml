@@ -137,3 +137,5 @@ scripts:
   build: dart run build_runner build --delete-conflicting-outputs
 
   build-ios: flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart
+
+  build-abb: flutter build appbundle --release --flavor prod -t lib/app/config/env/prod.dart
