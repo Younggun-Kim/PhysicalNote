@@ -121,125 +121,134 @@ class MuscleUtils {
           }
         case BodyPartsType.leftArm:
           switch (muscle) {
-            case MuscleType.biceps:
-              return Assets.frontLeftArmBICEPS;
-            case MuscleType.brachialis:
-              return Assets.frontLeftArmBRACHIALIS;
-            case MuscleType.brachioradialis:
-              return Assets.frontLeftArmBRACHIORADIALIS;
-            case MuscleType.deltoid:
-              return Assets.frontLeftArmDELTOID;
-            case MuscleType.pronatorTeres:
-              return Assets.frontLeftArmPRONATORTERES;
-            case MuscleType.palmarisLongus: // 장장근
-              return Assets.frontLeftArmSERRATUSANTERIOR;
+            case MuscleType.coracobrachialis:
+              return Assets.cORACOBRACHIALISFrontLeftArm;
             case MuscleType.triceps:
-              return Assets.frontLeftArmTRICEPS;
+              return Assets.tRICEPSFrontLeftArm;
+            case MuscleType.brachialis:
+              return Assets.bRACHIALISFrontLeftArm;
+            case MuscleType.pronatorTeres:
+              return Assets.pRONATORTERESFrontLeftArm;
+            case MuscleType.deltoid:
+              return Assets.dELTOIDFrontLeftArm;
+            case MuscleType.biceps:
+              return Assets.bICEPSFrontLeftArm;
+            case MuscleType.brachioradialis:
+              return Assets.bRACHIORADIALISFrontLeftArm;
+            case MuscleType.palmarisLongus:
+              return Assets.pALMARISLONGUSFrontLeftArm;
             default:
               return null;
           }
         case BodyPartsType.rightArm:
           switch (muscle) {
-            case MuscleType.biceps:
-              return Assets.frontRightArmBICEPS;
-            case MuscleType.brachialis:
-              return Assets.frontRightArmBRACHIALIS;
-            case MuscleType.brachioradialis:
-              return Assets.frontRightArmBRACHIORADIALIS;
-            case MuscleType.deltoid:
-              return Assets.frontRightArmDELTOID;
-            case MuscleType.pronatorTeres:
-              return Assets.frontRightArmPRONATORTERES;
-            case MuscleType.palmarisLongus: // 장장근
-              return Assets.frontRightArmSERRATUSANTERIOR;
+            case MuscleType.coracobrachialis:
+              return Assets.cORACOBRACHIALISFrontRightArm;
             case MuscleType.triceps:
-              return Assets.frontRightArmTRICEPS;
+              return Assets.tRICEPSFrontRightArm;
+            case MuscleType.brachialis:
+              return Assets.bRACHIALISFrontRightArm;
+            case MuscleType.pronatorTeres:
+              return Assets.pRONATORTERESFrontRightArm;
+            case MuscleType.deltoid:
+              return Assets.dELTOIDFrontRightArm;
+            case MuscleType.biceps:
+              return Assets.bICEPSFrontRightArm;
+            case MuscleType.brachioradialis:
+              return Assets.bRACHIORADIALISFrontRightArm;
+            case MuscleType.palmarisLongus: // 장장근
+              return Assets.pALMARISLONGUSFrontRightArm;
             default:
               return null;
           }
         case BodyPartsType.leftLeg:
           switch (muscle) {
+            case MuscleType.glute:
+              return Assets.frontLeftLegGLUTE;
             case MuscleType.tensorFasciaeLatae:
               return Assets.frontLeftLegTENSORFASCIAELATAE;
             case MuscleType.sartorius:
-              return Assets.frontLeftLegTERESMAJOR;
+              return Assets.frontLeftLegSARTORIUS;
             case MuscleType.vastusLateralis:
-              return Assets.frontLeftLegLATERALGASTROCNEMIUS;
+              return Assets.frontLeftLegVASTUSLATERALIS;
             case MuscleType.rectusFemoris:
-              return Assets.frontLeftLegLARGERETIREMENT;
+              return Assets.frontLeftLegRECTUSFEMORIS;
             case MuscleType.itBand:
-              return Assets.frontLeftLegILIOTIBIALBAND;
+              return Assets.frontLeftLegITBAND;
             case MuscleType.extensorDigitorumLongus:
               return Assets.frontLeftLegEXTENSORDIGITORUMLONGUS;
             case MuscleType.tibialisAnterior:
               return Assets.frontLeftLegTIBIALISANTERIOR;
             case MuscleType.fibularisLongus:
-              return Assets.frontLeftLegPERONEUSBREVIS;
+              return Assets.frontLeftLegFIBULARISLONGUS;
             case MuscleType.extensorHallucisLongus:
-              return Assets.frontLeftLegEXTENSORDIGITORUMBREVIS;
-            case MuscleType.iliacus:
-              return Assets.frontLeftLegILIACUS;
-            case MuscleType.psoasMajor:
-              return Assets.frontLeftLegPSOASMAJOR;
-            case MuscleType.pectineus:
-              return Assets.frontLeftLegPUBICUS;
-            case MuscleType.adductorLongus:
-              return Assets.frontLeftLegADDUCTORLONGUS;
+              return Assets.frontLeftLegEXTENSORHALLUCISLONGUS;
+            case MuscleType.soleus:
+              return Assets.frontLeftLegSOLEUS;
+            case MuscleType.gastrocnemius:
+              return Assets.frontLeftLegGASTROCNEMIUS;
+            case MuscleType.vastusIntermedius:
+              return Assets.frontLeftLegVASTUSINTERMEDIUS;
+            case MuscleType.vastusMedialis:
+              return Assets.frontLeftLegVASTUSMEDIALIS;
+            case MuscleType.gracilis:
+              return Assets.frontLeftLegGRACILIS;
             case MuscleType.adductorMagnus:
               return Assets.frontLeftLegADDUCTORMAGNUS;
-            case MuscleType.gracilis:
-              return Assets.frontLeftLegSOLEUS;
-            case MuscleType.vastusMedialis:
-              return Assets.frontLeftLegMEDIALGASTROCNEMIUS;
-            case MuscleType.vastusIntermedius:
-              return Assets.frontLeftLegPERONEUSLONGUS;
-            case MuscleType.gastrocnemius:
-              return Assets.frontLeftLegGRACILIS;
-            case MuscleType.soleus:
-              return Assets.frontLeftLegSARTORIUS;
+            case MuscleType.adductorLongus:
+              return Assets.frontLeftLegADDUCTORLONGUS;
+            case MuscleType.pectineus:
+              return Assets.frontLeftLegPECTINEUS;
+            case MuscleType.psoasMajor:
+              return Assets.frontLeftLegPSOASMAJOR;
+            case MuscleType.iliacus:
+              return Assets.frontLeftLegILIACUS;
+
             default:
               return null;
           }
         case BodyPartsType.rightLeg:
           switch (muscle) {
+            case MuscleType.glute:
+              return Assets.gLUTEFrontRightLeg;
             case MuscleType.tensorFasciaeLatae:
-              return Assets.frontRightLegTENSORFASCIAELATAE;
+              return Assets.tENSORFASCIAELATAEFrontRightLeg;
             case MuscleType.sartorius:
-              return Assets.frontRightLegTERESMAJOR;
+              return Assets.sARTORIUSFrontRightLeg;
             case MuscleType.vastusLateralis:
-              return Assets.frontRightLegLATERALGASTROCNEMIUS;
+              return Assets.vASTUSLATERALISFrontRightLeg;
             case MuscleType.rectusFemoris:
-              return Assets.frontRightLegLARGERETIREMENT;
+              return Assets.rECTUSFEMORISFrontRightLeg;
             case MuscleType.itBand:
-              return Assets.frontRightLegILIOTIBIALBAND;
+              return Assets.iTBANDFrontRightLeg;
             case MuscleType.extensorDigitorumLongus:
-              return Assets.frontRightLegEXTENSORDIGITORUMLONGUS;
+              return Assets.eXTENSORDIGITORUMLONGUSFrontRightLeg;
             case MuscleType.tibialisAnterior:
-              return Assets.frontRightLegTIBIALISANTERIOR;
+              return Assets.tIBIALISANTERIORFrontRightLeg;
             case MuscleType.fibularisLongus:
-              return Assets.frontRightLegPERONEUSBREVIS;
+              return Assets.fIBULARISLONGUSFrontRightLeg;
             case MuscleType.extensorHallucisLongus:
-              return Assets.frontRightLegEXTENSORDIGITORUMBREVIS;
-            case MuscleType.iliacus:
-              return Assets.frontRightLegILIACUS;
-            case MuscleType.psoasMajor:
-              return Assets.frontRightLegPSOASMAJOR;
-            case MuscleType.pectineus:
-              return Assets.frontRightLegPUBICUS;
-            case MuscleType.adductorLongus:
-              return Assets.frontRightLegADDUCTORLONGUS;
-            case MuscleType.adductorMagnus:
-              return Assets.frontRightLegADDUCTORMAGNUS;
-            case MuscleType.gracilis:
-              return Assets.frontRightLegSOLEUS;
-            case MuscleType.vastusMedialis:
-              return Assets.frontRightLegMEDIALGASTROCNEMIUS;
-            case MuscleType.vastusIntermedius:
-              return Assets.frontRightLegPERONEUSLONGUS;
-            case MuscleType.gastrocnemius:
-              return Assets.frontRightLegGRACILIS;
+              return Assets.eXTENSORHALLUCISLONGUSFrontRightLeg;
             case MuscleType.soleus:
-              return Assets.frontRightLegSARTORIUS;
+              return Assets.sOLEUSFrontRightLeg;
+            case MuscleType.gastrocnemius:
+              return Assets.gASTROCNEMIUSFrontRightLeg;
+            case MuscleType.vastusIntermedius:
+              return Assets.vASTUSINTERMEDIUSFrontRightLeg;
+            case MuscleType.vastusMedialis:
+              return Assets.vASTUSMEDIALISFrontRightLeg;
+            case MuscleType.gracilis:
+              return Assets.gRACILISFrontRightLeg;
+            case MuscleType.adductorMagnus:
+              return Assets.aDDUCTORMAGNUSFrontRightLeg;
+            case MuscleType.adductorLongus:
+              return Assets.aDDUCTORLONGUSFrontRightLeg;
+            case MuscleType.pectineus:
+              return Assets.pECTINEUSFrontRightLeg;
+            case MuscleType.psoasMajor:
+              return Assets.pSOASMAJORFrontRightLeg;
+            case MuscleType.iliacus:
+              return Assets.iLIACUSFrontRightLeg;
             default:
               return null;
           }
@@ -249,93 +258,93 @@ class MuscleUtils {
         case BodyPartsType.body:
           switch (muscle) {
             case MuscleType.teresMinor:
-              return Assets.backBodyOBLIQUE;
+              return Assets.tERESMINORBackBody;
             case MuscleType.teresMajor:
-              return Assets.backBodyQUADRATUSLUMBORUM;
+              return Assets.tERESMAJORBackBody;
             case MuscleType.latissimusDorsi:
-              return Assets.backBodyLATISSIMUSDORSI;
+              return Assets.lATISSIMUSDORSIBackBody;
             case MuscleType.erectorSprinae:
-              return Assets.backBodySEMITENDINOSUS;
+              return Assets.eRECTORSPRINAEBackBody;
             default:
               return null;
           }
         case BodyPartsType.leftArm:
           switch (muscle) {
             case MuscleType.deltoid:
-              return Assets.backLeftArmDELTOID;
+              return Assets.dELTOIDBackLeftArm;
             case MuscleType.brachioradialis:
-              return Assets.backLeftArmBRACHIORADIALIS;
+              return Assets.bRACHIORADIALISBackLeftArm;
             case MuscleType.extensorCarpiRadialisLongus:
-              return Assets.backLeftArmSUPINATOR;
-            case MuscleType.extensorCarpiUlnaris:
-              return Assets.backLeftArmEXTENSORCARPIULNARIS;
+              return Assets.eXTENSORCARPIRADIALISLONGUSBackLeftArm;
+            case MuscleType.extensorDigitorum:
+              return Assets.eXTENSORDIGITORUMBackLeftArm;
             case MuscleType.triceps:
-              return Assets.backLeftArmTRICEPS;
+              return Assets.tRICEPSBackLeftArm;
             case MuscleType.anconeus:
-              return Assets.backLeftArmFLEXORCARPIRADIALIS;
-            case MuscleType.palmarisLongus:
-              return Assets.backLeftArmPALMARISLONGUS;
+              return Assets.aNCONEUSBackLeftArm;
+            case MuscleType.extensorCarpiUlnaris:
+              return Assets.eXTENSORCARPIULNARISBackLeftArm;
             default:
               return null;
           }
         case BodyPartsType.rightArm:
           switch (muscle) {
             case MuscleType.deltoid:
-              return Assets.backRightArmDELTOID;
+              return Assets.dELTOIDBackRightArm;
             case MuscleType.brachioradialis:
-              return Assets.backRightArmBRACHIORADIALIS;
+              return Assets.bRACHIORADIALISBackRightArm;
             case MuscleType.extensorCarpiRadialisLongus:
-              return Assets.backRightArmSUPINATOR;
-            case MuscleType.extensorCarpiUlnaris:
-              return Assets.backRightArmEXTENSORCARPIULNARIS;
+              return Assets.eXTENSORCARPIRADIALISLONGUSBackRightArm;
+            case MuscleType.extensorDigitorum:
+              return Assets.eXTENSORDIGITORUMBackRightArm;
             case MuscleType.triceps:
-              return Assets.backRightArmTRICEPS;
+              return Assets.tRICEPSBackRightArm;
             case MuscleType.anconeus:
-              return Assets.backRightArmFLEXORCARPIRADIALIS;
-            case MuscleType.palmarisLongus:
-              return Assets.backRightArmPALMARISLONGUS;
+              return Assets.aNCONEUSBackRightArm;
+            case MuscleType.extensorCarpiUlnaris:
+              return Assets.eXTENSORCARPIULNARISBackRightArm;
             default:
               return null;
           }
         case BodyPartsType.leftLeg:
           switch (muscle) {
             case MuscleType.glute:
-              return Assets.backLeftLegGLUTEUS;
+              return Assets.gLUTEUSbackLeftLeg;
             case MuscleType.itBand:
-              return Assets.backLeftLegILIOTIBIALBAND;
-            case MuscleType.rectusFemoris:
-              return Assets.backLeftLegRECTUSFEMORIS;
+              return Assets.iTBANDbackLeftLeg;
+            case MuscleType.bicepsFemoris:
+              return Assets.bICEPSFEMORISbackLeftLeg;
             case MuscleType.gastrocnemius:
-              return Assets.backLeftLegGRACILIS;
+              return Assets.gASTROCNEMIUSbackLeftLeg;
             case MuscleType.soleus:
-              return Assets.backLeftLegSARTORIUS;
-            case MuscleType.adductorMagnus:
-              return Assets.backLeftLegADDUCTORMAGNUS;
-            case MuscleType.gracilis:
-              return Assets.backLeftLegSOLEUS;
+              return Assets.sOLEUSbackLeftLeg;
             case MuscleType.semimembranosus:
-              return Assets.backLeftLegBICEPSFEMORIS;
+              return Assets.sEMIMEMBRANOSUSbackLeftLeg;
+            case MuscleType.gracilis:
+              return Assets.gRACILISbackLeftLeg;
+            case MuscleType.adductorMagnus:
+              return Assets.aDDUCTORMAGNUSbackLeftLeg;
             default:
               return null;
           }
         case BodyPartsType.rightLeg:
           switch (muscle) {
             case MuscleType.glute:
-              return Assets.backRightLegGLUTEUS;
+              return Assets.gLUTEUSBackRightLeg;
             case MuscleType.itBand:
-              return Assets.backRightLegILIOTIBIALBAND;
-            case MuscleType.rectusFemoris:
-              return Assets.backRightLegRECTUSFEMORIS;
+              return Assets.iTBANDBackRightLeg;
+            case MuscleType.bicepsFemoris:
+              return Assets.bICEPSFEMORISBackRightLeg;
             case MuscleType.gastrocnemius:
-              return Assets.backRightLegGRACILIS;
+              return Assets.gASTROCNEMIUSBackRightLeg;
             case MuscleType.soleus:
-              return Assets.backRightLegSARTORIUS;
-            case MuscleType.adductorMagnus:
-              return Assets.backRightLegADDUCTORMAGNUS;
-            case MuscleType.gracilis:
-              return Assets.backRightLegSOLEUS;
+              return Assets.sOLEUSBackRightLeg;
             case MuscleType.semimembranosus:
-              return Assets.backRightLegBICEPSFEMORIS;
+              return Assets.sEMIMEMBRANOSUSBackRightLeg;
+            case MuscleType.gracilis:
+              return Assets.gRACILISBackRightLeg;
+            case MuscleType.adductorMagnus:
+              return Assets.aDDUCTORMAGNUSBackRightLeg;
             default:
               return null;
           }

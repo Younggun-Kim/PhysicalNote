@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 
+// TODO: 250201 - 앞 왼쪽팔 오훼완근 이미지
 /// 근육 타입.
 enum MuscleType {
   /// 장내전근
@@ -286,16 +287,16 @@ enum MuscleType {
       tibialisAnterior,
       fibularisLongus,
       extensorHallucisLongus,
-      iliacus,
-      psoasMajor,
-      pectineus,
-      adductorLongus,
-      adductorMagnus,
-      gracilis,
-      vastusMedialis,
-      vastusIntermedius,
-      gastrocnemius,
       soleus,
+      gastrocnemius,
+      vastusIntermedius,
+      vastusMedialis,
+      gracilis,
+      adductorMagnus,
+      adductorLongus,
+      pectineus,
+      psoasMajor,
+      iliacus,
     ];
   }
 
@@ -330,9 +331,9 @@ enum MuscleType {
       bicepsFemoris,
       gastrocnemius,
       soleus,
-      adductorMagnus,
-      gracilis,
       semimembranosus,
+      gracilis,
+      adductorMagnus,
     ];
   }
 }
