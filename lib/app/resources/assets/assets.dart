@@ -20,15 +20,6 @@ class Assets {
   static const String bRACHIORADIALISBackRightArm = 'assets/images/muscles/back/right_arm/BRACHIORADIALIS_back_right_arm.svg';
   static const String bRACHIORADIALISFrontLeftArm = 'assets/images/muscles/front/left_arm/BRACHIORADIALIS_front_left_arm.svg';
   static const String bRACHIORADIALISFrontRightArm = 'assets/images/muscles/front/right_arm/BRACHIORADIALIS_front_right_arm.svg';
-  static const String backLeftLegADDUCTORMAGNUS = 'assets/images/muscles/back/left_leg/back_left_leg_ADDUCTOR_MAGNUS.svg';
-  static const String backLeftLegBICEPSFEMORIS = 'assets/images/muscles/back/left_leg/back_left_leg_BICEPS_FEMORIS.svg';
-  static const String backLeftLegGLUTEUS = 'assets/images/muscles/back/left_leg/back_left_leg_GLUTEUS.svg';
-  static const String backLeftLegGRACILIS = 'assets/images/muscles/back/left_leg/back_left_leg_GRACILIS.svg';
-  static const String backLeftLegILIOTIBIALBAND = 'assets/images/muscles/back/left_leg/back_left_leg_ILIOTIBIAL_BAND.svg';
-  static const String backLeftLegRECTUSFEMORIS = 'assets/images/muscles/back/left_leg/back_left_leg_RECTUS_FEMORIS.svg';
-  static const String backLeftLegSARTORIUS = 'assets/images/muscles/back/left_leg/back_left_leg_SARTORIUS.svg';
-  static const String backLeftLegSEMIMEMBRANOSUS = 'assets/images/muscles/back/left_leg/back_left_leg_SEMIMEMBRANOSUS.svg';
-  static const String backLeftLegSOLEUS = 'assets/images/muscles/back/left_leg/back_left_leg_SOLEUS.svg';
   static const String backgroundBottom = 'assets/images/background_bottom.svg';
   static const String backgroundTop = 'assets/images/background_top.svg';
   static const String cORACOBRACHIALISFrontLeftArm = 'assets/images/muscles/front/left_arm/CORACOBRACHIALIS_front_left_arm.svg';
