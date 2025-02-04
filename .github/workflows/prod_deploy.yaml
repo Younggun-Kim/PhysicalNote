@@ -3,9 +3,9 @@ name: Production Deploy
 on:
   pull_request:
     types: [ closed ]
-    branches: [ main ]
+    branches: [ deploy_prod ]
   push:
-    branches: [ main ]
+    branches: [ deploy_prod ]
 
 jobs:
   flutter_test:
