@@ -95,7 +95,7 @@ jobs:
           MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
           MATCH_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MY_GITHUB_TOKEN }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.TEMP_PAT_TOKEN }}
         run: |
           cd ios
           fastlane release
