@@ -95,14 +95,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Testing SSH connection
-        run: |
-          ssh -vT git@github.com
-
-      - name: Testing repository access
-        run: |
-          git ls-remote git@github.com:Younggun-Kim/PhsicalNote_iOS_fastlane_match.git
-
       # 배포
       - name: Fastlane internal upload
         env:
