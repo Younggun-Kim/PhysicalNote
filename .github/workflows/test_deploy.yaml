@@ -101,7 +101,7 @@ jobs:
           MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
           MATCH_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-          MATCH_GIT_PRIVATE_KEY: ${{ secrets.TEMP_PAT_TOKEN }}
+#          MATCH_GIT_PRIVATE_KEY: ${{ secrets.TEMP_PAT_TOKEN }}
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ steps.auth.outputs.basic_auth }}
         run: |
           cd ios
