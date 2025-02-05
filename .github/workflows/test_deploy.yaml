@@ -100,16 +100,18 @@ jobs:
           echo "Testing SSH agent..."
           ssh-add -l
 
-          echo "\n\nTesting SSH connection to GitHub..."
-          ssh -T git@github.com
+          echo ""
+          echo ""
+          echo "Testing SSH connection to GitHub..."
+          ssh -vT git@github.com
 
-          echo "\n\nTesting repository access..."
+          echo "Testing repository access..."
           git ls-remote git@github.com:Younggun-Kim/PhsicalNote_iOS_fastlane_match.git
 
-          echo "\n\nTesting clone..."
+          echo "Testing clone..."
           git clone git@github.com:Younggun-Kim/PhsicalNote_iOS_fastlane_match.git test_clone
 
-          echo "\n\nListing cloned directory..."
+          echo "Listing cloned directory..."
           ls -la test_clone
 
       # 배포
