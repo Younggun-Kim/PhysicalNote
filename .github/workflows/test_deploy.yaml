@@ -95,11 +95,22 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Configure Git for HTTPS
+      - name: Test Git SSH Access
         run: |
-          git config --global url.”https://${GITHUB_USER}:${GIT_TOKEN}@github.com/".insteadOf “https://github.com/"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          echo "Testing SSH agent..."
+          ssh-add -l
+
+          echo "\n\nTesting SSH connection to GitHub..."
+          ssh -T git@github.com
+
+          echo "\n\nTesting repository access..."
+          git ls-remote git@github.com:Younggun-Kim/PhsicalNote_iOS_fastlane_match.git
+
+          echo "\n\nTesting clone..."
+          git clone git@github.com:Younggun-Kim/PhsicalNote_iOS_fastlane_match.git test_clone
+
+          echo "\n\nListing cloned directory..."
+          ls -la test_clone
 
       # 배포
       - name: Fastlane internal upload
