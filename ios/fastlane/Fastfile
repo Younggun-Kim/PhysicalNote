@@ -5,7 +5,9 @@ platform :ios do
   lane :release do
 
     match(type: "appstore")
+
     build_app(workspace: "Runner.xcworkspace", scheme: "prod")
+
     upload_to_app_store(
       skip_metadata: true,
       skip_screenshots: true,
