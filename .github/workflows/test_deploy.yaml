@@ -99,6 +99,7 @@ jobs:
         run: |
           echo "Testing SSH agent..."
           ssh-add -l
+          ssh-add --apple-use-keychain
 
           echo ""
           echo ""
