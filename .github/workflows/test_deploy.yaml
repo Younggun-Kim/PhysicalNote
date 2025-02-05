@@ -85,7 +85,9 @@ jobs:
       - run: flutter pub run build_runner build --delete-conflicting-outputs
 
       # 배포
-      - name: fastlane internal upload
+      - name: Fastlane internal upload
+        env:
+          MATCH_KEYCHAIN_PASSWORD: ${secrets.MATCH_KEYCHAIN_PASSWORD}
         run: |
           cd ios
           fastlane release
