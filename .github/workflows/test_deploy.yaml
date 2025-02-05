@@ -91,9 +91,9 @@ jobs:
           echo "::set-output name=basic_auth::$AUTH"
 
       - name: Install SSH key
-        uses: webfactory/ssh-agent@v0.7.0
+        uses: shimataro/ssh-key-action@v2
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       # 배포
       - name: Fastlane internal upload
