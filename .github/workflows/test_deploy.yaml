@@ -84,6 +84,12 @@ jobs:
 #      - run: flutter pub get
 #      - run: flutter pub run build_runner build --delete-conflicting-outputs
 
+      - name: Generate Basic Auth
+        id: auth
+        run: |
+          AUTH=$(echo -n "${{ github.actor }}:${{ secrets.TEMP_PAT_TOKEN }}" | base64)
+          echo "::set-output name=basic_auth::$AUTH"
+
       # 배포
       - name: Fastlane internal upload
         env:
@@ -96,6 +102,7 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.TEMP_PAT_TOKEN }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ steps.auth.outputs.basic_auth }}
         run: |
           cd ios
           fastlane release
