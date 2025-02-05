@@ -3,12 +3,25 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new release build to the App Store"
   lane :match_test do
-      match(type: "appstore")
+      sync_code_signing(
+        type: "appstore",
+        app_identifier: "com.conner.physicalNote",
+            force_for_new_devices: true,
+        readonly: false
+      )
+
   end
 
   lane :release do
 
-    match(type: "appstore")
+#     match(type: "appstore")
+
+     sync_code_signing(
+       type: "appstore",
+       app_identifier: "com.conner.physicalNote",
+           force_for_new_devices: true,
+       readonly: false
+     )
 
     sh 'flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart --no-tree-shake-icons'
 
