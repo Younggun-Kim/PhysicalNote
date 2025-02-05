@@ -95,10 +95,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Test SSH Connection
+      - name: Debug SSH and Git
         run: |
-          ssh -T git@github.com 2>&1
-          echo "Match Repo Connection Test ${{ secrets.MATCH_GIT_URL }}"
+          echo "Testing SSH connection..."
+          ssh -vT git@github.com
+          echo "Testing repository access..."
           git ls-remote git@github.com:Younggun-Kim/PhsicalNote_iOS_fastlane_match.git
 
       # 배포
