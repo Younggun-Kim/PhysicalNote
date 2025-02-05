@@ -84,9 +84,6 @@ jobs:
       - run: flutter pub get
       - run: flutter pub run build_runner build --delete-conflicting-outputs
 
-      - name: Build AppBundle
-        run: flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart
-
       # 배포
       - name: fastlane internal upload
         run: |
