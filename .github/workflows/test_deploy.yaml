@@ -98,6 +98,7 @@ jobs:
       - name: Test SSH Connection
         run: |
           ssh -T git@github.com 2>&1
+          echo "Match Repo Connection Test ${{ secrets.MATCH_GIT_URL }}"
           git ls-remote ${{ secrets.MATCH_GIT_URL }}
 
       # 배포
