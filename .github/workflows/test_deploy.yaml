@@ -111,4 +111,4 @@ jobs:
         run: |
           cd ios
           bundle install
-          bundle fastlane match appstore
+          bundle exec fastlane match appstore
