@@ -110,4 +110,5 @@ jobs:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ steps.auth.outputs.basic_auth }}
         run: |
           cd ios
-          fastlane release
+          bundle install
+          bundle fastlane match appstore
