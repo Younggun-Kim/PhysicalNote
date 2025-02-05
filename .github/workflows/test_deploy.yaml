@@ -95,21 +95,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Test Git Clone
-        run: |
-          # 임시 디렉토리 생성
-          mkdir test_clone
-          cd test_clone
-
-          echo "Attempting to clone repository..."
-          git clone git@github.com:Younggun-Kim/PhsicalNote_iOS_fastlane_match.git .
-
-          echo "Checking cloned contents..."
-          ls -la
-
-          echo "Checking git status..."
-          git status
-
       # 배포
       - name: Fastlane internal upload
         env:
@@ -122,7 +107,7 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
 #          MATCH_GIT_BASIC_AUTHORIZATION: ${{ steps.auth.outputs.basic_auth }}
-          MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
+#          MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
         run: |
           cd ios
           fastlane release
