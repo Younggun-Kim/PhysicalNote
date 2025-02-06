@@ -1,6 +1,7 @@
 type("appstore")
 storage_mode("git")
 git_url(ENV["MATCH_GIT_URL"])
+git_branch("master")
 app_identifier(["com.conner.physicalNote"])
 username(ENV["APPLE_ID"])
 generate_apple_certs(false)

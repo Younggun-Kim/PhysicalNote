@@ -104,7 +104,7 @@ jobs:
           APPSTORE_TEAM_ID: ${{ secrets.APPSTORE_TEAM_ID }}
           APPSTORE_ITC_TEAM_ID: ${{ secrets.APPSTORE_ITC_TEAM_ID }}
           MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
-          MATCH_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
 #          MATCH_GIT_BASIC_AUTHORIZATION: ${{ steps.auth.outputs.basic_auth }}
 #          MATCH_GIT_PRIVATE_KEY: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
