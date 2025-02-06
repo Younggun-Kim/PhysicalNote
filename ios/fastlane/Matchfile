@@ -7,13 +7,3 @@ username(ENV["APPLE_ID"])
 generate_apple_certs(false)
 readonly(true)
 git_basic_authorization(Base64.strict_encode64("#{ENV['SSH_PRIVATE_KEY']}"))
-
-#  2중 인증 대신 접근 권한 설정
-app_store_connect_api_key(
-  key_id: ENV["APPSTORE_KEY_ID"],
-  issuer_id: ENV["APPSTORE_ISSUER_ID"],
-  key_content: ENV["ASC_KEY_CONTENT"],  # p8
-  is_key_content_base64: true,
-  duration: 1200,
-  in_house: false
-)
