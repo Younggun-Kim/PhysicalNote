@@ -106,6 +106,4 @@ jobs:
           APPSTORE_KEY_CONTENT: ${{ secrets.APPSTORE_KEY_CONTENT }}
         run: |
           cd ios
-          bundle install
-          bundle exec pod install
           fastlane release
