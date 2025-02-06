@@ -44,8 +44,12 @@ platform :ios do
        api_key: api_key
      )
 
-    sh "pod install"
-    sh "cd .."
+    # bundle install을 통해 cocoapods 설치
+    Dir.chdir("..") do
+      sh "cd ios && bundle install"
+      sh "cd ios && bundle exec pod install"
+    end
+
     sh "flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart --no-tree-shake-icons"
 
     build_app(workspace: "Runner.xcworkspace", scheme: "prod")
