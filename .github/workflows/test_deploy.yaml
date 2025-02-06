@@ -80,21 +80,6 @@ jobs:
           channel: stable
           flutter-version: '3.27.1'
 
-      - name: Install Cocoapods
-        run: |
-          pod --version
-
-          echo "gem uninstall cocoapods"
-          gem uninstall cocoapods --all
-
-          echo "brew uninstall cocoapods"
-          brew uninstall cocoapods
-
-          echo "brew install cocoapods"
-          brew install cocoapods
-          
-          pod --version
-
       - run: flutter --version
       - run: flutter doctor -v
       - run: flutter pub get
@@ -122,5 +107,8 @@ jobs:
         run: |
           cd ios
           fastlane sync_signing
-          flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart --no-tree-shake-icons 
+
+      - name: build ios
+        run: |
+          flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart --no-tree-shake-icons
       
