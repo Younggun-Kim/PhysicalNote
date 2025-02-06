@@ -70,10 +70,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Cocoapods
-        run: |
-          brew install cocoapods
-
       - name: Install Fastlane
         run: |
           brew install fastlane
@@ -110,4 +106,6 @@ jobs:
           APPSTORE_KEY_CONTENT: ${{ secrets.APPSTORE_KEY_CONTENT }}
         run: |
           cd ios
+          bundle install
+          bundle exec pod install
           fastlane release

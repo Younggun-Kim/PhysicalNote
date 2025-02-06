@@ -44,7 +44,8 @@ platform :ios do
        api_key: api_key
      )
 
-    sh 'flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart --no-tree-shake-icons'
+    sh "cd .."
+    sh "flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart --no-tree-shake-icons"
 
     build_app(workspace: "Runner.xcworkspace", scheme: "prod")
 
