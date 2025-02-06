@@ -73,19 +73,27 @@ jobs:
       - name: Install Fastlane
         run: |
           brew install fastlane
-      - name: Install Cocoapods
-        run: |
-          pod --version
-          gem uninstall cocoapods
-          brew uninstall cocoapods
-          brew install cocoapods
-          pod --version
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           flutter-version: '3.27.1'
+
+      - name: Install Cocoapods
+        run: |
+          pod --version
+
+          echo "gem uninstall cocoapods"
+          gem uninstall cocoapods --all
+
+          echo "brew uninstall cocoapods"
+          brew uninstall cocoapods
+
+          echo "brew install cocoapods"
+          brew install cocoapods
+          
+          pod --version
 
       - run: flutter --version
       - run: flutter doctor -v
