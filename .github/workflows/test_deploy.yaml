@@ -73,6 +73,13 @@ jobs:
       - name: Install Fastlane
         run: |
           brew install fastlane
+      - name: Install Cocoapods
+        run: |
+          pod --version
+          gem uninstall cocoapods
+          brew uninstall cocoapods
+          brew install cocoapods
+          pod --version
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
