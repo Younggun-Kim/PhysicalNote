@@ -90,6 +90,10 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: build ios
+        run: |
+          flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart --no-tree-shake-icons --verbose --no-codesign
+
       # 배포
       - name: Fastlane internal upload
         env:
@@ -107,8 +111,4 @@ jobs:
         run: |
           cd ios
           fastlane sync_signing
-
-      - name: build ios
-        run: |
-          flutter build ios --release --flavor prod -t lib/app/config/env/prod.dart --no-tree-shake-icons
       
