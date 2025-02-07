@@ -24,6 +24,8 @@ platform :ios do
       api_key: api_key
     )
 
+    setup_ci(force: true)
+
     build_app(
       workspace: "Runner.xcworkspace",
       scheme: "prod",
