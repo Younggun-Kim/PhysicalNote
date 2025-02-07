@@ -4,8 +4,6 @@ platform :ios do
   desc "Push a new release build to the App Store"
   lane :release do
 
-
-
     setup_ci
 
     # 2중 인증 대신 접근 권한 설정
@@ -17,15 +15,11 @@ platform :ios do
       duration: 1200,
       in_house: false
     )
-#
-#     sync_code_signing(
-#       type: "appstore",
-#       app_identifier: "com.conner.physicalNote",
-#         force_for_new_devices: true,
-#       readonly: false,
-#       api_key: api_key
-#     )
-    match(type: "appstore", api_key: api_key)
+
+    match(
+        type: "appstore",
+        api_key: api_key
+    )
 
     build_app(
       workspace: "Runner.xcworkspace",
@@ -38,6 +32,7 @@ platform :ios do
       skip_screenshots: true,
       submit_for_review: false,  # 심사 자동 제출
       automatic_release: false,  # 승인 시 자동 출시
+      precheck_include_in_app_purchases: false,
     )
   end
 end
