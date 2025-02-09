@@ -289,20 +289,20 @@ final enUs = {
   StringRes.weekDaySat: "토",
   StringRes.appleNeedPass: "소셜계정으로 로그인하신 경우 원활한\n이용을 위해 최초 1회의 본인인증이\n필요합니다.",
   StringRes.managementRequired: "관리요망",
+  StringRes.injuryLevelInjured: "Feel injury",
   StringRes.injuryLevelVeryHighPain: "Very serious",
   StringRes.injuryLevelHighPain: "Serious",
-  StringRes.injuryLevelInjured: "Feel injury",
-  StringRes.injuryLevelMildDiscomfort: "Intermediate",
-  StringRes.injuryLevelModeratePain: "Light",
+  StringRes.injuryLevelModeratePain: "Intermediate",
+  StringRes.injuryLevelMildDiscomfort: "Light",
   StringRes.injuryLevelNoPain: "No pain",
-  StringRes.injuryLevelVeryHighPainDescription: "Need a doctor",
-  StringRes.injuryLevelHighPainDescription:
+  StringRes.injuryLevelInjuredDescription: "Need a doctor",
+  StringRes.injuryLevelVeryHighPainDescription:
       "Difficult to keep exercise and ordinary movement.",
-  StringRes.injuryLevelInjuredDescription:
+  StringRes.injuryLevelHighPainDescription:
       "Still feel pain after warming-up, and occurred restriction of performance in specific posture.",
-  StringRes.injuryLevelMildDiscomfortDescription:
-      "Capable of exericse, but the pain gets better after warming-up.",
   StringRes.injuryLevelModeratePainDescription:
+      "Capable of exericse, but the pain gets better after warming-up.",
+  StringRes.injuryLevelMildDiscomfortDescription:
       "Mainly tightness and stiffness",
   StringRes.injuryLevelNoPainDescription: "No restriction of activity",
   StringRes.tingling: "Shooting",
