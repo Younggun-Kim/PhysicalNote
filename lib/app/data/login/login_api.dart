@@ -26,7 +26,6 @@ class LoginAPI extends API {
       requestData.toJson(),
     );
 
-
     if (response.status.hasError) {
       return ServerResponseFailModel.fromJson(response.body);
     } else {
@@ -52,8 +51,9 @@ class LoginAPI extends API {
   }
 
   /// 회원가입 요청.
-  Future<dynamic> postLoginSignIn(
-      {required PostLoginSignInRequestModel requestData}) async {
+  Future<dynamic> postLoginSignIn({
+    required PostLoginSignInRequestModel requestData,
+  }) async {
     try {
       logger.i("postLoginSignIn: ${requestData.toJson()}");
       final response = await post(

@@ -101,8 +101,11 @@ class SignUpController extends BaseController {
     await Future.delayed(const Duration(milliseconds: 300));
 
     setLoading(true);
+    final isKor = LocalizationUtil.isKor;
     final birthValue = birth.value;
-    final birthDate =  "${birthValue.substring(0, 4)}-${birthValue.substring(4, 6)}-${birthValue.substring(6)}";
+    final korBirthDate =  "${birthValue.substring(0, 4)}-${birthValue.substring(4, 6)}-${birthValue.substring(6)}";
+    final engBirthDate =  "${birthValue.substring(4)}-${birthValue.substring(0, 2)}-${birthValue.substring(2, 4)}";
+    final birthDate= isKor ? korBirthDate : engBirthDate;
     final loginProcess = Get.find<LoginProcess>();
     final requestData = PostLoginSignInRequestModel(
       loginId: email.value,
