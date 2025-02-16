@@ -4,6 +4,7 @@ import 'package:physical_note/app/data/home/home_api.dart';
 import 'package:physical_note/app/data/injury/injury_api.dart';
 import 'package:physical_note/app/data/intensity/intensity_api.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
+import 'package:physical_note/app/ui/page/assignment/assignment_controller.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/history/history.dart';
 import 'package:physical_note/app/ui/page/home/home.dart';
@@ -16,6 +17,7 @@ class MainScreenBindings extends Bindings {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => HistoryController());
     Get.lazyPut(() => FeedbackController());
+    Get.lazyPut(() => AssignmentController());
 
     /// API
     Get.lazyPut(() => HomeAPI());

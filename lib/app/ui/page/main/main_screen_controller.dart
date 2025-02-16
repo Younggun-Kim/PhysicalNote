@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/data/wellness/wellness_api.dart';
+import 'package:physical_note/app/ui/page/assignment/assignment_controller.dart';
 import 'package:physical_note/app/ui/page/feedback/feedback.dart';
 import 'package:physical_note/app/ui/page/history/history.dart';
 import 'package:physical_note/app/ui/page/history/type/history_tab_type.dart';
@@ -14,9 +15,30 @@ import 'main_tab_index.dart';
 
 class MainScreenController extends BaseMainController<MainUiState> {
   @override
+  void onInit() {
+    initBindings();
+    super.onInit();
+  }
+
+  @override
   void onReady() async {
     route();
     super.onReady();
+  }
+
+  void initBindings() {
+    if (!Get.isRegistered<HomeController>()) {
+      Get.put(HomeController());
+    }
+    if (!Get.isRegistered<FeedbackController>()) {
+      Get.put(FeedbackController());
+    }
+    if (!Get.isRegistered<HistoryController>()) {
+      Get.put(HistoryController());
+    }
+    if (!Get.isRegistered<AssignmentController>()) {
+      Get.put(AssignmentController());
+    }
   }
 
   /// 페이지 라우팅.
@@ -90,6 +112,8 @@ class MainScreenController extends BaseMainController<MainUiState> {
         break;
       case MainTabIndex.feedback:
         break;
+      case MainTabIndex.assignment:
+        break;
     }
   }
 
@@ -117,6 +141,12 @@ class MainScreenController extends BaseMainController<MainUiState> {
           controller.onRefresh();
         }
         break;
+      case MainTabIndex.assignment:
+        final isRegistered = Get.isRegistered<AssignmentController>();
+        if (isRegistered) {
+          final controller = Get.find<AssignmentController>();
+          // controller.onRefresh();
+        }
     }
   }
 
@@ -142,6 +172,13 @@ class MainScreenController extends BaseMainController<MainUiState> {
         if (isRegistered) {
           final controller = Get.find<FeedbackController>();
           controller.scrollToTop();
+        }
+        break;
+      case MainTabIndex.assignment:
+        final isRegistered = Get.isRegistered<AssignmentController>();
+        if (isRegistered) {
+          final controller = Get.find<AssignmentController>();
+          // controller.scrollToTop();
         }
         break;
     }

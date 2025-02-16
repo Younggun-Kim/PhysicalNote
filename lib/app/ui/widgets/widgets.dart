@@ -20,3 +20,4 @@ export 'loading_widget.dart';
 export 'page_root.dart';
 export 'package:expansion_widget/expansion_widget.dart';
 
+export 'scaffold/scaffold.dart';

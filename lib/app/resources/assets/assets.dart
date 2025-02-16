@@ -22,6 +22,15 @@ class Assets {
   static const String bRACHIORADIALISFrontRightArm = 'assets/images/muscles/front/right_arm/BRACHIORADIALIS_front_right_arm.svg';
   static const String backgroundBottom = 'assets/images/background_bottom.svg';
   static const String backgroundTop = 'assets/images/background_top.svg';
+  static const String bottomNaviAssignment = 'assets/images/bottom_navi/bottom_navi_assignment.svg';
+  static const String bottomNaviAssignmentActive = 'assets/images/bottom_navi/bottom_navi_assignment_active.svg';
+  static const String bottomNaviHistory = 'assets/images/bottom_navi/bottom_navi_history.svg';
+  static const String bottomNaviHistoryActive = 'assets/images/bottom_navi/bottom_navi_history_active.svg';
+  static const String bottomNaviHome = 'assets/images/bottom_navi/bottom_navi_home.svg';
+  static const String bottomNaviHomeActive = 'assets/images/bottom_navi/bottom_navi_home_active.svg';
+  static const String bottomNaviSchedule = 'assets/images/bottom_navi/bottom_navi_schedule.svg';
+  static const String bottomNaviScheduleActive = 'assets/images/bottom_navi/bottom_navi_schedule_active.svg';
+  static const String bottomNaviShape = 'assets/images/bottom_navi/bottom_navi_shape.svg';
   static const String cORACOBRACHIALISFrontLeftArm = 'assets/images/muscles/front/left_arm/CORACOBRACHIALIS_front_left_arm.svg';
   static const String cORACOBRACHIALISFrontRightArm = 'assets/images/muscles/front/right_arm/CORACOBRACHIALIS_front_right_arm.svg';
   static const String camera = 'assets/images/camera.svg';
@@ -154,6 +163,7 @@ class Assets {
   static const String pSOASMAJORFrontRightLeg = 'assets/images/muscles/front/right_leg/PSOAS_MAJOR_front_right_leg.svg';
   static const String phonePrimary = 'assets/images/phone_primary.svg';
   static const String plusGreen = 'assets/images/plus_green.svg';
+  static const String plusSm = 'assets/images/plus-sm.svg';
   static const String rECTUSFEMORISFrontRightLeg = 'assets/images/muscles/front/right_leg/RECTUS_FEMORIS_front_right_leg.svg';
   static const String retiredMan = 'assets/images/retired_man.svg';
   static const String retiredManGray = 'assets/images/retired_man_gray.png';

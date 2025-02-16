@@ -112,6 +112,7 @@ flutter:
     - assets/images/muscles/back/left_arm/
     - assets/images/muscles/back/right_arm/
     - assets/images/muscles/back/body/
+    - assets/images/bottom_navi/
   fonts:
     - family: NotoSans
       fonts:
