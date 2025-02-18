@@ -1,6 +1,5 @@
 part of 'translations.dart';
 
-
 final _koMuscleName = {
   StringRes.TRAPEZIUS: "승모근",
   StringRes.PECTORALIS_MAJOR: "대흉근",
@@ -285,7 +284,6 @@ final koKr = {
   StringRes.injuryLevelModeratePain: "보통 통증",
   StringRes.injuryLevelMildDiscomfort: "가벼운 통증",
   StringRes.injuryLevelNoPain: "통증 없음",
-
   StringRes.injuryLevelInjuredDescription: "의료 상담 필요",
   StringRes.injuryLevelVeryHighPainDescription: "운동 또는 일상 동작이 어려움",
   StringRes.injuryLevelHighPainDescription: "워밍업 후에도 지속, 특정 동작에서 제한 발생",
@@ -386,4 +384,9 @@ final koKr = {
   StringRes.injuryCheckSaveSuccessful: '부상 체크 저장 성공',
   StringRes.intensitySaveSuccessful: '운동 강도 저장 성공',
   StringRes.wellnessSaveSuccessful: '웰니스 저장 성공',
+  StringRes.assignment: '과제',
+  StringRes.todayAssignment: '오늘의 과제',
+  StringRes.assignmentRegistration: '과제 등록',
+  StringRes.submissionHistory: '제출이력',
+  StringRes.feedback: '피드백',
 };

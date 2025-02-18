@@ -404,4 +404,9 @@ class StringRes {
   static final injuryCheckSaveSuccessful = _generateId();
   static final intensitySaveSuccessful = _generateId();
   static final wellnessSaveSuccessful = _generateId();
+  static final assignment = _generateId();
+  static final todayAssignment = _generateId();
+  static final assignmentRegistration = _generateId();
+  static final submissionHistory = _generateId();
+  static final feedback = _generateId();
 }

@@ -145,7 +145,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
         final isRegistered = Get.isRegistered<AssignmentController>();
         if (isRegistered) {
           final controller = Get.find<AssignmentController>();
-          // controller.onRefresh();
+          controller.onRefresh();
         }
     }
   }
@@ -178,7 +178,7 @@ class MainScreenController extends BaseMainController<MainUiState> {
         final isRegistered = Get.isRegistered<AssignmentController>();
         if (isRegistered) {
           final controller = Get.find<AssignmentController>();
-          // controller.scrollToTop();
+          controller.scrollToTop();
         }
         break;
     }

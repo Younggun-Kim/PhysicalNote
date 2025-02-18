@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:physical_note/app/resources/resources.dart';
+import 'package:physical_note/app/utils/extensions/extensions.dart';
 
 class RoundButton extends StatelessWidget {
   // Container Attribute.
@@ -65,14 +66,7 @@ class RoundButton extends StatelessWidget {
           color: buttonBackgroundColor,
           border: border,
           borderRadius: BorderRadius.circular(radius),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withValues(alpha: .25),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: const Offset(0, 2), // changes position of shadow
-            ),
-          ],
+          boxShadow: context.boxShadowTheme.md,
         ),
         child: ElevatedButton(
           onPressed: isEnabled ? onPressed : null,

@@ -403,4 +403,6 @@ final enUs = {
   StringRes.injuryCheckSaveSuccessful: 'Injury check save successful',
   StringRes.intensitySaveSuccessful: 'Workout intensity save successful',
   StringRes.wellnessSaveSuccessful: 'Wellness save successful',
+  StringRes.todayAssignment: '오늘의 과제',
+  StringRes.assignmentRegistration: '과제 등록',
 };
