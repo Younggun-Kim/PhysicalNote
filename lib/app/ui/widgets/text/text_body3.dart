@@ -7,17 +7,22 @@ class TextBody3 extends StatelessWidget {
 
   final bool isBold;
 
+  final Color? color;
+
   const TextBody3(
     this.text, {
     super.key,
     this.isBold = false,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: context.textTheme.getBodyMedium(isBold),
+      style: context.textTheme.getBodyMedium(isBold)?.copyWith(
+            color: color,
+          ),
     );
   }
 }

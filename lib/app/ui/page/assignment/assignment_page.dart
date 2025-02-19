@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:physical_note/app/resources/resources.dart';
 import 'package:physical_note/app/ui/page/assignment/assignment_controller.dart';
+import 'package:physical_note/app/ui/page/assignment/item/assignment_item.dart';
 import 'package:physical_note/app/ui/widgets/buttons/buttons.dart';
 import 'package:physical_note/app/ui/widgets/page_root.dart';
 import 'package:physical_note/app/ui/widgets/text/text.dart';
@@ -36,6 +37,21 @@ class AssignmentPage extends GetView<AssignmentController> {
               child: TextBody2(
                 StringRes.feedback.tr,
                 isBold: true,
+              ),
+            ),
+            const SizedBox(height: 15),
+            Obx(
+              () => ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.assignments.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final entity = controller.assignments[index];
+                  return AssignmentItem(title: '$index', entity: entity);
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(height: 20);
+                },
               ),
             ),
           ],

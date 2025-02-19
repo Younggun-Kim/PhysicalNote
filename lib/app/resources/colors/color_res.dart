@@ -206,6 +206,12 @@ class ColorRes {
   /// 747474.
   static const gray747474 = Color(0xff747474);
 
+  /// E0E0E0.
+  static const grayE0e0e0 = Color(0xffE0E0E0);
+
+  /// A7A7A7.
+  static const grayA7 = Color(0xffA7A7A7);
+
   /// 소변검사표 8색상 - 1
   static const urineTable1 = Color(0xfffffef8);
 

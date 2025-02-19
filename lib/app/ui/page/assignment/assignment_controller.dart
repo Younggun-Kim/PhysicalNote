@@ -5,6 +5,10 @@ import 'package:physical_note/app/utils/getx/base_controller.dart';
 class AssignmentController extends BaseController {
   final AssignmentUseCase assignmentUseCase = Get.find<AssignmentUseCase>();
 
+  final assignments = <AssignmentEntity>[
+    ...AssignmentEntityMock.mock(),
+  ].obs;
+
   /// 스크롤 상단으로 이동.
   void scrollToTop() {}
 
