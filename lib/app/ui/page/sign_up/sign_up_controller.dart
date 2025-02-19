@@ -39,12 +39,14 @@ class SignUpController extends BaseController {
   late final _isValidPhoneNumber = phoneNumber.behaviorStream
       .map((event) => Regex.isPhoneNumber(event))
       .not();
+  late final isValidPhoneNumber = _isValidPhoneNumber.toObs(false);
 
   /// 생년월일.
   late final birth = "".obsWithController;
   late final _isValidBirth = birth.behaviorStream
       .map((event) => event.length == 8 && Regex.isBirth(event))
       .not();
+  late final isValidBirth = _isValidBirth.toObs(false);
 
   /// 성별
   late final gender = (null as GenderType?).obs;

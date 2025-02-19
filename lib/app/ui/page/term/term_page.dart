@@ -55,6 +55,7 @@ class TermPage extends GetView<TermController> {
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: ColorRes.fontBlack,
+                    letterSpacing: -0.7,
                   ),
                   isChecked: controller.checkService.value,
                   menu: InkWellOver(
@@ -72,11 +73,12 @@ class TermPage extends GetView<TermController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 text: StringRes.requiredTermPrivacy.tr,
                 textStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: ColorRes.fontBlack,
-                    height: 20 / 14,
-                    letterSpacing: -0.7),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: ColorRes.fontBlack,
+                  height: 20 / 14,
+                  letterSpacing: -0.7,
+                ),
                 isChecked: controller.checkPrivacy.value,
                 menu: InkWellOver(
                   onTap: controller.onPressedPrivacy,

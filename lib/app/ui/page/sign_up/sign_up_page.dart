@@ -143,9 +143,10 @@ class EmailField extends GetView<SignUpController> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ErrorText(
-                    text: controller.isDuplicatedEmail.value
-                        ? StringRes.emailDuplicated.tr
-                        : StringRes.emailError.tr),
+                  text: controller.isDuplicatedEmail.value
+                      ? StringRes.emailDuplicated.tr
+                      : StringRes.emailError.tr,
+                ),
               ),
             ),
           ),
@@ -173,6 +174,18 @@ class PhoneNumberField extends GetView<SignUpController> {
             maxLength: 11,
             readOnly: false,
           ),
+          const SizedBox(height: 8),
+          Obx(
+            () => Visibility(
+              visible: controller.isValidPhoneNumber.value,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ErrorText(
+                  text: StringRes.phoneNumberError.tr,
+                ),
+              ),
+            ),
+          ),
         ],
       ).paddingSymmetric(horizontal: 30);
 }
@@ -195,6 +208,18 @@ class BirthField extends GetView<SignUpController> {
             keyboardType: TextInputType.number,
             maxLength: 8,
             readOnly: false,
+          ),
+          const SizedBox(height: 8),
+          Obx(
+            () => Visibility(
+              visible: controller.isValidBirth.value,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ErrorText(
+                  text: StringRes.birthError.tr,
+                ),
+              ),
+            ),
           ),
         ],
       ).paddingSymmetric(horizontal: 30);
@@ -276,7 +301,17 @@ class PasswordField extends GetView<SignUpController> {
           const SizedBox(height: 8),
           Obx(
             () => Visibility(
-              visible: controller.isValidPassword.value,
+              visible: controller.password.value.length < 8,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ErrorText(text: StringRes.passwordError.tr),
+              ),
+            ),
+          ),
+          Obx(
+            () => Visibility(
+              visible: controller.password.value.length >= 8 &&
+                  controller.isValidPassword.value,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ErrorText(text: StringRes.passwordNotMatched.tr),

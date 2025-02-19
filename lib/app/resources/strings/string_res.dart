@@ -189,6 +189,7 @@ class StringRes {
   static final kg = _generateId();
   static final birth = _generateId();
   static final birthHint = _generateId();
+  static final birthError = _generateId();
   static final gender = _generateId();
   static final male = _generateId();
   static final female = _generateId();
